@@ -11,7 +11,7 @@ export const loginReducer = (state: any = initialState, action: LoginActionType)
 
 
 // actions
-const addLoginAC = (login: any) => ({type: 'SET-LOGIN', login} as const)
+export const addLoginAC = (login: any) => ({type: 'SET-LOGIN', login} as const)
 
 
 // types

@@ -1,0 +1,12 @@
+.navbar {
+    background-color: #d7e7e3;
+    padding: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.item {
+    color: #2305ff;
+    text-decoration: none;
+}

@@ -8,7 +8,7 @@ export const newPasswordReducer = (state:any = initialState, action:NewPasswordA
         case "SET-NEW-PASSWORD":
             return {...state}
         default:
-            return
+            return state
     }
 }
 
