@@ -1,0 +1,32 @@
+
+.default:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.default:active {
+    transform: translateY(-1px);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.default {
+    background: #fffac5;
+    border-radius: 5px;
+    border-color: rgba(255, 253, 213, 0.67);
+    margin-top: 15px;
+    font-family: Georgia;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.red {
+    background: #ff2600;
+    border-radius: 5px;
+border-color: #c21700;
+    margin-top: 10px;
+    font-family: Georgia;
+    width: 150px;
+    height: 40px;
+    cursor: pointer;
+}
