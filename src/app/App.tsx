@@ -10,10 +10,11 @@ import {RecoveryPassword} from "../components/recovery-password/Recovery-passwor
 import {Error404} from "../components/Error404/Error404";
 import {SuperComponents} from "../components/Super-components/Super-components";
 
-export const App = () => {
+export const App = ()  => {
     return (
         <BrowserRouter>
             <div className='app-wrapper'>
+              <h3>okdofk</h3>
                 <Navbar/>
                 <Routes>
                     <Route path='/login' element={<Login/>}/>
