@@ -20,9 +20,6 @@ export const Navbar = () => {
                 <Link to='newPassword'>New password</Link>
             </div>
             <div className={style.item}>
-                <Link to='error404'>Error 404</Link>
-            </div>
-            <div className={style.item}>
                 <Link to='superComponents'>Super components</Link>
             </div>
         </nav>
