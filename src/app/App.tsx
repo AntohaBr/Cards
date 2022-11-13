@@ -23,7 +23,7 @@ export const App = () => {
                     <Route path='/newPassword' element={<NewPassword/>}/>
                     <Route path='/404' element={<Error404/>}/>
                     <Route path='*' element={<Navigate to={'/404'}/>}/>
-                    <Route path='/superComponents' element={<SuperComponents/>}/>
+                    {/*<Route path='/superComponents' element={<SuperComponents/>}/>*/}
                 </Routes>
             </div>
         </BrowserRouter>
