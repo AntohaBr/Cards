@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, {AxiosResponse} from "axios";
 
 
 const instance = axios.create({
@@ -8,3 +8,23 @@ const instance = axios.create({
 
 
 //api
+
+export const authAPI = {
+    registration(data:RegistrationParamType){
+        return instance.post<RegistrationParamType, AxiosResponse<ResponseRegistrationType>>('auth/register', data)
+    }
+}
+
+
+
+//type
+
+export type RegistrationParamType = {
+    email: string
+    password: string
+}
+
+export type ResponseRegistrationType = {
+    addedUser: any
+    error?: string
+}
