@@ -10,7 +10,7 @@ import {
 import {useFormik} from "formik";
 
 
-export const Registration = (props: {}) => {
+export const Registration = () => {
 
     const formik = useFormik({
         initialValues: {
@@ -19,25 +19,26 @@ export const Registration = (props: {}) => {
             confirmPassword: ''
         },
 
-        // validate: (values) => {
-        //     const errors: FormikErrorType = {}
-        //     if (!values.email) {
-        //         errors.email = 'Required'
-        //     } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        //         errors.email = 'Invalid email address'
-        //     }
-        //     if (!values.password) {
-        //         errors.password = 'Required'
-        //     } else if (values.password.length < 6) {
-        //         errors.password = 'Should be more symbols'
-        //     } else if (values.confirmPassword !== values.password) {
-        //         errors.confirmPassword = 'The password is not confirmed. Check that the password and its confirmation match'
-        //     }
-        //     return errors
-        // },
+        validate: (values) => {
+            const errors: FormikErrorType = {}
+            if (!values.email) {
+                errors.email = 'Required'
+            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+                errors.email = 'Invalid email address'
+            }
+            if (!values.password) {
+                errors.password = 'Required'
+            } else if (values.password.length < 6) {
+                errors.password = 'Should be more symbols'
+            } else if (values.confirmPassword !== values.password) {
+                errors.confirmPassword = 'The password is not confirmed'
+            }
+            return errors
+        },
 
         onSubmit: values => {
             alert(JSON.stringify(values));
+            formik.resetForm()
         },
     })
 
@@ -48,31 +49,31 @@ export const Registration = (props: {}) => {
                     <FormControl>
                         <FormGroup>
                             <TextField
-                                label='Email'
+                                label='email'
                                 variant='standard'
                                 margin='normal'
-                                name='email'
-                                onChange={formik.handleChange}
-                                value={formik.values.email}
+                                {...formik.getFieldProps('email')}
                             />
+                            {formik.touched.email && formik.errors.email ?
+                                <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                             <TextField
-                                type='Password'
-                                label="Password"
+                                type='password'
+                                label="password"
                                 variant="standard"
                                 margin='normal'
-                                name='password'
-                                onChange={formik.handleChange}
-                                value={formik.values.password}
+                                {...formik.getFieldProps('password')}
                             />
+                            {formik.touched.password && formik.errors.password ?
+                                <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                             <TextField
-                                type='Password'
-                                label='Confirm password'
+                                type='password'
+                                label='confirm password'
                                 variant='standard'
                                 margin='normal'
-                                name='confirmPassword'
-                                onChange={formik.handleChange}
-                                value={formik.values.confirmPassword}
+                                {...formik.getFieldProps('confirmPassword')}
                             />
+                            {formik.touched.confirmPassword && formik.errors.confirmPassword ?
+                                <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                             <Button type={'submit'} variant={'contained'} color={'primary'}>Sing Up</Button>
                         </FormGroup>
                         <FormLabel>
