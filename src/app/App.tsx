@@ -9,13 +9,21 @@ import {NewPassword} from "../components/new-password/New-password";
 import {RecoveryPassword} from "../components/recovery-password/Recovery-password";
 import {Error404} from "../components/Error404/Error404";
 import {SuperComponents} from "../components/Super-components/Super-components";
+import {useSelector} from "react-redux";
+import {RootReducerType} from "../redux/Store";
+import {StatusType} from "../redux/app-reducer";
+import {CircularProgress, LinearProgress} from "@mui/material";
 
 export const App = ()  => {
+    const status=useSelector<RootReducerType,StatusType>(state => state.app.status)
     return (
         <BrowserRouter>
+            <Navbar/>
             <div className='app-wrapper'>
-              <h3>okdofk</h3>
-                <Navbar/>
+                {status==='idle' ?
+                    <LinearProgress color={"primary"} />
+                 : null}
+
                 <Routes>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
@@ -27,6 +35,8 @@ export const App = ()  => {
                     <Route path='/superComponents' element={<SuperComponents/>}/>
                 </Routes>
             </div>
+
+
         </BrowserRouter>
     );
 }
