@@ -1,16 +1,16 @@
 import {authAPI, RegistrationParamType} from "../api/cards-api";
 import {Dispatch} from "redux";
-import {setAppStatusAC} from "./app-reducer";
+import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
 
 const initialState = {
-    isARegistered : false
+    value: {}
 }
 
-// redusers
-export const registrationReducer = (state:InitialStateType = initialState, action:RegistrationActionType):InitialStateType => {
-    switch (action.type){
+// reducers
+export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationActionType): InitialStateType => {
+    switch (action.type) {
         case "registration/ADD-DATA":
-            return {...state,  isARegistered: action.value}
+            return {...state, value: action.value}
         default:
             return state
     }
@@ -18,7 +18,7 @@ export const registrationReducer = (state:InitialStateType = initialState, actio
 
 
 // actions
-const registrationAC = (value: boolean) =>({type:'registration/ADD-DATA',value} as const )
+const registrationAC = (value: {}) => ({type: 'registration/ADD-DATA', value} as const)
 
 
 // types
@@ -26,20 +26,19 @@ type RegistrationActionType = ReturnType<typeof registrationAC>
 type InitialStateType = typeof initialState
 
 
-// thunks
+//thunks
 export const registrationTC = (data: RegistrationParamType) => (dispatch: Dispatch<RegistrationActionType>) => {
     dispatch(setAppStatusAC('loading'))
+    dispatch(setAppErrorAC())
+
     authAPI.registration(data)
         .then(res => {
-            if (res.data.resultCode === StatusCode.Ok) {
-                dispatch(setIsLoggedInAC(true))
-                dispatch(setAppStatusAC('succeeded'))
-            } else {
-                handleServerAppError(res.data, dispatch);
-            }
+            dispatch(registrationAC(re.)
+            dispatch(setAppStatusAC("succeeded"))
         })
-        .catch((error) => {
-            handleServerNetworkError(error, dispatch);
+        .catch((err) => {
+            setAppError(err)
+            dispatch(setAppStatusAC("none"))
         })
-
 }
+

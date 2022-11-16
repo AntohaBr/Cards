@@ -12,6 +12,8 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import style from './Registration.module.css'
+// import {registrationTC} from "../../redux/Reducer-registration";
+import {useDispatch} from "react-redux";
 
 interface State {
     password: string;
@@ -21,6 +23,8 @@ interface State {
 }
 
 export const Registration = () => {
+
+    const dispatch = useDispatch()
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -65,7 +69,7 @@ export const Registration = () => {
         },
 
         onSubmit: values => {
-            alert(JSON.stringify(values));
+            // dispatch(registrationTC(values))
             formik.resetForm()
         },
     })
