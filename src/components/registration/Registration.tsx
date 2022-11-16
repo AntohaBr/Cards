@@ -56,7 +56,7 @@ export const Registration = () => {
             }
             if (!values.password) {
                 errors.password = 'Required'
-            } else if (values.password.length < 6) {
+            } else if (values.password.length < 5) {
                 errors.password = 'Should be more symbols'
             } else if (values.confirmPassword !== values.password) {
                 errors.confirmPassword = 'The password is not confirmed'
@@ -121,7 +121,10 @@ export const Registration = () => {
                         {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                             <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                     </FormControl>
-                    <Button type={'submit'} variant={'contained'} color={'primary'} className={style.button}>Sing Up</Button>
+                    <Button type={'submit'} variant={'contained'} color={'primary'}
+                            style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
+                        Sing Up
+                    </Button>
                     <FormLabel>
                         <p className={style.register}>Already have an account?</p>
                         <a className={style.link} href={'/login'} target={'_self'}>Sign In</a>
