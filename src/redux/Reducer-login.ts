@@ -1,9 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../dal/api";
 import {setAppError, setAppStatus} from "./app-reducer";
-import {AxiosError} from "axios";
-import {Simulate} from "react-dom/test-utils";
-import error = Simulate.error;
+
 
 const initialState = {}
 
