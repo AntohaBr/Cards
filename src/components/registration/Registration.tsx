@@ -13,7 +13,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import style from './Registration.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {AppDispatch, AppRootStateType} from "../../redux/Store";
+import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {registrationTC} from "../../redux/Reducer-registration";
 import {Navigate} from "react-router-dom";
 
@@ -25,8 +25,8 @@ interface State {
 }
 
 export const Registration = () => {
-    const isRegistered = useSelector<AppRootStateType, boolean>((state) => state.registration.isRegistered)
-    const dispatch = useDispatch<AppDispatch>()
+    const isRegistered = useSelector<RootReducerType, boolean>((state) => state.registration.isRegistered)
+    const dispatch = useDispatch<ThunkDispatchType>()
 
     const [values, setValues] = React.useState<State>({
         password: '',

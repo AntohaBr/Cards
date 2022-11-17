@@ -1,32 +1,31 @@
 import React, {useState} from 'react';
 import {
-    Alert,
     Button,
     Checkbox,
-    Container,
     FormControl,
     FormControlLabel,
     FormGroup,
-    FormLabel,
     Grid,
-    Paper, Snackbar,
+    Paper,
     TextField
 } from "@mui/material";
 import {NavLink} from "react-router-dom";
-import {FormikErrors, useFormik} from "formik";
+import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {loginTC} from "../../redux/Reducer-login";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import {RemoveRedEye} from "@mui/icons-material";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+
 
 type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
 }
-export const Login = (props: {}) => {
+
+
+export const Login = () => {
 
     const dispatch = useDispatch<ThunkDispatchType>()
     const error = useSelector<RootReducerType, string>(state => state.app.error)
@@ -59,44 +58,29 @@ export const Login = (props: {}) => {
         },
     })
 
-
     return (
         <>
-        <Grid container justifyContent={'center'}>
-        <Grid item justifyContent={'center'}>
-            <Paper elevation={3} style={{width: '500px', height: "550px"}}>
-
-                <div style={{textAlign: "center"}}>
-
-
-                    <h2 style={{textAlign: "center"}}>Sign in</h2>
-                    <form action="" onSubmit={formik.handleSubmit}>
-
-
-                        <FormControl>
-
-                            <FormGroup>
-
-                                <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-
-                                    <TextField label="Email" margin="normal" variant={"filled"}
-
-                                               {...formik.getFieldProps('email')}/>
-                                    {formik.touched.email && formik.errors.email ?
-                                        <div>{formik.errors.email}</div> : null}
-
-
-                                    <TextField type={show ? "text" : "password"} label="Password"
-                                               variant={"filled"}
-                                               margin={"normal"}
-                                               {...formik.getFieldProps('password')}
-
-                                    />
-                                    {formik.touched.password && formik.errors.password ?
-                                        <div>{formik.errors.password}</div> : null}
-                                    <span>
-
-
+            <Grid container justifyContent={'center'}>
+                <Grid item justifyContent={'center'}>
+                    <Paper elevation={3} style={{width: '500px', height: "550px"}}>
+                        <div style={{textAlign: "center"}}>
+                            <h2 style={{textAlign: "center"}}>Sign in</h2>
+                            <form action="" onSubmit={formik.handleSubmit}>
+                                <FormControl>
+                                    <FormGroup>
+                                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
+                                            <TextField label="Email" margin="normal" variant={"filled"}
+                                                       {...formik.getFieldProps('email')}/>
+                                            {formik.touched.email && formik.errors.email ?
+                                                <div>{formik.errors.email}</div> : null}
+                                            <TextField type={show ? "text" : "password"} label="Password"
+                                                       variant={"filled"}
+                                                       margin={"normal"}
+                                                       {...formik.getFieldProps('password')}
+                                            />
+                                            {formik.touched.password && formik.errors.password ?
+                                                <div>{formik.errors.password}</div> : null}
+                                            <span>
                                     {!show ? <div>
                                             <RemoveRedEye style={{margin: '15px'}} onClick={showPassword}/>
                                         </div>
@@ -104,42 +88,37 @@ export const Login = (props: {}) => {
                                         <div>
                                             <VisibilityOffIcon onClick={showPassword} style={{margin: '15px'}}/>
                                         </div>}
-</span>
-
-                                </div>
-
-
-                                <div style={{display: "flex", justifyContent: "space-between"}}>
-                                    <FormControlLabel label={'Remember me'}
-                                                      control={<Checkbox checked={formik.values.rememberMe}/>}
-
-                                                      {...formik.getFieldProps("rememberMe")}
-                                    />
-                                    <span>
+                                            </span>
+                                        </div>
+                                        <div style={{display: "flex", justifyContent: "space-between"}}>
+                                            <FormControlLabel label={'Remember me'}
+                                                              control={<Checkbox checked={formik.values.rememberMe}/>}
+                                                              {...formik.getFieldProps("rememberMe")}
+                                            />
+                                            <span>
                             <p>Forgot password?</p>
-                    </span>
-
-                                </div>
-                                <Button type={'submit'} variant={'contained'} color={'primary'}
-                                        style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
-                                    Sign in
-                                </Button>
-                                <div>
-                                    {error===""? "" : <div style={{color:"red",display:"flex",justifyContent:"center"}}>{error}</div>}
-                                    <p>Already have on account?</p>
-                                    <NavLink to={"/registration"}>Sign up</NavLink>
-                                </div>
-
-
-                            </FormGroup>
-                        </FormControl>
-                    </form>
-                </div>
-
-
-            </Paper>
-        </Grid>
-    </Grid>
+                                   </span>
+                                        </div>
+                                        <Button type={'submit'} variant={'contained'} color={'primary'}
+                                                style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
+                                            Sign in
+                                        </Button>
+                                        <div>
+                                            {error === "" ? "" : <div style={{
+                                                color: "red",
+                                                display: "flex",
+                                                justifyContent: "center"
+                                            }}>{error}</div>}
+                                            <p>Already have on account?</p>
+                                            <NavLink to={"/registration"}>Sign up</NavLink>
+                                        </div>
+                                    </FormGroup>
+                                </FormControl>
+                            </form>
+                        </div>
+                    </Paper>
+                </Grid>
+            </Grid>
             {/*<Snackbar autoHideDuration={6000}>*/}
             {/*    <Alert  severity="success" sx={{ width: '100%' }}>*/}
             {/*        {error}*/}

@@ -1,4 +1,4 @@
-import {combineReducers, createStore} from "redux";
+import {AnyAction, applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import {loginReducer} from "./Reducer-login";
 import {registrationReducer} from "./Reducer-registration";
 import {passwordRecoveryReducer} from "./Reducer-password-recovery";
@@ -21,7 +21,7 @@ const rootReducer = combineReducers({
 export const store = legacy_createStore(rootReducer,applyMiddleware(thunk))
 
 
-//type
+//types
 export type RootReducerType = ReturnType<typeof rootReducer>
 export type ThunkDispatchType = ThunkDispatch<RootReducerType,any, AnyAction>
 
