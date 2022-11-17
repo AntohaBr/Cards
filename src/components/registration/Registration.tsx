@@ -12,8 +12,10 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import style from './Registration.module.css'
-// import {registrationTC} from "../../redux/Reducer-registration";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch, AppRootStateType} from "../../redux/Store";
+import {registrationTC} from "../../redux/Reducer-registration";
+import {Navigate} from "react-router-dom";
 
 interface State {
     password: string;
@@ -23,8 +25,8 @@ interface State {
 }
 
 export const Registration = () => {
-
-    const dispatch = useDispatch()
+    const isRegistered = useSelector<AppRootStateType, boolean>((state) => state.registration.isRegistered)
+    const dispatch = useDispatch<AppDispatch>()
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -44,6 +46,7 @@ export const Registration = () => {
         event.preventDefault();
     }
 
+
     const formik = useFormik({
         initialValues: {
             email: '',
@@ -60,7 +63,7 @@ export const Registration = () => {
             }
             if (!values.password) {
                 errors.password = 'Required'
-            } else if (values.password.length < 5) {
+            } else if (values.password.length < 8) {
                 errors.password = 'Should be more symbols'
             } else if (values.confirmPassword !== values.password) {
                 errors.confirmPassword = 'The password is not confirmed'
@@ -69,10 +72,14 @@ export const Registration = () => {
         },
 
         onSubmit: values => {
-            // dispatch(registrationTC(values))
+            dispatch(registrationTC(values))
             formik.resetForm()
         },
     })
+
+    if (isRegistered) {
+        return <Navigate to={'/login'}/>
+    }
 
     return <div className={style.registrationBlock}>
         <div className={style.container}>

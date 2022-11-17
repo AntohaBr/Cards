@@ -1,16 +1,17 @@
 import {authAPI, RegistrationParamType} from "../api/cards-api";
 import {Dispatch} from "redux";
-import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
+import {AppActionType, AppStatusType, setAppErrorAC, setAppStatusAC} from "./app-reducer";
+
 
 const initialState = {
-    value: {}
+    isRegistered: false
 }
 
 // reducers
 export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationActionType): InitialStateType => {
     switch (action.type) {
         case "registration/ADD-DATA":
-            return {...state, value: action.value}
+            return {...state, isRegistered: action.value}
         default:
             return state
     }
@@ -18,27 +19,22 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
 
 
 // actions
-const registrationAC = (value: {}) => ({type: 'registration/ADD-DATA', value} as const)
+const registrationAC = (value: boolean) => ({type: 'registration/ADD-DATA', value} as const)
 
 
 // types
-type RegistrationActionType = ReturnType<typeof registrationAC>
+type RegistrationActionType = ReturnType<typeof registrationAC> | AppActionType
 type InitialStateType = typeof initialState
 
 
 //thunks
-export const registrationTC = (data: RegistrationParamType) => (dispatch: Dispatch<RegistrationActionType>) => {
-    dispatch(setAppStatusAC('loading'))
-    dispatch(setAppErrorAC())
-
-    authAPI.registration(data)
-        .then(res => {
-            dispatch(registrationAC(re.)
-            dispatch(setAppStatusAC("succeeded"))
-        })
-        .catch((err) => {
-            setAppError(err)
-            dispatch(setAppStatusAC("none"))
-        })
+export function registrationTC(data: RegistrationParamType) {
+    return (dispatch: Dispatch<RegistrationActionType>) => {
+        dispatch(setAppStatusAC('loading'))
+        authAPI.registration(data)
+            .then(res => {
+                dispatch(registrationAC(true))
+                dispatch(setAppStatusAC('succeeded'))
+            })
+    }
 }
-

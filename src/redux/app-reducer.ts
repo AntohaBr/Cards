@@ -1,7 +1,6 @@
 
-
 const initialState = {
-    status: 'none' as AppStatusType,
+    status: 'idle' as AppStatusType,
     error: ''
 }
 
@@ -26,7 +25,7 @@ export const setAppErrorAC = (error: string) => ({type: 'APP/SET-ERROR', error} 
 
 
 //types
-type AppActionType = ReturnType<typeof setAppErrorAC | typeof setAppStatusAC>
+export type AppActionType = ReturnType<typeof setAppErrorAC | typeof setAppStatusAC>
 export type AppStatusType = 'idle' | 'loading' | 'succeeded' | 'failed'
 type AppStateType = {
     error?: string
