@@ -18,13 +18,6 @@ import {RemoveRedEye} from "@mui/icons-material";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 
-type FormikErrorType = {
-    email?: string
-    password?: string
-    rememberMe?: boolean
-}
-
-
 export const Login = () => {
 
     const dispatch = useDispatch<ThunkDispatchType>()
@@ -127,4 +120,11 @@ export const Login = () => {
             {/*<Alert severity="error">{error}</Alert>*/}
         </>
     )
+}
+
+//types
+type FormikErrorType = {
+    email?: string
+    password?: string
+    rememberMe?: boolean
 }

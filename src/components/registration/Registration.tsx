@@ -17,12 +17,14 @@ import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {registrationTC} from "../../redux/Reducer-registration";
 import {Navigate} from "react-router-dom";
 
+
 interface State {
     password: string;
     showPassword: boolean;
     showConfirmPassword: boolean;
     confirmPassword: string
 }
+
 
 export const Registration = () => {
     const isRegistered = useSelector<RootReducerType, boolean>((state) => state.registration.isRegistered)
@@ -148,7 +150,6 @@ export const Registration = () => {
 
 
 //types
-
 type FormikErrorType = {
     email?: string,
     password?: string,

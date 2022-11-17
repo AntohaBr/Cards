@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {Navbar} from "../components/navbar/Navbar";
-import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
+import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../components/login/Login";
 import {Registration} from "../components/registration/Registration";
 import {Profile} from "../components/profile/Profile";
@@ -12,8 +12,7 @@ import {SuperComponents} from "../components/Super-components/Super-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../redux/Store";
 import {authTC, logOutTC, StatusType} from "../redux/app-reducer";
-import {Button, CircularProgress, LinearProgress} from "@mui/material";
-import {redirect} from 'react-router-dom';
+import {Button, LinearProgress} from "@mui/material";
 
 
 export const App = () => {
@@ -26,15 +25,18 @@ export const App = () => {
         dispatch(authTC())
     }, [])
 
-    function appOgOut() {
+    function applogOut() {
         dispatch(logOutTC())
     }
 
-
     return (
-        <BrowserRouter>
+        <div>
+            <Navbar/>
             <div className='app-wrapper'>
-                <Navbar/>
+                {status === 'idle' ?
+                    <LinearProgress color={"primary"}/>
+                    : null}
+                {isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={applogOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}
                 <Routes>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
@@ -46,7 +48,6 @@ export const App = () => {
                     <Route path='/superComponents' element={<SuperComponents/>}/>
                 </Routes>
             </div>
-        </BrowserRouter>
+        </div>
     );
 }
-

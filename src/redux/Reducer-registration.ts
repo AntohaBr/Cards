@@ -1,6 +1,7 @@
 import {authAPI, RegistrationParamType} from "../api/cards-api";
 import {Dispatch} from "redux";
-import {AppActionType, AppStatusType, setAppErrorAC, setAppStatusAC} from "./app-reducer";
+import {ActionType, setAppStatus} from "./app-reducer";
+
 
 
 const initialState = {
@@ -23,18 +24,18 @@ const registrationAC = (value: boolean) => ({type: 'registration/ADD-DATA', valu
 
 
 // types
-type RegistrationActionType = ReturnType<typeof registrationAC> | AppActionType
+type RegistrationActionType = ReturnType<typeof registrationAC> | ActionType
 type InitialStateType = typeof initialState
 
 
 //thunks
 export function registrationTC(data: RegistrationParamType) {
     return (dispatch: Dispatch<RegistrationActionType>) => {
-        dispatch(setAppStatusAC('loading'))
+        dispatch(setAppStatus('idle'))
         authAPI.registration(data)
             .then(res => {
                 dispatch(registrationAC(true))
-                dispatch(setAppStatusAC('succeeded'))
+                dispatch(setAppStatus('succeeded'))
             })
     }
 }

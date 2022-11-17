@@ -1,15 +1,6 @@
-
 import {Dispatch} from "redux";
-import {authAPI} from "../dal/api";
-import {ThunkDispatchType} from "./Store";
+import {authAPI} from "../api/cards-api";
 
-export type StatusType = 'none' | 'idle' | 'succeeded'
-
-type StateType = {
-    error: string
-    status: StatusType
-    isLoggedIn:boolean
-}
 
 const initialState = {
     status: 'none' as StatusType,
@@ -17,9 +8,8 @@ const initialState = {
     isLoggedIn:false
 }
 
-type ActionType = ReturnType<typeof setAppError | typeof setAppStatus | typeof checkIsAuth>
 
-
+//reducers
 export const appReducer = (state: StateType = initialState, action: ActionType): StateType => {
     switch (action.type) {
         case "APP/SET-ERROR": {
@@ -37,11 +27,14 @@ export const appReducer = (state: StateType = initialState, action: ActionType):
     }
 }
 
+
+//actions
 export const setAppError = (error: string) => ({ type: 'APP/SET-ERROR', error} as const)
 export const checkIsAuth=(logged:boolean)=>({ type:"APP/AUTH-ME", logged} as const)
 export const setAppStatus = (status: StatusType) => ({ type: "APP/SET-STATUS",  status} as const)
 
 
+//thunks
 export function authTC()  {
 return (dispatch:Dispatch)=>{
     dispatch(setAppStatus("idle"))
@@ -73,3 +66,15 @@ export function logOutTC(){
             })
     }
 }
+
+
+//types
+export type StatusType = 'none' | 'idle' | 'succeeded'
+
+type StateType = {
+    error: string
+    status: StatusType
+    isLoggedIn:boolean
+}
+
+export type ActionType = ReturnType<typeof setAppError | typeof setAppStatus | typeof checkIsAuth>
