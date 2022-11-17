@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import {
+    Alert,
     Button,
     Checkbox,
     Container,
@@ -8,7 +9,7 @@ import {
     FormGroup,
     FormLabel,
     Grid,
-    Paper,
+    Paper, Snackbar,
     TextField
 } from "@mui/material";
 import {NavLink} from "react-router-dom";
@@ -42,6 +43,7 @@ export const Login = (props: {}) => {
         },
         onSubmit(values) {
             dispatch(loginTC(values))
+            console.log(error)
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -58,9 +60,11 @@ export const Login = (props: {}) => {
     })
 
 
-    return <Grid container justifyContent={'center'}>
+    return (
+        <>
+        <Grid container justifyContent={'center'}>
         <Grid item justifyContent={'center'}>
-            <Paper elevation={3} style={{width: '500px', height: "500px"}}>
+            <Paper elevation={3} style={{width: '500px', height: "550px"}}>
 
                 <div style={{textAlign: "center"}}>
 
@@ -73,7 +77,7 @@ export const Login = (props: {}) => {
 
                             <FormGroup>
 
-                                <div style={{display:"flex",flexDirection:"column",alignItems:"center"}}>
+                                <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
 
                                     <TextField label="Email" margin="normal" variant={"filled"}
 
@@ -90,7 +94,7 @@ export const Login = (props: {}) => {
                                     />
                                     {formik.touched.password && formik.errors.password ?
                                         <div>{formik.errors.password}</div> : null}
-                                        <span>
+                                    <span>
 
 
                                     {!show ? <div>
@@ -121,6 +125,7 @@ export const Login = (props: {}) => {
                                     Sign in
                                 </Button>
                                 <div>
+                                    {error===""? "" : <div style={{color:"red",display:"flex",justifyContent:"center"}}>{error}</div>}
                                     <p>Already have on account?</p>
                                     <NavLink to={"/registration"}>Sign up</NavLink>
                                 </div>
@@ -131,7 +136,16 @@ export const Login = (props: {}) => {
                     </form>
                 </div>
 
+
             </Paper>
         </Grid>
     </Grid>
+            {/*<Snackbar autoHideDuration={6000}>*/}
+            {/*    <Alert  severity="success" sx={{ width: '100%' }}>*/}
+            {/*        {error}*/}
+            {/*    </Alert>*/}
+            {/*</Snackbar>*/}
+            {/*<Alert severity="error">{error}</Alert>*/}
+        </>
+    )
 }

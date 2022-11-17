@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../dal/api";
+import {authAPI, ResponseType} from "../dal/api";
 import {setAppError, setAppStatus} from "./app-reducer";
+import {AxiosError} from "axios";
 
 
 const initialState = {}
@@ -33,11 +34,12 @@ export function loginTC(values: LoginType) {
 
         authAPI.login(values)
             .then(res => {
-                dispatch(addLoginAC("sass"))
+
                 dispatch(setAppStatus("succeeded"))
             })
             .catch((err) => {
-                setAppError(err)
+
+               dispatch( setAppError("Неверный пароль или e-mail"))
                 dispatch(setAppStatus("none"))
             })
     }

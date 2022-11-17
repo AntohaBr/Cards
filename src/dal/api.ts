@@ -21,7 +21,7 @@ export const authAPI={
     }
 }
 
-type ResponseType={
+export type ResponseType={
     _id: string;
     email: string;
     name: string;
