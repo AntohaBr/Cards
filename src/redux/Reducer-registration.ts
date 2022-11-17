@@ -1,10 +1,17 @@
+import {authAPI, RegistrationParamType} from "../api/cards-api";
+import {Dispatch} from "redux";
+import {AppActionType, AppStatusType, setAppErrorAC, setAppStatusAC} from "./app-reducer";
 
-const initialState = {}
 
-export const registrationReducer = (state:any = initialState, action:RegistrationActionType) => {
-    switch (action.type){
-        case "ADD-DATA":
-            return {...state}
+const initialState = {
+    isRegistered: false
+}
+
+// reducers
+export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationActionType): InitialStateType => {
+    switch (action.type) {
+        case "registration/ADD-DATA":
+            return {...state, isRegistered: action.value}
         default:
             return state
     }
@@ -12,11 +19,22 @@ export const registrationReducer = (state:any = initialState, action:Registratio
 
 
 // actions
-const registrationAC = (data:any) =>({type:'ADD-DATA',data} as const )
+const registrationAC = (value: boolean) => ({type: 'registration/ADD-DATA', value} as const)
 
 
 // types
-type RegistrationActionType = ReturnType<typeof registrationAC>
+type RegistrationActionType = ReturnType<typeof registrationAC> | AppActionType
+type InitialStateType = typeof initialState
 
 
-// thunks
+//thunks
+export function registrationTC(data: RegistrationParamType) {
+    return (dispatch: Dispatch<RegistrationActionType>) => {
+        dispatch(setAppStatusAC('loading'))
+        authAPI.registration(data)
+            .then(res => {
+                dispatch(registrationAC(true))
+                dispatch(setAppStatusAC('succeeded'))
+            })
+    }
+}

@@ -1,3 +1,4 @@
+
 import {Dispatch} from "redux";
 import {authAPI} from "../dal/api";
 import {ThunkDispatchType} from "./Store";
@@ -8,7 +9,6 @@ type StateType = {
     error: string
     status: StatusType
     isLoggedIn:boolean
-
 }
 
 const initialState = {
@@ -16,11 +16,11 @@ const initialState = {
     error: '',
     isLoggedIn:false
 }
+
 type ActionType = ReturnType<typeof setAppError | typeof setAppStatus | typeof checkIsAuth>
 
-export const appReducer = (state: StateType = initialState, action: ActionType) => {
 
-
+export const appReducer = (state: StateType = initialState, action: ActionType): StateType => {
     switch (action.type) {
         case "APP/SET-ERROR": {
             return {...state, error: action.error}
@@ -35,24 +35,12 @@ export const appReducer = (state: StateType = initialState, action: ActionType) 
             return state
         }
     }
-
 }
 
-export const setAppError = (error: string) => {
-    return {
-        type: 'APP/SET-ERROR',
-        error
-    } as const
-}
-export const checkIsAuth=(logged:boolean)=>{
-    return {type:"APP/AUTH-ME",logged} as const
-}
-export const setAppStatus = (status: StatusType) => {
-    return {
-        type: "APP/SET-STATUS",
-        status
-    } as const
-}
+export const setAppError = (error: string) => ({ type: 'APP/SET-ERROR', error} as const)
+export const checkIsAuth=(logged:boolean)=>({ type:"APP/AUTH-ME", logged} as const)
+export const setAppStatus = (status: StatusType) => ({ type: "APP/SET-STATUS",  status} as const)
+
 
 export function authTC()  {
 return (dispatch:Dispatch)=>{

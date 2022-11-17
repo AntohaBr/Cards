@@ -1,7 +1,7 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import './App.css';
 import {Navbar} from "../components/navbar/Navbar";
-import {BrowserRouter, Navigate, Route, Routes, useNavigate} from "react-router-dom";
+import {BrowserRouter, Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../components/login/Login";
 import {Registration} from "../components/registration/Registration";
 import {Profile} from "../components/profile/Profile";
@@ -17,6 +17,7 @@ import {redirect} from 'react-router-dom';
 
 
 export const App = () => {
+
     const status = useSelector<RootReducerType, StatusType>(state => state.app.status)
     const dispatch = useDispatch<ThunkDispatchType>()
     const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.app.isLoggedIn)
@@ -30,31 +31,22 @@ export const App = () => {
     }
 
 
-
     return (
-        <div>
-            <Navbar/>
+        <BrowserRouter>
             <div className='app-wrapper'>
-                {status === 'idle' ?
-                    <LinearProgress color={"primary"}/>
-                    : null}
-                {isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={appOgOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}
-
+                <Navbar/>
                 <Routes>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
                     <Route path='/profile' element={<Profile/>}/>
                     <Route path='/recoveryPassword' element={<RecoveryPassword/>}/>
-                    <Route path='/newPassword' element={<NewPassword/>}/>
-                    <Route path='/404' element={<Error404/>}/>
+                    {/*<Route path='/newPassword' element={<NewPassword/>}/>*/}
+                    {/*<Route path='/404' element={<Error404/>}/>*/}
                     <Route path='*' element={<Navigate to={'/404'}/>}/>
-                    <Route path='/superComponents' element={<SuperComponents/>}/>
+                    {/*<Route path='/superComponents' element={<SuperComponents/>}/>*/}
                 </Routes>
             </div>
-        </div>
-
-
-
+        </BrowserRouter>
     );
 }
 
