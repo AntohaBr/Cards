@@ -3,28 +3,34 @@ import {Avatar, Badge, Button, Container, IconButton, Paper, TextField} from "@m
 import Box from "@mui/material/Box";
 import s from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
+import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
+import {useDispatch, useSelector} from "react-redux";
+import {logOutTC} from "../../redux/app-reducer";
+import {emailInProfileTC, NewNameTC} from "../../redux/Reducer-profile";
+import {Navigate} from "react-router-dom";
 
-import {RootReducerType, useTypedDispatch} from "../../redux/Store";
-import {emailInProfileTC, logOutTC, NewNameTC} from "../../app/app-reducer";
-import {useSelector} from "react-redux";
 
 export const Profile = React.memo((props: {}) => {
-
-    const email = useSelector<RootReducerType, string>(state => state.appReducerProfile.email)
-    const dispatch = useTypedDispatch()
+    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.login.isLoggedIn)
+    const email = useSelector<RootReducerType, string>(state => state.profile.email)
+    const dispatch = useDispatch<ThunkDispatchType>()
     const [title, setTitle] = useState("Alex")
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
-
+    console.log('isLoggedIn-profile', isLoggedIn)
     useEffect(() => {
         dispatch(emailInProfileTC())
     }, [])
 
-    const logOutHandler = () => {
+     const logOutHandler = () => {
         dispatch(logOutTC())
     }
 
     const updateNameHandler = () => {
         dispatch(NewNameTC(title, ''))
+    }
+
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
     }
 
     return (

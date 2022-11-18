@@ -2,6 +2,7 @@ import axios, {AxiosResponse} from "axios";
 import {LoginType} from "../redux/Reducer-login";
 
 
+
 const instance = axios.create({
     // baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
     baseURL:'https://neko-back.herokuapp.com/2.0/',
@@ -11,20 +12,22 @@ const instance = axios.create({
 
 //api
 export const authAPI = {
-    me(){
-        return instance.post<ResponseType>('auth/me',{})
+    me() {
+        return instance.post<ResponseType>('auth/me', {})
     },
-    registration(data:RegistrationParamType){
+    registration(data: RegistrationParamType) {
         return instance.post<RegistrationParamType, AxiosResponse<ResponseRegistrationType>>('auth/register', data)
     },
-    login(values:LoginType){
-        return instance.post<ResponseType>('auth/login',values)
+    login(values: LoginType) {
+        return instance.post<ResponseType>('auth/login', values)
     },
-    logOut(){
-        return instance.delete<{info:string,error:string}>('auth/me')
+    logOut() {
+        return instance.delete<{ info: string, error: string }>('auth/me')
+    },
+    updateName(newData: NewDataType) {
+        return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', newData)
     }
 }
-
 
 
 //types
@@ -51,4 +54,9 @@ export type ResponseType={
     verified: boolean; // подтвердил ли почту
     rememberMe: boolean;
     error?: string;
+}
+
+type NewDataType = {
+    name: string
+    avatar: string
 }

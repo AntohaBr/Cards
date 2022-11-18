@@ -3,14 +3,16 @@ import {setAppError, setAppStatus} from "./app-reducer";
 import {authAPI} from "../api/cards-api";
 
 
-const initialState = {}
+const initialState = {
+    isLoggedIn: false
+}
 
 
 //reducers
-export const loginReducer = (state: any = initialState, action: LoginActionType) => {
+export const loginReducer = (state: InitialStateType = initialState, action: LoginActionType): InitialStateType=> {
     switch (action.type) {
         case 'SET-LOGIN':
-            return {...state}
+            return {...state, isLoggedIn: action.value}
         default:
             return state
     }
@@ -18,8 +20,7 @@ export const loginReducer = (state: any = initialState, action: LoginActionType)
 
 
 // actions
-export const addLoginAC = (login: any) => ({type: 'SET-LOGIN', login} as const)
-
+export const addLoginAC = (value: boolean) => ({type: 'SET-LOGIN', value} as const)
 
 //thunks
 export function loginTC(values: LoginType) {
@@ -27,6 +28,7 @@ export function loginTC(values: LoginType) {
         dispatch(setAppStatus("idle"))
         authAPI.login(values)
             .then(res => {
+                dispatch(addLoginAC(true))
                 dispatch(setAppStatus("succeeded"))
             })
             .catch((err) => {
@@ -39,8 +41,11 @@ export function loginTC(values: LoginType) {
 
 // types
 type LoginActionType = ReturnType<typeof addLoginAC>
+
 export type LoginType = {
     email: string
     password: string
     rememberMe: boolean
 }
+
+type InitialStateType = typeof initialState

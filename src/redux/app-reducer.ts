@@ -1,11 +1,12 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/cards-api";
+import {addLoginAC} from "./Reducer-login";
 
 
 const initialState = {
     status: 'none' as StatusType,
     error: '',
-    isLoggedIn:false
+    isLoggedIn:false,
 }
 
 
@@ -57,11 +58,11 @@ export function logOutTC(){
         dispatch(setAppStatus("idle"))
         authAPI.logOut()
             .then(res=>{
-                dispatch(checkIsAuth(false))
+                dispatch(addLoginAC(false))
                 dispatch(setAppStatus("succeeded"))
             })
             .catch(err=>{
-                dispatch(checkIsAuth(true))
+                dispatch(addLoginAC(true))
                 dispatch(setAppStatus("none"))
             })
     }

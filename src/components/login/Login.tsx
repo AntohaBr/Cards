@@ -9,18 +9,19 @@ import {
     Paper,
     TextField
 } from "@mui/material";
-import {NavLink} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {loginTC} from "../../redux/Reducer-login";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {RemoveRedEye} from "@mui/icons-material";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import {loginTC} from "../../redux/Reducer-login";
+import {RemoveRedEye} from "@mui/icons-material";
 
 
 export const Login = () => {
 
     const dispatch = useDispatch<ThunkDispatchType>()
+    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.login.isLoggedIn)
     const error = useSelector<RootReducerType, string>(state => state.app.error)
     const [show, setShow] = useState(false)
     const showPassword = () => {
@@ -50,6 +51,10 @@ export const Login = () => {
             return errors
         },
     })
+    console.log('isLoggedIn-login', isLoggedIn)
+    if (isLoggedIn) {
+        return <Navigate to={'/profile'}/>
+    }
 
     return (
         <>
