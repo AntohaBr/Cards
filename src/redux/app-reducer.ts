@@ -69,7 +69,7 @@ export function logOutTC(){
 
 
 //types
-export type StatusType = 'none' | 'idle' | 'succeeded'
+export type StatusType = 'none' | 'idle' | 'succeeded' | 'failed'
 
 type StateType = {
     error: string
@@ -77,4 +77,7 @@ type StateType = {
     isLoggedIn:boolean
 }
 
-export type ActionType = ReturnType<typeof setAppError | typeof setAppStatus | typeof checkIsAuth>
+export type ActionType =
+    ReturnType<typeof setAppError
+    | typeof setAppStatus
+    | typeof checkIsAuth>

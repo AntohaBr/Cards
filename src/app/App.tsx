@@ -13,6 +13,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../redux/Store";
 import {authTC, logOutTC, StatusType} from "../redux/app-reducer";
 import {Button, LinearProgress} from "@mui/material";
+import {ErrorSnackbar} from "../components/Super-components/ErrorSnackbar/ErrorSnackbar";
 
 
 export const App = () => {
@@ -33,6 +34,7 @@ export const App = () => {
         <div>
             <Navbar/>
             <div className='app-wrapper'>
+                <ErrorSnackbar/>
                 {status === 'idle' ?
                     <LinearProgress color={"primary"}/>
                     : null}

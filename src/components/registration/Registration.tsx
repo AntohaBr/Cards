@@ -66,7 +66,7 @@ export const Registration = () => {
             if (!values.password) {
                 errors.password = 'Required'
             } else if (values.password.length < 8) {
-                errors.password = 'Should be more symbols'
+                errors.password = 'Password must contain at least 8 characters'
             } else if (values.confirmPassword !== values.password) {
                 errors.confirmPassword = 'The password is not confirmed'
             }

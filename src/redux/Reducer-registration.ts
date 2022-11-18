@@ -1,7 +1,6 @@
 import {authAPI, RegistrationParamType} from "../api/cards-api";
 import {Dispatch} from "redux";
-import {ActionType, setAppStatus} from "./app-reducer";
-
+import {ActionType, setAppError, setAppStatus} from "./app-reducer";
 
 
 const initialState = {
@@ -11,7 +10,7 @@ const initialState = {
 // reducers
 export const registrationReducer = (state: InitialStateType = initialState, action: RegistrationActionType): InitialStateType => {
     switch (action.type) {
-        case "registration/ADD-DATA":
+        case 'registration/ADD-DATA':
             return {...state, isRegistered: action.value}
         default:
             return state
@@ -23,11 +22,6 @@ export const registrationReducer = (state: InitialStateType = initialState, acti
 const registrationAC = (value: boolean) => ({type: 'registration/ADD-DATA', value} as const)
 
 
-// types
-type RegistrationActionType = ReturnType<typeof registrationAC> | ActionType
-type InitialStateType = typeof initialState
-
-
 //thunks
 export function registrationTC(data: RegistrationParamType) {
     return (dispatch: Dispatch<RegistrationActionType>) => {
@@ -37,5 +31,14 @@ export function registrationTC(data: RegistrationParamType) {
                 dispatch(registrationAC(true))
                 dispatch(setAppStatus('succeeded'))
             })
+            .catch((err) => {
+                dispatch(setAppError('the username or email already exists'))
+                dispatch(setAppStatus('none'))
+            })
     }
 }
+
+
+// types
+type RegistrationActionType = ReturnType<typeof registrationAC> | ActionType
+type InitialStateType = typeof initialState

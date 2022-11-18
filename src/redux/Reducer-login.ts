@@ -30,7 +30,7 @@ export function loginTC(values: LoginType) {
                 dispatch(setAppStatus("succeeded"))
             })
             .catch((err) => {
-               dispatch( setAppError("Неверный пароль или e-mail"))
+                dispatch(setAppError("Неверный пароль или e-mail"))
                 dispatch(setAppStatus("none"))
             })
     }
