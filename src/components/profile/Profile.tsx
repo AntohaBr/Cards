@@ -27,6 +27,7 @@ export const Profile = React.memo((props: {}) => {
 
     const updateNameHandler = () => {
         dispatch(NewNameTC(title, ''))
+        setEditNameMod(false)
     }
 
     if (!isLoggedIn) {
@@ -57,18 +58,16 @@ export const Profile = React.memo((props: {}) => {
                     {editNameMod
                         ?
                         < >
-                            <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+                            <Box  sx={{display: 'flex', alignItems: 'flex-end'}}>
                                 <TextField
                                     value={title}
                                     onChange={(e) => setTitle(e.currentTarget.value)}
-                                    // onBlur={() => setEditNameMod(false)}
                                     variant="standard"
                                     autoFocus
                                     label="NickName"
                                 />
                                 <Button sx={{ml: 2}} onClick={updateNameHandler} size="small"
                                         variant="contained">Save</Button>
-                                {/*<button onClick={updateNameHandler}>save</button>*/}
                             </Box>
 
                         </>
