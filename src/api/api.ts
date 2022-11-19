@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
-import {LoginType} from "../redux/Reducer-login";
+import {LoginType} from "../redux/autch-Reducer";
+
 
 
 

@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/cards-api";
+import {authAPI} from "../api/api";
 
 
 

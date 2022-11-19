@@ -1,29 +1,29 @@
 import React, {useEffect} from 'react';
 import './App.css';
-import {Navbar} from "../components/navbar/Navbar";
+import {Navbar} from "../components/Navbar/Navbar";
 import {Navigate, Route, Routes} from "react-router-dom";
-import {Login} from "../components/login/Login";
-import {Registration} from "../components/registration/Registration";
-import {Profile} from "../components/profile/Profile";
-import {NewPassword} from "../components/new-password/New-password";
-import {RecoveryPassword} from "../components/recovery-password/Recovery-password";
-import {Error404} from "../components/Error404/Error404";
+import {Login} from "../components/Login/Login";
+import {Registration} from "../components/Registration/Registration";
+import {Profile} from "../components/Profile/Profile";
+import {NewPassword} from "../components/New-password/New-password";
+import {RecoveryPassword} from "../components/Recovery-password/Recovery-password";
+import {Error404} from "../components/Error-404/Error-404";
 import {SuperComponents} from "../components/Super-components/Super-components";
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../redux/Store";
-import {authTC, logOutTC, StatusType} from "../redux/app-reducer";
+import {RootReducerType, ThunkDispatchType} from "../redux/store";
+import {logOutTC, AppStatusType, isInitializedTC} from "../redux/app-Reducer";
 import {Button, LinearProgress} from "@mui/material";
-import {ErrorSnackbar} from "../components/Super-components/ErrorSnackbar/ErrorSnackbar";
+import {ErrorSnackbar} from "../components/Error-Snackbar/Error-Snackbar";
 
 
 export const App = () => {
 
-    const status = useSelector<RootReducerType, StatusType>(state => state.app.status)
+    const status = useSelector<RootReducerType, AppStatusType>(state => state.app.status)
     const dispatch = useDispatch<ThunkDispatchType>()
-    const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.app.isLoggedIn)
+    // const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.app.isLoggedIn)
 
     useEffect(() => {
-        dispatch(authTC())
+        dispatch(isInitializedTC())
     }, [])
 
     function applogOut() {

@@ -12,18 +12,19 @@ import {
 import {Navigate, NavLink} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {loginTC} from "../../redux/Reducer-login";
 import {RemoveRedEye} from "@mui/icons-material";
+import {loginTC} from "../../redux/autch-Reducer";
+import {RootReducerType, ThunkDispatchType} from "../../redux/store";
 
 
 export const Login = () => {
-
     const dispatch = useDispatch<ThunkDispatchType>()
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.login.isLoggedIn)
-    const error = useSelector<RootReducerType, string>(state => state.app.error)
+    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
+    const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
+
     const [show, setShow] = useState(false)
+
     const showPassword = () => {
         setShow(!show)
     }
@@ -51,9 +52,9 @@ export const Login = () => {
             return errors
         },
     })
-    console.log('isLoggedIn-login', isLoggedIn)
+    console.log('isLoggedIn-Login', isLoggedIn)
     if (isLoggedIn) {
-        return <Navigate to={'/profile'}/>
+        return <Navigate to={'/Profile'}/>
     }
 
     return (
@@ -108,7 +109,7 @@ export const Login = () => {
                                                 justifyContent: "center"
                                             }}>{error}</div>}
                                             <p>Already have on account?</p>
-                                            <NavLink to={"/registration"}>Sign up</NavLink>
+                                            <NavLink to={"/Registration"}>Sign up</NavLink>
                                         </div>
                                     </FormGroup>
                                 </FormControl>
@@ -126,6 +127,7 @@ export const Login = () => {
         </>
     )
 }
+
 
 //types
 type FormikErrorType = {

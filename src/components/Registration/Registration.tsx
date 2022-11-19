@@ -13,9 +13,9 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import style from './Registration.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {registrationTC} from "../../redux/Reducer-registration";
+import {RootReducerType, ThunkDispatchType} from "../../redux/store";
 import {Navigate} from "react-router-dom";
+import {registrationTC} from "../../redux/autch-Reducer";
 
 
 interface State {
@@ -27,7 +27,7 @@ interface State {
 
 
 export const Registration = () => {
-    const isRegistered = useSelector<RootReducerType, boolean>((state) => state.registration.isRegistered)
+    const isRegistered = useSelector<RootReducerType, boolean>((state) => state.auth.isRegistered)
     const dispatch = useDispatch<ThunkDispatchType>()
 
     const [values, setValues] = React.useState<State>({
@@ -43,11 +43,9 @@ export const Registration = () => {
     const handleClickShowConfirmPassword = () => {
         setValues({...values, showConfirmPassword: !values.showPassword});
     }
-
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     }
-
 
     const formik = useFormik({
         initialValues: {
@@ -80,7 +78,7 @@ export const Registration = () => {
     })
 
     if (isRegistered) {
-        return <Navigate to={'/login'}/>
+        return <Navigate to={'/Login'}/>
     }
 
     return <div className={style.registrationBlock}>
@@ -140,7 +138,7 @@ export const Registration = () => {
                     </Button>
                     <FormLabel>
                         <p className={style.register}>Already have an account?</p>
-                        <a className={style.link} href={'/login'} target={'_self'}>Sign In</a>
+                        <a className={style.link} href={'/Login'} target={'_self'}>Sign In</a>
                     </FormLabel>
                 </FormGroup>
             </form>
