@@ -68,7 +68,7 @@ export function logOutTC() {
                 dispatch(setAppStatusAC("succeeded"))
             })
             .catch(err => {
-                dispatch(addLoginAC(true))
+                //dispatch(addLoginAC(true))
                 dispatch(setAppStatusAC("failed"))
             })
     }

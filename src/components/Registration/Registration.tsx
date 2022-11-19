@@ -41,7 +41,7 @@ export const Registration = () => {
         setValues({...values, showPassword: !values.showPassword});
     }
     const handleClickShowConfirmPassword = () => {
-        setValues({...values, showConfirmPassword: !values.showPassword});
+        setValues({...values, showConfirmPassword: !values.showConfirmPassword});
     }
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();

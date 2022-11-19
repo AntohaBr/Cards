@@ -2,7 +2,6 @@ import React from 'react';
 import style from './Recovery-password.module.css'
 import {Button, FormControl, FormLabel, Input, InputLabel} from "@mui/material";
 import {useFormik} from "formik";
-import {registrationTC} from "../../redux/autch-Reducer";
 import {FormikErrorType} from "../Registration/Registration";
 
 export const RecoveryPassword = () => {
@@ -11,7 +10,6 @@ export const RecoveryPassword = () => {
         initialValues: {
             email: ''
         },
-
         validate: (values) => {
             const errors: FormikErrorType = {}
             if (!values.email) {
@@ -21,7 +19,6 @@ export const RecoveryPassword = () => {
             }
             return errors
         },
-
         onSubmit: values => {
             alert(JSON.stringify(values))
         },
@@ -57,3 +54,4 @@ export const RecoveryPassword = () => {
         </div>
     )
 }
+

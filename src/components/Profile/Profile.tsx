@@ -7,6 +7,7 @@ import {RootReducerType, ThunkDispatchType} from "../../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {logOutTC} from "../../redux/app-Reducer";
 import {emailInProfileTC, NewNameTC} from "../../redux/Reducer-profile";
+import {Navigate} from "react-router-dom";
 
 
 
@@ -16,7 +17,7 @@ export const Profile = React.memo((props: {}) => {
     const dispatch = useDispatch<ThunkDispatchType>()
     const [title, setTitle] = useState("Alex")
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
-    console.log('isLoggedIn-Profile', isLoggedIn)
+
     useEffect(() => {
         dispatch(emailInProfileTC())
     }, [])
@@ -30,9 +31,9 @@ export const Profile = React.memo((props: {}) => {
         setEditNameMod(false)
     }
 
-    // if (!isLoggedIn) {
-    //     return <Navigate to={'/Login'}/>
-    // }
+    if (!isLoggedIn) {
+        return <Navigate to={'/login'}/>
+    }
 
     return (
         <Container maxWidth="sm">

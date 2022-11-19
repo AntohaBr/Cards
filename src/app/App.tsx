@@ -26,9 +26,9 @@ export const App = () => {
         dispatch(isInitializedTC())
     }, [])
 
-    function applogOut() {
-        dispatch(logOutTC())
-    }
+    // function applogOut() {
+    //     dispatch(logOutTC())
+    // }
 
     return (
         <div>
@@ -40,6 +40,7 @@ export const App = () => {
                     : null}
                 {/*{isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={applogOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}*/}
                 <Routes>
+                    <Route path='/' element={<Navigate to={'/login'}/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/registration' element={<Registration/>}/>
                     <Route path='/profile' element={<Profile/>}/>
