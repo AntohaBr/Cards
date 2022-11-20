@@ -27,6 +27,12 @@ export const authAPI = {
     },
     updateName(newData: NewDataType) {
         return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', newData)
+    },
+    recoweryPassword(data:ForgotType){
+        return instance.post<ForgotType,AxiosResponse<ResponseForgotType>>('auth/forgot',data)
+    },
+    setNewPassword(token:NewPasswordType){
+        return instance.post<NewPasswordType,AxiosResponse<ResponseNewPasswordType>>('auth/set-new-password',token)
     }
 }
 
@@ -60,4 +66,24 @@ export type ResponseType={
 type NewDataType = {
     name: string
     avatar: string
+}
+
+export type ForgotType={
+    email: string
+    message: string
+}
+
+type ResponseForgotType ={
+    info:string
+    error: string
+}
+
+export type NewPasswordType ={
+    password: string
+    resetPasswordToken: string
+}
+
+type ResponseNewPasswordType ={
+    info: string
+    error: string
 }

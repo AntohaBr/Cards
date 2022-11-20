@@ -5,7 +5,7 @@ import {Navigate, Route, Routes} from "react-router-dom";
 import {Login} from "../components/Login/Login";
 import {Registration} from "../components/Registration/Registration";
 import {Profile} from "../components/Profile/Profile";
-import {NewPassword} from "../components/New-password/New-password";
+import {CheckEmail} from "../components/Check-email/Check-email";
 import {RecoveryPassword} from "../components/Recovery-password/Recovery-password";
 import {Error404} from "../components/Error-404/Error-404";
 import {SuperComponents} from "../components/Super-components/Super-components";
@@ -13,7 +13,8 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../redux/store";
 import {logOutTC, AppStatusType, isInitializedTC} from "../redux/app-Reducer";
 import {Button, LinearProgress} from "@mui/material";
-import {ErrorSnackbar} from "../components/Error-Snackbar/Error-Snackbar";
+import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
+import {NewPassword} from "../components/New-password/New-password";
 
 
 export const App = () => {
@@ -45,7 +46,8 @@ export const App = () => {
                     <Route path='/registration' element={<Registration/>}/>
                     <Route path='/profile' element={<Profile/>}/>
                     <Route path='/recoveryPassword' element={<RecoveryPassword/>}/>
-                    <Route path='/newPassword' element={<NewPassword/>}/>
+                    <Route path='/checkEmail' element={<CheckEmail/>}/>
+                    <Route path='/newPassword/:token' element={<NewPassword/>}/>
                     <Route path='/404' element={<Error404/>}/>
                     <Route path='*' element={<Navigate to={'/404'}/>}/>
                     <Route path='/superComponents' element={<SuperComponents/>}/>

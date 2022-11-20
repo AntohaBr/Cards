@@ -3,12 +3,19 @@ import style from './Recovery-password.module.css'
 import {Button, FormControl, FormLabel, Input, InputLabel} from "@mui/material";
 import {useFormik} from "formik";
 import {FormikErrorType} from "../Registration/Registration";
+import {useDispatch, useSelector} from "react-redux";
+import {RootReducerType, ThunkDispatchType} from "../../redux/store";
+import {recoveryPasswordTC} from "../../redux/autch-Reducer";
+import {Navigate} from "react-router-dom";
 
 export const RecoveryPassword = () => {
 
+    const recoveryPassword = useSelector<RootReducerType, string>((state)=> state.auth.recoveryPassword)
+    const dispatch = useDispatch<ThunkDispatchType>()
+
     const formik = useFormik({
         initialValues: {
-            email: ''
+            email: '',
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -20,9 +27,13 @@ export const RecoveryPassword = () => {
             return errors
         },
         onSubmit: values => {
-            alert(JSON.stringify(values))
+            dispatch(recoveryPasswordTC(values.email))
         },
     })
+
+    if (recoveryPassword) {
+        return <Navigate to={'/checkEmail'}/>
+    }
 
     return (
         <div className={style.recoveryPasswordBlock}>
