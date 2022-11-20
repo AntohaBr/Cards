@@ -15,8 +15,19 @@ import {logOutTC, AppStatusType, isInitializedTC} from "../redux/app-Reducer";
 import {Button, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "../components/Error-Snackbar/Error-Snackbar";
 
-
+export enum URL{
+    LOGIN='/login',
+    REGISTRATION='/registration',
+    PROFILE='/profile',
+    RECOVERY_PASSWORD='/recovery-password',
+    NEW_PASSWORD='/new-password',
+    ERROR_404='/404',
+    SUPER_COMPONENTS='/super-components',
+    OTHER_PATH='*'
+}
 export const App = () => {
+
+
 
     const status = useSelector<RootReducerType, AppStatusType>(state => state.app.status)
     const dispatch = useDispatch<ThunkDispatchType>()
@@ -40,14 +51,14 @@ export const App = () => {
                     : null}
                 {/*{isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={applogOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}*/}
                 <Routes>
-                    <Route path='/login' element={<Login/>}/>
-                    <Route path='/registration' element={<Registration/>}/>
-                    <Route path='/profile' element={<Profile/>}/>
-                    <Route path='/recoveryPassword' element={<RecoveryPassword/>}/>
-                    <Route path='/newPassword' element={<NewPassword/>}/>
-                    <Route path='/404' element={<Error404/>}/>
-                    <Route path='*' element={<Navigate to={'/404'}/>}/>
-                    <Route path='/superComponents' element={<SuperComponents/>}/>
+                    <Route path={URL.LOGIN} element={<Login/>}/>
+                    <Route path={URL.REGISTRATION} element={<Registration/>}/>
+                    <Route path={URL.PROFILE} element={<Profile/>}/>
+                    <Route path={URL.RECOVERY_PASSWORD} element={<RecoveryPassword/>}/>
+                    <Route path={URL.NEW_PASSWORD} element={<NewPassword/>}/>
+                    <Route path={URL.ERROR_404} element={<Error404/>}/>
+                    <Route path={URL.OTHER_PATH} element={<Navigate to={URL.ERROR_404}/>}/>
+                    <Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>
                 </Routes>
             </div>
         </div>
