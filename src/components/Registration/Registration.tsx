@@ -27,6 +27,7 @@ interface State {
 
 
 export const Registration = () => {
+    const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
     const isRegistered = useSelector<RootReducerType, boolean>((state) => state.auth.isRegistered)
     const dispatch = useDispatch<ThunkDispatchType>()
 
@@ -133,7 +134,7 @@ export const Registration = () => {
                             <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                     </FormControl>
                     <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
+                            style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
                         Sing Up
                     </Button>
                     <FormLabel>

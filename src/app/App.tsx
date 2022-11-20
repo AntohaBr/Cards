@@ -14,6 +14,7 @@ import {RootReducerType, ThunkDispatchType} from "../redux/store";
 import {logOutTC, AppStatusType, isInitializedTC} from "../redux/app-Reducer";
 import {Button, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "../components/Error-Snackbar/Error-Snackbar";
+import Tables from '../components/Cards/Table/Tables';
 
 export enum URL{
     LOGIN='/login',
@@ -23,7 +24,9 @@ export enum URL{
     NEW_PASSWORD='/new-password',
     ERROR_404='/404',
     SUPER_COMPONENTS='/super-components',
-    OTHER_PATH='*'
+    CARDS='/cards',
+    OTHER_PATH='*',
+
 }
 export const App = () => {
 
@@ -46,7 +49,7 @@ export const App = () => {
             <Navbar/>
             <div className='app-wrapper'>
                 <ErrorSnackbar/>
-                {status === 'idle' ?
+                {status === "loading"  ?
                     <LinearProgress color={"primary"}/>
                     : null}
                 {/*{isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={applogOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}*/}
@@ -60,6 +63,7 @@ export const App = () => {
                     <Route path={URL.OTHER_PATH} element={<Navigate to={URL.ERROR_404}/>}/>
                     <Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>
                 </Routes>
+
             </div>
         </div>
     );

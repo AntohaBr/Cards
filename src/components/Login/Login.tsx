@@ -14,16 +14,21 @@ import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import {RemoveRedEye} from "@mui/icons-material";
-import {loginTC} from "../../redux/autch-Reducer";
+
 import {RootReducerType, ThunkDispatchType} from "../../redux/store";
+import {loginTC} from "../../redux/login-Reducer";
+import {URL} from "../../app/App";
 
 
 export const Login = () => {
     const dispatch = useDispatch<ThunkDispatchType>()
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
+    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.login.isLoggedIn)
     const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
-
+    const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
     const [show, setShow] = useState(false)
+
+
+
 
     const showPassword = () => {
         setShow(!show)
@@ -54,7 +59,7 @@ export const Login = () => {
     })
     console.log('isLoggedIn-Login', isLoggedIn)
     if (isLoggedIn) {
-        return <Navigate to={'/Profile'}/>
+        return <Navigate to={URL.PROFILE}/>
     }
 
     return (
@@ -99,7 +104,7 @@ export const Login = () => {
                                    </span>
                                         </div>
                                         <Button type={'submit'} variant={'contained'} color={'primary'}
-                                                style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
+                                                style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
                                             Sign in
                                         </Button>
                                         <div>

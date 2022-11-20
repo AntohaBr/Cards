@@ -29,32 +29,34 @@ export const registrationAC = (value: boolean) => ({type: 'auth/DATA-REGISTRATIO
 
 //thunks
 export function loginTC(value: LoginType) {
-    return (dispatch: Dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        authAPI.login(value)
-            .then(res => {
-                dispatch(addLoginAC(true))
-                dispatch(setAppStatusAC("succeeded"))
-            })
-            .catch((err) => {
-                dispatch(setAppErrorAC("Неверный пароль или e-mail"))
-                dispatch(setAppStatusAC("failed"))
-            })
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading",true))
+            await authAPI.login(value)
+            dispatch(addLoginAC(true))
+            dispatch(setAppStatusAC("succeeded",false))
+        }
+
+        catch (e) {
+            dispatch(setAppErrorAC("Неверный пароль или e-mail"))
+            dispatch(setAppStatusAC("failed",false))
+        }
     }
 }
 
 export function registrationTC(value: RegistrationParamType) {
-    return (dispatch: Dispatch<AuthActionType>) => {
-        dispatch(setAppStatusAC('loading'))
-        authAPI.registration(value)
-            .then(res => {
-                dispatch(registrationAC(true))
-                dispatch(setAppStatusAC('succeeded'))
-            })
-            .catch((err) => {
-                dispatch(setAppErrorAC('the username or email already exists'))
-                dispatch(setAppStatusAC('failed'))
-            })
+    return async (dispatch: Dispatch<AuthActionType>) => {
+        try {
+            dispatch(setAppStatusAC('loading',true))
+            await authAPI.registration(value)
+            dispatch(registrationAC(true))
+            dispatch(setAppStatusAC('succeeded',false))
+        }
+
+        catch (e) {
+            dispatch(setAppErrorAC('the username or email already exists'))
+            dispatch(setAppStatusAC('failed',false))
+        }
     }
 }
 

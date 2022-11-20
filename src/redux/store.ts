@@ -3,12 +3,15 @@ import {profileReducer} from "./Reducer-profile";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {appReducer} from "./app-Reducer";
 import {authReducer} from "./autch-Reducer";
+import {useSelector} from "react-redux";
+import {loginReducer} from "./login-Reducer";
 
 
 const rootReducer = combineReducers({
     auth: authReducer,
     app:appReducer,
-    profile: profileReducer
+    profile: profileReducer,
+    login:loginReducer
 })
 
 export const store = legacy_createStore(rootReducer,applyMiddleware(thunk))
@@ -19,4 +22,5 @@ export const store = legacy_createStore(rootReducer,applyMiddleware(thunk))
 export type RootReducerType = ReturnType<typeof rootReducer>
 export type ThunkDispatchType = ThunkDispatch<RootReducerType,any, AnyAction>
 
+export const useAppSelector=()=> useSelector<RootReducerType>(state => state)
 

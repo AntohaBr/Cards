@@ -7,10 +7,13 @@ import {RootReducerType, ThunkDispatchType} from "../../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {logOutTC} from "../../redux/app-Reducer";
 import {emailInProfileTC, NewNameTC} from "../../redux/Reducer-profile";
+import { Navigate } from 'react-router-dom';
+import {URL} from "../../app/App";
 
 
 
 export const Profile = React.memo((props: {}) => {
+    const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
     const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
     const email = useSelector<RootReducerType, string>(state => state.profile.email)
     const dispatch = useDispatch<ThunkDispatchType>()
@@ -23,16 +26,18 @@ export const Profile = React.memo((props: {}) => {
 
      const logOutHandler = () => {
         dispatch(logOutTC())
-    }
+         if (!isLoggedIn) {
+             return <Navigate to={URL.LOGIN}/>
+         }
+
+
+     }
 
     const updateNameHandler = () => {
         dispatch(NewNameTC(title, ''))
         setEditNameMod(false)
     }
 
-    // if (!isLoggedIn) {
-    //     return <Navigate to={'/Login'}/>
-    // }
 
     return (
         <Container maxWidth="sm">
@@ -51,13 +56,14 @@ export const Profile = React.memo((props: {}) => {
                            </IconButton>
                        }
                 >
+
                     <Avatar alt="Me"
                             src="https://catherineasquithgallery.com/uploads/posts/2021-03/1614599142_52-p-foto-cheloveka-na-belom-fone-59.jpg"/>
                 </Badge>
                 <div className={s.Span}>
                     {editNameMod
                         ?
-                        < >
+                        <>
                             <Box  sx={{display: 'flex', alignItems: 'flex-end'}}>
                                 <TextField
                                     value={title}
@@ -81,7 +87,7 @@ export const Profile = React.memo((props: {}) => {
                     }
                 </div>
                 <span>{email}</span>
-                <Button onClick={logOutHandler} variant="outlined" startIcon={<Logout/>}>
+                <Button onClick={logOutHandler} variant="outlined" startIcon={<Logout/>} disabled={isDisable}>
                     Log out
                 </Button>
             </Box>

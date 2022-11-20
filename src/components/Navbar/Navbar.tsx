@@ -12,16 +12,19 @@ export const Navbar = () => {
                 <Link to={URL.REGISTRATION}>Registration</Link>
             </div>
             <div className={style.item}>
-                <Link to='profile'>Profile</Link>
+                <Link to={URL.PROFILE}>Profile</Link>
             </div>
             <div className={style.item}>
-                <Link to='recoveryPassword'>Recovery password</Link>
+                <Link to={URL.RECOVERY_PASSWORD}>Recovery password</Link>
             </div>
             <div className={style.item}>
-                <Link to='newPassword'>New password</Link>
+                <Link to={URL.NEW_PASSWORD}>New password</Link>
             </div>
             <div className={style.item}>
-                <Link to='superComponents'>Super components</Link>
+                <Link to={URL.SUPER_COMPONENTS}>Super components</Link>
+            </div>
+            <div className={style.item}>
+                <Link to={URL.CARDS}>Cards</Link>
             </div>
         </nav>
     )

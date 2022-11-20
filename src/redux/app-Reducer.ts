@@ -4,10 +4,11 @@ import {addLoginAC} from "./autch-Reducer";
 
 
 const initialState = {
-    status: 'idle' as AppStatusType,
+    status: 'none' as AppStatusType,
     successError: null as null | string,
     isInitialized: false,
-    successMessage: null as null | string
+    successMessage: null as null | string,
+    isDisabled:false
 }
 
 
@@ -21,7 +22,7 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
             return {...state, successMessage: action.successMessage}
         }
         case 'APP/SET-APP-STATUS': {
-            return {...state, status: action.status}
+            return {...state, status: action.status,isDisabled: action.isDisabled}
         }
         case 'APP/IS-INITIALIZED': {
             return {...state, isInitialized: action.isInitialized}
@@ -36,47 +37,51 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 //actions
 export const setAppErrorAC = (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const)
 export const isInitializedAC = (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const)
-export const setAppStatusAC = (status: AppStatusType) => ({type: 'APP/SET-APP-STATUS', status} as const)
+export const setAppStatusAC = (status: AppStatusType,isDisabled:boolean) => ({type: 'APP/SET-APP-STATUS', status,isDisabled} as const)
 export const setAppSuccessMessageAC = (successMessage: null | string) =>
     ({type: 'APP/SET-APP-SUCCESS-MESSAGE', successMessage} as const)
 
 
 //thunks
 export function isInitializedTC() {
-    return (dispatch: Dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        authAPI.me()
-            .then(res => {
-                dispatch(setAppStatusAC("succeeded"))
-                dispatch(isInitializedAC(true))
-            })
-            .catch(err => {
-                dispatch(isInitializedAC(true))
-                dispatch(setAppStatusAC("failed"))
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading",true))
+             const response= authAPI.me()
+            await response
+            console.log('^^^^^^^^')
 
-            })
+            dispatch(setAppStatusAC("succeeded",false))
+            dispatch(isInitializedAC(true))
+        } catch (e) {
+            dispatch(isInitializedAC(true))
+            dispatch(setAppStatusAC("failed",false))
+
+
+        }
     }
 
 }
 
-export function logOutTC() {
-    return (dispatch: Dispatch) => {
-        dispatch(setAppStatusAC("loading"))
-        authAPI.logOut()
-            .then(res => {
-                dispatch(addLoginAC(false))
-                dispatch(setAppStatusAC("succeeded"))
-            })
-            .catch(err => {
-                dispatch(addLoginAC(true))
-                dispatch(setAppStatusAC("failed"))
-            })
+export function
+logOutTC() {
+    return async (dispatch: Dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading",true))
+            await authAPI.logOut()
+            dispatch(addLoginAC(false))
+            dispatch(setAppStatusAC("succeeded",false))
+
+        } catch (e) {
+            dispatch(addLoginAC(true))
+            dispatch(setAppStatusAC("failed",false))
+        }
     }
 }
 
 
 //types
-export type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed'
+export type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed' | 'none'
 
 type AppStateType = typeof initialState
 

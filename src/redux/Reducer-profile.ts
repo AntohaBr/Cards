@@ -1,11 +1,12 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {setAppStatusAC} from "./app-Reducer";
 
 
 
 const initialState = {
     name: "Alex",
-    email: "j&johnson@gmail.com",
+    email: "email is empty",
     avatar: "https://catherineasquithgallery.com/uploads/posts/2021-03/1614599142_52-p-foto-cheloveka-na-belom-fone-59.jpg",
 }
 
@@ -41,15 +42,19 @@ export function NewNameTC (name: string, avatar: string) {
 }
 
 export function emailInProfileTC () {
-    return (dispatch: Dispatch) => {
-        authAPI.me()
-            .then(res => {
-                dispatch(emailInProfileAC(res.data.email))
-            })
-            .catch(err => {
-                //use notification
-                // dispatch(updateNameAC())
-            })
+    return  async (dispatch: Dispatch) => {
+        try {
+            dispatch(setAppStatusAC("loading", true))
+            const response=await authAPI.me()
+            dispatch(emailInProfileAC(response.data.email))
+            dispatch(setAppStatusAC("succeeded", false))
+        }
+
+        catch (e) {
+            dispatch(setAppStatusAC("failed", false))
+        }
+
+
     }
 }
 
