@@ -11,7 +11,6 @@ import { Navigate } from 'react-router-dom';
 import {URL} from "../../app/App";
 
 
-
 export const Profile = React.memo((props: {}) => {
     const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
     const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
@@ -19,25 +18,22 @@ export const Profile = React.memo((props: {}) => {
     const dispatch = useDispatch<ThunkDispatchType>()
     const [title, setTitle] = useState("Alex")
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
-    console.log('isLoggedIn-Profile', isLoggedIn)
+
     useEffect(() => {
         dispatch(emailInProfileTC())
     }, [])
 
-     const logOutHandler = () => {
+    const logOutHandler = () => {
         dispatch(logOutTC())
-         if (!isLoggedIn) {
-             return <Navigate to={URL.LOGIN}/>
-         }
-
-
-     }
+        if (!isLoggedIn) {
+            return <Navigate to={URL.LOGIN}/>
+        }
+    }
 
     const updateNameHandler = () => {
         dispatch(NewNameTC(title, ''))
         setEditNameMod(false)
     }
-
 
     return (
         <Container maxWidth="sm">

@@ -47,7 +47,7 @@ export function isInitializedTC() {
     return async (dispatch: Dispatch) => {
         try {
             dispatch(setAppStatusAC("loading",true))
-             const response= authAPI.me()
+            const response= authAPI.me()
             await response
             console.log('^^^^^^^^')
 

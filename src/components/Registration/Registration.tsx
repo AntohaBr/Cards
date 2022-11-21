@@ -42,7 +42,7 @@ export const Registration = () => {
         setValues({...values, showPassword: !values.showPassword});
     }
     const handleClickShowConfirmPassword = () => {
-        setValues({...values, showConfirmPassword: !values.showPassword});
+        setValues({...values, showConfirmPassword: !values.showConfirmPassword});
     }
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
@@ -84,7 +84,7 @@ export const Registration = () => {
 
     return <div className={style.registrationBlock}>
         <div className={style.container}>
-            <div className={style.title}>Sign Up</div>
+            <h2 className={style.title}>Sign Up</h2>
             <form onSubmit={formik.handleSubmit} className={style.form}>
                 <FormGroup>
                     <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
@@ -149,7 +149,7 @@ export const Registration = () => {
 
 
 //types
-type FormikErrorType = {
+export type FormikErrorType = {
     email?: string,
     password?: string,
     confirmPassword?: string
