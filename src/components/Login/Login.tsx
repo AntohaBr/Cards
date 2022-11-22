@@ -1,37 +1,47 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     Button,
     Checkbox,
     FormControl,
     FormControlLabel,
-    FormGroup,
-    Grid,
-    Paper,
-    TextField
+    FormGroup, FormLabel,
+    Input, InputLabel,
 } from "@mui/material";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {RemoveRedEye} from "@mui/icons-material";
-
-import {RootReducerType, ThunkDispatchType} from "../../redux/store";
-import {loginTC} from "../../redux/login-Reducer";
+import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {URL} from "../../app/App";
+import {loginTC} from "../../redux/Autch-reducer";
+import InputAdornment from "@mui/material/InputAdornment";
+import IconButton from "@mui/material/IconButton";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import style from './Login.module.css'
 
+
+interface State {
+    password: string;
+    showPassword: boolean;
+}
 
 export const Login = () => {
+
     const dispatch = useDispatch<ThunkDispatchType>()
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.login.isLoggedIn)
+    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
     const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
-    const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
-    const [show, setShow] = useState(false)
+    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
+    const [values, setValues] = React.useState<State>({
+        password: '',
+        showPassword: false,
+    })
 
-
-
-    const showPassword = () => {
-        setShow(!show)
+    const handleClickShowConfirmPassword = () => {
+        setValues({...values, showPassword: !values.showPassword});
+    }
+    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+        event.preventDefault();
     }
 
     const formik = useFormik({
@@ -57,80 +67,66 @@ export const Login = () => {
             return errors
         },
     })
-    console.log('isLoggedIn-Login', isLoggedIn)
+
     if (isLoggedIn) {
         return <Navigate to={URL.PROFILE}/>
     }
 
-    return (
-        <>
-            <Grid container justifyContent={'center'}>
-                <Grid item justifyContent={'center'}>
-                    <Paper elevation={3} style={{width: '500px', height: "550px"}}>
-                        <div style={{textAlign: "center"}}>
-                            <h2 style={{textAlign: "center"}}>Sign in</h2>
-                            <form action="" onSubmit={formik.handleSubmit}>
-                                <FormControl>
-                                    <FormGroup>
-                                        <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-                                            <TextField label="Email" margin="normal" variant={"filled"}
-                                                       {...formik.getFieldProps('email')}/>
-                                            {formik.touched.email && formik.errors.email ?
-                                                <div>{formik.errors.email}</div> : null}
-                                            <TextField type={show ? "text" : "password"} label="Password"
-                                                       variant={"filled"}
-                                                       margin={"normal"}
-                                                       {...formik.getFieldProps('password')}
-                                            />
-                                            {formik.touched.password && formik.errors.password ?
-                                                <div>{formik.errors.password}</div> : null}
-                                            <span>
-                                    {!show ? <div>
-                                            <RemoveRedEye style={{margin: '15px'}} onClick={showPassword}/>
-                                        </div>
-                                        :
-                                        <div>
-                                            <VisibilityOffIcon onClick={showPassword} style={{margin: '15px'}}/>
-                                        </div>}
-                                            </span>
-                                        </div>
-                                        <div style={{display: "flex", justifyContent: "space-between"}}>
-                                            <FormControlLabel label={'Remember me'}
-                                                              control={<Checkbox checked={formik.values.rememberMe}/>}
-                                                              {...formik.getFieldProps("rememberMe")}
-                                            />
-                                            <span>
-                            <p>Forgot password?</p>
-                                   </span>
-                                        </div>
-                                        <Button type={'submit'} variant={'contained'} color={'primary'}
-                                                style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
-                                            Sign in
-                                        </Button>
-                                        <div>
-                                            {error === "" ? "" : <div style={{
-                                                color: "red",
-                                                display: "flex",
-                                                justifyContent: "center"
-                                            }}>{error}</div>}
-                                            <p>Already have on account?</p>
-                                            <NavLink to={"/Registration"}>Sign up</NavLink>
-                                        </div>
-                                    </FormGroup>
-                                </FormControl>
-                            </form>
-                        </div>
-                    </Paper>
-                </Grid>
-            </Grid>
-            {/*<Snackbar autoHideDuration={6000}>*/}
-            {/*    <Alert  severity="success" sx={{ width: '100%' }}>*/}
-            {/*        {error}*/}
-            {/*    </Alert>*/}
-            {/*</Snackbar>*/}
-            {/*<Alert severity="error">{error}</Alert>*/}
-        </>
-    )
+    return <div className={style.loginBlock}>
+        <div className={style.loginContainer}>
+            <h2 className={style.loginTitle}>Sign in</h2>
+            <form onSubmit={formik.handleSubmit} className={style.loginForm}>
+                <FormGroup>
+                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
+                        <InputLabel>Email</InputLabel>
+                        <Input
+                            {...formik.getFieldProps('email')}
+                        />
+                        {formik.touched.email && formik.errors.email ?
+                            <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                    </FormControl>
+                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
+                        <InputLabel>Password</InputLabel>
+                        <Input
+                            type={values.showPassword ? "text" : "password"}
+                            {...formik.getFieldProps('password')}
+                            endAdornment={
+                                <InputAdornment position="end">
+                                    <IconButton
+                                        onClick={handleClickShowConfirmPassword}
+                                        onMouseDown={handleMouseDownPassword}
+                                    >
+                                        {values.showPassword ? <Visibility/> : <VisibilityOff/>}
+                                    </IconButton>
+                                </InputAdornment>
+                            }
+                        />
+                        {formik.touched.password && formik.errors.password ?
+                            <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                    </FormControl>
+                    <FormControlLabel
+                        label={'Remember me'}
+                        control={<Checkbox
+                            {...formik.getFieldProps("rememberMe")}
+                            checked={formik.values.rememberMe}
+                        />}
+                    />
+                    <div className={style.forgotBlock}>
+                        <a className={style.textForgot} href={URL.RECOVERY_PASSWORD} target={'_self'}>Forgot
+                            Password?</a>
+                    </div>
+                    <Button type={'submit'} variant={'contained'} color={'primary'}
+                            style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
+                        Sing Up
+                    </Button>
+                    <FormLabel>
+                        <p className={style.loginRegister}>Already have an account?</p>
+                        <a className={style.loginLink} href={URL.REGISTRATION} target={'_self'}>Sign up</a>
+                    </FormLabel>
+                </FormGroup>
+            </form>
+        </div>
+    </div>
 }
 
 

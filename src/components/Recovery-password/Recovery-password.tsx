@@ -4,14 +4,17 @@ import {Button, FormControl, FormLabel, Input, InputLabel} from "@mui/material";
 import {useFormik} from "formik";
 import {FormikErrorType} from "../Registration/Registration";
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/store";
-import {recoveryPasswordTC} from "../../redux/autch-Reducer";
+import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate} from "react-router-dom";
+import {URL} from "../../app/App";
+import {recoveryPasswordTC} from "../../redux/Autch-reducer";
+
 
 export const RecoveryPassword = () => {
 
     const recoveryPassword = useSelector<RootReducerType, string>((state)=> state.auth.recoveryPassword)
     const dispatch = useDispatch<ThunkDispatchType>()
+    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
     const formik = useFormik({
         initialValues: {
@@ -32,7 +35,7 @@ export const RecoveryPassword = () => {
     })
 
     if (recoveryPassword) {
-        return <Navigate to={'/checkEmail'}/>
+        return <Navigate to={URL.CHECK_EMAIL}/>
     }
 
     return (
@@ -53,7 +56,7 @@ export const RecoveryPassword = () => {
                             you further instructions </p>
                     </FormLabel>
                     <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
+                            style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable} >
                         Send Instructions
                     </Button>
                     <FormLabel>

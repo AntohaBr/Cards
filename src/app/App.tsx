@@ -10,10 +10,11 @@ import {RecoveryPassword} from "../components/Recovery-password/Recovery-passwor
 import {Error404} from "../components/Error-404/Error-404";
 import {SuperComponents} from "../components/Super-components/Super-components";
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../redux/store";
-import {logOutTC, AppStatusType, isInitializedTC} from "../redux/app-Reducer";
-import {Button, LinearProgress} from "@mui/material";
+import {RootReducerType, ThunkDispatchType} from "../redux/Store";
+import {logOutTC, AppStatusType, isInitializedTC} from "../redux/App-reducer";
+import {Button, CircularProgress, LinearProgress} from "@mui/material";
 import {NewPassword} from "../components/New-password/New-password";
+import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
 
 
 export enum URL{
@@ -33,6 +34,7 @@ export enum URL{
 export const App = () => {
 
     const status = useSelector<RootReducerType, AppStatusType>(state => state.app.status)
+    const isInitialized = useSelector<RootReducerType, boolean>((state) => state.app.isInitialized)
     const dispatch = useDispatch<ThunkDispatchType>()
     // const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.app.isLoggedIn)
 
@@ -44,11 +46,18 @@ export const App = () => {
     //     dispatch(logOutTC())
     // }
 
+    if (!isInitialized) {
+        return <div
+            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+            <CircularProgress/>
+        </div>
+    }
+
     return (
         <div>
             <Navbar/>
             <div className='app-wrapper'>
-                {/*<ErrorSnackbar/>*/}
+                <ErrorSnackbar/>
                 {status === "loading"  ?
                     <LinearProgress color={"primary"}/>
                     : null}

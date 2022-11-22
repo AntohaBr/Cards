@@ -4,19 +4,20 @@ import {Button} from '@mui/material';
 import envelope from '../../assets/icon/envelope.jpg'
 import {Navigate} from "react-router-dom";
 import {useSelector} from "react-redux";
-import {RootReducerType} from "../../redux/store";
+import {RootReducerType} from "../../redux/Store";
+import {URL} from "../../app/App";
 
 
 export const CheckEmail = () => {
 
-    const newPassport = useSelector<RootReducerType, string>(state => state.auth.newPassport)
+    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
     const envelopeIcon = {
         backgroundImage: `url(${envelope})`
     }
 
-    if (newPassport) {
-        return <Navigate to={'/login'}/>
+    const onClickHandler = () =>{
+        (<Navigate to={URL.LOGIN}/>)
     }
 
     return (
@@ -29,7 +30,7 @@ export const CheckEmail = () => {
                     <p>example@mail.com</p>
                 </div>
                 <Button type={'submit'} variant={'contained'} color={'primary'}
-                        style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
+                        style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable} onClick={onClickHandler}>
                     Back to login
                 </Button>
             </div>

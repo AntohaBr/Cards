@@ -18,6 +18,9 @@ export const Navbar = () => {
                 <Link to={URL.RECOVERY_PASSWORD}>Recovery password</Link>
             </div>
             <div className={style.item}>
+                <Link to={URL.CHECK_EMAIL}>Check email</Link>
+            </div>
+            <div className={style.item}>
                 <Link to={URL.NEW_PASSWORD}>New password</Link>
             </div>
             <div className={style.item}>

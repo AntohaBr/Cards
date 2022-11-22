@@ -13,9 +13,10 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import style from './Registration.module.css'
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/store";
+import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate} from "react-router-dom";
-import {registrationTC} from "../../redux/autch-Reducer";
+import {registrationTC} from "../../redux/Autch-reducer";
+import {URL} from "../../app/App";
 
 
 interface State {
@@ -27,7 +28,8 @@ interface State {
 
 
 export const Registration = () => {
-    const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
+
+    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
     const isRegistered = useSelector<RootReducerType, boolean>((state) => state.auth.isRegistered)
     const dispatch = useDispatch<ThunkDispatchType>()
 
@@ -79,11 +81,11 @@ export const Registration = () => {
     })
 
     if (isRegistered) {
-        return <Navigate to={'/Login'}/>
+        return <Navigate to={URL.LOGIN}/>
     }
 
     return <div className={style.registrationBlock}>
-        <div className={style.container}>
+        <div className={style.registrationContainer}>
             <h2 className={style.title}>Sign Up</h2>
             <form onSubmit={formik.handleSubmit} className={style.form}>
                 <FormGroup>
@@ -139,7 +141,7 @@ export const Registration = () => {
                     </Button>
                     <FormLabel>
                         <p className={style.register}>Already have an account?</p>
-                        <a className={style.link} href={'/Login'} target={'_self'}>Sign In</a>
+                        <a className={style.link} href={URL.LOGIN} target={'_self'}>Sign In</a>
                     </FormLabel>
                 </FormGroup>
             </form>

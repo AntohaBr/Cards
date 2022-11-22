@@ -3,7 +3,7 @@
     padding: 60px 0;
 }
 
-.container {
+.registrationContainer{
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;

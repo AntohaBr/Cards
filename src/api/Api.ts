@@ -1,7 +1,4 @@
 import axios, {AxiosResponse} from "axios";
-import {LoginType} from "../redux/autch-Reducer";
-
-
 
 
 const instance = axios.create({
@@ -28,7 +25,7 @@ export const authAPI = {
     updateName(newData: NewDataType) {
         return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', newData)
     },
-    recoweryPassword(data:ForgotType){
+    recoveryPassword(data:ForgotType){
         return instance.post<ForgotType,AxiosResponse<ResponseForgotType>>('auth/forgot',data)
     },
     setNewPassword(token:NewPasswordType){
@@ -54,11 +51,10 @@ export type ResponseType={
     name: string;
     avatar?: string;
     publicCardPacksCount: number;
-// количество колод
     created: Date;
     updated: Date;
     isAdmin: boolean;
-    verified: boolean; // подтвердил ли почту
+    verified: boolean;
     rememberMe: boolean;
     error?: string;
 }
@@ -86,4 +82,10 @@ export type NewPasswordType ={
 type ResponseNewPasswordType ={
     info: string
     error: string
+}
+
+export type LoginType = {
+    email: string
+    password: string
+    rememberMe: boolean
 }

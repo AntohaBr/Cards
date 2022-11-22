@@ -7,9 +7,10 @@ import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/store";
-import {setNewPasswordTC} from "../../redux/autch-Reducer";
-import {useParams} from "react-router-dom";
+import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
+import {Navigate, useParams} from "react-router-dom";
+import {setNewPasswordTC} from "../../redux/Autch-reducer";
+import {URL} from "../../app/App";
 
 
 interface State {
@@ -21,6 +22,7 @@ export const NewPassword = () => {
     const {token} = useParams<{token: string}>()
     const newPassport = useSelector<RootReducerType, string>((state)=> state.auth.newPassport)
     const dispatch = useDispatch<ThunkDispatchType>()
+    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -53,6 +55,10 @@ export const NewPassword = () => {
         },
     })
 
+    if (newPassport) {
+        return <Navigate to={URL.LOGIN}/>
+    }
+
     return(
         <div className={style.newPasswordBlock}>
             <div className={style.newPasswordContainer}>
@@ -82,7 +88,7 @@ export const NewPassword = () => {
                             send you further instructions to email </p>
                     </FormLabel>
                     <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: "350px", borderRadius: "90px", margin: "25px"}}>
+                            style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
                         Create new password
                     </Button>
                 </form>
