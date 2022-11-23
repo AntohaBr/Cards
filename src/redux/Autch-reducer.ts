@@ -12,8 +12,8 @@ import {AxiosError} from "axios";
 const initialState = {
     isLoggedIn: false,
     isRegistered: false,
-    recoveryPassword: '',
-    newPassport: ''
+    recoveryPassword: '' as string,
+    newPassport: '' as string
 }
 
 

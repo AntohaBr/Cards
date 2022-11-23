@@ -8,7 +8,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {Navigate, useParams} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {setNewPasswordTC} from "../../redux/Autch-reducer";
 import {URL} from "../../app/App";
 
@@ -19,10 +19,10 @@ interface State {
 }
 
 export const NewPassword = () => {
-    const {token} = useParams<{token: string}>()
-    const newPassport = useSelector<RootReducerType, string>((state)=> state.auth.newPassport)
+    const {token} = useParams<{ token: string }>()
     const dispatch = useDispatch<ThunkDispatchType>()
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const navigate = useNavigate()
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -52,25 +52,22 @@ export const NewPassword = () => {
         },
         onSubmit: values => {
             dispatch(setNewPasswordTC(values.password, token || ''))
+            navigate(URL.LOGIN)
         },
     })
 
-    if (newPassport) {
-        return <Navigate to={URL.LOGIN}/>
-    }
-
-    return(
+    return (
         <div className={style.newPasswordBlock}>
             <div className={style.newPasswordContainer}>
                 <h2 className={style.title}>Create new password</h2>
                 <form onSubmit={formik.handleSubmit} className={style.form}>
-                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
+                    <FormControl sx={{m: 2, width: '40ch'}} variant='outlined'>
                         <InputLabel>Password</InputLabel>
                         <Input
-                            type={values.showPassword ? "text" : "password"}
+                            type={values.showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('password')}
                             endAdornment={
-                                <InputAdornment position="end">
+                                <InputAdornment position='end'>
                                     <IconButton
                                         onClick={handleClickShowNewPassword}
                                         onMouseDown={handleMouseDownNewPassword}
@@ -83,19 +80,17 @@ export const NewPassword = () => {
                         {formik.touched.password && formik.errors.password ?
                             <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                     </FormControl>
-                    <FormLabel>
-                        <p className={style.infoText}>Create new password and we will
-                            send you further instructions to email </p>
-                    </FormLabel>
+                    <div className={style.infoText}>Create new password and we will
+                        send you further instructions to email
+                    </div>
                     <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
+                            style={{width: '350px', borderRadius: '90px', margin: '25px'}} disabled={isDisable}>
                         Create new password
                     </Button>
                 </form>
             </div>
         </div>
     )
-
 }
 
 

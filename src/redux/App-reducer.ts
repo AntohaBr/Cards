@@ -39,11 +39,8 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 //actions
 export const setAppErrorAC = (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const)
 export const isInitializedAC = (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const)
-export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) => ({
-    type: 'APP/SET-APP-STATUS',
-    status,
-    isDisabled
-} as const)
+export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) =>
+    ({type: 'APP/SET-APP-STATUS', status, isDisabled} as const)
 export const setAppSuccessMessageAC = (successMessage: null | string) =>
     ({type: 'APP/SET-APP-SUCCESS-MESSAGE', successMessage} as const)
 
@@ -59,7 +56,6 @@ export const isInitializedTC = () => async (dispatch: Dispatch<AppActionType>) =
         dispatch(isInitializedAC(true))
     } catch (e) {
         dispatch(isInitializedAC(true))
-        // dispatch(setAppStatusAC("failed", false))
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
     }
@@ -74,7 +70,6 @@ export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
 
     } catch (e) {
         dispatch(addLoginAC(true))
-        // dispatch(setAppStatusAC("failed", false))
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
     }

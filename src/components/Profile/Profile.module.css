@@ -3,20 +3,7 @@
     padding: 60px 0;
 }
 
-
 .profileContainer {
-    /*padding: 60px 0;*/
-    /*display: flex;*/
-    /*width: 413px;*/
-    /*height: 360px;*/
-
-    /*flex-direction: column;*/
-    /*align-items: center;*/
-    /*justify-content: space-between;*/
-
-    /*background: #FFFFFF;*/
-    /*box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);*/
-    /*border-radius: 2px;*/
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -50,11 +37,6 @@
     height: 100%;
 }
 
-.profileMySVG svg {
-    width: 100%;
-    color: white;
-}
-
 .profileSpan {
     display: flex;
     align-items: center;
@@ -68,6 +50,7 @@
     text-align: center;
     color: #000000;
     opacity: 0.5;
+    padding-top: 10px;
 }
 
 

@@ -1,14 +1,14 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/Api";
+import {authAPI, NewDataType} from "../api/Api";
 import {setAppStatusAC} from "./App-reducer";
 import {AxiosError} from "axios";
 import {errorUtils} from "../utils/Error-utils";
 
 
 const initialState = {
-    name: "Alex",
-    email: "email is empty",
-    avatar: "https://catherineasquithgallery.com/uploads/posts/2021-03/1614599142_52-p-foto-cheloveka-na-belom-fone-59.jpg",
+    name: "" as string,
+    email: "" as string,
+    avatar: ""as string,
 }
 
 
@@ -16,7 +16,7 @@ const initialState = {
 export const profileReducer = (state: initialStateType = initialState, action: ProfileActionType): initialStateType => {
     switch (action.type) {
         case "PROFILE/AUTH-NAME":
-            return {...state, ...action.model};
+            return {...state, ...action.newData};
         case "PROFILE/AUTH-EMAIL":
             return {...state, email: action.email}
         default:
@@ -26,7 +26,7 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 
 // actions
-export const updateNameAC = (model: NewResponseType) => ({type: "PROFILE/AUTH-NAME", model} as const)
+export const updateNameAC = (newData: NewDataType) => ({type: "PROFILE/AUTH-NAME", newData}as const)
 export const emailInProfileAC = (email: string) => ({type: "PROFILE/AUTH-EMAIL", email} as const)
 
 
@@ -34,7 +34,7 @@ export const emailInProfileAC = (email: string) => ({type: "PROFILE/AUTH-EMAIL",
 export const NewNameTC = (name: string, avatar: string) => async (dispatch: Dispatch<ProfileActionType>) => {
     try {
         await authAPI.updateName({name, avatar})
-        dispatch(updateNameAC({name: name, avatar: avatar}))
+        dispatch(updateNameAC({name, avatar}))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
@@ -62,16 +62,3 @@ type ProfileActionType =
 
 type initialStateType = typeof initialState
 
-export type NewResponseType = {
-    _id?: string;
-    email?: string;
-    name?: string;
-    avatar?: string;
-    publicCardPacksCount?: number;
-    created?: Date;
-    updated?: Date;
-    isAdmin?: boolean;
-    verified?: boolean;
-    rememberMe?: boolean;
-    error?: string;
-}
