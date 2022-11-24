@@ -1,12 +1,12 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Avatar, Badge, Button, Icon, IconButton, Paper, TextField} from "@mui/material";
+import {Avatar, avatarClasses, Badge, Button, Icon, IconButton, Paper, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import style from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {useDispatch, useSelector} from "react-redux";
 import {logOutTC, setAppErrorAC} from "../../redux/App-reducer";
-import {emailInProfileTC, NewNameTC} from "../../redux/Profile-reducer";
+import {emailInfoTC, updateUserTC} from "../../redux/Profile-reducer";
 import {Navigate} from 'react-router-dom';
 import {URL} from "../../app/App";
 
@@ -18,11 +18,12 @@ export const Profile = React.memo(() => {
     const email = useSelector<RootReducerType, string>(state => state.profile.email)
     const dispatch = useDispatch<ThunkDispatchType>()
 
-    const [title, setTitle] = useState('')
+    const [name, setName] = useState<string>('')
+    const [avatar, setAvatar] = useState<string>('');
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
     useEffect(() => {
-        dispatch(emailInProfileTC())
+        dispatch(emailInfoTC())
     }, [])
 
     const logOutHandler = () => {
@@ -30,61 +31,55 @@ export const Profile = React.memo(() => {
 
     }
 
-    const updateNameHandler = () => {
-        dispatch(NewNameTC(title, ''))
+    const updateUserHandler = () => {
+        dispatch(updateUserTC(name, avatar))
         setEditNameMod(false)
     }
 
-    // const convertFileToBase64 = (file: File, callBack: (value: string) => void): void => {
-    //     const reader = new FileReader();
-    //     reader.onloadend = () => {
-    //         const file64 = reader.result as string;
-    //         callBack(file64);
-    //     }
-    //     reader.readAsDataURL(file);
-    // }
-    //
-    // const uploadHandlerAvatar = (e: ChangeEvent<HTMLInputElement>): void => {
-    //     if (e.target.files && e.target.files.length) {
-    //         const file = e.target.files[0]
-    //         console.log(file.size)
-    //         const minFileSize = 40000
-    //
-    //             convertFileToBase64(file, (file64: string) => {
-    //                 dispatch(NewNameTC(title, file64))
-    //             })
-    //
-    //     }
-    // }
+
+    const photoUpload = (e: any): void  =>{
+        e.preventDefault()
+        const reader = new FileReader()
+        const file = e.target.files[0]
+
+        if (reader !== undefined && file !== undefined){
+
+            reader.onloadend = () => {
+                setAvatar(reader.result as string)
+            }
+            reader.readAsDataURL(file)
+        }
+    }
+
+
+    const convertFileToBase64 = (file: File, callBack: (value: string) => void): void => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            callBack(reader.result as string)
+        }
+        reader.readAsDataURL(file);
+    };
+
 
     const [errorSize, setErrorSize] = useState<null | string>(null);
 
-    const maxSize = 400000;
-
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>): void => {
+        const maxSize = 400000;
+
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0];
 
             if (file.size < maxSize) {
                 convertFileToBase64(file, (file64: string) => {
                     setErrorSize(null);
-                    //  dispatchToThunk(file64);
+
                 });
             } else {
                 setErrorSize("Файл слишком большого размера");
             }
         }
-    };
+    }
 
-    const convertFileToBase64 = (file: File, callBack: (value: string) => void): void => {
-        const reader = new FileReader();
-
-        reader.onloadend = () => {
-            const file64 = reader.result as string;
-            callBack(file64);
-        };
-        reader.readAsDataURL(file);
-    };
 
     if (!isLoggedIn) {
         return <Navigate to={URL.LOGIN}/>
@@ -97,9 +92,10 @@ export const Profile = React.memo(() => {
                    overlap='circular'
                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                    badgeContent={
-                       <label htmlFor='add_avatar'>
-                           <input type={'file'} id='add_avatar' style={{display: 'none'}}
-                                  accept={'.jpg, .jpeg, .png .img'} multiple onChange={uploadHandler}/>
+                       <label htmlFor='avatar'>
+                           <input type={'file'} id='avatar' style={{display: 'none'}}
+                                  accept={'.jpg, .jpeg, .png, img, .gif'} multiple onChange={uploadHandler}
+                                  src={avatar}/>
                            <Icon
                                style={{
                                    width: 35, height: 35, border: '1px solid white', borderRadius: 20,
@@ -111,25 +107,25 @@ export const Profile = React.memo(() => {
                        </label>
                    }
             >
-                <Avatar alt={'file'} src=''/>
+                <Avatar alt={'avatar'} src={avatar}/>
             </Badge>
             <div className={style.profileSpan}>
                 {editNameMod
                     ?
                     <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
                         <TextField
-                            value={title}
-                            onChange={(e) => setTitle(e.currentTarget.value)}
+                            value={name}
+                            onChange={(e) => setName(e.currentTarget.value)}
                             variant='standard'
                             autoFocus
                             label='NickName'
                         />
-                        <Button sx={{ml: 2}} onClick={updateNameHandler} size='small' variant='contained'
+                        <Button sx={{ml: 2}} onClick={updateUserHandler} size='small' variant='contained'
                                 style={{width: 70, borderRadius: 20}}>Save</Button>
                     </Box>
                     :
                     <>
-                        <span onDoubleClick={() => setEditNameMod(true)}><h3>{title}</h3></span>
+                        <span onDoubleClick={() => setEditNameMod(true)}><h3>{name}</h3></span>
                         <IconButton>
                             <BorderColor onClick={() => setEditNameMod(true)}/>
                         </IconButton>
@@ -143,59 +139,3 @@ export const Profile = React.memo(() => {
     </div>
 })
 
-
-
-
-
-// export const ConvertImageToBase64 = () => {
-//
-//     const [errorSize, setErrorSize] = useState<null | string>(null);
-//
-//     const maxSize = 400000;
-//
-//     const uploadHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-//         if (e.target.files && e.target.files.length) {
-//             const file = e.target.files[0];
-//
-//             if (file.size < maxSize) {
-//                 convertFileToBase64(file, (file64: string) => {
-//                     setErrorSize(null);
-//                     //  dispatchToThunk(file64);
-//                 });
-//             } else {
-//                 setErrorSize("Файл слишком большого размера");
-//             }
-//         }
-//     };
-//
-//     const convertFileToBase64 = (file: File, callBack: (value: string) => void): void => {
-//         const reader = new FileReader();
-//
-//         reader.onloadend = () => {
-//             const file64 = reader.result as string;
-//             callBack(file64);
-//         };
-//         reader.readAsDataURL(file);
-//     };
-
-    // const toDataURL = (url: string) =>
-    //     fetch(url)
-    //         .then((response) => response.blob())
-    //         .then(
-    //             (blob) =>
-    //                 new Promise((resolve, reject) => {
-    //                     const reader = new FileReader();
-    //                     reader.onloadend = () => resolve(reader.result);
-    //                     reader.onerror = reject;
-    //                     reader.readAsDataURL(blob);
-    //                 })
-    //         );
-    //
-    // toDataURL(
-    //     "https://www.gravatar.com/avatar/d50c83cc0c6523b4d3f6085295c953e0"
-    // ).then((dataUrl) => {
-    //     console.log("RESULT:", dataUrl);
-    // });
-    //
-    // return <input type="file" />;
-// };

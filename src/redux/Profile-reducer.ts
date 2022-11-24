@@ -26,26 +26,26 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 
 // actions
-export const updateNameAC = (newData: NewDataType) => ({type: "PROFILE/AUTH-NAME", newData}as const)
-export const emailInProfileAC = (email: string) => ({type: "PROFILE/AUTH-EMAIL", email} as const)
+export const updateUserAC = (newData: NewDataType) => ({type: "PROFILE/AUTH-NAME", newData}as const)
+export const emailInfoAC = (email: string) => ({type: "PROFILE/AUTH-EMAIL", email} as const)
 
 
 // thunks
-export const NewNameTC = (name: string, avatar: string) => async (dispatch: Dispatch<ProfileActionType>) => {
+export const updateUserTC = (name: string, avatar: string) => async (dispatch: Dispatch<ProfileActionType>) => {
     try {
         await authAPI.updateName({name, avatar})
-        dispatch(updateNameAC({name, avatar}))
+        dispatch(updateUserAC({name, avatar}))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
     }
 }
 
-export const emailInProfileTC = () => async (dispatch: Dispatch<ProfileActionType>) => {
+export const emailInfoTC = () => async (dispatch: Dispatch<ProfileActionType>) => {
     try {
         dispatch(setAppStatusAC("loading", true))
         const response = await authAPI.me()
-        dispatch(emailInProfileAC(response.data.email))
+        dispatch(emailInfoAC(response.data.email))
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -56,8 +56,8 @@ export const emailInProfileTC = () => async (dispatch: Dispatch<ProfileActionTyp
 
 //types
 type ProfileActionType =
-    ReturnType<typeof updateNameAC>
-    | ReturnType<typeof emailInProfileAC>
+    ReturnType<typeof updateUserAC>
+    | ReturnType<typeof emailInfoAC>
     | ReturnType<typeof setAppStatusAC>
 
 type initialStateType = typeof initialState
