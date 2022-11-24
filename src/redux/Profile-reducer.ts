@@ -1,5 +1,5 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/Api";
+import {authAPI} from "../api/auth-api";
 import {setAppStatusAC} from "./App-reducer";
 import {AxiosError} from "axios";
 import {errorUtils} from "../utils/Error-utils";

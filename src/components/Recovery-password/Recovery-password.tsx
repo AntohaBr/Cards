@@ -7,7 +7,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate} from "react-router-dom";
 import {URL} from "../../app/App";
-import {recoveryPasswordTC} from "../../redux/Autch-reducer";
+import {recoveryPasswordTC} from "../../redux/Auth-reducer";
 
 
 export const RecoveryPassword = () => {

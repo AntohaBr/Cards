@@ -9,7 +9,7 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate, useParams} from "react-router-dom";
-import {setNewPasswordTC} from "../../redux/Autch-reducer";
+import {setNewPasswordTC} from "../../redux/Auth-reducer";
 import {URL} from "../../app/App";
 
 

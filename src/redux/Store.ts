@@ -2,7 +2,7 @@ import {combineReducers, legacy_createStore, applyMiddleware, AnyAction} from "r
 import {profileReducer} from "./Profile-reducer";
 import thunk, {ThunkDispatch} from "redux-thunk";
 import {appReducer} from "./App-reducer";
-import {authReducer} from "./Autch-reducer";
+import {authReducer} from "./Auth-reducer";
 import {useSelector} from "react-redux";
 
 

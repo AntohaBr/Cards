@@ -4,7 +4,7 @@ import {
     setAppStatusAC,
     setAppStatusActionType
 } from "./App-reducer";
-import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationParamType} from "../api/Api";
+import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationParamType} from "../api/auth-api";
 import {errorUtils} from "../utils/Error-utils";
 import {AxiosError} from "axios";
 
