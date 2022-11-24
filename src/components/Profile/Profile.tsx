@@ -52,35 +52,6 @@ export const Profile = React.memo(() => {
     }
 
 
-    const convertFileToBase64 = (file: File, callBack: (value: string) => void): void => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            callBack(reader.result as string)
-        }
-        reader.readAsDataURL(file);
-    };
-
-
-    const [errorSize, setErrorSize] = useState<null | string>(null);
-
-    const uploadHandler = (e: ChangeEvent<HTMLInputElement>): void => {
-        const maxSize = 400000;
-
-        if (e.target.files && e.target.files.length) {
-            const file = e.target.files[0];
-
-            if (file.size < maxSize) {
-                convertFileToBase64(file, (file64: string) => {
-                    setErrorSize(null);
-
-                });
-            } else {
-                setErrorSize("Файл слишком большого размера");
-            }
-        }
-    }
-
-
     if (!isLoggedIn) {
         return <Navigate to={URL.LOGIN}/>
     }
@@ -94,7 +65,7 @@ export const Profile = React.memo(() => {
                    badgeContent={
                        <label htmlFor='avatar'>
                            <input type={'file'} id='avatar' style={{display: 'none'}}
-                                  accept={'.jpg, .jpeg, .png, img, .gif'} multiple onChange={uploadHandler}
+                                  accept={'.jpg, .jpeg, .png, img'} multiple onChange={photoUpload}
                                   src={avatar}/>
                            <Icon
                                style={{

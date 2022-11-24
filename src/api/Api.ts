@@ -23,7 +23,6 @@ export const authAPI = {
         return instance.delete<{ info: string, error: string }>('auth/me')
     },
     updateName(newData: NewDataType) {
-        console.log('updateName', newData)
         return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', newData)
     },
     recoveryPassword(data:ForgotType){
