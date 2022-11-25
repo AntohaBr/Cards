@@ -13,8 +13,8 @@ export const authAPI = {
     me() {
         return instance.post<ResponseType>('auth/me', {})
     },
-    registration(data: RegistrationParamType) {
-        return instance.post<RegistrationParamType, AxiosResponse<ResponseRegistrationType>>('auth/register', data)
+    registration(data: RegistrationType) {
+        return instance.post<RegistrationType, AxiosResponse<ResponseRegistrationType>>('auth/register', data)
     },
     login(values: LoginType) {
         return instance.post<ResponseType>('auth/login', values)
@@ -22,7 +22,7 @@ export const authAPI = {
     logOut() {
         return instance.delete<{ info: string, error: string }>('auth/me')
     },
-    updateName(newData: NewDataType) {
+    updateProfile(newData: NewDataType) {
         return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', newData)
     },
     recoveryPassword(data:ForgotType){
@@ -35,7 +35,7 @@ export const authAPI = {
 
 
 //types
-export type RegistrationParamType = {
+export type RegistrationType = {
     email: string
     password: string
 }

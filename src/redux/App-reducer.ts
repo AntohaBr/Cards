@@ -37,8 +37,8 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 
 
 //actions
-export const setAppErrorAC = (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const)
 export const isInitializedAC = (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const)
+export const setAppErrorAC = (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const)
 export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) =>
     ({type: 'APP/SET-APP-STATUS', status, isDisabled} as const)
 export const setAppSuccessMessageAC = (successMessage: null | string) =>
@@ -52,24 +52,11 @@ export const isInitializedTC = () => async (dispatch: Dispatch<AppActionType>) =
         await authAPI.me()
         console.log('^^^^^^^^')
 
-        dispatch(setAppStatusAC("succeeded", false))
-        dispatch(isInitializedAC(true))
-    } catch (e) {
-        dispatch(isInitializedAC(true))
-        const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
-    }
-}
-
-export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
-    try {
-        dispatch(setAppStatusAC("loading", true))
-        await authAPI.logOut()
-        dispatch(addLoginAC(false))
-        dispatch(setAppStatusAC("succeeded", false))
-
-    } catch (e) {
         dispatch(addLoginAC(true))
+        dispatch(isInitializedAC(true))
+        dispatch(setAppStatusAC("succeeded", false))
+    } catch (e) {
+        dispatch(isInitializedAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
     }

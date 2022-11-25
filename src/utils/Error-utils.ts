@@ -1,6 +1,6 @@
-import axios, {AxiosError} from "axios";
-import {Dispatch} from "redux";
-import {setAppErrorAC, setAppErrorActionType, setAppStatusAC, setAppStatusActionType} from "../redux/App-reducer";
+import axios, {AxiosError} from 'axios';
+import {Dispatch} from 'redux';
+import {setAppErrorAC, setAppErrorActionType, setAppStatusAC, setAppStatusActionType} from '../redux/App-reducer';
 
 
 export const errorUtils = (err: Error | AxiosError<{ successError: null | string }>, dispatch: Dispatch<setAppErrorActionType |

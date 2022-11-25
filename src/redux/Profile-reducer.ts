@@ -6,16 +6,17 @@ import {errorUtils} from "../utils/Error-utils";
 
 
 const initialState = {
-    name: "" as string,
-    email: "" as string,
-    avatar: ""as string,
+    _id:''as string,
+    name: '' as string,
+    email: '' as string,
+    avatar: '' as string,
 }
 
 
 //reducers
 export const profileReducer = (state: initialStateType = initialState, action: ProfileActionType): initialStateType => {
     switch (action.type) {
-        case "PROFILE/AUTH-NAME":
+        case "PROFILE/UPDATE-PROFILE":
             return {...state, ...action.newData};
         case "PROFILE/AUTH-EMAIL":
             return {...state, email: action.email}
@@ -25,16 +26,16 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 }
 
 
-// actions
-export const updateUserAC = (newData: NewDataType) => ({type: "PROFILE/AUTH-NAME", newData}as const)
+//actions
+export const updateProfileAC = (newData: NewDataType) => ({type: "PROFILE/UPDATE-PROFILE", newData}as const)
 export const emailInfoAC = (email: string) => ({type: "PROFILE/AUTH-EMAIL", email} as const)
 
 
-// thunks
-export const updateUserTC = (name: string, avatar: string) => async (dispatch: Dispatch<ProfileActionType>) => {
+//thunks
+export const updateProfileTC = (name: string, avatar: string) => async (dispatch: Dispatch<ProfileActionType>) => {
     try {
-        await authAPI.updateName({name, avatar})
-        dispatch(updateUserAC({name, avatar}))
+        await authAPI.updateProfile({name, avatar})
+        dispatch(updateProfileAC({name, avatar}))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
@@ -56,7 +57,7 @@ export const emailInfoTC = () => async (dispatch: Dispatch<ProfileActionType>) =
 
 //types
 type ProfileActionType =
-    ReturnType<typeof updateUserAC>
+    ReturnType<typeof updateProfileAC>
     | ReturnType<typeof emailInfoAC>
     | ReturnType<typeof setAppStatusAC>
 

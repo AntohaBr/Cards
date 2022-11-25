@@ -1,10 +1,11 @@
 import {Dispatch} from "redux";
 import {
+    AppActionType,
     setAppErrorActionType,
     setAppStatusAC,
     setAppStatusActionType
 } from "./App-reducer";
-import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationParamType} from "../api/Api";
+import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/Api";
 import {errorUtils} from "../utils/Error-utils";
 import {AxiosError} from "axios";
 
@@ -34,7 +35,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 }
 
 
-// actions
+//actions
 export const addLoginAC = (value: boolean) => ({type: 'AUTH/SET-LOGIN', value} as const)
 export const registrationAC = (value: boolean) => ({type: 'AUTH/DATA-REGISTRATION', value} as const)
 export const recoveryPasswordAC = (email: string) => ({type: 'AUTH/RECOVERY-PASSWORD', email} as const)
@@ -56,7 +57,21 @@ export const loginTC = (values: LoginType) => async (dispatch: Dispatch<AuthActi
     }
 }
 
-export const registrationTC = (value: RegistrationParamType) => async (dispatch: Dispatch<AuthActionType>) => {
+export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
+    try {
+        dispatch(setAppStatusAC("loading", true))
+        await authAPI.logOut()
+        dispatch(addLoginAC(false))
+        dispatch(setAppStatusAC("succeeded", false))
+
+    } catch (e) {
+        dispatch(addLoginAC(true))
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
+    }
+}
+
+export const registrationTC = (value: RegistrationType) => async (dispatch: Dispatch<AuthActionType>) => {
     try {
         dispatch(setAppStatusAC('loading', true))
         console.log('*****')
@@ -105,7 +120,7 @@ export const setNewPasswordTC = (password: string, token: string) => async (disp
 }
 
 
-// types
+//types
 type AuthActionType =
     ReturnType<typeof addLoginAC>
     | ReturnType<typeof registrationAC>

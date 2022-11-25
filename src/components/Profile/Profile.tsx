@@ -1,14 +1,14 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import {Avatar, avatarClasses, Badge, Button, Icon, IconButton, Paper, TextField} from "@mui/material";
+import React, {useEffect, useState} from 'react';
+import {Avatar, Badge, Button, Icon, IconButton, Paper, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import style from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {useDispatch, useSelector} from "react-redux";
-import {logOutTC, setAppErrorAC} from "../../redux/App-reducer";
-import {emailInfoTC, updateUserTC} from "../../redux/Profile-reducer";
+import {emailInfoTC, updateProfileTC} from "../../redux/Profile-reducer";
 import {Navigate} from 'react-router-dom';
 import {URL} from "../../app/App";
+import {logOutTC} from "../../redux/Autch-reducer";
 
 
 export const Profile = React.memo(() => {
@@ -17,9 +17,11 @@ export const Profile = React.memo(() => {
     const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
     const email = useSelector<RootReducerType, string>(state => state.profile.email)
     const dispatch = useDispatch<ThunkDispatchType>()
+    const avatarRedux = useSelector<RootReducerType, string>(state => state.profile.avatar)
+    const nameRedux = useSelector<RootReducerType, string>(state => state.profile.name)
 
-    const [name, setName] = useState<string>('')
-    const [avatar, setAvatar] = useState<string>('');
+    const [name, setName] = useState<string>(nameRedux)
+    const [avatar, setAvatar] = useState<string>(avatarRedux);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
     useEffect(() => {
@@ -28,22 +30,18 @@ export const Profile = React.memo(() => {
 
     const logOutHandler = () => {
         dispatch(logOutTC())
-
     }
 
     const updateUserHandler = () => {
-        dispatch(updateUserTC(name, avatar))
+        dispatch(updateProfileTC(name, avatar))
         setEditNameMod(false)
     }
 
-
-    const photoUpload = (e: any): void  =>{
+    const photoUpload = (e: any): void => {
         e.preventDefault()
         const reader = new FileReader()
         const file = e.target.files[0]
-
-        if (reader !== undefined && file !== undefined){
-
+        if (reader !== undefined && file !== undefined) {
             reader.onloadend = () => {
                 setAvatar(reader.result as string)
             }
