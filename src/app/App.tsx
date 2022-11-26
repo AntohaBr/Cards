@@ -14,17 +14,20 @@ import {RootReducerType, ThunkDispatchType} from "../redux/store";
 import {logOutTC, AppStatusType, isInitializedTC} from "../redux/app-Reducer";
 import {Button, LinearProgress} from "@mui/material";
 import {ErrorSnackbar} from "../components/Error-Snackbar/Error-Snackbar";
-import Tables from '../components/Cards/Table/Tables';
+import PacksTable from '../components/Cards/Table/PacksTable';
+import {emailInProfileTC} from "../redux/Reducer-profile";
+import Packs from "../components/Cards/Packs";
 
 export enum URL{
+    DEFAULT='/',
     LOGIN='/login',
     REGISTRATION='/registration',
     PROFILE='/profile',
+    CARDS='/cards',
     RECOVERY_PASSWORD='/recovery-password',
     NEW_PASSWORD='/new-password',
     ERROR_404='/404',
     SUPER_COMPONENTS='/super-components',
-    CARDS='/cards',
     OTHER_PATH='*',
 
 }
@@ -34,10 +37,10 @@ export const App = () => {
 
     const status = useSelector<RootReducerType, AppStatusType>(state => state.app.status)
     const dispatch = useDispatch<ThunkDispatchType>()
-    // const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.app.isLoggedIn)
+    const isLoggedIn=useSelector<RootReducerType,boolean>(state => state.login.isLoggedIn)
 
     useEffect(() => {
-        dispatch(isInitializedTC())
+        dispatch(emailInProfileTC())
     }, [])
 
     function applogOut() {
@@ -54,6 +57,8 @@ export const App = () => {
                     : null}
                 {/*{isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={applogOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}*/}
                 <Routes>
+                    <Route path={URL.DEFAULT} element={<Navigate to={URL.LOGIN}/>}/>
+                    <Route path={URL.CARDS} element={<Packs/>}/>
                     <Route path={URL.LOGIN} element={<Login/>}/>
                     <Route path={URL.REGISTRATION} element={<Registration/>}/>
                     <Route path={URL.PROFILE} element={<Profile/>}/>

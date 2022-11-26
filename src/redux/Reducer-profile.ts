@@ -1,21 +1,24 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/api";
+import {authAPI, ResponseType, UserResponseType} from "../api/api";
 import {setAppStatusAC} from "./app-Reducer";
+import {addLoginAC} from "./login-Reducer";
+import {RootReducerType} from "./store";
 
 
 
 const initialState = {
-    name: "Alex",
+    name: "",
     email: "email is empty",
     avatar: "https://catherineasquithgallery.com/uploads/posts/2021-03/1614599142_52-p-foto-cheloveka-na-belom-fone-59.jpg",
+    userId: "",
 }
 
 export const profileReducer = (state: initialStateType = initialState, action: AppActionsType): initialStateType => {
     switch (action.type) {
         case "APP/AUTH-NAME":
-            return {...state, ...action.model,};
+            return {...state,   ...action.model};
         case "APP/AUTH-EMAIL":
-            return {...state, email: action.email}
+            return {...state, email: action.email, name: action.name, userId: action.userId}
         default:
             return state;
     }
@@ -23,16 +26,26 @@ export const profileReducer = (state: initialStateType = initialState, action: A
 
 
 // actions
-export const updateNameAC = (model: NewResponseType) => ({type: "APP/AUTH-NAME", model} as const)
-export const emailInProfileAC = (email: string) => ({type: "APP/AUTH-EMAIL", email} as const)
+export const updateNameAC = (model:Partial<UserResponseType>) => ({type: "APP/AUTH-NAME", model} as const)
+export const emailInProfileAC = (email: string,name:string, userId: string) => ({type: "APP/AUTH-EMAIL", email, name, userId} as const)
 
 
 // thunks
-export function NewNameTC (name: string, avatar: string) {
-    return (dispatch: Dispatch) => {
-        authAPI.updateName({name, avatar})
+export function NewNameTC (model:Partial<UserResponseType>) {
+    return (dispatch: Dispatch,getState:()=>RootReducerType) => {
+        const user=getState().profile
+        const apiModel:UserResponseType={
+            avatar:user.avatar,
+            name:user.name,
+            email:user.name,
+            ...model
+        }
+
+        dispatch(setAppStatusAC("loading",true ))
+        authAPI.updateName(apiModel)
             .then(res => {
-                dispatch(updateNameAC({name: name, avatar: avatar}))
+                dispatch(updateNameAC(apiModel))
+                dispatch(setAppStatusAC("succeeded", false))
             })
             .catch(err => {
                 //use notification
@@ -46,7 +59,10 @@ export function emailInProfileTC () {
         try {
             dispatch(setAppStatusAC("loading", true))
             const response=await authAPI.me()
-            dispatch(emailInProfileAC(response.data.email))
+            dispatch(addLoginAC(true))
+            dispatch(emailInProfileAC(response.data.email,response.data.name, response.data._id))
+
+
             dispatch(setAppStatusAC("succeeded", false))
         }
 
@@ -68,6 +84,7 @@ type initialStateType = {
     name: string
     avatar: string
     email: string
+    userId: string
 }
 
 export type NewResponseType = {

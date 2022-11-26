@@ -1,6 +1,7 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
-import {addLoginAC} from "./autch-Reducer";
+import {addLoginAC} from "./login-Reducer";
+
 
 
 const initialState = {
@@ -8,7 +9,8 @@ const initialState = {
     successError: null as null | string,
     isInitialized: false,
     successMessage: null as null | string,
-    isDisabled:false
+    isDisabled:false,
+
 }
 
 
@@ -47,14 +49,13 @@ export function isInitializedTC() {
     return async (dispatch: Dispatch) => {
         try {
             dispatch(setAppStatusAC("loading",true))
-             const response= authAPI.me()
-            await response
+             await authAPI.me()
             console.log('^^^^^^^^')
 
             dispatch(setAppStatusAC("succeeded",false))
-            dispatch(isInitializedAC(true))
+            dispatch(addLoginAC(true))
         } catch (e) {
-            dispatch(isInitializedAC(true))
+            dispatch(addLoginAC(true))
             dispatch(setAppStatusAC("failed",false))
 
 
@@ -71,6 +72,7 @@ logOutTC() {
             await authAPI.logOut()
             dispatch(addLoginAC(false))
             dispatch(setAppStatusAC("succeeded",false))
+            dispatch(addLoginAC(false))
 
         } catch (e) {
             dispatch(addLoginAC(true))

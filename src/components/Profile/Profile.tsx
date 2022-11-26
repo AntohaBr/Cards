@@ -3,7 +3,7 @@ import {Avatar, Badge, Button, Container, IconButton, Paper, TextField} from "@m
 import Box from "@mui/material/Box";
 import s from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
-import {RootReducerType, ThunkDispatchType} from "../../redux/store";
+import { RootReducerType, ThunkDispatchType} from "../../redux/store";
 import {useDispatch, useSelector} from "react-redux";
 import {logOutTC} from "../../redux/app-Reducer";
 import {emailInProfileTC, NewNameTC} from "../../redux/Reducer-profile";
@@ -14,10 +14,11 @@ import {URL} from "../../app/App";
 
 export const Profile = React.memo((props: {}) => {
     const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
+    const isLoggedIn=useSelector<RootReducerType,boolean>(state => state.login.isLoggedIn)
     const email = useSelector<RootReducerType, string>(state => state.profile.email)
+    const userName=useSelector<RootReducerType,string>(state => state.profile.name)
     const dispatch = useDispatch<ThunkDispatchType>()
-    const [title, setTitle] = useState("Alex")
+    const [title, setTitle] = useState(userName)
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
     console.log('isLoggedIn-Profile', isLoggedIn)
     useEffect(() => {
@@ -26,18 +27,16 @@ export const Profile = React.memo((props: {}) => {
 
      const logOutHandler = () => {
         dispatch(logOutTC())
-         if (!isLoggedIn) {
-             return <Navigate to={URL.LOGIN}/>
-         }
-
-
      }
 
     const updateNameHandler = () => {
-        dispatch(NewNameTC(title, ''))
+        dispatch(NewNameTC({name:title}))
         setEditNameMod(false)
     }
 
+    if (!isLoggedIn) {
+        return <Navigate to={URL.LOGIN}/>
+    }
 
     return (
         <Container maxWidth="sm">
@@ -79,7 +78,7 @@ export const Profile = React.memo((props: {}) => {
                         </>
                         :
                         <>
-                            <span onDoubleClick={() => setEditNameMod(true)}><h3>{title}</h3></span>
+                            <span onDoubleClick={() => setEditNameMod(true)}><h3>{userName}</h3></span>
                             <IconButton>
                                 <BorderColor onClick={() => setEditNameMod(true)}/>
                             </IconButton>

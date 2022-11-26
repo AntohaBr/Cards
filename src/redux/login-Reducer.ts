@@ -5,7 +5,8 @@ import {setAppErrorAC, setAppStatusAC} from "./app-Reducer";
 
 
 const initialState = {
-    isLoggedIn: false
+    isLoggedIn: false,
+    name:""
 }
 
 
@@ -14,6 +15,9 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
     switch (action.type) {
         case 'SET-LOGIN':
             return {...state, isLoggedIn: action.value}
+        case 'GET-NAME':{
+                return {...state,name:action.name}
+        }
         default:
             return state
     }
@@ -22,6 +26,7 @@ export const loginReducer = (state: InitialStateType = initialState, action: Log
 
 // actions
 export const addLoginAC = (value: boolean) => ({type: 'SET-LOGIN', value} as const)
+export const getName=(name:string)=>({type:'GET-NAME',name}) as const
 
 //thunks
 export function loginTC(values: LoginType) {
@@ -30,10 +35,12 @@ export function loginTC(values: LoginType) {
             dispatch(setAppStatusAC("loading", true))
             console.log('*****')
 
-            await authAPI.login(values)
+            const response=await authAPI.login(values)
             console.log('>>>>')
             dispatch(addLoginAC(true))
             dispatch(setAppStatusAC("succeeded",true))
+            dispatch(getName(response.data.name))
+            console.log(response.data.name)
         } catch (e) {
             dispatch(setAppErrorAC("Неверный пароль или e-mail"))
             dispatch(setAppStatusAC("failed",false))
@@ -43,7 +50,7 @@ export function loginTC(values: LoginType) {
 
 
 // types
-type LoginActionType = ReturnType<typeof addLoginAC>
+type LoginActionType = ReturnType<typeof addLoginAC | typeof getName>
 
 export type LoginType = {
     email: string
