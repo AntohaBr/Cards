@@ -1,7 +1,5 @@
-import React from 'react';
-import {Button, Container, Grid} from "@mui/material";
-import InputWithIcon from "./util-components/InputWithIcon";
-import MySlider from "./util-components/MySlider";
+import React, {ChangeEvent, useEffect} from 'react';
+import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
@@ -9,21 +7,77 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import SchoolIcon from "@mui/icons-material/School";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {useSelector} from "react-redux";
-import {RootReducerType} from "../../redux/store";
-import {CardsType} from "../../api/api";
+import {useDispatch, useSelector} from "react-redux";
+import {RootReducerType, ThunkDispatchType} from "../../redux/store";
+import {CardPacksRequestType, CardsType} from "../../api/api";
+import {getCardsTC} from "../../redux/cards-Reducer";
+import {CardPacksInitStateType, getCardPackTC} from "../../redux/cardPacks-Reducer";
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
+import GradeIcon from '@mui/icons-material/Grade';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {ArrowBack} from "@mui/icons-material";
+import {URL} from "../../app/App";
 
-const Cards = () => {
-    const cards=useSelector<RootReducerType,CardsType[]>(state => state.cards)
+type PropsType = {}
+const Cards = (props: PropsType) => {
+    const pageCount = useSelector<RootReducerType, number>(state => state.pagination.cardsPageCount)
+    const currentPage = useSelector<RootReducerType, number>(state => state.pagination.cardsCurrentPage)
+    const totalCount = useSelector<RootReducerType, number>(state => state.pagination.allCards)
+
+
+    const params = useParams()
+
+    const navigate = useNavigate();
+    const id = params.cardId
+
+    const cards = useSelector<RootReducerType, CardsType[]>(state => state.cards.cards)
+    const dispatch = useDispatch<ThunkDispatchType>()
+    const cardsPack = useSelector<RootReducerType, CardPacksInitStateType>(state => state.cardPacks)
+
+    const pagination = Math.ceil(totalCount / pageCount)
+
+    const arr = []
+    for (let i = 0; i < pagination; i++) {
+        arr.push(i)
+    }
+
+    const array = []
+
+    for (let i = 1; i <= 4; i++) {
+        array.push(i)
+    }
+
+
+    const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
+        dispatch(getCardsTC( id ? id: "",currentPage,+e.currentTarget.value ))
+    }
+
+
+
+
+
+    const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
+
+        dispatch(getCardsTC( id ? id : '',currentPage,pageCount))
+    }
+    useEffect(() => {
+        dispatch(getCardsTC(id ? id : "",currentPage,pageCount))
+    }, [])
     return (
-        <div>
-            <Grid container spacing={2}>
+<>
+
+
+
+
+            <Grid container>
                 <Container fixed={true}>
 
+           <div>
+               <Button onClick={()=> navigate(URL.CARD_PACK)}>
+                   <ArrowBack/>
+               </Button>
 
+           </div>
 
 
 
@@ -46,21 +100,23 @@ const Cards = () => {
                                         sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                     >
                                         <TableCell component="th" scope="row">
-                                            {row.name}
+                                            {row.question}
                                         </TableCell>
 
-                                        <TableCell align="left">{row.cardsCount}</TableCell>
+                                        <TableCell align="right">{row.answer}</TableCell>
                                         <TableCell align="right">{row.updated}</TableCell>
-                                        <TableCell align="right">{row.user_name}</TableCell>
-                                        <TableCell align={"right"}>
-                                            <div>
-                                                {row.user_id === userId ? <span><SchoolIcon/>
-                                            <EditIcon/>
-                                            <DeleteOutlineIcon/>
+                                        <TableCell align="right">
+                                            <span>
 
-                                            </span> : <span><SchoolIcon/></span>}
-                                            </div>
+                                                       <GradeIcon fontSize={"small"} color={"warning"}/>
+                                                       <GradeIcon fontSize={"small"} color={"warning"}/>
+                                                       <GradeIcon fontSize={"small"} color={"warning"}/>
+                                                       <GradeIcon fontSize={"small"}/>
+                                                       <GradeIcon fontSize={"small"}/>
+
+                                            </span>
                                         </TableCell>
+
                                     </TableRow>
                                 ))}
                             </TableBody>
@@ -69,7 +125,40 @@ const Cards = () => {
                 </Container>
 
             </Grid>
-        </div>
+
+
+
+
+            <div>
+
+            <span>
+                <Pagination count={arr.length} variant={"outlined"} shape={"rounded"} color={"primary"}
+                            onChange={paginationFunc}/>
+
+
+
+
+                Show <NativeSelect variant={"outlined"} defaultValue={pageCount} onChange={setPageCount}>
+
+                {array.map(n => {
+                    return (
+                        <>
+                            <option value={n}>{n}</option>
+
+                        </>
+
+
+                    )
+                })}
+
+            </NativeSelect>
+
+            </span>
+            </div>
+
+
+        </>
+
     );
 };
 

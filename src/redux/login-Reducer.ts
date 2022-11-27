@@ -33,14 +33,14 @@ export function loginTC(values: LoginType) {
     return async (dispatch: Dispatch) => {
         try {
             dispatch(setAppStatusAC("loading", true))
-            console.log('*****')
+
 
             const response=await authAPI.login(values)
-            console.log('>>>>')
+
             dispatch(addLoginAC(true))
             dispatch(setAppStatusAC("succeeded",true))
             dispatch(getName(response.data.name))
-            console.log(response.data.name)
+
         } catch (e) {
             dispatch(setAppErrorAC("Неверный пароль или e-mail"))
             dispatch(setAppStatusAC("failed",false))

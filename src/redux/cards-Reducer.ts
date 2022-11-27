@@ -2,6 +2,7 @@ import {cardsAPI, CardsType} from "../api/api";
 import {Dispatch} from "redux";
 import {setAppErrorAC, setAppStatusAC} from "./app-Reducer";
 import {AxiosError} from "axios";
+import {setCurrentPageAC, setPageCount, totalCountAC} from "./Reducer-pagination";
 
 const initialState={
     cards:[
@@ -23,6 +24,9 @@ export const cardsReducer=(state:initStateType=initialState,action:ActionType):i
         case "SET-CARDS":{
             return {...state,cards:action.cards}
         }
+        default:{
+            return state
+        }
     }
 
 }
@@ -35,17 +39,20 @@ const setCardsAC=(cards:CardsType[])=>{
 }
 
 //thunks
-export const getCardsTC=()=>{
+export const getCardsTC=(cardsPack_id:string,page:number,pageCount:number)=>{
     return async (dispatch:Dispatch)=>{
         try {
             dispatch(setAppStatusAC("loading", true))
-            const response=await cardsAPI.getCards()
+            const response=await cardsAPI.getCards(cardsPack_id,page,pageCount)
+            dispatch(setPageCount(response.data.cardsTotalCount))
+            dispatch(totalCountAC(response.data.cardsTotalCount))
+            dispatch(setCurrentPageAC(response.data.page))
             dispatch(setCardsAC(response.data.cards))
             dispatch(setAppStatusAC("succeeded",false))
 
         }
         catch (e) {
-            // dispatch(setAppErrorAC(e))
+          dispatch(setAppStatusAC("failed", false))
         }
     }
 }

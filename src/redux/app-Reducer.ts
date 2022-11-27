@@ -50,7 +50,7 @@ export function isInitializedTC() {
         try {
             dispatch(setAppStatusAC("loading",true))
              await authAPI.me()
-            console.log('^^^^^^^^')
+
 
             dispatch(setAppStatusAC("succeeded",false))
             dispatch(addLoginAC(true))

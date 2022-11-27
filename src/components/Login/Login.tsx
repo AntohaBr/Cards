@@ -42,7 +42,7 @@ export const Login = () => {
         },
         onSubmit(values) {
             dispatch(loginTC(values))
-            console.log(error)
+
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
@@ -57,7 +57,7 @@ export const Login = () => {
             return errors
         },
     })
-    console.log('isLoggedIn-Login', isLoggedIn)
+
     if (isLoggedIn) {
         return <Navigate to={URL.PROFILE}/>
     }

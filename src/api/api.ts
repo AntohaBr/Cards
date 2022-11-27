@@ -44,8 +44,14 @@ export const cardsAPI={
     createCardsPack(name:string,privated:boolean){
         return instance.post('cards/pack',{cardsPack :{name,privated}})
     },
-    getCards(){
-        return instance.get<CardsRequestType>('/cards/card')
+    getCards(cardsPack_id:string,page:number,pageCount:number){
+        return instance.get<CardsRequestType>('/cards/card',{
+        params:{
+            cardsPack_id,
+            page,
+            pageCount
+        }
+        })
     }
 }
 

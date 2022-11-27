@@ -7,6 +7,7 @@ import {useSelector} from "react-redux";
 import {loginReducer} from "./login-Reducer";
 import {cardPacksReducer} from "./cardPacks-Reducer";
 import {cardsReducer} from "./cards-Reducer";
+import {paginationReducer} from "./Reducer-pagination";
 
 
 const rootReducer = combineReducers({
@@ -15,7 +16,8 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     login:loginReducer,
     cardPacks:cardPacksReducer,
-    cards:cardsReducer
+    cards:cardsReducer,
+    pagination:paginationReducer
 })
 
 export const store = legacy_createStore(rootReducer,applyMiddleware(thunk))

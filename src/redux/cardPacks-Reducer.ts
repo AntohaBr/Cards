@@ -1,9 +1,14 @@
 import {Dispatch} from "redux";
-import {cardsAPI, CardsRequestType} from "../api/api";
+import {cardsAPI} from "../api/api";
 import {addLoginAC} from "./login-Reducer";
 import {setAppErrorAC, setAppStatusAC} from "./app-Reducer";
-import {AxiosError} from "axios";
-import {constants} from "fs/promises";
+import {
+    setCurrentPageAC,
+    setCurrentPagePacksAC,
+    setPageCount, setPageCountPacks,
+    totalCountAC,
+    totalCountPacksAC
+} from "./Reducer-pagination";
 
 
 export type CardsType = {
@@ -21,9 +26,8 @@ const initState = {
     cardPacks: [],
     isMyPack: false,
     userId: "",
-    pageCount: 9,
-    allCardsPack: 0,
-    currentPage: 7
+
+
 }
 export const cardPacksReducer = (state: CardPacksInitStateType = initState, action: ActionType): CardPacksInitStateType => {
 
@@ -41,16 +45,9 @@ export const cardPacksReducer = (state: CardPacksInitStateType = initState, acti
         case "CARDS/CREATE-PACK": {
             return {...state, cardPacks: [...state.cardPacks, action.newPack]}
         }
-        case "SET-PAGE-COUNT": {
-            return {...state, pageCount: action.count}
-        }
 
-        case "SET-TOTAL-COUNT": {
-            return {...state, allCardsPack: action.totalCount}
-        }
-        case "SET-CURRENT-PAGE": {
-            return {...state, currentPage: action.currentPage}
-        }
+
+
 
         default: {
             return state
@@ -58,16 +55,8 @@ export const cardPacksReducer = (state: CardPacksInitStateType = initState, acti
     }
 
 }
-const totalCountAC = (totalCount: number) => {
-    return {type: 'SET-TOTAL-COUNT', totalCount} as const
-}
 
-const setCurrentPageAC = (currentPage: number) => {
-    return {
-        type: 'SET-CURRENT-PAGE',
-        currentPage
-    } as const
-}
+
 
 const setCardPacksAC = (cardPacks: CardsType[], isMyPack: boolean) => {
     return {type: 'CARDS/SET-CARDS-PACK', cardPacks, isMyPack} as const
@@ -78,9 +67,6 @@ const createCardsPack = (newPack: CardsType) => {
     return {type: 'CARDS/CREATE-PACK', newPack} as const
 }
 
-const setPageCount = (count: number) => {
-    return {type: 'SET-PAGE-COUNT', count} as const
-}
 
 export const getCardPackTC = (pageCount: number, page: number, userId?: string,) => {
     return async (dispatch: Dispatch) => {
@@ -93,13 +79,15 @@ export const getCardPackTC = (pageCount: number, page: number, userId?: string,)
 
             dispatch(setCardPacksAC(response.data.cardPacks, true,))
 
-            dispatch(totalCountAC(response.data.cardPacksTotalCount))
+            dispatch(totalCountPacksAC(response.data.cardPacksTotalCount))
+             dispatch(setPageCountPacks(response.data.pageCount))
+            dispatch(setCurrentPagePacksAC(response.data.page))
 
-            dispatch(setCurrentPageAC(response.data.page))
 
-            console.log(response.data)
+
 
         } catch (e) {
+
             dispatch(setAppErrorAC('Error'))
             dispatch(setAppStatusAC("failed", false))
         }
@@ -122,13 +110,10 @@ export type  CardPacksInitStateType = {
     cardPacks: CardsType[]
     isMyPack: boolean
     userId: string
-    pageCount: number
-    allCardsPack: number
-    currentPage: number
+
+
+
 
 }
-type ActionType = ReturnType<typeof setCardPacksAC | typeof createCardsPack
-    | typeof setPageCount
-    | typeof totalCountAC
-    | typeof setCurrentPageAC>
+type ActionType = ReturnType<typeof setCardPacksAC | typeof createCardsPack >
 

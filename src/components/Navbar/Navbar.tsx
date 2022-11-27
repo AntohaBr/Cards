@@ -24,7 +24,7 @@ export const Navbar = () => {
                 <Link to={URL.SUPER_COMPONENTS}>Super components</Link>
             </div>
             <div className={style.item}>
-                <Link to={URL.CARDS}>Cards</Link>
+                <Link to={URL.CARD_PACK}>Cards</Link>
             </div>
         </nav>
     )

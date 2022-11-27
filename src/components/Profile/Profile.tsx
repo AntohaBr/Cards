@@ -20,7 +20,7 @@ export const Profile = React.memo((props: {}) => {
     const dispatch = useDispatch<ThunkDispatchType>()
     const [title, setTitle] = useState(userName)
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
-    console.log('isLoggedIn-Profile', isLoggedIn)
+
     useEffect(() => {
         dispatch(emailInProfileTC())
     }, [])

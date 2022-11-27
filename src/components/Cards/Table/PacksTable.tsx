@@ -12,22 +12,30 @@ import InputWithIcon from "../util-components/InputWithIcon";
 import MySlider from '../util-components/MySlider';
 import {useDispatch, useSelector} from "react-redux";
 import SchoolIcon from '@mui/icons-material/School';
-
 import {RootReducerType, ThunkDispatchType} from "../../../redux/store";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import {CardPacksInitStateType, createPackTC, getCardPackTC} from "../../../redux/cardPacks-Reducer";
+import {Link, Navigate, NavLink, Routes, useNavigate} from 'react-router-dom';
+import {URL} from "../../../app/App";
+import {Route} from "@mui/icons-material";
+import Cards from "../Cards";
+import {initStateType} from "../../../redux/Reducer-pagination";
 
 export default function PacksTable() {
 
 
     const cardPacksStore = useSelector<RootReducerType, CardPacksInitStateType>(state => state.cardPacks)
+
+   const navigate=useNavigate()
     const dispatch = useDispatch<ThunkDispatchType>()
     const userId = useSelector<RootReducerType, string>(state => state.profile.userId)
+    const paginationStore=useSelector<RootReducerType,initStateType>(state => state.pagination)
 
-    console.log('userId', userId)
 
-
+const redirectToCards=()=>{
+        return <Navigate to={URL.CARDS}/>
+    }
 
     const createPackHandler = () => {
         dispatch(createPackTC())
@@ -35,12 +43,11 @@ export default function PacksTable() {
 
     const myPacks = (status: 'my' | 'all') => {
         if (status === "my") {
-            dispatch(getCardPackTC(cardPacksStore.pageCount, cardPacksStore.currentPage, userId))
+            dispatch(getCardPackTC(paginationStore.packsPageCount, paginationStore.packsCurrentPage, userId))
         }
 
         if (status === "all") {
-            console.log(cardPacksStore.cardPacks)
-            dispatch(getCardPackTC(cardPacksStore.pageCount, cardPacksStore.currentPage))
+            dispatch(getCardPackTC(paginationStore.packsPageCount, paginationStore.packsCurrentPage))
         }
     }
 
@@ -68,7 +75,11 @@ export default function PacksTable() {
                 <TableContainer component={Paper}>
                     <Table sx={{minWidth: 650}} aria-label="simple table">
                         <TableHead>
-                            <TableRow>
+
+
+
+
+                            <TableRow onClick={redirectToCards}>
 
                                 <TableCell align="right">Name</TableCell>
                                 <TableCell align="right">Cards</TableCell>
@@ -77,12 +88,21 @@ export default function PacksTable() {
                                 <TableCell align="right">Actions </TableCell>
 
                             </TableRow>
+
+
+
                         </TableHead>
                         <TableBody>
                             {cardPacksStore.cardPacks.map((row) => (
+
+
+
+
+
                                 <TableRow
                                     key={row._id}
                                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                    onClick={redirectToCards}
                                 >
                                     <TableCell component="th" scope="row">
                                         {row.name}
@@ -93,19 +113,41 @@ export default function PacksTable() {
                                     <TableCell align="right">{row.user_name}</TableCell>
                                     <TableCell align={"right"}>
                                         <div>
-                                            {row.user_id === userId ? <span><SchoolIcon/>
-                                            <EditIcon/>
-                                            <DeleteOutlineIcon/>
+                                            {row.user_id === userId ? <span>
 
-                                            </span> : <span><SchoolIcon/></span>}
+
+                                                    <Button disabled={row.cardsCount===0}  onClick={()=>navigate(`${URL.CARDS}/${row._id}`)}>
+                                                         <SchoolIcon />
+                                                    </Button>
+
+                                           <span>
+                                                <Button>
+                                                    <EditIcon/>
+                                                </Button>
+                                                <Button>
+                                                       <DeleteOutlineIcon/>
+                                                </Button>
+                                           </span>
+
+
+
+                                            </span> : <span><NavLink to={`${URL.CARDS}/${row._id}`}>
+                                                <Button disabled={row.cardsCount===0}>
+                                                       <SchoolIcon/>
+                                                </Button>
+
+                                                </NavLink></span>}
                                         </div>
                                     </TableCell>
                                 </TableRow>
+
+
                             ))}
                         </TableBody>
                     </Table>
                 </TableContainer>
             </Container>
+
 
         </Grid>
 
