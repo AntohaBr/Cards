@@ -106,7 +106,7 @@ export const setNewPasswordTC = (password: string, token: string) => async (disp
 
 
 // types
-type AuthActionType =
+export type AuthActionType =
     ReturnType<typeof addLoginAC>
     | ReturnType<typeof registrationAC>
     | ReturnType<typeof recoveryPasswordAC>

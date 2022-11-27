@@ -9,6 +9,7 @@ import {logOutTC} from "../../redux/App-reducer";
 import {emailInProfileTC, NewNameTC} from "../../redux/Profile-reducer";
 import { Navigate } from 'react-router-dom';
 import {URL} from "../../app/App";
+import {getPacksTC} from "../../redux/Packs-reducer";
 
 
 export const Profile = React.memo(() => {
@@ -21,6 +22,11 @@ export const Profile = React.memo(() => {
     const [title, setTitle] = useState("Alex")
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
+
+
+    useEffect(() => {
+        dispatch(getPacksTC())
+    }, [])
     useEffect(() => {
         dispatch(emailInProfileTC())
     }, [])

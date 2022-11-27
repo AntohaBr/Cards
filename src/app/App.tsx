@@ -10,11 +10,12 @@ import {RecoveryPassword} from "../components/Recovery-password/Recovery-passwor
 import {Error404} from "../components/Error-404/Error-404";
 import {SuperComponents} from "../components/Super-components/Super-components";
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../redux/Store";
+import {RootReducerType, ThunkDispatchType, useAppSelector, useTypedDispatch} from "../redux/Store";
 import {logOutTC, AppStatusType, isInitializedTC} from "../redux/App-reducer";
 import {Button, CircularProgress, LinearProgress} from "@mui/material";
 import {NewPassword} from "../components/New-password/New-password";
 import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
+import {getPacksTC} from "../redux/Packs-reducer";
 
 
 export enum URL{
@@ -33,15 +34,17 @@ export enum URL{
 }
 export const App = () => {
 
-    const status = useSelector<RootReducerType, AppStatusType>(state => state.app.status)
-    const isInitialized = useSelector<RootReducerType, boolean>((state) => state.app.isInitialized)
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const status = useAppSelector(state => state.app.status)
+    const isInitialized = useAppSelector((state) => state.app.isInitialized)
+    const dispatch = useTypedDispatch()
     // const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.app.isLoggedIn)
 
     useEffect(() => {
         dispatch(isInitializedTC())
     }, [])
-
+    useEffect(() => {
+        dispatch(getPacksTC())
+    }, [])
     // function applogOut() {
     //     dispatch(logOutTC())
     // }

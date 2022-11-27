@@ -55,7 +55,7 @@ export const emailInProfileTC = () => async (dispatch: Dispatch<ProfileActionTyp
 
 
 //types
-type ProfileActionType =
+export type ProfileActionType =
     ReturnType<typeof updateNameAC>
     | ReturnType<typeof emailInProfileAC>
     | ReturnType<typeof setAppStatusAC>

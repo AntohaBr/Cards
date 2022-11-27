@@ -7,8 +7,8 @@ const instance = axios.create({
 })
 
 export const cardsAPI = {
-    getCards(params: GetParamsCardsTypeNotNeeded): Promise<AxiosResponse<GetCardsResponseType>>  {
-        return instance.get<GetCardsResponseType, AxiosResponse<GetCardsResponseType>>(`/cards/card`, {
+    getCards(params: GetParamsCardsTypeNotNeeded) {
+        return instance.get<GetParamsCardsTypeNotNeeded, AxiosResponse<GetCardsResponseType>>(`/cards/card`, {
             params: {
                 cardAnswer: params.cardAnswer,
                 cardQuestion: params.cardQuestion,
@@ -21,21 +21,21 @@ export const cardsAPI = {
             }
         })
     },
-    deleteCards(cardID: string): Promise<AxiosResponse<{}>> {
-        return instance.delete<{}, AxiosResponse<{}>>(`/cards/card`, )
+    deleteCards(cardID: string) {
+        return instance.delete<string, AxiosResponse<DeleteRespondCardType>>(`/cards/card`, {params: {id: cardID}})
     },
 
     postCards(postModel: PostCardType) {
-        return instance.post<{}, AxiosResponse<{...}>>(`/cards/card`, postModel)
+        return instance.post <PostCardType, AxiosResponse<PostResponseCardType>>(`/cards/card`, postModel) // TODO исправить типизацию респонса
     },
 
     updateCards(putModel: UpdateCardType) {
-        return instance.put<{}, AxiosResponse<{...}>>(`/cards/card`, putModel)
+        return instance.put <UpdateCardType, AxiosResponse<PutResponseCardType>>(`/cards/card`, putModel)
     }
 
 }
 
-type UpdateCardType = {
+export type UpdateCardType = {
     card: {
         _id: string
         question?: string
@@ -43,7 +43,7 @@ type UpdateCardType = {
     }
 }
 
-type PostCardType = {
+export type PostCardType = {
     card: {
         cardsPack_id: string
         question?: string
@@ -57,36 +57,88 @@ type PostCardType = {
     }
 }
 
-type GetCardsResponseType = {
+export type GetCardsResponseType = {
     cards: CardsType[]
-    cardsTotalCount: number
-    maxGrade: number
-    minGrade: number
-    page: number
-    pageCount: number
-    packUserId: string
+    "packUserId": string
+    "packName": string
+    "packPrivate": boolean
+    "packDeckCover": null | string
+    "packCreated": Date
+    "packUpdated": Date
+    "page": number
+    "pageCount": number
+    "cardsTotalCount": number
+    "minGrade": number
+    "maxGrade": number
+    "token": string
+    "tokenDeathTime": number
 }
 
-type CardsType = {
-    answer: string
-    question: string
-    cardsPack_id: string
-    grade: number
-    shots: number
-    user_id: string
-    created: Date
-    updated: Date
-    _id: string
+export type CardsType = {
+    "_id": string
+    "cardsPack_id": string
+    "user_id": string
+    "answer": string
+    "question": string
+    "grade": number
+    "shots": number
+    "comments": string
+    "type": string
+    "rating": number
+    "more_id": string
+    "created": Date
+    "updated": Date
+    "__v": number
+    "answerImg": string
+    "answerVideo": string
+    "questionImg": string
+    "questionVideo": string
 }
 
 type GetParamsCardsType = {
-    cardAnswer: string
-    cardQuestion: string
+    cardAnswer?: string
+    cardQuestion?: string
     cardsPack_id: string
-    min: number
-    max: number
-    sortCards: number
-    page: number
-    pageCount: number
+    min?: number
+    max?: number
+    sortCards?: number
+    page?: number
+    pageCount?: number
 }
-type GetParamsCardsTypeNotNeeded = Partial<GetParamsCardsType>
+
+export type GetParamsCardsTypeNotNeeded = Partial<GetParamsCardsType>
+
+type DeleteRespondCardType = {
+    deletedCard: CardsType
+    "token": "45bc1750-6e7f-11ed-82c3-715f20fbf94f",
+    "tokenDeathTime": 1669583642821
+}
+
+type PostResponseCardType = {
+    newCard: NewCardPostType
+    token: string
+    tokenDeathTime: number
+}
+
+export type NewCardPostType = {
+    "_id": string
+    "cardsPack_id": string
+    "user_id": string
+    "answer": string
+    "question": string
+    "grade": number
+    "shots": number
+    "comments": string
+    "type": string
+    "rating": number
+    "more_id": string
+    "created": Date
+    "updated": Date
+    "__v": number
+}
+
+type PutResponseCardType = {
+    updatedCard: CardsType
+    "token": string
+    "tokenDeathTime": number
+}

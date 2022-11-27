@@ -14,36 +14,47 @@ export const packsAPI = {
                     packName: params.packName,
                     min: params.min,
                     max: params.max,
-                    sortPacks: params.sortPacks,
                     pageCount: params.pageCount,
                     user_id: params.user_id,
-                    block: params.block,
                 }
             }
         )
     },
 
     deletePacks(packID: string) {
-        return instance.delete<{}, AxiosResponse<{}>>(`/cards/pack`, {params: {id: packID}})
+        return instance.delete<AxiosResponse<DeletePackResponseType>>(`/cards/pack`, {params: {id: packID}})
     },
 
     postPacks(postModel: PostPacksType) {
-        return instance.post<{}, AxiosResponse<{}>>(`/cards/pack`, postModel)
+        return instance.post<PostPacksType, AxiosResponse<AddNewPackType>>(`/cards/pack`, postModel)
     },
 
     updatePacks(putModel: UpdatePacksType) {
-        return instance.put<{}, AxiosResponse<{}>>(`/cards/pack`, putModel)
+        return instance.put<UpdatePacksType, AxiosResponse<UpdatePackType>>(`/cards/pack`, putModel)
     }
 }
 
+export type UpdatePackType = {
+    updatedCardsPack: PacksType
+    token: string
+    tokenDeathTime: number
+}
 
-type PacksGetResponseType = {
+export type AddNewPackType = {
+    newCardsPack: PacksType
+    token: string
+    tokenDeathTime: number
+}
+
+export type PacksGetResponseType = {
     cardPacks: PacksType[]
     cardPacksTotalCount: number
     maxCardsCount: number
     minCardsCount: number
     page: number
     pageCount: number
+    token: string
+    tokenDeathTime: number
 }
 
 type PacksGetParamsType = {
@@ -55,18 +66,47 @@ type PacksGetParamsType = {
     user_id: number
     block: boolean
 }
-type PacksGetParamsTypeNotNeeded = Partial<PacksGetParamsType>
 
-type PacksType = {
+export type PacksGetParamsTypeNotNeeded = Partial<PacksGetParamsType>
+
+export type PacksType = {
     _id: string
     user_id: string
     name: string
     cardsCount: number
     created: Date
     updated: Date
+    grade: number
+    more_id: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    user_name: string
+    __v: number
+    deckCover: null | string
 }
 
-type PostPacksType = {
+type PacksTypeForDelete = {
+    _id: string
+    user_id: string
+    name: string
+    cardsCount: number
+    created: Date
+    updated: Date
+    grade: number
+    more_id: string
+    path: string
+    private: boolean
+    rating: number
+    shots: number
+    type: string
+    user_name: string
+    __v: number
+}
+
+export type PostPacksType = {
     cardsPack: {
         name?: string
         deckCover?: "url" | "base64"
@@ -74,9 +114,15 @@ type PostPacksType = {
     }
 }
 
-type UpdatePacksType = {
+export type UpdatePacksType = {
     cardsPack: {
         _id: string
         name?: string
     }
+}
+
+export type DeletePackResponseType = {
+    deletedCardsPack: PacksTypeForDelete
+    token: string
+    tokenDeathTime: number
 }
