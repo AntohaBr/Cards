@@ -1,12 +1,12 @@
 
-.modalAddContainer {
+.modalEditContainer {
     width: 395px;
     height: 311px;
     background: #FFFFFF;
     border-radius: 2px;
 }
 
-.modalAddPack {
+.modalEditPack {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -14,7 +14,7 @@
     margin: 25px 20px 30px 20px
 }
 
-.modalAddPackTitle {
+.modalEditPackTitle {
     font-style: normal;
     font-weight: 500;
     font-size: 18px;
@@ -22,7 +22,7 @@
     color: #000000;
 }
 
-.modalAddButton {
+.modalEditButton {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

@@ -30,7 +30,10 @@ export const Navbar = () => {
                 <Link to={URL.CARDS}>Cards</Link>
             </div>
             <div className={style.item}>
-                <Link to={URL.MODAL_NEW}>Modal new</Link>
+                <Link to={URL.MODAL_NEW_PACK}>Modal new pack</Link>
+            </div>
+            <div className={style.item}>
+                <Link to={URL.MODAL_EDIT_PACK}>Modal edit pack</Link>
             </div>
         </nav>
     )
