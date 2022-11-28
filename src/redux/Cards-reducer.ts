@@ -34,13 +34,13 @@ const initialState: GetCardsResponseType = {
 
 export const cardsReducer = (state = initialState, action: CardsActionTypes): GetCardsResponseType => {
     switch (action.type) {
-        case 'CARDS/SET_PACKS':
+        case 'CARDS/SET_CARDS':
             return {...state, cards: [...action.cards]}
-        case 'CARDS/DELETE_PACK':
+        case 'CARDS/DELETE_CARD':
             return {...state, cards: state.cards.filter((el) => el._id !== action.cardID)}
-        case 'CARDS/ADD_PACK':
+        case 'CARDS/ADD_CARD':
             return {...state, cards: [action.addCard, ...state.cards]}
-        case 'CARDS/UPDATE_PACK':
+        case 'CARDS/UPDATE_CARD':
             return {
                 ...state,
                 cards: [
@@ -55,10 +55,10 @@ export const cardsReducer = (state = initialState, action: CardsActionTypes): Ge
 }
 
 //AC
-export const setCardAC = (cards: CardsType[]) => ({type: 'CARDS/SET_PACKS', cards} as const)
-export const deleteCardAC = (cardID: string) => ({type: 'CARDS/DELETE_PACK' as const, cardID})
-export const addCardAC = (addCard: NewCardPostType) => ({type: 'CARDS/ADD_PACK' as const, addCard})
-export const updateCardAC = (updateCard: CardsType) => ({type: 'CARDS/UPDATE_PACK' as const, updateCard})
+export const setCardAC = (cards: CardsType[]) => ({type: 'CARDS/SET_CARDS', cards} as const)
+export const deleteCardAC = (cardID: string) => ({type: 'CARDS/DELETE_CARD' as const, cardID})
+export const addCardAC = (addCard: NewCardPostType) => ({type: 'CARDS/ADD_CARD' as const, addCard})
+export const updateCardAC = (updateCard: CardsType) => ({type: 'CARDS/UPDATE_CARD' as const, updateCard})
 
 
 //TC
