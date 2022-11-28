@@ -135,6 +135,10 @@ export type NewCardPostType = {
     "created": Date
     "updated": Date
     "__v": number
+    "answerImg": string
+    "answerVideo": string
+    "questionImg": string
+    "questionVideo": string
 }
 
 type PutResponseCardType = {

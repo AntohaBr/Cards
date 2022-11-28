@@ -85,7 +85,13 @@ export const updatePackTC = (params: UpdatePacksType) => (dispatch: ThunkDispatc
         })
 }
 
-export type PacksActionTypes = ReturnType<typeof setPacksAC>
-    | ReturnType<typeof deletePackAC>
-    | ReturnType<typeof addPackAC>
+export type PacksActionTypes = SetPackACType
+    | DeletePackACType
+    | AddPackACType
     | ReturnType<typeof updatePackAC>
+
+export type SetPackACType = ReturnType<typeof setPacksAC>
+
+export type AddPackACType = ReturnType<typeof addPackAC>
+
+export type DeletePackACType = ReturnType<typeof deletePackAC>

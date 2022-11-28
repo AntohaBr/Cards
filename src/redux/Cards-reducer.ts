@@ -13,9 +13,10 @@ import {
     GetParamsCardsTypeNotNeeded,
     NewCardPostType, PostCardType, UpdateCardType
 } from "../api/cards-api";
+import {AddPackACType, DeletePackACType, SetPackACType} from "./Packs-reducer";
 
 const initialState: GetCardsResponseType = {
-    cards: [],
+    cards: [] as CardsType[],
     packUserId: "",
     packName: "",
     packPrivate: false,
@@ -31,12 +32,12 @@ const initialState: GetCardsResponseType = {
     tokenDeathTime: 0
 }
 
-export const cardsReducer = (state = initialState, action: CardsActionTypes): PacksGetResponseType => {
+export const cardsReducer = (state = initialState, action: CardsActionTypes): GetCardsResponseType => {
     switch (action.type) {
         case 'CARDS/SET_PACKS':
             return {...state, cards: [...action.cards]}
         case 'CARDS/DELETE_PACK':
-            return {...state, cards: state.cards.filter((el)=>el._id !== action.cardID)}
+            return {...state, cards: state.cards.filter((el) => el._id !== action.cardID)}
         case 'CARDS/ADD_PACK':
             return {...state, cards: [action.addCard, ...state.cards]}
         case 'CARDS/UPDATE_PACK':
@@ -48,15 +49,13 @@ export const cardsReducer = (state = initialState, action: CardsActionTypes): Pa
                     ),
                 ],
             }
-        case 'PACKS/ADD-NEW-PACK':
-            return
         default:
             return state
     }
 }
 
 //AC
-export const setCardAC = (cards: CardsType[]) => ({type: 'CARDS/SET_PACKS' as const, cards})
+export const setCardAC = (cards: CardsType[]) => ({type: 'CARDS/SET_PACKS', cards} as const)
 export const deleteCardAC = (cardID: string) => ({type: 'CARDS/DELETE_PACK' as const, cardID})
 export const addCardAC = (addCard: NewCardPostType) => ({type: 'CARDS/ADD_PACK' as const, addCard})
 export const updateCardAC = (updateCard: CardsType) => ({type: 'CARDS/UPDATE_PACK' as const, updateCard})
@@ -104,3 +103,6 @@ export type CardsActionTypes = ReturnType<typeof setCardAC>
     | ReturnType<typeof deleteCardAC>
     | ReturnType<typeof addCardAC>
     | ReturnType<typeof updateCardAC>
+    | AddPackACType
+    | SetPackACType
+    | DeletePackACType

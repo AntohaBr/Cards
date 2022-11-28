@@ -22,7 +22,7 @@ export const packsAPI = {
     },
 
     deletePacks(packID: string) {
-        return instance.delete<AxiosResponse<DeletePackResponseType>>(`/cards/pack`, {params: {id: packID}})
+        return instance.delete<DeletePackResponseType>(`/cards/pack`, {params: {id: packID}})
     },
 
     postPacks(postModel: PostPacksType) {
