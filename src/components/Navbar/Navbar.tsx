@@ -35,6 +35,9 @@ export const Navbar = () => {
             <div className={style.item}>
                 <Link to={URL.MODAL_EDIT_PACK}>Modal edit pack</Link>
             </div>
+            <div className={style.item}>
+                <Link to={URL.MODAL_DELETE_PACK}>Modal delete pack</Link>
+            </div>
         </nav>
     )
 }

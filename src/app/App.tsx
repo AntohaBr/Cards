@@ -15,8 +15,9 @@ import {AppStatusType, isInitializedTC} from '../redux/App-reducer';
 import {CircularProgress, LinearProgress} from '@mui/material';
 import {NewPassword} from '../components/New-password/New-password';
 import {ErrorSnackbar} from '../components/Error-snackbar/Error-snackbar';
-import {ModalAddNewPack} from "../components/Modal/ModalAddNewPack/ModalAddNewPack";
-import {ModalEditPack} from "../components/Modal/ModalEditPack/ModalEditPack";
+import {ModalAddNewPack} from "../components/Modal/ModalPack/ModalAddNewPack/ModalAddNewPack";
+import {ModalEditPack} from "../components/Modal/ModalPack/ModalEditPack/ModalEditPack";
+import {ModalDeletePack} from "../components/Modal/ModalPack/ModalDeletePack/ModalDeletePack";
 
 
 export enum URL {
@@ -32,7 +33,8 @@ export enum URL {
     CARDS = '/cards',
     OTHER_PATH = '*',
     MODAL_NEW_PACK = '/modal-new-pack',
-    MODAL_EDIT_PACK = '/modal-edit-pack'
+    MODAL_EDIT_PACK = '/modal-edit-pack',
+    MODAL_DELETE_PACK = '/modal-delete-pack'
 }
 
 
@@ -71,6 +73,7 @@ export const App = () => {
                     <Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>
                     <Route path={URL.MODAL_NEW_PACK} element={<ModalAddNewPack/>}/>
                     <Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack/>}/>
+                    <Route path={URL.MODAL_DELETE_PACK} element={<ModalDeletePack/>}/>
                 </Routes>
             </div>
         </div>

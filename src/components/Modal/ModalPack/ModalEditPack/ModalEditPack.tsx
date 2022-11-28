@@ -1,5 +1,4 @@
 import React from 'react';
-import style from './ModalAddNewPack.module.css'
 import {
     Button, Checkbox,
     Dialog,
@@ -7,11 +6,12 @@ import {
     TextField
 } from '@mui/material';
 import {useSelector} from 'react-redux';
-import {RootReducerType} from '../../../redux/Store';
+import {RootReducerType} from '../../../../redux/Store';
 import CloseIcon from '@mui/icons-material/Close';
+import style from './ModalEditPack.module.css'
 
 
-export const ModalAddNewPack = () => {
+export const ModalEditPack = () => {
 
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
@@ -26,11 +26,11 @@ export const ModalAddNewPack = () => {
     };
 
     return <div>
-        <Button variant='outlined' onClick={handleClickOpen}>Add new pack</Button>
+        <Button variant='outlined' onClick={handleClickOpen}>Edit pack</Button>
         <Dialog open={open}>
-            <div className={style.modalAddContainer}>
-                <div className={style.modalAddPack}>
-                    <div className={style.modalAddPackTitle}>Add new pack</div>
+            <div className={style.modalEditContainer}>
+                <div className={style.modalEditPack}>
+                    <div className={style.modalEditPackTitle}>Edit pack</div>
                     <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={handleClose}/>
                 </div>
                 <TextField
@@ -43,7 +43,7 @@ export const ModalAddNewPack = () => {
                     sx={{m: 2, width: '40ch'}}
                 />
                 <FormControlLabel control={<Checkbox defaultChecked/>} label='Private pack' style={{marginLeft: 10}}/>
-                <div className={style.modalAddButton}>
+                <div className={style.modalEditButton}>
                     <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'inherit'}
                             style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>
                         Cancel
