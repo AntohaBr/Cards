@@ -29,6 +29,9 @@ export const Navbar = () => {
             <div className={style.item}>
                 <Link to={URL.CARDS}>Cards</Link>
             </div>
+            <div className={style.item}>
+                <Link to={URL.MODAL_NEW}>Modal new</Link>
+            </div>
         </nav>
     )
 }

@@ -12,12 +12,12 @@ import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {URL} from "../../app/App";
-import {loginTC} from "../../redux/Autch-reducer";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import style from './Login.module.css'
+import {VisibilityOff} from "@mui/icons-material";
+import {loginTC} from "../../redux/Autch-reducer";
 
 
 interface State {

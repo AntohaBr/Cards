@@ -15,6 +15,7 @@ import {AppStatusType, isInitializedTC} from '../redux/App-reducer';
 import {CircularProgress, LinearProgress} from '@mui/material';
 import {NewPassword} from '../components/New-password/New-password';
 import {ErrorSnackbar} from '../components/Error-snackbar/Error-snackbar';
+import {ModalAddNewPack} from "../components/Modal/ModalAddNewPack/ModalAddNewPack";
 
 
 export enum URL {
@@ -29,6 +30,7 @@ export enum URL {
     SUPER_COMPONENTS = '/super-components',
     CARDS = '/cards',
     OTHER_PATH = '*',
+    MODAL_NEW = '/modal-new',
 }
 
 
@@ -65,6 +67,8 @@ export const App = () => {
                     <Route path={URL.ERROR_404} element={<Error404/>}/>
                     <Route path={URL.OTHER_PATH} element={<Navigate to={URL.ERROR_404}/>}/>
                     <Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>
+                    <Route path={URL.MODAL_NEW} element={<ModalAddNewPack/>}/>
+
                 </Routes>
             </div>
         </div>

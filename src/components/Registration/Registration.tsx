@@ -3,20 +3,18 @@ import {
     Button,
     FormControl,
     FormGroup,
-    FormLabel,
+    FormLabel, IconButton,
     Input, InputLabel,
 } from "@mui/material";
 import {useFormik} from "formik";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
-import style from './Registration.module.css'
-import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {Navigate} from "react-router-dom";
-import {registrationTC} from "../../redux/Autch-reducer";
+import {useDispatch, useSelector} from "react-redux";
 import {URL} from "../../app/App";
+import style from './Registration.module.css'
+import {registrationTC} from "../../redux/Autch-reducer";
+import {Visibility, VisibilityOff} from "@mui/icons-material";
+import InputAdornment from "@mui/material/InputAdornment";
+import {Navigate} from "react-router-dom";
 
 
 interface State {
