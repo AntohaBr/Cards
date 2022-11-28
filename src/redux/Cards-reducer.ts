@@ -1,17 +1,12 @@
-import {
-    packsAPI,
-    PacksGetParamsTypeNotNeeded,
-    PacksGetResponseType,
-    PostPacksType,
-    UpdatePacksType
-} from "../api/packs-api";
 import {ThunkDispatchType} from "./Store";
 import {
     cardsAPI,
     CardsType,
     GetCardsResponseType,
     GetParamsCardsTypeNotNeeded,
-    NewCardPostType, PostCardType, UpdateCardType
+    NewCardPostType,
+    PostCardType,
+    UpdateCardType
 } from "../api/cards-api";
 import {AddPackACType, DeletePackACType, SetPackACType} from "./Packs-reducer";
 
@@ -49,6 +44,11 @@ export const cardsReducer = (state = initialState, action: CardsActionTypes): Ge
                     ),
                 ],
             }
+        case 'CARDS/CHANGE-PRIVATE-CARDS':
+            return {...state, packPrivate: action.value}
+
+        case 'CARDS/CHANGE-CARDS-TOTAL-COUNT':
+            return {...state, cardsTotalCount: action.value}
         default:
             return state
     }
@@ -59,6 +59,8 @@ export const setCardAC = (cards: CardsType[]) => ({type: 'CARDS/SET_CARDS', card
 export const deleteCardAC = (cardID: string) => ({type: 'CARDS/DELETE_CARD' as const, cardID})
 export const addCardAC = (addCard: NewCardPostType) => ({type: 'CARDS/ADD_CARD' as const, addCard})
 export const updateCardAC = (updateCard: CardsType) => ({type: 'CARDS/UPDATE_CARD' as const, updateCard})
+export const changePrivateCardsAC = (value: boolean) => ({type: 'CARDS/CHANGE-PRIVATE-CARDS' as const, value})
+export const cardsTotalCountAC = (value:number) => ({type: 'CARDS/CHANGE-CARDS-TOTAL-COUNT' as const, value})
 
 
 //TC
@@ -103,6 +105,8 @@ export type CardsActionTypes = ReturnType<typeof setCardAC>
     | ReturnType<typeof deleteCardAC>
     | ReturnType<typeof addCardAC>
     | ReturnType<typeof updateCardAC>
+    | ReturnType<typeof changePrivateCardsAC>
+    | ReturnType<typeof cardsTotalCountAC>
     | AddPackACType
     | SetPackACType
     | DeletePackACType

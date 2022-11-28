@@ -17,6 +17,7 @@ const initialState: PacksGetResponseType = {
     pageCount: 0,
     token: "",
     tokenDeathTime: 0,
+
 }
 
 export const packsReducer = (state = initialState, action: PacksActionTypes): PacksGetResponseType => {
@@ -36,6 +37,18 @@ export const packsReducer = (state = initialState, action: PacksActionTypes): Pa
                     ),
                 ],
             }
+        case "PACKS/CHANGE-CARD-PACKS-TOTAL-COUNT":
+            return {...state, cardPacksTotalCount: action.value}
+
+        case "PACKS/CHANGE-MAX-CARDS-COUNT":
+            return {...state, maxCardsCount: action.value}
+
+        case "PACKS/CHANGE-MIN-CARDS-COUNT":
+            return {...state, minCardsCount: action.value}
+
+        case "PACKS/REBOOT-FILTER-PACKS-CARDS":
+            return {...state, minCardsCount: 0,cardPacksTotalCount: 5, maxCardsCount: 10}
+
         default:
             return state
     }
@@ -46,6 +59,11 @@ export const setPacksAC = (allPacks: PacksType[]) => ({type: 'PACKS/SET-ALL-PACK
 export const deletePackAC = (packID: string) => ({type: 'PACKS/DELETE-PACK', packID}) as const
 export const addPackAC = (newPack: PacksType) => ({type: 'PACKS/ADD-NEW-PACK', newPack}) as const
 export const updatePackAC = (updatedPack: PacksType) => ({type: 'PACKS/UPDATE-PACK', updatedPack}) as const
+export const cardPacksTotalCountAC = (value: number) => ({type: 'PACKS/CHANGE-CARD-PACKS-TOTAL-COUNT', value}) as const
+export const maxCardsCountAC = (value: number) => ({type: 'PACKS/CHANGE-MAX-CARDS-COUNT', value}) as const
+export const minCardsCountAC = (value: number) => ({type: 'PACKS/CHANGE-MIN-CARDS-COUNT', value}) as const
+export const rebootFilterCardsCartsAC = () => ({type: 'PACKS/REBOOT-FILTER-PACKS-CARDS'}) as const
+
 
 
 //TC
@@ -89,6 +107,10 @@ export type PacksActionTypes = SetPackACType
     | DeletePackACType
     | AddPackACType
     | ReturnType<typeof updatePackAC>
+    | ReturnType<typeof cardPacksTotalCountAC>
+    | ReturnType<typeof maxCardsCountAC>
+    | ReturnType<typeof minCardsCountAC>
+    | ReturnType<typeof rebootFilterCardsCartsAC>
 
 export type SetPackACType = ReturnType<typeof setPacksAC>
 
