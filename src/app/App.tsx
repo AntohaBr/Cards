@@ -18,6 +18,7 @@ import {ErrorSnackbar} from '../components/Error-snackbar/Error-snackbar';
 import {ModalAddNewPack} from "../components/Modal/ModalPack/ModalAddNewPack/ModalAddNewPack";
 import {ModalEditPack} from "../components/Modal/ModalPack/ModalEditPack/ModalEditPack";
 import {ModalDeletePack} from "../components/Modal/ModalPack/ModalDeletePack/ModalDeletePack";
+import {ModalDeleteCard} from "../components/Modal/ModalCards/ModalDeleteCard/ModalDeleteCard";
 
 
 export enum URL {
@@ -34,7 +35,8 @@ export enum URL {
     OTHER_PATH = '*',
     MODAL_NEW_PACK = '/modal-new-pack',
     MODAL_EDIT_PACK = '/modal-edit-pack',
-    MODAL_DELETE_PACK = '/modal-delete-pack'
+    MODAL_DELETE_PACK = '/modal-delete-pack',
+    MODAL_DELETE_CARD = '/modal-delete-card'
 }
 
 
@@ -74,6 +76,7 @@ export const App = () => {
                     <Route path={URL.MODAL_NEW_PACK} element={<ModalAddNewPack/>}/>
                     <Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack/>}/>
                     <Route path={URL.MODAL_DELETE_PACK} element={<ModalDeletePack/>}/>
+                    <Route path={URL.MODAL_DELETE_CARD} element={<ModalDeleteCard/>}/>
                 </Routes>
             </div>
         </div>

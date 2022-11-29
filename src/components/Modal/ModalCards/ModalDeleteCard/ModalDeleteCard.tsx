@@ -3,10 +3,10 @@ import {Button, Dialog} from '@mui/material';
 import {useSelector} from 'react-redux';
 import {RootReducerType} from '../../../../redux/Store';
 import CloseIcon from '@mui/icons-material/Close';
-import style from './ModalDeletePack.module.css'
+import style from './ModalDeleteCard.module.css'
 
 
-export const ModalDeletePack = () => {
+export const ModalDeleteCard = () => {
 
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
@@ -21,18 +21,18 @@ export const ModalDeletePack = () => {
     };
 
     return <div>
-        <Button variant='outlined' onClick={handleClickOpen}>Delete Pack</Button>
+        <Button variant='outlined' onClick={handleClickOpen}>Delete Card</Button>
         <Dialog open={open}>
-            <div className={style.modalDeletePackContainer}>
-                <div className={style.modalDeletePack}>
-                    <div className={style.modalDeletePackTitle}>Delete Pack</div>
+            <div className={style.modalDeleteCardContainer}>
+                <div className={style.modalDeleteCard}>
+                    <div className={style.modalDeleteCardTitle}>Delete Card</div>
                     <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={handleClose}/>
                 </div>
-                <div className={style.modalDeletePackText}>
-                    <p>Do you really want to remove <b>Pack Name?</b></p>
+                <div className={style.modalDeleteCardText}>
+                    <p>Do you really want to remove <b>Card Name?</b></p>
                     <p>All cards will be deleted.</p>
                 </div>
-                <div className={style.modalDeletePackButton}>
+                <div className={style.modalDeleteCardButton}>
                     <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'inherit'}
                             style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>
                         Cancel
