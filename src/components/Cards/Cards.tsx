@@ -86,7 +86,12 @@ const Cards = (props: PropsType) => {
                     <h3>Friend`s Pack</h3>
                     <div className={styles.firstBlock}>
                         <InputWithIcon/>
-                        <Button variant={"contained"} color={"primary"} className={styles.learnPackBtn}>Learn Pack</Button>
+                        <Button variant={"contained"} color={"primary"} className={styles.learnPackBtn}
+                        onClick={()=>navigate(URL.LEARN)}
+                        >
+
+                            Learn Pack
+                        </Button>
                     </div>
 
 
