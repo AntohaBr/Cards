@@ -41,6 +41,9 @@ export const Navbar = () => {
             <div className={style.item}>
                 <Link to={URL.MODAL_DELETE_CARD}>Modal delete card</Link>
             </div>
+            <div className={style.item}>
+                <Link to={URL.MODAL_NEW_CARD}>Modal new card</Link>
+            </div>
         </nav>
     )
 }
