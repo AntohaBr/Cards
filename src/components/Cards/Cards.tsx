@@ -17,6 +17,8 @@ import GradeIcon from '@mui/icons-material/Grade';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {ArrowBack} from "@mui/icons-material";
 import {URL} from "../../app/App";
+import InputWithIcon from "../util-components/InputWithIcon";
+import styles from './Cards.module.css'
 
 type PropsType = {}
 const Cards = (props: PropsType) => {
@@ -79,7 +81,12 @@ const Cards = (props: PropsType) => {
                         <Button onClick={() => navigate(URL.CARD_PACK)}>
                             <ArrowBack/>
                         </Button>
-
+                        <span>Back to pack-list</span>
+                    </div>
+                    <h3>Friend`s Pack</h3>
+                    <div className={styles.firstBlock}>
+                        <InputWithIcon/>
+                        <Button variant={"contained"} color={"primary"} className={styles.learnPackBtn}>Learn Pack</Button>
                     </div>
 
 
@@ -101,7 +108,7 @@ const Cards = (props: PropsType) => {
                                         key={row._id}
                                         sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                     >
-                                        <TableCell component="th" scope="row">
+                                        <TableCell component="th" scope="row" align={"right"}>
                                             {row.question}
                                         </TableCell>
 

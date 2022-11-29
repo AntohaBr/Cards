@@ -19,6 +19,7 @@ import {emailInProfileTC} from "../redux/Reducer-profile";
 import Packs from "../components/Cards/Packs";
 import Cards from "../components/Cards/Cards";
 
+
 export enum URL{
     DEFAULT='/',
     LOGIN='/login',
@@ -31,6 +32,7 @@ export enum URL{
     SUPER_COMPONENTS='/super-components',
     CARDS='/card',
     OTHER_PATH='*',
+    LEARN='/learn'
 
 }
 export const App = () => {
@@ -70,6 +72,8 @@ export const App = () => {
                     <Route path={URL.OTHER_PATH} element={<Navigate to={URL.ERROR_404}/>}/>
                     <Route path={`${URL.CARDS}/:cardId`} element={<Cards/>}/>
                     <Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>
+
+
                 </Routes>
 
             </div>
