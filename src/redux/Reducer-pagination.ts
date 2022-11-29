@@ -2,7 +2,7 @@ const initState = {
     packsPageCount: 9,
     allCardsPack: 0,
     packsCurrentPage: 7,
-    allCards:0,
+    allCards:8,
     cardsPageCount:4,
     cardsCurrentPage:1
 }
@@ -13,7 +13,7 @@ export const paginationReducer = (state: initStateType = initState, action: any)
         }
 
         case "SET-TOTAL-COUNT": {
-            return {...state, allCardsPack: action.totalCount}
+            return {...state, allCards: action.totalCount}
         }
         case "SET-CURRENT-PAGE": {
             return {...state, cardsCurrentPage: action.currentPage}

@@ -44,7 +44,7 @@ export const getCardsTC=(cardsPack_id:string,page:number,pageCount:number)=>{
         try {
             dispatch(setAppStatusAC("loading", true))
             const response=await cardsAPI.getCards(cardsPack_id,page,pageCount)
-            dispatch(setPageCount(response.data.cardsTotalCount))
+            dispatch(setPageCount(response.data.pageCount))
             dispatch(totalCountAC(response.data.cardsTotalCount))
             dispatch(setCurrentPageAC(response.data.page))
             dispatch(setCardsAC(response.data.cards))

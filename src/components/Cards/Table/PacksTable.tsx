@@ -20,6 +20,7 @@ import {Link, Navigate, NavLink, Routes, useNavigate} from 'react-router-dom';
 import {URL} from "../../../app/App";
 import {Route} from "@mui/icons-material";
 import Cards from "../Cards";
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {initStateType} from "../../../redux/Reducer-pagination";
 
 export default function PacksTable() {
@@ -63,13 +64,29 @@ const redirectToCards=()=>{
                     <Button variant={"contained"} onClick={createPackHandler}>Add new pack</Button>
                 </div>
 
-                <div>
+                <div style={{
+                    display:'flex',
+                    justifyContent:'space-between',
+                    alignItems:'center'
+                }}>
 
                     <InputWithIcon/>
-                    <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
-                    <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
+
+                    <div style={{
+                        display:'flex',
+                        justifyContent:'space-around',
+                        width:'150px'
+                    }}>
+                        <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
+                        <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
+                    </div>
+
 
                     <MySlider/>
+                    <Button color={"inherit"}>
+                        <FilterAltOffIcon/>
+                    </Button>
+
 
                 </div>
                 <TableContainer component={Paper}>
@@ -104,11 +121,11 @@ const redirectToCards=()=>{
                                     sx={{'&:last-child td, &:last-child th': {border: 0}}}
                                     onClick={redirectToCards}
                                 >
-                                    <TableCell component="th" scope="row">
+                                    <TableCell component="th" scope="row" align="right">
                                         {row.name}
                                     </TableCell>
 
-                                    <TableCell align="left">{row.cardsCount}</TableCell>
+                                    <TableCell align="right">{row.cardsCount}</TableCell>
                                     <TableCell align="right">{row.updated}</TableCell>
                                     <TableCell align="right">{row.user_name}</TableCell>
                                     <TableCell align={"right"}>

@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect} from 'react';
+import React, {ChangeEvent, useEffect, useState} from 'react';
 import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
 import TableContainer from "@mui/material/TableContainer";
 import Paper from "@mui/material/Paper";
@@ -30,16 +30,19 @@ const Cards = (props: PropsType) => {
     const navigate = useNavigate();
     const id = params.cardId
 
+
     const cards = useSelector<RootReducerType, CardsType[]>(state => state.cards.cards)
     const dispatch = useDispatch<ThunkDispatchType>()
-    const cardsPack = useSelector<RootReducerType, CardPacksInitStateType>(state => state.cardPacks)
+
+    useEffect(() => {
+        dispatch(getCardsTC(id ? id : "", currentPage, pageCount))
+    }, [])
+
 
     const pagination = Math.ceil(totalCount / pageCount)
+    console.log(totalCount)
+    console.log(pageCount)
 
-    const arr = []
-    for (let i = 0; i < pagination; i++) {
-        arr.push(i)
-    }
 
     const array = []
 
@@ -49,36 +52,35 @@ const Cards = (props: PropsType) => {
 
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        dispatch(getCardsTC( id ? id: "",currentPage,+e.currentTarget.value ))
+        dispatch(getCardsTC(id ? id : "", currentPage, +e.currentTarget.value))
     }
-
-
-
 
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
 
-        dispatch(getCardsTC( id ? id : '',currentPage,pageCount))
+        dispatch(getCardsTC(id ? id : '', page, pageCount))
     }
-    useEffect(() => {
-        dispatch(getCardsTC(id ? id : "",currentPage,pageCount))
-    }, [])
+
+
+    const arr = []
+    for (let i = 0; i < pagination; i++) {
+        arr.push(i)
+        console.log(arr)
+        console.log(pagination)
+    }
     return (
-<>
-
-
+        <>
 
 
             <Grid container>
                 <Container fixed={true}>
 
-           <div>
-               <Button onClick={()=> navigate(URL.CARD_PACK)}>
-                   <ArrowBack/>
-               </Button>
+                    <div>
+                        <Button onClick={() => navigate(URL.CARD_PACK)}>
+                            <ArrowBack/>
+                        </Button>
 
-           </div>
-
+                    </div>
 
 
                     <TableContainer component={Paper}>
@@ -125,8 +127,6 @@ const Cards = (props: PropsType) => {
                 </Container>
 
             </Grid>
-
-
 
 
             <div>
