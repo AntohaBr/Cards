@@ -1,0 +1,31 @@
+
+.modalAddContainer {
+    width: 395px;
+    height: 311px;
+    background: #FFFFFF;
+    border-radius: 2px;
+}
+
+.modalAddPack {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 25px 20px 30px 20px
+}
+
+.modalAddPackTitle {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.modalAddButton {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 50px;
+}

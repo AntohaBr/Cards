@@ -7,8 +7,9 @@ import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {useDispatch, useSelector} from "react-redux";
 import {emailInfoTC, updateProfileTC} from "../../redux/Profile-reducer";
 import {Navigate} from 'react-router-dom';
-import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Autch-reducer";
+import {URL} from "../../app/App";
+// import {getPacksTC} from "../../redux/Packs-reducer";
 
 
 export const Profile = React.memo(() => {
@@ -24,6 +25,11 @@ export const Profile = React.memo(() => {
     const [avatar, setAvatar] = useState<string>(avatarRedux);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
+
+
+    // useEffect(() => {
+    //     dispatch(getPacksTC())
+    // }, [])
     useEffect(() => {
         dispatch(emailInfoTC())
     }, [])
@@ -107,4 +113,3 @@ export const Profile = React.memo(() => {
         </div>
     </div>
 })
-

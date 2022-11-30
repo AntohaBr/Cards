@@ -1,0 +1,40 @@
+
+.modalDeleteCardContainer {
+    width: 395px;
+    height: 240px;
+    background: #FFFFFF;
+    border-radius: 2px;
+}
+
+.modalDeleteCard {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 25px 20px 30px 20px
+}
+
+.modalDeleteCardTitle {
+    font-style: normal;
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 22px;
+    color: #000000;
+}
+
+.modalDeleteCardText{
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    color: #000000;
+    margin: 25px 20px 30px 20px;
+    line-height: 10px
+}
+
+.modalDeleteCardButton {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-top: 40px;
+}
