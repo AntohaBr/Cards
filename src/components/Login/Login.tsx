@@ -52,7 +52,7 @@ export const Login = () => {
         },
         onSubmit(values) {
             dispatch(loginTC(values))
-            console.log(error)
+
         },
         validate: (values) => {
             const errors: FormikErrorType = {}
