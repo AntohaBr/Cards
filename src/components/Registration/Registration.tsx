@@ -15,7 +15,7 @@ import style from './Registration.module.css'
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate} from "react-router-dom";
-import {registrationTC} from "../../redux/Autch-reducer";
+import {registrationTC} from "../../redux/Auth-reducer";
 import {URL} from "../../app/App";
 
 

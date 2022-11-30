@@ -1,6 +1,6 @@
 import {Dispatch} from "redux";
-import {authAPI} from "../api/Api";
-import {addLoginAC} from "./Autch-reducer";
+import {authAPI} from "../api/auth-api";
+import {addLoginAC} from "./Auth-reducer";
 import {AxiosError} from "axios";
 import {errorUtils} from "../utils/Error-utils";
 

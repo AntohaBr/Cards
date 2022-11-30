@@ -5,7 +5,7 @@ import {
     setAppStatusAC,
     setAppStatusActionType
 } from "./App-reducer";
-import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/Api";
+import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationParamType} from "../api/Api";
 import {errorUtils} from "../utils/Error-utils";
 import {AxiosError} from "axios";
 
@@ -35,7 +35,7 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 }
 
 
-//actions
+// actions
 export const addLoginAC = (value: boolean) => ({type: 'AUTH/SET-LOGIN', value} as const)
 export const registrationAC = (value: boolean) => ({type: 'AUTH/DATA-REGISTRATION', value} as const)
 export const recoveryPasswordAC = (email: string) => ({type: 'AUTH/RECOVERY-PASSWORD', email} as const)
