@@ -8,9 +8,9 @@ import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {Navigate, useNavigate, useParams} from "react-router-dom";
-import {setNewPasswordTC} from "../../redux/Autch-reducer";
+import {useNavigate, useParams} from "react-router-dom";
 import {URL} from "../../app/App";
+import {setNewPasswordTC} from "../../redux/Auth-reducer";
 
 
 interface State {

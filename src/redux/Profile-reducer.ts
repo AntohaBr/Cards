@@ -1,8 +1,8 @@
 import {Dispatch} from "redux";
-import {authAPI, NewDataType} from "../api/Api";
-import {setAppStatusAC} from "./App-reducer";
 import {AxiosError} from "axios";
 import {errorUtils} from "../utils/Error-utils";
+import {authAPI, NewDataType} from "../api/auth-api";
+import {setAppStatusAC} from "./App-reducer";
 
 
 const initialState = {
@@ -56,7 +56,7 @@ export const emailInfoTC = () => async (dispatch: Dispatch<ProfileActionType>) =
 
 
 //types
-type ProfileActionType =
+export type ProfileActionType =
     ReturnType<typeof updateProfileAC>
     | ReturnType<typeof emailInfoAC>
     | ReturnType<typeof setAppStatusAC>

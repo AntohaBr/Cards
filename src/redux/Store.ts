@@ -1,36 +1,38 @@
-import {combineReducers, legacy_createStore, applyMiddleware, AnyAction} from "redux";
-import {profileReducer} from "./Reducer-profile";
+import {combineReducers, legacy_createStore, applyMiddleware} from "redux";
 import thunk, {ThunkDispatch} from "redux-thunk";
-import {appReducer} from "./app-Reducer";
-import {authReducer} from "./autch-Reducer";
 import {useSelector} from "react-redux";
-import {loginReducer} from "./login-Reducer";
+import {AuthActionType, authReducer} from "./Auth-reducer";
+import {PaginationActionType, paginationReducer} from "./Pagination-reducer";
+import {ProfileActionType, profileReducer} from "./Profile-reducer";
+import {PacksActionTypes, packsReducer} from "./Packs-reducer";
+import {AppActionType, appReducer} from "./App-reducer";
+import {CardActionType, cardsReducer} from "./Cards-reducer";
 
 
 const rootReducer = combineReducers({
     auth: authReducer,
-    app:appReducer,
+    app: appReducer,
     profile: profileReducer,
-    login:loginReducer
-    cardPacks:cardPacksReducer,
-    cards:cardsReducer,
-    pagination:paginationReducer
+    packs: packsReducer,
+    cards: cardsReducer,
+    pagination: paginationReducer
 })
 
-export const store = legacy_createStore(rootReducer,applyMiddleware(thunk))
+export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 // export const useTypedDispatch = () => useDispatch<TypedDispatch>();
 
 
-//type
+//types
 export type RootReducerType = ReturnType<typeof rootReducer>
-export type ThunkDispatchType = ThunkDispatch<RootReducerType,any, AnyActionType>
+export type ThunkDispatchType = ThunkDispatch<RootReducerType, any, AnyActionType>
 
-export const useAppSelector=()=> useSelector<RootReducerType>(state => state)
+export const useAppSelector = () => useSelector<RootReducerType>(state => state)
 
 type AnyActionType = AppActionType
     | AuthActionType
     | ProfileActionType
-    | CardsActionTypes
+    | CardActionType
     | PacksActionTypes
+    | PaginationActionType
 
 

@@ -50,8 +50,6 @@ export const isInitializedTC = () => async (dispatch: Dispatch<AppActionType>) =
     try {
         dispatch(setAppStatusAC("loading", true))
         await authAPI.me()
-        console.log('^^^^^^^^')
-
         dispatch(addLoginAC(true))
         dispatch(isInitializedAC(true))
         dispatch(setAppStatusAC("succeeded", false))

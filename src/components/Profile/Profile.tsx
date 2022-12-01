@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Avatar, Badge, Button, Icon, IconButton, Paper, TextField} from "@mui/material";
+import {Avatar, Badge, Button, Icon, IconButton, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import style from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
@@ -7,9 +7,9 @@ import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {useDispatch, useSelector} from "react-redux";
 import {emailInfoTC, updateProfileTC} from "../../redux/Profile-reducer";
 import {Navigate} from 'react-router-dom';
-import {logOutTC} from "../../redux/Autch-reducer";
 import {URL} from "../../app/App";
-// import {getPacksTC} from "../../redux/Packs-reducer";
+import {logOutTC} from "../../redux/Auth-reducer";
+
 
 
 export const Profile = React.memo(() => {
@@ -25,11 +25,6 @@ export const Profile = React.memo(() => {
     const [avatar, setAvatar] = useState<string>(avatarRedux);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
-
-
-    // useEffect(() => {
-    //     dispatch(getPacksTC())
-    // }, [])
     useEffect(() => {
         dispatch(emailInfoTC())
     }, [])
@@ -113,3 +108,4 @@ export const Profile = React.memo(() => {
         </div>
     </div>
 })
+

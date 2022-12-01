@@ -1,7 +1,4 @@
 import axios, {AxiosResponse} from "axios";
-import {LoginType} from "../redux/autch-Reducer";
-
-
 
 
 const instance = axios.create({
@@ -36,30 +33,30 @@ export const authAPI = {
     }
 }
 
-export const cardsAPI = {
-    getCardsPack(pageCount:number,page:number,userId?:string){
-        return instance.get<CardPacksRequestType>(`/cards/pack`,{
-            params:{
 
-                pageCount:pageCount,
-                page,
-                user_id:userId
-            }
-        })
-    },
-    createCardsPack(name:string,privated:boolean){
-        return instance.post('cards/pack',{cardsPack :{name,privated}})
-    },
-    getCards(cardsPack_id:string,page:number,pageCount:number){
-        return instance.get<CardsRequestType>('/cards/card',{
-            params:{
-                cardsPack_id,
-                page,
-                pageCount
-            }
-        })
-    }
-}
+// export const cardsAPI = {
+//     getCardsPack(pageCount:number,page:number,userId?:string){
+//         return instance.get<CardPacksRequestType>(`cards/pack`,{
+//             params:{
+//                 pageCount:pageCount,
+//                 page,
+//                 user_id:userId
+//             }
+//         })
+//     },
+//     createCardsPack(name:string,privated:boolean){
+//         return instance.post('cards/pack',{cardsPack :{name,privated}})
+//     },
+//     getCards(cardsPack_id:string,page:number,pageCount:number){
+//         return instance.get<CardsRequestType>('cards/card',{
+//             params:{
+//                 cardsPack_id,
+//                 page,
+//                 pageCount
+//             }
+//         })
+//     }
+// }
 
 
 //types
@@ -128,23 +125,22 @@ export type CardPacksRequestType={
         user_name:string
     }[],
     cardPacksTotalCount: number
-    // количество колод
     maxCardsCount: number
     minCardsCount: number
-    page: number // выбранная страница
+    page: number
     pageCount: number
 }
-export type CardsType={
-    answer: string
-    question: string
-    cardsPack_id: string
-    grade: number
-    shots: number
-    user_id: string
-    created: string
-    updated: string
-    _id: string
-}
+// export type CardsType={
+//     answer: string
+//     question: string
+//     cardsPack_id: string
+//     grade: number
+//     shots: number
+//     user_id: string
+//     created: string
+//     updated: string
+//     _id: string
+// }
 
 export type CardsRequestType={
     cards:CardsType[]

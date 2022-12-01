@@ -8,6 +8,7 @@ import {
 } from "../api/packs-api";
 import {ThunkDispatchType} from "./Store";
 
+
 const initialState: PacksGetResponseType = {
     cardPacks: [],
     cardPacksTotalCount: 0,
@@ -17,9 +18,10 @@ const initialState: PacksGetResponseType = {
     pageCount: 0,
     token: "",
     tokenDeathTime: 0,
-
 }
 
+
+//reducers
 export const packsReducer = (state = initialState, action: PacksActionTypes): PacksGetResponseType => {
     switch (action.type) {
         case 'PACKS/SET-ALL-PACKS':
@@ -54,7 +56,8 @@ export const packsReducer = (state = initialState, action: PacksActionTypes): Pa
     }
 }
 
-//AC
+
+//actions
 export const setPacksAC = (allPacks: PacksType[]) => ({type: 'PACKS/SET-ALL-PACKS', allPacks}) as const
 export const deletePackAC = (packID: string) => ({type: 'PACKS/DELETE-PACK', packID}) as const
 export const addPackAC = (newPack: PacksType) => ({type: 'PACKS/ADD-NEW-PACK', newPack}) as const
@@ -65,8 +68,7 @@ export const minCardsCountAC = (value: number) => ({type: 'PACKS/CHANGE-MIN-CARD
 export const rebootFilterCardsCartsAC = () => ({type: 'PACKS/REBOOT-FILTER-PACKS-CARDS'}) as const
 
 
-
-//TC
+//thunks
 export const getPacksTC = (params: PacksGetParamsTypeNotNeeded) => (dispatch: ThunkDispatchType) => {
     packsAPI.getPacks({...params})
         .then((res) => {
@@ -103,6 +105,8 @@ export const updatePackTC = (params: UpdatePacksType) => (dispatch: ThunkDispatc
         })
 }
 
+
+//types
 export type PacksActionTypes = SetPackACType
     | DeletePackACType
     | AddPackACType

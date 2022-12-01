@@ -1,8 +1,8 @@
-import {cardsAPI, CardsType} from "../api/api";
 import {Dispatch} from "redux";
-import {setAppErrorAC, setAppStatusAC} from "./app-Reducer";
-import {AxiosError} from "axios";
-import {setCurrentPageAC, setPageCount, totalCountAC} from "./Reducer-pagination";
+import {setCurrentPageAC, setPageCount, totalCountAC} from "./Pagination-reducer";
+import {setAppStatusAC} from "./App-reducer";
+import {cardsAPI, CardsType} from "../api/cards-api";
+
 
 const initialState={
     cards:[
@@ -19,7 +19,10 @@ const initialState={
         }
     ]
 }
-export const cardsReducer=(state:initStateType=initialState,action:ActionType):initStateType=>{
+
+
+//reducers
+export const cardsReducer=(state:initStateType=initialState,action:CardActionType):initStateType=>{
     switch (action.type) {
         case "SET-CARDS":{
             return {...state,cards:action.cards}
@@ -28,15 +31,12 @@ export const cardsReducer=(state:initStateType=initialState,action:ActionType):i
             return state
         }
     }
-
 }
 
 
-const setCardsAC=(cards:CardsType[])=>{
-    return {
-        type:'SET-CARDS',cards
-    } as const
-}
+//actions
+const setCardsAC=(cards:CardsType[])=> ({type:'SET-CARDS',cards} as const)
+
 
 //thunks
 export const getCardsTC=(cardsPack_id:string,page:number,pageCount:number)=>{
@@ -49,7 +49,6 @@ export const getCardsTC=(cardsPack_id:string,page:number,pageCount:number)=>{
             dispatch(setCurrentPageAC(response.data.page))
             dispatch(setCardsAC(response.data.cards))
             dispatch(setAppStatusAC("succeeded",false))
-
         }
         catch (e) {
           dispatch(setAppStatusAC("failed", false))
@@ -57,6 +56,8 @@ export const getCardsTC=(cardsPack_id:string,page:number,pageCount:number)=>{
     }
 }
 
+
 //types
 type initStateType=typeof initialState
-type ActionType=ReturnType<typeof setCardsAC>
+
+export type CardActionType = ReturnType<typeof setCardsAC>

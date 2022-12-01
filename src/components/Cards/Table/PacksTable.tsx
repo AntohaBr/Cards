@@ -21,20 +21,20 @@ import {URL} from "../../../app/App";
 import {Route} from "@mui/icons-material";
 import Cards from "../Cards";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import {initStateType} from "../../../redux/Reducer-pagination";
+import {initStateType} from "../../../redux/Pagination-reducer";
 
 export default function PacksTable() {
 
 
     const cardPacksStore = useSelector<RootReducerType, CardPacksInitStateType>(state => state.cardPacks)
 
-   const navigate=useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch<ThunkDispatchType>()
     const userId = useSelector<RootReducerType, string>(state => state.profile.userId)
-    const paginationStore=useSelector<RootReducerType,initStateType>(state => state.pagination)
+    const paginationStore = useSelector<RootReducerType, initStateType>(state => state.pagination)
 
 
-const redirectToCards=()=>{
+    const redirectToCards = () => {
         return <Navigate to={URL.CARDS}/>
     }
 
@@ -53,7 +53,6 @@ const redirectToCards=()=>{
     }
 
 
-
     return (
 
         <Grid container spacing={2}>
@@ -65,17 +64,17 @@ const redirectToCards=()=>{
                 </div>
 
                 <div style={{
-                    display:'flex',
-                    justifyContent:'space-between',
-                    alignItems:'center'
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                 }}>
 
                     <InputWithIcon/>
 
                     <div style={{
-                        display:'flex',
-                        justifyContent:'space-around',
-                        width:'150px'
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        width: '150px'
                     }}>
                         <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
                         <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
@@ -94,8 +93,6 @@ const redirectToCards=()=>{
                         <TableHead>
 
 
-
-
                             <TableRow onClick={redirectToCards}>
 
                                 <TableCell align="right">Name</TableCell>
@@ -107,13 +104,9 @@ const redirectToCards=()=>{
                             </TableRow>
 
 
-
                         </TableHead>
                         <TableBody>
                             {cardPacksStore.cardPacks.map((row) => (
-
-
-
 
 
                                 <TableRow
@@ -133,8 +126,9 @@ const redirectToCards=()=>{
                                             {row.user_id === userId ? <span>
 
 
-                                                    <Button disabled={row.cardsCount===0}  onClick={()=>navigate(`${URL.CARDS}/${row._id}`)}>
-                                                         <SchoolIcon />
+                                                    <Button disabled={row.cardsCount === 0}
+                                                            onClick={() => navigate(`${URL.CARDS}/${row._id}`)}>
+                                                         <SchoolIcon/>
                                                     </Button>
 
                                            <span>
@@ -149,7 +143,7 @@ const redirectToCards=()=>{
 
 
                                             </span> : <span><NavLink to={`${URL.CARDS}/${row._id}`}>
-                                                <Button disabled={row.cardsCount===0}>
+                                                <Button disabled={row.cardsCount === 0}>
                                                        <SchoolIcon/>
                                                 </Button>
 

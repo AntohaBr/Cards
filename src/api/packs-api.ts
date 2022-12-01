@@ -8,7 +8,7 @@ const instance = axios.create({
 
 export const packsAPI = {
     getPacks(params: PacksGetParamsTypeNotNeeded) {
-        return instance.get<PacksGetResponseType>(`/cards/pack`,
+        return instance.get<PacksGetResponseType>(`cards/pack`,
             {
                 params: {
                     packName: params.packName,
@@ -22,15 +22,15 @@ export const packsAPI = {
     },
 
     deletePacks(packID: string) {
-        return instance.delete<DeletePackResponseType>(`/cards/pack`, {params: {id: packID}})
+        return instance.delete<DeletePackResponseType>(`cards/pack`, {params: {id: packID}})
     },
 
     postPacks(postModel: PostPacksType) {
-        return instance.post<PostPacksType, AxiosResponse<AddNewPackType>>(`/cards/pack`, postModel)
+        return instance.post<PostPacksType, AxiosResponse<AddNewPackType>>(`cards/pack`, postModel)
     },
 
     updatePacks(putModel: UpdatePacksType) {
-        return instance.put<UpdatePacksType, AxiosResponse<UpdatePackType>>(`/cards/pack`, putModel)
+        return instance.put<UpdatePacksType, AxiosResponse<UpdatePackType>>(`cards/pack`, putModel)
     }
 }
 

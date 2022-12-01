@@ -22,15 +22,15 @@ export const cardsAPI = {
         })
     },
     deleteCards(cardID: string) {
-        return instance.delete<string, AxiosResponse<DeleteRespondCardType>>(`/cards/card`, {params: {id: cardID}})
+        return instance.delete<string, AxiosResponse<DeleteRespondCardType>>(`cards/card`, {params: {id: cardID}})
     },
 
     postCards(postModel: PostCardType) {
-        return instance.post <PostCardType, AxiosResponse<PostResponseCardType>>(`/cards/card`, postModel) // TODO исправить типизацию респонса
+        return instance.post <PostCardType, AxiosResponse<PostResponseCardType>>(`cards/card`, postModel) // TODO исправить типизацию респонса
     },
 
     updateCards(putModel: UpdateCardType) {
-        return instance.put <UpdateCardType, AxiosResponse<PutResponseCardType>>(`/cards/card`, putModel)
+        return instance.put <UpdateCardType, AxiosResponse<PutResponseCardType>>(`cards/card`, putModel)
     }
 
 }
@@ -73,27 +73,40 @@ export type GetCardsResponseType = {
     "token": string
     "tokenDeathTime": number
 }
-
-export type CardsType = {
-    "_id": string
-    "cardsPack_id": string
-    "user_id": string
-    "answer": string
-    "question": string
-    "grade": number
-    "shots": number
-    "comments": string
-    "type": string
-    "rating": number
-    "more_id": string
-    "created": Date
-    "updated": Date
-    "__v": number
-    "answerImg": string
-    "answerVideo": string
-    "questionImg": string
-    "questionVideo": string
+// Муслима
+export type CardsType={
+    answer: string
+    question: string
+    cardsPack_id: string
+    grade: number
+    shots: number
+    user_id: string
+    created: string
+    updated: string
+    _id: string
 }
+
+// Леши
+// export type CardsType = {
+//     "_id": string
+//     "cardsPack_id": string
+//     "user_id": string
+//     "answer": string
+//     "question": string
+//     "grade": number
+//     "shots": number
+//     "comments": string
+//     "type": string
+//     "rating": number
+//     "more_id": string
+//     "created": Date
+//     "updated": Date
+//     "__v": number
+//     "answerImg": string
+//     "answerVideo": string
+//     "questionImg": string
+//     "questionVideo": string
+// }
 
 type GetParamsCardsType = {
     cardAnswer?: string

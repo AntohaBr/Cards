@@ -5,9 +5,9 @@ import {
     setAppStatusAC,
     setAppStatusActionType
 } from "./App-reducer";
-import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationParamType} from "../api/Api";
 import {errorUtils} from "../utils/Error-utils";
 import {AxiosError} from "axios";
+import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/auth-api";
 
 
 const initialState = {
@@ -46,9 +46,7 @@ export const setNewPasswordAC = (newPassport: string) => ({type: 'AUTH/SET-NEW-P
 export const loginTC = (values: LoginType) => async (dispatch: Dispatch<AuthActionType>) => {
     try {
         dispatch(setAppStatusAC("loading", true))
-        console.log('*****')
         await authAPI.login(values)
-        console.log('>>>>')
         dispatch(addLoginAC(true))
         dispatch(setAppStatusAC("succeeded", true))
     } catch (e) {
@@ -63,7 +61,6 @@ export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
         await authAPI.logOut()
         dispatch(addLoginAC(false))
         dispatch(setAppStatusAC("succeeded", false))
-
     } catch (e) {
         dispatch(addLoginAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -74,9 +71,7 @@ export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
 export const registrationTC = (value: RegistrationType) => async (dispatch: Dispatch<AuthActionType>) => {
     try {
         dispatch(setAppStatusAC('loading', true))
-        console.log('*****')
         await authAPI.registration(value)
-        console.log('>>>>')
         dispatch(registrationAC(true))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
@@ -88,8 +83,7 @@ export const registrationTC = (value: RegistrationType) => async (dispatch: Disp
 export const recoveryPasswordTC = (email: string) => async (dispatch: Dispatch<AuthActionType>) => {
     try {
         const data: ForgotType = {
-            email: email,
-            message: `<div style="background-color: lime; padding: 15px">
+            email: email, message: `<div style="background-color: lime; padding: 15px">
 password recovery link: 
 <a href='http://localhost:3000/new-password/$token$'>link</a>
 </div>`
@@ -106,10 +100,7 @@ password recovery link:
 
 export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch<AuthActionType>) => {
     try {
-        const data: NewPasswordType = {
-            password: password,
-            resetPasswordToken: token
-        }
+        const data: NewPasswordType = {password: password, resetPasswordToken: token}
         dispatch(setAppStatusAC('loading', true))
         await authAPI.setNewPassword(data)
         dispatch(setAppStatusAC('succeeded', false))
@@ -121,7 +112,7 @@ export const setNewPasswordTC = (password: string, token: string) => async (disp
 
 
 //types
-type AuthActionType =
+export type AuthActionType =
     ReturnType<typeof addLoginAC>
     | ReturnType<typeof registrationAC>
     | ReturnType<typeof recoveryPasswordAC>
