@@ -7,8 +7,8 @@ const instance = axios.create({
 })
 
 export const cardsAPI = {
-    getCards(params: GetParamsCardsTypeNotNeeded) {
-        return instance.get<GetParamsCardsTypeNotNeeded, AxiosResponse<GetCardsResponseType>>(`/cards/card`, {
+    getCards(params: GetParamsCardsType) {
+        return instance.get<GetParamsCardsType, AxiosResponse<GetCardsResponseType>>(`cards/card`, {
             params: {
                 cardAnswer: params.cardAnswer,
                 cardQuestion: params.cardQuestion,
@@ -26,7 +26,7 @@ export const cardsAPI = {
     },
 
     postCards(postModel: PostCardType) {
-        return instance.post <PostCardType, AxiosResponse<PostResponseCardType>>(`cards/card`, postModel) // TODO исправить типизацию респонса
+        return instance.post <PostCardType, AxiosResponse<PostResponseCardType>>(`cards/card`, postModel)
     },
 
     updateCards(putModel: UpdateCardType) {
@@ -74,66 +74,19 @@ export type GetCardsResponseType = {
     "tokenDeathTime": number
 }
 // Муслима
-export type CardsType={
-    answer: string
-    question: string
-    cardsPack_id: string
-    grade: number
-    shots: number
-    user_id: string
-    created: string
-    updated: string
-    _id: string
-}
-
-// Леши
-// export type CardsType = {
-//     "_id": string
-//     "cardsPack_id": string
-//     "user_id": string
-//     "answer": string
-//     "question": string
-//     "grade": number
-//     "shots": number
-//     "comments": string
-//     "type": string
-//     "rating": number
-//     "more_id": string
-//     "created": Date
-//     "updated": Date
-//     "__v": number
-//     "answerImg": string
-//     "answerVideo": string
-//     "questionImg": string
-//     "questionVideo": string
+// export type CardsType={
+//     answer: string
+//     question: string
+//     cardsPack_id: string
+//     grade: number
+//     shots: number
+//     user_id: string
+//     created: string
+//     updated: string
+//     _id: string
 // }
 
-type GetParamsCardsType = {
-    cardAnswer?: string
-    cardQuestion?: string
-    cardsPack_id: string
-    min?: number
-    max?: number
-    sortCards?: number
-    page?: number
-    pageCount?: number
-}
-
-export type GetParamsCardsTypeNotNeeded = Partial<GetParamsCardsType>
-
-type DeleteRespondCardType = {
-    deletedCard: CardsType
-    "token": "45bc1750-6e7f-11ed-82c3-715f20fbf94f",
-    "tokenDeathTime": 1669583642821
-}
-
-type PostResponseCardType = {
-    newCard: NewCardPostType
-    token: string
-    tokenDeathTime: number
-}
-
-export type NewCardPostType = {
+export type CardsType = {
     "_id": string
     "cardsPack_id": string
     "user_id": string
@@ -154,8 +107,55 @@ export type NewCardPostType = {
     "questionVideo": string
 }
 
+export type GetParamsCardsType = {
+    cardAnswer?: string
+    cardQuestion?: string
+    cardsPack_id: string
+    min?: number
+    max?: number
+    sortCards?: number
+    page?: number
+    pageCount?: number
+}
+
+// export type GetParamsCardsTypeNotNeeded = Partial<GetParamsCardsType>
+
+type DeleteRespondCardType = {
+    deletedCard: CardsType
+    // "token": "45bc1750-6e7f-11ed-82c3-715f20fbf94f",
+    token: string
+    tokenDeathTime: number
+}
+
+type PostResponseCardType = {
+    newCard: NewCardPostType
+    token: string
+    tokenDeathTime: number
+}
+
+export type NewCardPostType = {
+    _id: string
+    cardsPack_id: string
+    user_id: string
+    answer: string
+    question: string
+    grade: number
+    shots: number
+    comments: string
+    type: string
+    rating: number
+    more_id: string
+    created: Date
+    updated: Date
+    __v: number
+    answerImg: string
+    answerVideo: string
+    questionImg: string
+    questionVideo: string
+}
+
 type PutResponseCardType = {
     updatedCard: CardsType
-    "token": string
-    "tokenDeathTime": number
+    token: string
+    tokenDeathTime: number
 }

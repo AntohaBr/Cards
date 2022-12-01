@@ -6,7 +6,7 @@ import {PaginationActionType, paginationReducer} from "./Pagination-reducer";
 import {ProfileActionType, profileReducer} from "./Profile-reducer";
 import {PacksActionTypes, packsReducer} from "./Packs-reducer";
 import {AppActionType, appReducer} from "./App-reducer";
-import {CardActionType, cardsReducer} from "./Cards-reducer";
+import {CardsActionTypes, cardsReducer} from "./Cards-reducer";
 
 
 const rootReducer = combineReducers({
@@ -31,7 +31,7 @@ export const useAppSelector = () => useSelector<RootReducerType>(state => state)
 type AnyActionType = AppActionType
     | AuthActionType
     | ProfileActionType
-    | CardActionType
+    | CardsActionTypes
     | PacksActionTypes
     | PaginationActionType
 

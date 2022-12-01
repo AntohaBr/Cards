@@ -1,12 +1,12 @@
 
-import {
-    setCurrentPageAC,
-    setCurrentPagePacksAC,
-    setPageCount, setPageCountPacks,
-    totalCountAC,
-    totalCountPacksAC
-} from "./Pagination-reducer";
-
+// import {
+//     setCurrentPageAC,
+//     setCurrentPagePacksAC,
+//     setPageCount, setPageCountPacks,
+//     totalCountAC,
+//     totalCountPacksAC
+// } from "./Pagination-reducer";
+//
 
 export type CardsType = {
     _id: string

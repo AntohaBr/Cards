@@ -114,22 +114,22 @@ export type LoginType = {
     password: string
     rememberMe: boolean
 }
-export type CardPacksRequestType={
-    cardPacks: {
-        _id: string
-        user_id: string
-        name: string
-        cardsCount: number
-        created: string
-        updated: string
-        user_name:string
-    }[],
-    cardPacksTotalCount: number
-    maxCardsCount: number
-    minCardsCount: number
-    page: number
-    pageCount: number
-}
+// export type CardPacksRequestType={
+//     cardPacks: {
+//         _id: string
+//         user_id: string
+//         name: string
+//         cardsCount: number
+//         created: string
+//         updated: string
+//         user_name:string
+//     }[],
+//     cardPacksTotalCount: number
+//     maxCardsCount: number
+//     minCardsCount: number
+//     page: number
+//     pageCount: number
+// }
 // export type CardsType={
 //     answer: string
 //     question: string

@@ -19,9 +19,9 @@ import {getCardsTC} from "../../redux/Cards-reducer";
 import {CardsType} from "../../api/cards-api";
 
 
-type PropsType = {}
+// type PropsType = {}
 
-export const Cards = (props: PropsType) => {
+export const Cards = () => {
     const pageCount = useSelector<RootReducerType, number>(state => state.pagination.cardsPageCount)
     const currentPage = useSelector<RootReducerType, number>(state => state.pagination.cardsCurrentPage)
     const totalCount = useSelector<RootReducerType, number>(state => state.pagination.allCards)
@@ -35,7 +35,8 @@ export const Cards = (props: PropsType) => {
     const dispatch = useDispatch<ThunkDispatchType>()
 
     useEffect(() => {
-        dispatch(getCardsTC(id ? id : "", currentPage, pageCount))
+        // dispatch(getCardsTC(id ? id : "", currentPage, pageCount))
+        dispatch(getCardsTC({pageCount,page:currentPage,cardsPack_id:id ? id : ''}))
     }, [])
 
     const pagination = Math.ceil(totalCount / pageCount)
@@ -49,12 +50,14 @@ export const Cards = (props: PropsType) => {
     }
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        dispatch(getCardsTC(id ? id : "", currentPage, +e.currentTarget.value))
+        // dispatch(getCardsTC(id ? id : "", currentPage, +e.currentTarget.value))
+        dispatch(getCardsTC({pageCount:+e.currentTarget.value,page:currentPage,cardsPack_id:id ? id : ''}))
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
 
-        dispatch(getCardsTC(id ? id : '', page, pageCount))
+        // dispatch(getCardsTC(id ? id : '', page, pageCount))
+        dispatch(getCardsTC({pageCount,page:page,cardsPack_id:id ? id : ''}))
     }
 
     const arr = []
@@ -99,7 +102,7 @@ export const Cards = (props: PropsType) => {
                                             {row.question}
                                         </TableCell>
                                         <TableCell align="right">{row.answer}</TableCell>
-                                        <TableCell align="right">{row.updated}</TableCell>
+                                        <TableCell align="right">{row.updated.toString()}</TableCell>
                                         <TableCell align="right">
                                             <span>
                                                        <GradeIcon fontSize={"small"} color={"warning"}/>

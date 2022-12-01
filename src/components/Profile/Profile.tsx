@@ -39,7 +39,9 @@ export const Profile = React.memo(() => {
     }
 
     const onClickBackToPacksHandler = () =>{
-        (<Navigate to={URL.CARD_PACK}/>)
+        return(
+                <Navigate to={URL.CARD_PACK}/>
+            )
     }
 
     const photoUpload = (e: any): void => {
