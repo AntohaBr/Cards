@@ -9,7 +9,7 @@ import {emailInfoTC, updateProfileTC} from "../../redux/Profile-reducer";
 import {Navigate} from 'react-router-dom';
 import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Auth-reducer";
-
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 
 export const Profile = React.memo(() => {
@@ -38,6 +38,10 @@ export const Profile = React.memo(() => {
         setEditNameMod(false)
     }
 
+    const onClickBackToPacksHandler = () =>{
+        (<Navigate to={URL.CARD_PACK}/>)
+    }
+
     const photoUpload = (e: any): void => {
         e.preventDefault()
         const reader = new FileReader()
@@ -56,6 +60,10 @@ export const Profile = React.memo(() => {
     }
 
     return <div className={style.profileBlock}>
+        <div className={style.profileBackToPacks}>
+            <ArrowBackIcon color={'primary'}/>
+            <span className={style.profileBackToPacksText} onClick={onClickBackToPacksHandler}>Back to Packs List</span>
+        </div>
         <div className={style.profileContainer}>
             <h2 className={style.profileTitle}>Personal information</h2>
             <Badge className={style.profileBadge}

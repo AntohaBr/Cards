@@ -15,8 +15,8 @@ import {CircularProgress, LinearProgress} from "@mui/material";
 import {NewPassword} from "../components/New-password/New-password";
 import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
 import {getPacksTC} from "../redux/Packs-reducer";
-import Packs from "../components/Cards/Packs";
-import Cards from "../components/Cards/Cards";
+// import Packs from "../components/Cards/Packs";
+// import Cards from "../components/Cards/Cards";
 import {ModalAddNewCard} from "../components/Modal/ModalCards/ModalAddNewCard/ModalAddNewCard";
 import {ModalDeleteCard} from "../components/Modal/ModalCards/ModalDeleteCard/ModalDeleteCard";
 import {ModalDeletePack} from "../components/Modal/ModalPack/ModalDeletePack/ModalDeletePack";
@@ -57,9 +57,9 @@ export const App = () => {
         dispatch(isInitializedTC())
     }, [])
 
-    useEffect(() => {
-        dispatch(getPacksTC())
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getPacksTC())
+    // }, [])
 
     if (!isInitialized) {
         return <div
@@ -85,8 +85,8 @@ export const App = () => {
                     <Route path={URL.ERROR_404} element={<Error404/>}/>
                     <Route path={URL.OTHER_PATH} element={<Navigate to={URL.ERROR_404}/>}/>
                     <Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>
-                    <Route path={URL.CARD_PACK} element={<Packs/>}/>
-                    <Route path={`${URL.CARDS}/:cardId`} element={<Cards/>}/>
+                    {/*<Route path={URL.CARD_PACK} element={<Packs/>}/>*/}
+                    {/*<Route path={`${URL.CARDS}/:cardId`} element={<Cards/>}/>*/}
                     <Route path={URL.MODAL_NEW_PACK} element={<ModalAddNewPack/>}/>
                     <Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack/>}/>
                     <Route path={URL.MODAL_DELETE_PACK} element={<ModalDeletePack/>}/>

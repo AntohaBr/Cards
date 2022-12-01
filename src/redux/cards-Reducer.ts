@@ -43,12 +43,12 @@ export const getCardsTC=(cardsPack_id:string,page:number,pageCount:number)=>{
     return async (dispatch:Dispatch)=>{
         try {
             dispatch(setAppStatusAC("loading", true))
-            const response=await cardsAPI.getCards(cardsPack_id,page,pageCount)
-            dispatch(setPageCount(response.data.pageCount))
-            dispatch(totalCountAC(response.data.cardsTotalCount))
-            dispatch(setCurrentPageAC(response.data.page))
-            dispatch(setCardsAC(response.data.cards))
-            dispatch(setAppStatusAC("succeeded",false))
+            // const response=await cardsAPI.getCards(cardsPack_id,page,pageCount)
+            // dispatch(setPageCount(response.data.pageCount))
+            // dispatch(totalCountAC(response.data.cardsTotalCount))
+            // dispatch(setCurrentPageAC(response.data.page))
+            // dispatch(setCardsAC(response.data.cards))
+            // dispatch(setAppStatusAC("succeeded",false))
         }
         catch (e) {
           dispatch(setAppStatusAC("failed", false))

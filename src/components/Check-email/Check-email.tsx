@@ -12,9 +12,9 @@ export const CheckEmail = () => {
 
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
-    // const envelopeIcon = {
-    //     backgroundImage: `url(${envelope})`
-    // }
+    const envelopeIcon = {
+        backgroundImage: `url(${envelope})`
+    }
 
     const onClickHandler = () =>{
         (<Navigate to={URL.LOGIN}/>)
@@ -24,7 +24,7 @@ export const CheckEmail = () => {
         <div className={style.newPassword}>
             <div className={style.newPasswordContainer}>
                 <h2 className={style.title}>Check Email</h2>
-                {/*<div className={style.icon} style={envelopeIcon}></div>*/}
+                <div className={style.icon} style={envelopeIcon}></div>
                 <div className={style.remember}>
                     <p>We’ve sent an Email with instructions to </p>
                     <p>example@mail.com</p>

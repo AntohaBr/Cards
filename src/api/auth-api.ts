@@ -142,12 +142,12 @@ export type CardPacksRequestType={
 //     _id: string
 // }
 
-export type CardsRequestType={
-    cards:CardsType[]
-    cardsTotalCount: number
-    maxGrade:number
-    minGrade: number
-    page: number
-    pageCount: number
-    packUserId: string
-}
+// export type CardsRequestType={
+//     cards:CardsType[]
+//     cardsTotalCount: number
+//     maxGrade:number
+//     minGrade: number
+//     page: number
+//     pageCount: number
+//     packUserId: string
+// }
