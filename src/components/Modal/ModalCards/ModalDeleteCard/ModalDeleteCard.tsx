@@ -22,7 +22,7 @@ export const ModalDeleteCard = () => {
 
     return <div>
         <Button variant='outlined' onClick={handleClickOpen}>Delete Card</Button>
-        <Dialog open={open}>
+        <Dialog open={open} onClose={handleClose}>
             <div className={style.modalDeleteCardContainer}>
                 <div className={style.modalDeleteCard}>
                     <div className={style.modalDeleteCardTitle}>Delete Card</div>

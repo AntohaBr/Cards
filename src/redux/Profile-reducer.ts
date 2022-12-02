@@ -1,8 +1,8 @@
-import {Dispatch} from "redux";
-import {AxiosError} from "axios";
-import {errorUtils} from "../utils/Error-utils";
-import {authAPI, NewDataType} from "../api/auth-api";
-import {setAppStatusAC} from "./App-reducer";
+import {Dispatch} from 'redux';
+import {AxiosError} from 'axios';
+import {errorUtils} from '../utils/Error-utils';
+import {authAPI, NewDataType} from '../api/auth-api';
+import {setAppStatusAC} from './App-reducer';
 
 
 const initialState = {
@@ -16,10 +16,10 @@ const initialState = {
 //reducers
 export const profileReducer = (state: initialStateType = initialState, action: ProfileActionType): initialStateType => {
     switch (action.type) {
-        case "PROFILE/UPDATE-PROFILE":
+        case 'PROFILE/UPDATE-PROFILE':
             return {...state, ...action.newData};
-        case "PROFILE/AUTH-EMAIL":
-            return {...state, email: action.email}
+        case 'PROFILE/SET-INFO-USER':
+            return {...state, ...action.profile}
         default:
             return state;
     }
@@ -27,8 +27,8 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 
 //actions
-export const updateProfileAC = (newData: NewDataType) => ({type: "PROFILE/UPDATE-PROFILE", newData}as const)
-export const emailInfoAC = (email: string) => ({type: "PROFILE/AUTH-EMAIL", email} as const)
+export const updateProfileAC = (newData: NewDataType) => ({type: 'PROFILE/UPDATE-PROFILE', newData} as const)
+export const setInfoUserAC = (profile:ProfileType) => ({type: 'PROFILE/SET-INFO-USER', profile} as const)
 
 
 //thunks
@@ -42,24 +42,14 @@ export const updateProfileTC = (name: string, avatar: string) => async (dispatch
     }
 }
 
-export const emailInfoTC = () => async (dispatch: Dispatch<ProfileActionType>) => {
-    try {
-        dispatch(setAppStatusAC("loading", true))
-        const response = await authAPI.me()
-        dispatch(emailInfoAC(response.data.email))
-        dispatch(setAppStatusAC("succeeded", false))
-    } catch (e) {
-        const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
-    }
-}
-
 
 //types
 export type ProfileActionType =
     ReturnType<typeof updateProfileAC>
-    | ReturnType<typeof emailInfoAC>
+    | ReturnType<typeof setInfoUserAC>
     | ReturnType<typeof setAppStatusAC>
 
-type initialStateType = typeof initialState
+type initialStateType  = typeof initialState
+
+type ProfileType = initialStateType
 

@@ -22,7 +22,7 @@ export const ModalDeletePack = () => {
 
     return <div>
         <Button variant='outlined' onClick={handleClickOpen}>Delete Pack</Button>
-        <Dialog open={open}>
+        <Dialog open={open} onClose={handleClose}>
             <div className={style.modalDeletePackContainer}>
                 <div className={style.modalDeletePack}>
                     <div className={style.modalDeletePackTitle}>Delete Pack</div>

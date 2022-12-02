@@ -49,7 +49,7 @@ export const ModalAddNewCard = () => {
 
     return <div>
             <Button variant="outlined" onClick={handleClickOpen}>Add new card</Button>
-            <Dialog open={open}>
+            <Dialog open={open} onClose={handleClose}>
                     <div className={style.modalAddNewCardTitle}>Add new card</div>
                 <DialogContent>
                     <Box

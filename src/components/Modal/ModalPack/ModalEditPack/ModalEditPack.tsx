@@ -32,7 +32,7 @@ export const ModalEditPack = () => {
         <Button variant='outlined' onClick={handleClickOpen}>Edit pack</Button>
         {/*{actionButton}*/}
 
-        <Dialog open={open}>
+        <Dialog open={open}  onClose={handleClose}>
             {/*{children}*/}
             <div className={style.modalEditContainer}>
                 <div className={style.modalEditPack}>

@@ -5,7 +5,7 @@ import style from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {useDispatch, useSelector} from "react-redux";
-import {emailInfoTC, updateProfileTC} from "../../redux/Profile-reducer";
+import {updateProfileTC} from "../../redux/Profile-reducer";
 import {Navigate, useNavigate} from 'react-router-dom';
 import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Auth-reducer";
@@ -17,25 +17,21 @@ export const Profile = React.memo(() => {
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
     const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
     const email = useSelector<RootReducerType, string>(state => state.profile.email)
-    const dispatch = useDispatch<ThunkDispatchType>()
     const avatarRedux = useSelector<RootReducerType, string>(state => state.profile.avatar)
     const nameRedux = useSelector<RootReducerType, string>(state => state.profile.name)
+    const dispatch = useDispatch<ThunkDispatchType>()
     const navigate = useNavigate()
 
     const [name, setName] = useState<string>(nameRedux)
     const [avatar, setAvatar] = useState<string>(avatarRedux);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
-    useEffect(() => {
-        dispatch(emailInfoTC())
-    }, [])
-
     const logOutHandler = () => {
         dispatch(logOutTC())
     }
 
     const updateUserHandler = () => {
-        dispatch(updateProfileTC(name, avatar))
+        dispatch(updateProfileTC(name,avatar))
         setEditNameMod(false)
     }
 

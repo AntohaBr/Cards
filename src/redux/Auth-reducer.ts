@@ -8,6 +8,7 @@ import {
 import {errorUtils} from "../utils/Error-utils";
 import {AxiosError} from "axios";
 import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/auth-api";
+import {setInfoUserAC} from "./Profile-reducer";
 
 
 const initialState = {
@@ -43,11 +44,12 @@ export const setNewPasswordAC = (newPassport: string) => ({type: 'AUTH/SET-NEW-P
 
 
 //thunks
-export const loginTC = (values: LoginType) => async (dispatch: Dispatch<AuthActionType>) => {
+export const loginTC = (data: LoginType) => async (dispatch: Dispatch<AuthActionType>) => {
     try {
         dispatch(setAppStatusAC("loading", true))
-        await authAPI.login(values)
+        const res = await authAPI.login(data)
         dispatch(addLoginAC(true))
+        dispatch(setInfoUserAC(res.data))
         dispatch(setAppStatusAC("succeeded", true))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -119,6 +121,7 @@ export type AuthActionType =
     | ReturnType<typeof setNewPasswordAC>
     | setAppErrorActionType
     | setAppStatusActionType
+    | ReturnType<typeof setInfoUserAC>
 
 type InitialStateType = typeof initialState
 

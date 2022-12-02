@@ -5,11 +5,11 @@ import {
     PacksType,
     PostPacksType,
     UpdatePacksType
-} from "../api/packs-api";
-import {ThunkDispatchType} from "./Store";
-import {AxiosError} from "axios";
-import {errorUtils} from "../utils/Error-utils";
-import {setAppStatusAC} from "./App-reducer";
+} from '../api/packs-api';
+import {ThunkDispatchType} from './Store';
+import {AxiosError} from 'axios';
+import {errorUtils} from '../utils/Error-utils';
+import {setAppStatusAC} from './App-reducer';
 
 
 const initialState: PacksGetResponseType = {
@@ -19,7 +19,7 @@ const initialState: PacksGetResponseType = {
     minCardsCount: 0,
     page: 0,
     pageCount: 0,
-    token: "",
+    token: '',
     tokenDeathTime: 0,
 }
 
@@ -42,16 +42,16 @@ export const packsReducer = (state = initialState, action: PacksActionTypes): Pa
                     ),
                 ],
             }
-        case "PACKS/CHANGE-CARD-PACKS-TOTAL-COUNT":
+        case 'PACKS/CHANGE-CARD-PACKS-TOTAL-COUNT':
             return {...state, cardPacksTotalCount: action.value}
 
-        case "PACKS/CHANGE-MAX-CARDS-COUNT":
+        case 'PACKS/CHANGE-MAX-CARDS-COUNT':
             return {...state, maxCardsCount: action.value}
 
-        case "PACKS/CHANGE-MIN-CARDS-COUNT":
+        case 'PACKS/CHANGE-MIN-CARDS-COUNT':
             return {...state, minCardsCount: action.value}
 
-        case "PACKS/REBOOT-FILTER-PACKS-CARDS":
+        case 'PACKS/REBOOT-FILTER-PACKS-CARDS':
             return {...state, minCardsCount: 0,cardPacksTotalCount: 5, maxCardsCount: 10}
 
         default:

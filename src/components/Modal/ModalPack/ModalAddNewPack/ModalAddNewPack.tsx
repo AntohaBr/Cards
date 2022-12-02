@@ -27,7 +27,7 @@ export const ModalAddNewPack = () => {
 
     return <div>
         <Button variant='outlined' onClick={handleClickOpen}>Add new pack</Button>
-        <Dialog open={open}>
+        <Dialog open={open} onClose={handleClose}>
             <div className={style.modalAddContainer}>
                 <div className={style.modalAddPack}>
                     <div className={style.modalAddPackTitle}>Add new pack</div>

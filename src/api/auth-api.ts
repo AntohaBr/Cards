@@ -16,8 +16,8 @@ export const authAPI = {
     registration(data: RegistrationType) {
         return instance.post<RegistrationType, AxiosResponse<ResponseRegistrationType>>('auth/register', data)
     },
-    login(values: LoginType) {
-        return instance.post<ResponseType>('auth/login', values)
+    login(data: LoginType) {
+        return instance.post<ResponseType>('auth/login', data)
     },
     logOut() {
         return instance.delete<{ info: string, error: string }>('auth/me')
@@ -32,31 +32,6 @@ export const authAPI = {
         return instance.post<NewPasswordType,AxiosResponse<ResponseNewPasswordType>>('auth/set-new-password',token)
     }
 }
-
-
-// export const cardsAPI = {
-//     getCardsPack(pageCount:number,page:number,userId?:string){
-//         return instance.get<CardPacksRequestType>(`cards/pack`,{
-//             params:{
-//                 pageCount:pageCount,
-//                 page,
-//                 user_id:userId
-//             }
-//         })
-//     },
-//     createCardsPack(name:string,privated:boolean){
-//         return instance.post('cards/pack',{cardsPack :{name,privated}})
-//     },
-//     getCards(cardsPack_id:string,page:number,pageCount:number){
-//         return instance.get<CardsRequestType>('cards/card',{
-//             params:{
-//                 cardsPack_id,
-//                 page,
-//                 pageCount
-//             }
-//         })
-//     }
-// }
 
 
 //types
@@ -74,7 +49,7 @@ export type ResponseType={
     _id: string;
     email: string;
     name: string;
-    avatar?: string;
+    avatar: string;
     publicCardPacksCount: number;
     created: Date;
     updated: Date;
@@ -87,6 +62,7 @@ export type ResponseType={
 export type NewDataType = {
     name: string
     avatar: string
+
 }
 
 export type ForgotType={
@@ -114,40 +90,3 @@ export type LoginType = {
     password: string
     rememberMe: boolean
 }
-// export type CardPacksRequestType={
-//     cardPacks: {
-//         _id: string
-//         user_id: string
-//         name: string
-//         cardsCount: number
-//         created: string
-//         updated: string
-//         user_name:string
-//     }[],
-//     cardPacksTotalCount: number
-//     maxCardsCount: number
-//     minCardsCount: number
-//     page: number
-//     pageCount: number
-// }
-// export type CardsType={
-//     answer: string
-//     question: string
-//     cardsPack_id: string
-//     grade: number
-//     shots: number
-//     user_id: string
-//     created: string
-//     updated: string
-//     _id: string
-// }
-
-// export type CardsRequestType={
-//     cards:CardsType[]
-//     cardsTotalCount: number
-//     maxGrade:number
-//     minGrade: number
-//     page: number
-//     pageCount: number
-//     packUserId: string
-// }
