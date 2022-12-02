@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {FunctionComponent, ReactNode} from 'react';
 import {
     Button, Checkbox,
     Dialog,
@@ -10,6 +10,9 @@ import {RootReducerType} from '../../../../redux/Store';
 import CloseIcon from '@mui/icons-material/Close';
 import style from './ModalEditPack.module.css'
 
+// type PropsType = {
+//     actionButton: ReactNode
+// }
 
 export const ModalEditPack = () => {
 
@@ -27,7 +30,10 @@ export const ModalEditPack = () => {
 
     return <div>
         <Button variant='outlined' onClick={handleClickOpen}>Edit pack</Button>
+        {/*{actionButton}*/}
+
         <Dialog open={open}>
+            {/*{children}*/}
             <div className={style.modalEditContainer}>
                 <div className={style.modalEditPack}>
                     <div className={style.modalEditPackTitle}>Edit pack</div>

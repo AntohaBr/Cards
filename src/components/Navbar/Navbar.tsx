@@ -6,12 +6,6 @@ export const Navbar = () => {
     return (
         <nav className={style.navbar}>
             <div className={style.item}>
-                <Link to={URL.NEW_PASSWORD}>New password</Link>
-            </div>
-            <div className={style.item}>
-                <Link to={URL.CARD_PACK}>Cards</Link>
-            </div>
-            <div className={style.item}>
                 <Link to={URL.MODAL_NEW_PACK}>Modal new pack</Link>
             </div>
             <div className={style.item}>

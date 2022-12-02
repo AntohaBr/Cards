@@ -10,11 +10,11 @@ const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container!)
 
 root.render(
-    <HashRouter>
+    <BrowserRouter>
         <Provider store={store}>
             <App/>
         </Provider>
-    </HashRouter>
+    </BrowserRouter>
 )
 
 

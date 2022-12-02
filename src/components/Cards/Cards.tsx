@@ -12,14 +12,13 @@ import {useNavigate, useParams} from 'react-router-dom';
 import GradeIcon from '@mui/icons-material/Grade';
 import {ArrowBack} from "@mui/icons-material";
 import {URL} from "../../app/App";
-import InputWithIcon from "../util-components/InputWithIcon";
 import styles from './Cards.module.css'
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {getCardsTC} from "../../redux/Cards-reducer";
 import {CardsType} from "../../api/cards-api";
+import {InputWithIcon} from "../Util-components/Input-with-icon";
 
 
-// type PropsType = {}
 
 export const Cards = () => {
     const pageCount = useSelector<RootReducerType, number>(state => state.pagination.cardsPageCount)
@@ -71,7 +70,7 @@ export const Cards = () => {
             <Grid container>
                 <Container fixed={true}>
                     <div>
-                        <Button onClick={() => navigate(URL.CARD_PACK)}>
+                        <Button onClick={() => navigate(URL.PACKS)}>
                             <ArrowBack/>
                         </Button>
                         <span>Back to pack-list</span>

@@ -5,7 +5,7 @@ import {useFormik} from "formik";
 import {FormikErrorType} from "../Registration/Registration";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {URL} from "../../app/App";
 import {recoveryPasswordTC} from "../../redux/Auth-reducer";
 
@@ -13,8 +13,13 @@ import {recoveryPasswordTC} from "../../redux/Auth-reducer";
 export const RecoveryPassword = () => {
 
     const recoveryPassword = useSelector<RootReducerType, string>((state)=> state.auth.recoveryPassword)
-    const dispatch = useDispatch<ThunkDispatchType>()
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const dispatch = useDispatch<ThunkDispatchType>()
+    const navigate = useNavigate()
+
+    const onClickBackToLoginHandler = () => {
+        navigate(URL.LOGIN)
+    }
 
     const formik = useFormik({
         initialValues: {
@@ -61,7 +66,7 @@ export const RecoveryPassword = () => {
                     </Button>
                     <FormLabel>
                         <p className={style.remember}>Did you remember your password?</p>
-                        <a className={style.link} href={'/Login'} target={'_self'}>Try logging in</a>
+                        <a className={style.link} onClick={onClickBackToLoginHandler}>Try logging in</a>
                     </FormLabel>
                 </form>
             </div>

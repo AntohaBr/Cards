@@ -7,7 +7,7 @@ import {
     FormGroup, FormLabel,
     Input, InputLabel,
 } from "@mui/material";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
@@ -30,8 +30,8 @@ export const Login = () => {
 
     const dispatch = useDispatch<ThunkDispatchType>()
     const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
-    const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const navigate = useNavigate()
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -43,6 +43,14 @@ export const Login = () => {
     }
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
+    }
+
+    const onClickBackToRegistrationHandler = () => {
+        navigate(URL.REGISTRATION)
+    }
+
+    const onClickBackToRecoveryPasswordHandler = () => {
+        navigate(URL.RECOVERY_PASSWORD)
     }
 
     const formik = useFormik({
@@ -112,7 +120,7 @@ export const Login = () => {
                         />}
                     />
                     <div className={style.forgotBlock}>
-                        <a className={style.textForgot} href={URL.RECOVERY_PASSWORD} target={'_self'}>Forgot
+                        <a className={style.textForgot} onClick={onClickBackToRecoveryPasswordHandler}>Forgot
                             Password?</a>
                     </div>
                     <Button type={'submit'} variant={'contained'} color={'primary'}
@@ -121,7 +129,7 @@ export const Login = () => {
                     </Button>
                     <FormLabel>
                         <p className={style.loginRegister}>Already have an account?</p>
-                        <a className={style.loginLink} href={URL.REGISTRATION} target={'_self'}>Sign up</a>
+                        <a className={style.loginLink} onClick={onClickBackToRegistrationHandler}>Sign up</a>
                     </FormLabel>
                 </FormGroup>
             </form>
@@ -136,3 +144,5 @@ type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
+
+

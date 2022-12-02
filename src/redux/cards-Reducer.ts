@@ -10,6 +10,8 @@ import {
 import {AddPackACType, DeletePackACType, SetPackACType} from "./Packs-reducer";
 import {setCurrentPageAC, setPageCount, totalCountAC} from "./Pagination-reducer";
 import {setAppStatusAC} from "./App-reducer";
+import {AxiosError} from "axios";
+import {errorUtils} from "../utils/Error-utils";
 
 const initialState: GetCardsResponseType = {
     cards: [] as CardsType[],
@@ -75,7 +77,8 @@ export const getCardsTC = (params: GetParamsCardsType) =>  async (dispatch: Thun
             dispatch(setCardAC(response.data.cards))
             dispatch(setAppStatusAC("succeeded", false))
         } catch (e) {
-            dispatch(setAppStatusAC("failed", false))
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         }
     }
 
@@ -84,27 +87,39 @@ export const getCardsTC = (params: GetParamsCardsType) =>  async (dispatch: Thun
 export const deleteCardTC = (cardID: string) => (dispatch: ThunkDispatchType) => {
     cardsAPI.deleteCards(cardID)
         .then((res) => {
+            dispatch(setAppStatusAC('loading', true))
             dispatch(deleteCardAC(res.data.deletedCard._id))
+            dispatch(setAppStatusAC('succeeded', false))
         })
         .catch((e) => {
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         })
 }
 
 export const addCardTC = (params: PostCardType) => (dispatch: ThunkDispatchType) => {
     cardsAPI.postCards({...params})
         .then((res) => {
+            dispatch(setAppStatusAC('loading', true))
             dispatch(addCardAC(res.data.newCard))
+            dispatch(setAppStatusAC('succeeded', false))
         })
         .catch((e) => {
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         })
 }
 
 export const updateCardTC = (params: UpdateCardType) => (dispatch: ThunkDispatchType) => {
     cardsAPI.updateCards({...params})
         .then((res) => {
+            dispatch(setAppStatusAC('loading', true))
             dispatch(updateCardAC(res.data.updatedCard))
+            dispatch(setAppStatusAC('succeeded', false))
         })
         .catch((e) => {
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         })
 }
 

@@ -6,7 +6,7 @@ import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {useDispatch, useSelector} from "react-redux";
 import {emailInfoTC, updateProfileTC} from "../../redux/Profile-reducer";
-import {Navigate} from 'react-router-dom';
+import {Navigate, useNavigate} from 'react-router-dom';
 import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Auth-reducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
@@ -20,6 +20,7 @@ export const Profile = React.memo(() => {
     const dispatch = useDispatch<ThunkDispatchType>()
     const avatarRedux = useSelector<RootReducerType, string>(state => state.profile.avatar)
     const nameRedux = useSelector<RootReducerType, string>(state => state.profile.name)
+    const navigate = useNavigate()
 
     const [name, setName] = useState<string>(nameRedux)
     const [avatar, setAvatar] = useState<string>(avatarRedux);
@@ -38,10 +39,8 @@ export const Profile = React.memo(() => {
         setEditNameMod(false)
     }
 
-    const onClickBackToPacksHandler = () =>{
-        return(
-                <Navigate to={URL.CARD_PACK}/>
-            )
+    const onClickBackToPacksHandler = () => {
+        navigate(URL.PACKS)
     }
 
     const photoUpload = (e: any): void => {

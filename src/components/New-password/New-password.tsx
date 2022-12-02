@@ -1,16 +1,16 @@
 import React from 'react';
-import {useFormik} from "formik";
-import {Button, FormControl, FormLabel, Input, InputLabel} from "@mui/material";
+import {useFormik} from 'formik';
+import {Button, FormControl, Input, InputLabel} from '@mui/material';
 import style from './New-password.module.css'
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {useNavigate, useParams} from "react-router-dom";
-import {URL} from "../../app/App";
-import {setNewPasswordTC} from "../../redux/Auth-reducer";
+import InputAdornment from '@mui/material/InputAdornment';
+import IconButton from '@mui/material/IconButton';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+import {useDispatch, useSelector} from 'react-redux';
+import {RootReducerType, ThunkDispatchType} from '../../redux/Store';
+import {useNavigate, useParams} from 'react-router-dom';
+import {URL} from '../../app/App';
+import {setNewPasswordTC} from '../../redux/Auth-reducer';
 
 
 interface State {
@@ -19,9 +19,10 @@ interface State {
 }
 
 export const NewPassword = () => {
-    const {token} = useParams<{ token: string }>()
-    const dispatch = useDispatch<ThunkDispatchType>()
+
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const dispatch = useDispatch<ThunkDispatchType>()
+    const {token} = useParams<{ token: string }>()
     const navigate = useNavigate()
 
     const [values, setValues] = React.useState<State>({

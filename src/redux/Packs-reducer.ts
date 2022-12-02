@@ -7,6 +7,9 @@ import {
     UpdatePacksType
 } from "../api/packs-api";
 import {ThunkDispatchType} from "./Store";
+import {AxiosError} from "axios";
+import {errorUtils} from "../utils/Error-utils";
+import {setAppStatusAC} from "./App-reducer";
 
 
 const initialState: PacksGetResponseType = {
@@ -72,36 +75,52 @@ export const rebootFilterCardsCartsAC = () => ({type: 'PACKS/REBOOT-FILTER-PACKS
 export const getPacksTC = (params: PacksGetParamsTypeNotNeeded) => (dispatch: ThunkDispatchType) => {
     packsAPI.getPacks({...params})
         .then((res) => {
+            dispatch(setAppStatusAC('loading', true))
             dispatch(setPacksAC(res.data.cardPacks))
+            dispatch(setAppStatusAC('succeeded', false))
         })
         .catch((e) => {
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         })
 }
 
 export const deletePackTC = (packID: string) => (dispatch: ThunkDispatchType) => {
     packsAPI.deletePacks(packID)
         .then((res) => {
+            dispatch(setAppStatusAC('loading', true))
             dispatch(deletePackAC(res.data.deletedCardsPack._id))
+            dispatch(setAppStatusAC('succeeded', false))
         })
         .catch((e) => {
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         })
 }
 
 export const addPackTC = (params: PostPacksType) => (dispatch: ThunkDispatchType) => {
     packsAPI.postPacks({...params})
         .then((res) => {
+            dispatch(setAppStatusAC('loading', true))
             dispatch(addPackAC(res.data.newCardsPack))
+            dispatch(setAppStatusAC('succeeded', false))
         })
         .catch((e) => {
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         })
 }
 
 export const updatePackTC = (params: UpdatePacksType) => (dispatch: ThunkDispatchType) => {
     packsAPI.updatePacks({...params})
         .then((res) => {
+            dispatch(setAppStatusAC('loading', true))
             dispatch(updatePackAC(res.data.updatedCardsPack))
+            dispatch(setAppStatusAC('succeeded', false))
         })
         .catch((e) => {
+            const err = e as Error | AxiosError<{ successError: null | string }>
+            errorUtils(err, dispatch)
         })
 }
 

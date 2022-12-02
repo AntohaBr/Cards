@@ -8,15 +8,12 @@ import {Profile} from "../components/Profile/Profile";
 import {CheckEmail} from "../components/Check-email/Check-email";
 import {RecoveryPassword} from "../components/Recovery-password/Recovery-password";
 import {Error404} from "../components/Error-404/Error-404";
-import {SuperComponents} from "../components/Super-components/Super-components";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../redux/Store";
-import {CircularProgress, LinearProgress} from "@mui/material";
+import {Button, CircularProgress, LinearProgress} from "@mui/material";
 import {NewPassword} from "../components/New-password/New-password";
 import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
 import {getPacksTC} from "../redux/Packs-reducer";
-// import Packs from "../components/Cards/Packs";
-// import Cards from "../components/Cards/Cards";
 import {ModalAddNewCard} from "../components/Modal/ModalCards/ModalAddNewCard/ModalAddNewCard";
 import {ModalDeleteCard} from "../components/Modal/ModalCards/ModalDeleteCard/ModalDeleteCard";
 import {ModalDeletePack} from "../components/Modal/ModalPack/ModalDeletePack/ModalDeletePack";
@@ -36,9 +33,8 @@ export enum URL {
     NEW_PASSWORD = '/new-password/:token',
     CHECK_EMAIL = '/checkEmail',
     ERROR_404 = '/404',
-    SUPER_COMPONENTS = '/super-components',
     CARDS = '/cards',
-    CARD_PACK = '/packs',
+    PACKS = '/packs',
     OTHER_PATH = '*',
     LEARN = '/learn',
     MODAL_NEW_PACK = '/modal-new-pack',
@@ -59,9 +55,9 @@ export const App = () => {
         dispatch(isInitializedTC())
     }, [])
 
-    useEffect(() => {
-        dispatch(getPacksTC({}))
-    }, [])
+    // useEffect(() => {
+    //     dispatch(getPacksTC({}))
+    // }, [])
 
     if (!isInitialized) {
         return <div
@@ -86,11 +82,13 @@ export const App = () => {
                     <Route path={URL.NEW_PASSWORD} element={<NewPassword/>}/>
                     <Route path={URL.ERROR_404} element={<Error404/>}/>
                     <Route path={URL.OTHER_PATH} element={<Navigate to={URL.ERROR_404}/>}/>
-                    {/*<Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>*/}
-                    <Route path={URL.CARD_PACK} element={<Packs/>}/>
+                    <Route path={URL.PACKS} element={<Packs/>}/>
                     <Route path={`${URL.CARDS}/:cardId`} element={<Cards/>}/>
                     <Route path={URL.MODAL_NEW_PACK} element={<ModalAddNewPack/>}/>
                     <Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack/>}/>
+                    {/*<Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack actionButton={*/}
+                    {/*    <Button variant='outlined' >Edit pack</Button>*/}
+                    {/*}/>}/>*/}
                     <Route path={URL.MODAL_DELETE_PACK} element={<ModalDeletePack/>}/>
                     <Route path={URL.MODAL_DELETE_CARD} element={<ModalDeleteCard/>}/>
                     <Route path={URL.MODAL_NEW_CARD} element={<ModalAddNewCard/>}/>

@@ -50,7 +50,7 @@ export const Packs = () => {
 
     return (
         <div>
-            111
+            Проверка на переход packs. Уже работает!
             {/*<PacksTable/>*/}
             {/*<div>*/}
             {/*<span>*/}
