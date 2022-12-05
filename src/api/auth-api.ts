@@ -23,7 +23,7 @@ export const authAPI = {
         return instance.delete<{ info: string, error: string }>('auth/me')
     },
     updateProfile(newData: NewDataType) {
-        return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', newData)
+        return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', {name: newData.name})
     },
     recoveryPassword(data:ForgotType){
         return instance.post<ForgotType,AxiosResponse<ResponseForgotType>>('auth/forgot',data)

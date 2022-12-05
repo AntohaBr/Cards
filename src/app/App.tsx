@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {ReactNode, useEffect} from 'react';
 import './App.css';
 import {Navbar} from "../components/Navbar/Navbar";
 import {Navigate, Route, Routes} from "react-router-dom";
@@ -86,9 +86,7 @@ export const App = () => {
                     <Route path={`${URL.CARDS}/:cardId`} element={<Cards/>}/>
                     <Route path={URL.MODAL_NEW_PACK} element={<ModalAddNewPack/>}/>
                     <Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack/>}/>
-                    {/*<Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack actionButton={*/}
-                    {/*    <Button variant='outlined' >Edit pack</Button>*/}
-                    {/*}/>}/>*/}
+                    <Route path={URL.MODAL_EDIT_PACK} element={<ModalEditPack/>}/>
                     <Route path={URL.MODAL_DELETE_PACK} element={<ModalDeletePack/>}/>
                     <Route path={URL.MODAL_DELETE_CARD} element={<ModalDeleteCard/>}/>
                     <Route path={URL.MODAL_NEW_CARD} element={<ModalAddNewCard/>}/>
@@ -97,3 +95,6 @@ export const App = () => {
         </div>
     );
 }
+
+
+
