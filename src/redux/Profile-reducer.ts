@@ -6,7 +6,7 @@ import {setAppStatusAC} from './App-reducer';
 
 
 const initialState = {
-    _id:''as string,
+    _id: '' as string,
     name: '' as string,
     email: '' as string,
     avatar: '' as string,
@@ -28,12 +28,12 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 //actions
 export const updateProfileAC = (newData: ResponseType) => ({type: 'PROFILE/UPDATE-PROFILE', newData} as const)
-export const setInfoUserAC = (profile:ProfileType) => ({type: 'PROFILE/SET-INFO-USER', profile} as const)
+export const setInfoUserAC = (profile: ProfileType) => ({type: 'PROFILE/SET-INFO-USER', profile} as const)
 
 
 //thunks
 export const updateProfileTC = (name: string, avatar?: string) => async (dispatch: Dispatch<ProfileActionType>) => {
-    dispatch(setAppStatusAC('loading',true))
+    dispatch(setAppStatusAC('loading', true))
     try {
         const res = await authAPI.updateProfile(name, avatar)
         dispatch(setAppStatusAC('succeeded', false))
@@ -47,13 +47,14 @@ export const updateProfileTC = (name: string, avatar?: string) => async (dispatc
 
 //types
 export type ProfileActionType =
-    ReturnType<typeof updateProfileAC>
+    UpdateProfileActionType
     | SetInfoUserActionType
     | ReturnType<typeof setAppStatusAC>
 
 export type SetInfoUserActionType = ReturnType<typeof setInfoUserAC>
+export type UpdateProfileActionType = ReturnType<typeof updateProfileAC>
 
-type initialStateType  = typeof initialState
+type initialStateType = typeof initialState
 
 type ProfileType = initialStateType
 

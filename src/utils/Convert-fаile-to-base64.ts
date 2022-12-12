@@ -1,5 +1,3 @@
-
-
 export const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
     const reader = new FileReader();
     reader.onloadend = () => {

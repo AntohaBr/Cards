@@ -11,6 +11,8 @@ import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Auth-reducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {setAppErrorAC} from "../../redux/App-reducer";
+import {convertFileToBase64} from "../../utils/Convert-fаile-to-base64";
+import {InputTypeFile} from "../../common/Input-type-file/Input-type-file";
 
 
 export const Profile = React.memo(() => {
@@ -40,40 +42,19 @@ export const Profile = React.memo(() => {
         navigate(URL.PACKS)
     }
 
-    // const photoUpload = (e: any): void => {
-    //     e.preventDefault()
-    //     const reader = new FileReader()
-    //     const file = e.target.files[0]
-    //     if (reader !== undefined && file !== undefined) {
-    //         reader.onloadend = () => {
-    //             setAvatar(reader.result as string)
+    // const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    //     if (e.target.files && e.target.files.length) {
+    //         const file = e.target.files[0]
+    //         if (file.size < 102400) {
+    //             convertFileToBase64(file, (file64: string) => {
+    //                 setAvatar(file64)
+    //                 dispatch(updateProfileTC(name, file64))
+    //             })
+    //         } else {
+    //             dispatch(setAppErrorAC('File too large'))
     //         }
-    //         reader.readAsDataURL(file)
     //     }
     // }
-
-
-    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            const file = e.target.files[0]
-            if (file.size < 102400) {
-                convertFileToBase64(file, (file64: string) => {
-                    setAvatar(file64)
-                })
-            } else {
-                dispatch(setAppErrorAC('File too large'))
-            }
-        }
-    }
-
-    const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
-        const reader = new FileReader();
-        reader.onloadend = () => {
-            const file64 = reader.result as string
-            callBack(file64)
-        }
-        reader.readAsDataURL(file)
-    }
 
     if (!isLoggedIn) {
         return <Navigate to={URL.LOGIN}/>
@@ -90,21 +71,26 @@ export const Profile = React.memo(() => {
                    overlap='circular'
                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                    badgeContent={
-                       <label htmlFor='avatar'>
-                           <input type={'file'} id='avatar' style={{display: 'none'}}
-                                  accept={'.jpg, .jpeg, .png, img'} multiple onChange={uploadHandler}
-                           />
-                           <IconButton component='span'>
-                               <Icon
-                                   style={{
-                                       width: 35, height: 35, border: '1px solid white', borderRadius: 20,
-                                       backgroundColor: 'gray', display: 'flex', alignItems: 'center',
-                                       opacity: 0.7, cursor: 'pointer'
-                                   }}>
-                                   <AddAPhoto style={{color: 'white', width: '100%'}}/>
-                               </Icon>
-                           </IconButton>
-                       </label>
+                <InputTypeFile
+                    name={name}
+                    // setAvatar={setAvatar}
+                />
+
+                       // <label htmlFor='avatar'>
+                       //     <input type={'file'} id='avatar' style={{display: 'none'}}
+                       //            accept={'.jpg, .jpeg, .png, img'} multiple onChange={uploadHandler}
+                       //     />
+                       //     <IconButton component='span'>
+                       //         <Icon
+                       //             style={{
+                       //                 width: 35, height: 35, border: '1px solid white', borderRadius: 20,
+                       //                 backgroundColor: 'gray', display: 'flex', alignItems: 'center',
+                       //                 opacity: 0.7, cursor: 'pointer'
+                       //             }}>
+                       //             <AddAPhoto style={{color: 'white', width: '100%'}}/>
+                       //         </Icon>
+                       //     </IconButton>
+                       // </label>
                    }
             >
                 <Avatar alt={'avatar'} src={avatar}/>
