@@ -1,10 +1,10 @@
 import axios, {AxiosError} from 'axios';
 import {Dispatch} from 'redux';
-import {setAppErrorAC, setAppErrorActionType, setAppStatusAC, setAppStatusActionType} from '../redux/App-reducer';
+import {setAppErrorAC, SetAppErrorActionType, setAppStatusAC, SetAppStatusActionType} from '../redux/App-reducer';
 
 
-export const errorUtils = (err: Error | AxiosError<{ successError: null | string }>, dispatch: Dispatch<setAppErrorActionType |
-    setAppStatusActionType>) => {
+export const errorUtils = (err: Error | AxiosError<{ successError: null | string }>, dispatch: Dispatch<SetAppErrorActionType |
+    SetAppStatusActionType>) => {
     if (axios.isAxiosError(err)) {
         const error = err.response?.data ? err.response.data.error : err.message
         dispatch(setAppErrorAC(error))

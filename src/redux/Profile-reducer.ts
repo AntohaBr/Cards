@@ -1,7 +1,7 @@
 import {Dispatch} from 'redux';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../utils/Error-utils';
-import {authAPI, NewDataType} from '../api/auth-api';
+import {authAPI, ResponseType} from '../api/auth-api';
 import {setAppStatusAC} from './App-reducer';
 
 
@@ -27,15 +27,17 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 
 //actions
-export const updateProfileAC = (newData: NewDataType) => ({type: 'PROFILE/UPDATE-PROFILE', newData} as const)
+export const updateProfileAC = (newData: ResponseType) => ({type: 'PROFILE/UPDATE-PROFILE', newData} as const)
 export const setInfoUserAC = (profile:ProfileType) => ({type: 'PROFILE/SET-INFO-USER', profile} as const)
 
 
 //thunks
-export const updateProfileTC = (name: string, avatar: string) => async (dispatch: Dispatch<ProfileActionType>) => {
+export const updateProfileTC = (name: string, avatar?: string) => async (dispatch: Dispatch<ProfileActionType>) => {
+    dispatch(setAppStatusAC('loading',true))
     try {
-        await authAPI.updateProfile({name, avatar})
-        dispatch(updateProfileAC({name, avatar}))
+        const res = await authAPI.updateProfile(name, avatar)
+        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(updateProfileAC(res.data.updatedProfile))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
@@ -46,8 +48,10 @@ export const updateProfileTC = (name: string, avatar: string) => async (dispatch
 //types
 export type ProfileActionType =
     ReturnType<typeof updateProfileAC>
-    | ReturnType<typeof setInfoUserAC>
+    | SetInfoUserActionType
     | ReturnType<typeof setAppStatusAC>
+
+export type SetInfoUserActionType = ReturnType<typeof setInfoUserAC>
 
 type initialStateType  = typeof initialState
 

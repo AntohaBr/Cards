@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Avatar, Badge, Button, Icon, IconButton, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
 import style from "./Profile.module.css"
@@ -10,6 +10,7 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Auth-reducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {setAppErrorAC} from "../../redux/App-reducer";
 
 
 export const Profile = React.memo(() => {
@@ -31,7 +32,7 @@ export const Profile = React.memo(() => {
     }
 
     const updateUserHandler = () => {
-        dispatch(updateProfileTC(name,avatar))
+        dispatch(updateProfileTC(name, avatar))
         setEditNameMod(false)
     }
 
@@ -39,18 +40,40 @@ export const Profile = React.memo(() => {
         navigate(URL.PACKS)
     }
 
-    const photoUpload = (e: any): void => {
-        e.preventDefault()
-        const reader = new FileReader()
-        const file = e.target.files[0]
-        if (reader !== undefined && file !== undefined) {
-            reader.onloadend = () => {
-                setAvatar(reader.result as string)
+    // const photoUpload = (e: any): void => {
+    //     e.preventDefault()
+    //     const reader = new FileReader()
+    //     const file = e.target.files[0]
+    //     if (reader !== undefined && file !== undefined) {
+    //         reader.onloadend = () => {
+    //             setAvatar(reader.result as string)
+    //         }
+    //         reader.readAsDataURL(file)
+    //     }
+    // }
+
+
+    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            const file = e.target.files[0]
+            if (file.size < 102400) {
+                convertFileToBase64(file, (file64: string) => {
+                    setAvatar(file64)
+                })
+            } else {
+                dispatch(setAppErrorAC('File too large'))
             }
-            reader.readAsDataURL(file)
         }
     }
 
+    const convertFileToBase64 = (file: File, callBack: (value: string) => void) => {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const file64 = reader.result as string
+            callBack(file64)
+        }
+        reader.readAsDataURL(file)
+    }
 
     if (!isLoggedIn) {
         return <Navigate to={URL.LOGIN}/>
@@ -69,16 +92,18 @@ export const Profile = React.memo(() => {
                    badgeContent={
                        <label htmlFor='avatar'>
                            <input type={'file'} id='avatar' style={{display: 'none'}}
-                                  accept={'.jpg, .jpeg, .png, img'} multiple onChange={photoUpload}
-                                  src={avatar}/>
-                           <Icon
-                               style={{
-                                   width: 35, height: 35, border: '1px solid white', borderRadius: 20,
-                                   backgroundColor: 'gray', display: 'flex', alignItems: 'center',
-                                   opacity: 0.7, cursor: 'pointer'
-                               }}>
-                               <AddAPhoto style={{color: 'white', width: '100%'}}/>
-                           </Icon>
+                                  accept={'.jpg, .jpeg, .png, img'} multiple onChange={uploadHandler}
+                           />
+                           <IconButton component='span'>
+                               <Icon
+                                   style={{
+                                       width: 35, height: 35, border: '1px solid white', borderRadius: 20,
+                                       backgroundColor: 'gray', display: 'flex', alignItems: 'center',
+                                       opacity: 0.7, cursor: 'pointer'
+                                   }}>
+                                   <AddAPhoto style={{color: 'white', width: '100%'}}/>
+                               </Icon>
+                           </IconButton>
                        </label>
                    }
             >

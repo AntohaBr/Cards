@@ -11,19 +11,19 @@ const instance = axios.create({
 //api
 export const authAPI = {
     me() {
-        return instance.post<ResponseType>('auth/me', {})
+        return instance.post<ResponseType>('auth/me')
     },
     registration(data: RegistrationType) {
         return instance.post<RegistrationType, AxiosResponse<ResponseRegistrationType>>('auth/register', data)
     },
     login(data: LoginType) {
-        return instance.post<ResponseType>('auth/login', data)
+        return instance.post<LoginType,AxiosResponse<LogInResponseType> >('auth/login', data)
     },
     logOut() {
         return instance.delete<{ info: string, error: string }>('auth/me')
     },
-    updateProfile(newData: NewDataType) {
-        return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', {name: newData.name})
+    updateProfile(name?: string, avatar?: string) {
+        return instance.put<{ name: string; avatar: string }, AxiosResponse<UpdateProfileResponseType>>('auth/me', {name, avatar})
     },
     recoveryPassword(data:ForgotType){
         return instance.post<ForgotType,AxiosResponse<ResponseForgotType>>('auth/forgot',data)
@@ -59,11 +59,27 @@ export type ResponseType={
     error?: string;
 }
 
-export type NewDataType = {
+export type LogInResponseType = {
+    _id: string
+    email: string
+    rememberMe: boolean
+    isAdmin: boolean
     name: string
+    verified: boolean
+    publicCardPacksCount: number
+    created: string
+    updated: string
+    __v: number
+    token: string
+    tokenDeathTime: number
     avatar: string
-
 }
+
+// export type NewDataType = {
+//     name?: string
+//     avatar?: string
+//
+// }
 
 export type ForgotType={
     email: string
@@ -89,4 +105,10 @@ export type LoginType = {
     email: string
     password: string
     rememberMe: boolean
+}
+
+// export type UpdateProfileResponseType = ResponseType
+
+export type UpdateProfileResponseType = {
+    updatedProfile: ResponseType
 }

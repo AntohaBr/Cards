@@ -1,14 +1,12 @@
 import {Dispatch} from "redux";
 import {
-    AppActionType,
-    setAppErrorActionType,
-    setAppStatusAC,
-    setAppStatusActionType
+    AppActionType, SetAppErrorActionType,
+    setAppStatusAC, SetAppStatusActionType,
 } from "./App-reducer";
 import {errorUtils} from "../utils/Error-utils";
 import {AxiosError} from "axios";
 import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/auth-api";
-import {setInfoUserAC} from "./Profile-reducer";
+import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
 
 
 const initialState = {
@@ -45,8 +43,8 @@ export const setNewPasswordAC = (newPassport: string) => ({type: 'AUTH/SET-NEW-P
 
 //thunks
 export const loginTC = (data: LoginType) => async (dispatch: Dispatch<AuthActionType>) => {
+    dispatch(setAppStatusAC("loading", true))
     try {
-        dispatch(setAppStatusAC("loading", true))
         const res = await authAPI.login(data)
         dispatch(addLoginAC(true))
         dispatch(setInfoUserAC(res.data))
@@ -58,21 +56,20 @@ export const loginTC = (data: LoginType) => async (dispatch: Dispatch<AuthAction
 }
 
 export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
+    dispatch(setAppStatusAC("loading", true))
     try {
-        dispatch(setAppStatusAC("loading", true))
         await authAPI.logOut()
         dispatch(addLoginAC(false))
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
-        dispatch(addLoginAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
     }
 }
 
 export const registrationTC = (value: RegistrationType) => async (dispatch: Dispatch<AuthActionType>) => {
+    dispatch(setAppStatusAC('loading', true))
     try {
-        dispatch(setAppStatusAC('loading', true))
         await authAPI.registration(value)
         dispatch(registrationAC(true))
         dispatch(setAppStatusAC('succeeded', false))
@@ -83,6 +80,7 @@ export const registrationTC = (value: RegistrationType) => async (dispatch: Disp
 }
 
 export const recoveryPasswordTC = (email: string) => async (dispatch: Dispatch<AuthActionType>) => {
+    dispatch(setAppStatusAC('loading', true))
     try {
         const data: ForgotType = {
             email: email, message: `<div style="background-color: lime; padding: 15px">
@@ -90,7 +88,6 @@ password recovery link:
 <a href='http://localhost:3000/new-password/$token$'>link</a>
 </div>`
         }
-        dispatch(setAppStatusAC('loading', true))
         await authAPI.recoveryPassword(data)
         dispatch(recoveryPasswordAC(email))
         dispatch(setAppStatusAC('succeeded', false))
@@ -101,9 +98,9 @@ password recovery link:
 }
 
 export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch<AuthActionType>) => {
+    dispatch(setAppStatusAC('loading', true))
     try {
         const data: NewPasswordType = {password: password, resetPasswordToken: token}
-        dispatch(setAppStatusAC('loading', true))
         await authAPI.setNewPassword(data)
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
@@ -119,9 +116,9 @@ export type AuthActionType =
     | ReturnType<typeof registrationAC>
     | ReturnType<typeof recoveryPasswordAC>
     | ReturnType<typeof setNewPasswordAC>
-    | setAppErrorActionType
-    | setAppStatusActionType
-    | ReturnType<typeof setInfoUserAC>
+    | SetAppErrorActionType
+    | SetAppStatusActionType
+    | SetInfoUserActionType
 
 type InitialStateType = typeof initialState
 

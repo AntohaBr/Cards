@@ -3,6 +3,7 @@ import {authAPI} from "../api/auth-api";
 import {addLoginAC} from "./Auth-reducer";
 import {AxiosError} from "axios";
 import {errorUtils} from "../utils/Error-utils";
+import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
 
 
 const initialState = {
@@ -49,8 +50,9 @@ export const setAppSuccessMessageAC = (successMessage: null | string) =>
 export const isInitializedTC = () => async (dispatch: Dispatch<AppActionType>) => {
     try {
         dispatch(setAppStatusAC("loading", true))
-        await authAPI.me()
+        const res = await authAPI.me()
         dispatch(addLoginAC(true))
+        dispatch(setInfoUserAC(res.data))
         dispatch(isInitializedAC(true))
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
@@ -67,11 +69,12 @@ export type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed' | 'non
 type AppStateType = typeof initialState
 
 export type AppActionType =
-    | setAppStatusActionType
+    | SetAppStatusActionType
     | ReturnType<typeof isInitializedAC>
     | ReturnType<typeof setAppSuccessMessageAC>
-    | setAppErrorActionType
+    | SetAppErrorActionType
     | ReturnType<typeof addLoginAC>
+    | SetInfoUserActionType
 
-export type setAppErrorActionType = ReturnType<typeof setAppErrorAC>
-export type setAppStatusActionType = ReturnType<typeof setAppStatusAC>
+export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
+export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
