@@ -12,7 +12,6 @@ import {logOutTC} from "../../redux/Auth-reducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {setAppErrorAC} from "../../redux/App-reducer";
 import {convertFileToBase64} from "../../utils/Convert-fаile-to-base64";
-import {InputTypeFile} from "../../common/Input-type-file/Input-type-file";
 
 
 export const Profile = React.memo(() => {
@@ -20,13 +19,13 @@ export const Profile = React.memo(() => {
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
     const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
     const email = useSelector<RootReducerType, string>(state => state.profile.email)
-    const avatarRedux = useSelector<RootReducerType, string>(state => state.profile.avatar)
-    const nameRedux = useSelector<RootReducerType, string>(state => state.profile.name)
+    const avatar = useSelector<RootReducerType, string>(state => state.profile.avatar)
+    const name = useSelector<RootReducerType, string>(state => state.profile.name)
     const dispatch = useDispatch<ThunkDispatchType>()
     const navigate = useNavigate()
 
-    const [name, setName] = useState<string>(nameRedux)
-    const [avatar, setAvatar] = useState<string>(avatarRedux);
+    const [userName, setUserName] = useState<string>(name)
+    const [userAvatar, setUserAvatar] = useState<string>(avatar);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
     const logOutHandler = () => {
@@ -34,7 +33,7 @@ export const Profile = React.memo(() => {
     }
 
     const updateUserHandler = () => {
-        dispatch(updateProfileTC(name, avatar))
+        dispatch(updateProfileTC(userName, userAvatar))
         setEditNameMod(false)
     }
 
@@ -42,19 +41,22 @@ export const Profile = React.memo(() => {
         navigate(URL.PACKS)
     }
 
-    // const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    //     if (e.target.files && e.target.files.length) {
-    //         const file = e.target.files[0]
-    //         if (file.size < 102400) {
-    //             convertFileToBase64(file, (file64: string) => {
-    //                 setAvatar(file64)
-    //                 dispatch(updateProfileTC(name, file64))
-    //             })
-    //         } else {
-    //             dispatch(setAppErrorAC('File too large'))
-    //         }
-    //     }
-    // }
+    const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        setUserName(event.currentTarget.value)
+    }
+
+    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files.length) {
+            const file = e.target.files[0]
+            if (file.size < 102400) {
+                convertFileToBase64(file, (file64: string) => {
+                    setUserAvatar(file64)
+                })
+            } else {
+                dispatch(setAppErrorAC('File too large'))
+            }
+        }
+    }
 
     if (!isLoggedIn) {
         return <Navigate to={URL.LOGIN}/>
@@ -71,47 +73,40 @@ export const Profile = React.memo(() => {
                    overlap='circular'
                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
                    badgeContent={
-                <InputTypeFile
-                    name={name}
-                    // setAvatar={setAvatar}
-                />
-
-                       // <label htmlFor='avatar'>
-                       //     <input type={'file'} id='avatar' style={{display: 'none'}}
-                       //            accept={'.jpg, .jpeg, .png, img'} multiple onChange={uploadHandler}
-                       //     />
-                       //     <IconButton component='span'>
-                       //         <Icon
-                       //             style={{
-                       //                 width: 35, height: 35, border: '1px solid white', borderRadius: 20,
-                       //                 backgroundColor: 'gray', display: 'flex', alignItems: 'center',
-                       //                 opacity: 0.7, cursor: 'pointer'
-                       //             }}>
-                       //             <AddAPhoto style={{color: 'white', width: '100%'}}/>
-                       //         </Icon>
-                       //     </IconButton>
-                       // </label>
+                       <label htmlFor='avatar'>
+                           <input type={'file'} id='avatar' style={{display: 'none'}}
+                                  accept={'.jpg, .jpeg, .png, img'} multiple onChange={uploadHandler}
+                           />
+                           <IconButton component='span'>
+                               <Icon
+                                   style={{
+                                       width: 35, height: 35, border: '1px solid white', borderRadius: 20,
+                                       backgroundColor: 'gray', display: 'flex', alignItems: 'center',
+                                       opacity: 0.7, cursor: 'pointer'
+                                   }}>
+                                   <AddAPhoto style={{color: 'white', width: '100%'}}/>
+                               </Icon>
+                           </IconButton>
+                       </label>
                    }
             >
-                <Avatar alt={'avatar'} src={avatar}/>
+                <Avatar alt={'avatar'} src={userAvatar}/>
             </Badge>
             <div className={style.profileSpan}>
                 {editNameMod
                     ?
                     <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
                         <TextField
-                            value={name}
-                            onChange={(e) => setName(e.currentTarget.value)}
+                            value={userName}
+                            onChange={inputChangeHandler}
                             variant='standard'
                             autoFocus
                             label='NickName'
                         />
-                        <Button sx={{ml: 2}} onClick={updateUserHandler} size='small' variant='contained'
-                                style={{width: 70, borderRadius: 20}}>Save</Button>
                     </Box>
                     :
                     <>
-                        <span onDoubleClick={() => setEditNameMod(true)}><h3>{name}</h3></span>
+                        <span onDoubleClick={() => setEditNameMod(true)}><h3>{userName}</h3></span>
                         <IconButton>
                             <BorderColor onClick={() => setEditNameMod(true)}/>
                         </IconButton>
@@ -121,6 +116,8 @@ export const Profile = React.memo(() => {
             <div className={style.profileEmail}>{email}</div>
             <Button onClick={logOutHandler} variant="outlined" style={{width: 130, borderRadius: 20}}
                     startIcon={<Logout/>} disabled={isDisable}>Log out</Button>
+            <Button sx={{ml: 2}} onClick={updateUserHandler} size='small' variant='contained'
+                    style={{width: 70, borderRadius: 20}}>Save</Button>
         </div>
     </div>
 })
