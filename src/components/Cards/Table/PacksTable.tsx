@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {useEffect} from 'react';
+import {ChangeEvent, useState} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,34 +7,50 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button, Container, Grid} from "@mui/material";
-import InputWithIcon from "../../util-components/InputWithIcon";
+import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
 import MySlider from '../../util-components/MySlider';
 import {useDispatch, useSelector} from "react-redux";
 import SchoolIcon from '@mui/icons-material/School';
 import {RootReducerType, ThunkDispatchType} from "../../../redux/store";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
-import {CardPacksInitStateType, createPackTC, getCardPackTC} from "../../../redux/cardPacks-Reducer";
-import {Link, Navigate, NavLink, Routes, useNavigate} from 'react-router-dom';
+import {CardPacksInitStateType, createPackTC, getCardPackTC, searchFuncAC} from "../../../redux/cardPacks-Reducer";
+import {Navigate, NavLink, useNavigate} from 'react-router-dom';
 import {URL} from "../../../app/App";
-import {Route} from "@mui/icons-material";
-import Cards from "../Cards";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import {initStateType} from "../../../redux/Reducer-pagination";
+import {initStateType, setCurrentPageAC, setCurrentPagePacksAC} from "../../../redux/Reducer-pagination";
+import {useEffect} from "react";
+import {setPagination} from "../../../features/pagination";
+import { useDebounce } from 'usehooks-ts'
 
-export default function PacksTable() {
+
+type PropsType = {
+    totalCount: number
+    pageCount: number
+    currentPage: number
+}
+
+export default function PacksTable(props: PropsType) {
 
 
     const cardPacksStore = useSelector<RootReducerType, CardPacksInitStateType>(state => state.cardPacks)
-
-   const navigate=useNavigate()
+    const navigate = useNavigate()
     const dispatch = useDispatch<ThunkDispatchType>()
     const userId = useSelector<RootReducerType, string>(state => state.profile.userId)
-    const paginationStore=useSelector<RootReducerType,initStateType>(state => state.pagination)
+    const paginationStore = useSelector<RootReducerType, initStateType>(state => state.pagination)
+
+    const [value,setValue] = useState('')
+    const debouncedValue = useDebounce<string>(value, 500)
+    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-const redirectToCards=()=>{
+
+    useEffect(() => {
+        dispatch(getCardPackTC({search:value}))
+    }, [debouncedValue])
+
+
+    const redirectToCards = () => {
         return <Navigate to={URL.CARDS}/>
     }
 
@@ -44,18 +60,38 @@ const redirectToCards=()=>{
 
     const myPacks = (status: 'my' | 'all') => {
         if (status === "my") {
-            dispatch(getCardPackTC(paginationStore.packsPageCount, paginationStore.packsCurrentPage, userId))
+            console.log('MY')
+            dispatch(getCardPackTC({pageCount:paginationStore.packsPageCount, page:paginationStore.packsCurrentPage, userId}))
+            console.log(userId)
         }
 
         if (status === "all") {
-            dispatch(getCardPackTC(paginationStore.packsPageCount, paginationStore.packsCurrentPage))
+            dispatch(getCardPackTC({pageCount:paginationStore.packsPageCount, page:paginationStore.packsCurrentPage}))
         }
     }
 
 
+    const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
+        dispatch(getCardPackTC({pageCount:+e.currentTarget.value, page:props.currentPage}))
+
+
+    }
+
+
+    const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
+        dispatch(getCardPackTC({pageCount:props.pageCount, page}))
+        dispatch(setCurrentPagePacksAC(page))
+    }
+
+    const pagination = Math.ceil(props.totalCount / props.pageCount)
+
+
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
+    }
 
     return (
-
+      <>
         <Grid container spacing={2}>
             <Container fixed={true}>
 
@@ -65,17 +101,17 @@ const redirectToCards=()=>{
                 </div>
 
                 <div style={{
-                    display:'flex',
-                    justifyContent:'space-between',
-                    alignItems:'center'
+                    display: 'flex',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                 }}>
 
-                    <InputWithIcon/>
+                    <input onChange={onChangeHandler} value={value}/>
 
                     <div style={{
-                        display:'flex',
-                        justifyContent:'space-around',
-                        width:'150px'
+                        display: 'flex',
+                        justifyContent: 'space-around',
+                        width: '150px'
                     }}>
                         <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
                         <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
@@ -94,10 +130,7 @@ const redirectToCards=()=>{
                         <TableHead>
 
 
-
-
                             <TableRow onClick={redirectToCards}>
-
                                 <TableCell align="right">Name</TableCell>
                                 <TableCell align="right">Cards</TableCell>
                                 <TableCell align="right">Last updated(g)</TableCell>
@@ -107,13 +140,9 @@ const redirectToCards=()=>{
                             </TableRow>
 
 
-
                         </TableHead>
                         <TableBody>
                             {cardPacksStore.cardPacks.map((row) => (
-
-
-
 
 
                                 <TableRow
@@ -126,15 +155,16 @@ const redirectToCards=()=>{
                                     </TableCell>
 
                                     <TableCell align="right">{row.cardsCount}</TableCell>
-                                    <TableCell align="right">{row.updated}</TableCell>
+                                    <TableCell align="right">{row.updated.split('').splice(0,10)}</TableCell>
                                     <TableCell align="right">{row.user_name}</TableCell>
                                     <TableCell align={"right"}>
                                         <div>
                                             {row.user_id === userId ? <span>
 
 
-                                                    <Button disabled={row.cardsCount===0}  onClick={()=>navigate(`${URL.CARDS}/${row._id}`)}>
-                                                         <SchoolIcon />
+                                                    <Button disabled={row.cardsCount === 0}
+                                                            onClick={() => navigate(`${URL.CARDS}/${row._id}`)}>
+                                                         <SchoolIcon/>
                                                     </Button>
 
                                            <span>
@@ -148,8 +178,9 @@ const redirectToCards=()=>{
 
 
 
-                                            </span> : <span><NavLink to={`${URL.CARDS}/${row._id}`}>
-                                                <Button disabled={row.cardsCount===0}>
+                                            </span> : <span>
+                                                <NavLink to={`${URL.CARDS}/${row._id}`}>
+                                                <Button disabled={row.cardsCount === 0}>
                                                        <SchoolIcon/>
                                                 </Button>
 
@@ -163,10 +194,37 @@ const redirectToCards=()=>{
                         </TableBody>
                     </Table>
                 </TableContainer>
+
+
+                  <span>
+                <Pagination count={setPagination([], pagination).length} variant={"outlined"} shape={"rounded"}
+                            color={"primary"}
+                            onChange={paginationFunc}/>
+
+
+
+
+                Show <NativeSelect variant={"outlined"} defaultValue={props.pageCount} onChange={setPageCount}>
+
+                {array.map(n => {
+                    return (
+                        <>
+                            <option value={n}>{n}</option>
+
+                        </>
+
+
+                    )
+                })}
+
+            </NativeSelect>
+                  </span>
+
+
             </Container>
-
-
         </Grid>
-
+  </>
     );
 }
+
+

@@ -31,3 +31,12 @@
     display: flex;
     flex-direction: row;
 }
+
+.back{
+    display: flex;
+    align-items: center;
+    margin: 20px;
+}
+.back span{
+    margin-left: 13px;
+}

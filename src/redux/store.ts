@@ -29,4 +29,5 @@ export type RootReducerType = ReturnType<typeof rootReducer>
 export type ThunkDispatchType = ThunkDispatch<RootReducerType,any, AnyAction>
 
 export const useAppSelector=()=> useSelector<RootReducerType>(state => state)
-
+//@ts-ignore
+window.store = store

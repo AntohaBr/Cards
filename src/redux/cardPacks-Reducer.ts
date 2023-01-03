@@ -2,13 +2,7 @@ import {Dispatch} from "redux";
 import {cardsAPI} from "../api/api";
 import {addLoginAC} from "./login-Reducer";
 import {setAppErrorAC, setAppStatusAC} from "./app-Reducer";
-import {
-    setCurrentPageAC,
-    setCurrentPagePacksAC,
-    setPageCount, setPageCountPacks,
-    totalCountAC,
-    totalCountPacksAC
-} from "./Reducer-pagination";
+import {setCurrentPagePacksAC, setPageCountPacks, totalCountPacksAC} from "./Reducer-pagination";
 
 
 export type CardsType = {
@@ -23,9 +17,10 @@ export type CardsType = {
 }
 
 const initState = {
-    cardPacks: [],
+    cardPacks: [] as CardsType[],
     isMyPack: false,
     userId: "",
+    packName: ''
 
 
 }
@@ -45,8 +40,23 @@ export const cardPacksReducer = (state: CardPacksInitStateType = initState, acti
         case "CARDS/CREATE-PACK": {
             return {...state, cardPacks: [...state.cardPacks, action.newPack]}
         }
+        case "CARDS/SET-NAME": {
+            const currentPack = state.cardPacks.find(el => el._id === action.id)
 
+            if (currentPack) {
+                return {...state, packName: currentPack.name}
+            } else {
+                return state
+            }
 
+        }
+
+        case "CARDS/SEARCH": {
+            let filteredPacks: CardsType[]
+            filteredPacks = state.cardPacks.filter(el => el.name.toLowerCase().includes(action.title.toLowerCase()))
+            return {...state, cardPacks: filteredPacks}
+
+        }
 
 
         default: {
@@ -57,33 +67,47 @@ export const cardPacksReducer = (state: CardPacksInitStateType = initState, acti
 }
 
 
-
 const setCardPacksAC = (cardPacks: CardsType[], isMyPack: boolean) => {
     return {type: 'CARDS/SET-CARDS-PACK', cardPacks, isMyPack} as const
 }
 
+const setNamePack = (id: string) => {
+    return {
+        type: 'CARDS/SET-NAME',
+        id
+    } as const
+}
 
 const createCardsPack = (newPack: CardsType) => {
     return {type: 'CARDS/CREATE-PACK', newPack} as const
 }
 
+export const searchFuncAC = (title: string) => {
+    return {type: 'CARDS/SEARCH', title} as const
+}
 
-export const getCardPackTC = (pageCount: number, page: number, userId?: string,) => {
+
+export const getCardPackTC = (optionalParams?: { userId?: string, cardsPackId?: string, search?: string, pageCount?: number, page?: number }) => {
+    console.log('from TC')
+
     return async (dispatch: Dispatch) => {
         try {
             dispatch(setAppStatusAC("loading", true))
-            const response = await cardsAPI.getCardsPack(pageCount, page, userId)
-            dispatch(setAppStatusAC("succeeded", false))
+            const response = await cardsAPI.getCardsPack(optionalParams?.pageCount, optionalParams?.page, optionalParams?.search, optionalParams?.userId)
 
+            console.log(response)
+
+            dispatch(setAppStatusAC("succeeded", false))
+            dispatch(setNamePack(optionalParams?.cardsPackId ? optionalParams?.cardsPackId : ""))
             dispatch(addLoginAC(true))
 
-            dispatch(setCardPacksAC(response.data.cardPacks, true,))
+            dispatch(setCardPacksAC(response.data.cardPacks, true))
+            dispatch(searchFuncAC(optionalParams?.search ? optionalParams.search : ''))
+
 
             dispatch(totalCountPacksAC(response.data.cardPacksTotalCount))
-             dispatch(setPageCountPacks(response.data.pageCount))
+            dispatch(setPageCountPacks(response.data.pageCount))
             dispatch(setCurrentPagePacksAC(response.data.page))
-
-
 
 
         } catch (e) {
@@ -110,10 +134,8 @@ export type  CardPacksInitStateType = {
     cardPacks: CardsType[]
     isMyPack: boolean
     userId: string
-
-
-
+    packName: string
 
 }
-type ActionType = ReturnType<typeof setCardPacksAC | typeof createCardsPack >
+type ActionType = ReturnType<typeof setCardPacksAC | typeof createCardsPack | typeof setNamePack | typeof searchFuncAC>
 

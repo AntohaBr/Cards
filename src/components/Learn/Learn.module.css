@@ -5,3 +5,8 @@
     justify-content:center;
     padding:15px
 }
+
+.main p{
+    font-size: 22px;
+    font-family: sans-serif;
+}

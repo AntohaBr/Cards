@@ -59,7 +59,7 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Navigate to={URL.PROFILE}/>
+        return <Navigate to={URL.CARD_PACK}/>
     }
 
     return (
@@ -123,12 +123,7 @@ export const Login = () => {
                     </Paper>
                 </Grid>
             </Grid>
-            {/*<Snackbar autoHideDuration={6000}>*/}
-            {/*    <Alert  severity="success" sx={{ width: '100%' }}>*/}
-            {/*        {error}*/}
-            {/*    </Alert>*/}
-            {/*</Snackbar>*/}
-            {/*<Alert severity="error">{error}</Alert>*/}
+
         </>
     )
 }

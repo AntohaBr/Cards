@@ -50,9 +50,11 @@ export const App = () => {
         dispatch(emailInProfileTC())
     }, [])
 
-    function applogOut() {
-        dispatch(logOutTC())
-    }
+    // if (isLoggedIn){
+    //     return <Navigate to={URL.CARD_PACK}/>
+    // }
+
+
 
     return (
         <div>
@@ -65,7 +67,7 @@ export const App = () => {
                 {/*{isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={applogOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}*/}
                 <Routes>
                     <Route path={URL.DEFAULT} element={<Navigate to={URL.LOGIN}/>}/>
-                    <Route path={URL.CARD_PACK} element={<Packs/>}/>
+                    <Route path={`${URL.CARD_PACK}`} element={<Packs/>}/>
                     <Route path={URL.LOGIN} element={<Login/>}/>
                     <Route path={URL.REGISTRATION} element={<Registration/>}/>
                     <Route path={URL.PROFILE} element={<Profile/>}/>
@@ -73,9 +75,9 @@ export const App = () => {
                     <Route path={URL.NEW_PASSWORD} element={<NewPassword/>}/>
                     <Route path={URL.ERROR_404} element={<Error404/>}/>
                     <Route path={URL.OTHER_PATH} element={<Navigate to={URL.ERROR_404}/>}/>
-                    <Route path={`${URL.CARDS}/:cardId`} element={<Cards/>}/>
+                    <Route path={`${URL.CARDS}/:packId`} element={<Cards/>}/>
                     <Route path={URL.SUPER_COMPONENTS} element={<SuperComponents/>}/>
-                    <Route path={URL.LEARN} element={<Learn/>}/>
+                    <Route path={`${URL.LEARN}/:cardId`} element={<Learn/>}/>
                     <Route path={URL.RESULT} element={<Result/>}/>
 
 

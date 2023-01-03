@@ -42,7 +42,7 @@ export function loginTC(values: LoginType) {
             dispatch(getName(response.data.name))
 
         } catch (e) {
-            dispatch(setAppErrorAC("Неверный пароль или e-mail"))
+            dispatch(setAppErrorAC("Неправильный пароль или e-mail"))
             dispatch(setAppStatusAC("failed",false))
         }
     }

@@ -9,7 +9,7 @@ import {RootReducerType} from "./store";
 const initialState = {
     name: "",
     email: "email is empty",
-    avatar: "https://catherineasquithgallery.com/uploads/posts/2021-03/1614599142_52-p-foto-cheloveka-na-belom-fone-59.jpg",
+    avatar: "",
     userId: "",
 }
 
@@ -18,7 +18,7 @@ export const profileReducer = (state: initialStateType = initialState, action: A
         case "APP/AUTH-NAME":
             return {...state,   ...action.model};
         case "APP/AUTH-EMAIL":
-            return {...state, email: action.email, name: action.name, userId: action.userId}
+            return {...state, email: action.email, name: action.name, userId: action.userId,avatar:action.avatar}
         default:
             return state;
     }
@@ -27,7 +27,9 @@ export const profileReducer = (state: initialStateType = initialState, action: A
 
 // actions
 export const updateNameAC = (model:Partial<UserResponseType>) => ({type: "APP/AUTH-NAME", model} as const)
-export const emailInProfileAC = (email: string,name:string, userId: string) => ({type: "APP/AUTH-EMAIL", email, name, userId} as const)
+export const emailInProfileAC = (email: string,name:string, avatar:string,userId: string,) =>{
+    return {type: "APP/AUTH-EMAIL", email, name, userId, avatar} as const
+}
 
 
 // thunks
@@ -37,7 +39,7 @@ export function NewNameTC (model:Partial<UserResponseType>) {
         const apiModel:UserResponseType={
             avatar:user.avatar,
             name:user.name,
-            email:user.name,
+            email:user.email,
             ...model
         }
 
@@ -60,7 +62,7 @@ export function emailInProfileTC () {
             dispatch(setAppStatusAC("loading", true))
             const response=await authAPI.me()
             dispatch(addLoginAC(true))
-            dispatch(emailInProfileAC(response.data.email,response.data.name, response.data._id))
+            dispatch(emailInProfileAC(response.data.email,response.data.name, response.data.avatar ? response.data.avatar :'',response.data._id,))
 
 
             dispatch(setAppStatusAC("succeeded", false))
@@ -87,16 +89,3 @@ type initialStateType = {
     userId: string
 }
 
-export type NewResponseType = {
-    _id?: string;
-    email?: string;
-    name?: string;
-    avatar?: string;
-    publicCardPacksCount?: number;
-    created?: Date;
-    updated?: Date;
-    isAdmin?: boolean;
-    verified?: boolean; // подтвердил ли почту
-    rememberMe?: boolean;
-    error?: string;
-}

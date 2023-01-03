@@ -27,20 +27,26 @@ export const authAPI = {
     },
     updateName(model:UserResponseType) {
         return instance.put<{ updatedUser: ResponseType, error: string }>('auth/me', model)
-    },
+    }
+
 }
 
 export const cardsAPI={
-    getCardsPack(pageCount:number,page:number,userId?:string){
+    getCardsPack(pageCount?:number,page?:number, search?:string, user_id?:string, ){
+        console.log(    'from api')
         return instance.get<CardPacksRequestType>(`/cards/pack`,{
             params:{
 
                 pageCount:pageCount,
                 page,
-                user_id:userId
+                user_id,
+                packName:search
+
             }
         })
     },
+
+
     createCardsPack(name:string,privated:boolean){
         return instance.post('cards/pack',{cardsPack :{name,privated}})
     },
@@ -52,6 +58,10 @@ export const cardsAPI={
             pageCount
         }
         })
+    },
+
+    grade(model:GradeModelType){
+        return instance.put<UpdateGradeResponseType>('/cards/grade',model)
     }
 }
 
@@ -108,6 +118,7 @@ export type CardPacksRequestType={
     pageCount: number
 }
 export type CardsType={
+
     answer: string
     question: string
     cardsPack_id: string
@@ -127,4 +138,25 @@ export type CardsRequestType={
     page: number
     pageCount: number
     packUserId: string
+}
+
+export type UpdatedGradeType={
+    _id: string
+    cardsPack_id: string
+    card_id: string
+    user_id:string
+    grade: number
+    shots: number
+}
+
+export type GradeModelType={
+    grade:number
+    card_id:string,
+
+}
+
+type  UpdateGradeResponseType={
+    token:string
+    tokenDeathTime:number
+    updatedGrade:UpdatedGradeType
 }
