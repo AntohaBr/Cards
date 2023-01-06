@@ -7,18 +7,20 @@ import {URL} from "../../app/App";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {getPacksTC} from "../../redux/Packs-reducer";
 
+
 export const Packs = () => {
     const dispatch = useDispatch<ThunkDispatchType>()
     const pageCount = useSelector<RootReducerType, number>(state => state.pagination.packsPageCount)
-    const userId = useSelector<RootReducerType, string>(state => state.profile._id)
+    const user_id = useSelector<RootReducerType, string>(state => state.profile._id)
     const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.auth.isLoggedIn)
     const currentPage = useSelector<RootReducerType, number>(state => state.pagination.packsCurrentPage)
     const totalCount = useSelector<RootReducerType, number>(state => state.pagination.allCardsPack)
 
+
     const [state, setState] = useState(1)
 
     useEffect(() => {
-        // dispatch(getPacksTC(pageCount, state))
+        dispatch(getPacksTC({pageCount, page: state}))
     }, [])
     console.log({pageCount, state})
 
@@ -29,12 +31,12 @@ export const Packs = () => {
     }
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        // dispatch(getPacksTC(+e.currentTarget.value, currentPage, userId))
+        dispatch(getPacksTC({pageCount: +e.currentTarget.value, page: currentPage, user_id}))
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
         setState(page)
-        // dispatch(getPacksTC({pageCount, state}))
+        dispatch(getPacksTC({pageCount, page: state}))
     }
 
     const pagination = Math.ceil(totalCount / pageCount)
@@ -52,17 +54,24 @@ export const Packs = () => {
         <div>
             <PacksTable/>
             <div>
-            <span>
-                <Pagination count={arr.length} variant={"outlined"} shape={"rounded"} color={"primary"}
-                            onChange={paginationFunc}/>
-                Show <NativeSelect variant={"outlined"} defaultValue={pageCount} onChange={setPageCount}>
-                {array.map(n => {
-                    return <>
-                        <option value={n}>{n}</option>
-                    </>
-                })}
-            </NativeSelect>
-            </span>
+                <Pagination
+                    count={arr.length}
+                    variant={"outlined"}
+                    shape={"rounded"}
+                    color={"primary"}
+                    onChange={paginationFunc}
+                />
+                <span>Show</span>
+                <NativeSelect
+                    variant={"outlined"}
+                    defaultValue={pageCount}
+                    onChange={setPageCount}>
+                    {array.map(n => {
+                        return <>
+                            <option value={n}>{n}</option>
+                        </>
+                    })}
+                </NativeSelect>
             </div>
         </div>
     )

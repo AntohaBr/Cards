@@ -18,6 +18,8 @@ import {initStateType} from "../../../redux/Pagination-reducer";
 import {RootReducerType, ThunkDispatchType} from "../../../redux/Store";
 import {InputWithIcon} from "../../Util-components/Input-with-icon";
 import {PacksGetResponseType} from "../../../api/packs-api";
+import {RangeSlider} from "../../Util-components/Slider";
+import {addPackTC} from "../../../redux/Packs-reducer";
 
 
 export default function PacksTable() {
@@ -32,8 +34,8 @@ export default function PacksTable() {
         return <Navigate to={URL.CARDS}/>
     }
 
-    const createPackHandler = () => {
-        // dispatch(createPackTC())
+    const createPackHandler = (name: string, deckCover: string) => {
+        dispatch(addPackTC({name, deckCover}))
     }
 
     const myPacks = (status: 'my' | 'all') => {
@@ -67,7 +69,7 @@ export default function PacksTable() {
                         <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
                         <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
                     </div>
-                    {/*<MySlider/>*/}
+                    <RangeSlider/>
                     <Button color={"inherit"}>
                         <FilterAltOffIcon/>
                     </Button>

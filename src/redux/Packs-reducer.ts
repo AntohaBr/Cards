@@ -23,7 +23,6 @@ const initialState: PacksGetResponseType = {
     tokenDeathTime: 0,
 }
 
-
 //reducers
 export const packsReducer = (state = initialState, action: PacksActionTypes): PacksGetResponseType => {
     switch (action.type) {
@@ -98,17 +97,16 @@ export const deletePackTC = (packID: string) => (dispatch: ThunkDispatchType) =>
         })
 }
 
-export const addPackTC = (params: PostPacksType) => (dispatch: ThunkDispatchType) => {
-    packsAPI.postPacks({...params})
-        .then((res) => {
-            dispatch(setAppStatusAC('loading', true))
-            dispatch(addPackAC(res.data.newCardsPack))
-            dispatch(setAppStatusAC('succeeded', false))
-        })
-        .catch((e) => {
-            const err = e as Error | AxiosError<{ successError: null | string }>
-            errorUtils(err, dispatch)
-        })
+export const addPackTC = (data: PostPacksType) => async (dispatch: ThunkDispatchType) => {
+    dispatch(setAppStatusAC('loading', true))
+    try {
+        const res = await packsAPI.postPacks({...data})
+        dispatch(addPackAC(res.data.newCardsPack))
+        dispatch(setAppStatusAC('succeeded', false))
+    } catch (e) {
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
+    }
 }
 
 export const updatePackTC = (params: UpdatePacksType) => (dispatch: ThunkDispatchType) => {

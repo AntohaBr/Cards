@@ -1,5 +1,5 @@
 const initState = {
-    packsPageCount: 9,
+    packsPageCount: 7,
     allCardsPack: 0,
     packsCurrentPage: 7,
     allCards:8,

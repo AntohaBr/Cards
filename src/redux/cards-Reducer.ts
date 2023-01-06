@@ -63,25 +63,24 @@ export const deleteCardAC = (cardID: string) => ({type: 'CARDS/DELETE_CARD' as c
 export const addCardAC = (addCard: NewCardPostType) => ({type: 'CARDS/ADD_CARD' as const, addCard})
 export const updateCardAC = (updateCard: CardsType) => ({type: 'CARDS/UPDATE_CARD' as const, updateCard})
 export const changePrivateCardsAC = (value: boolean) => ({type: 'CARDS/CHANGE-PRIVATE-CARDS' as const, value})
-export const cardsTotalCountAC = (value:number) => ({type: 'CARDS/CHANGE-CARDS-TOTAL-COUNT' as const, value})
+export const cardsTotalCountAC = (value: number) => ({type: 'CARDS/CHANGE-CARDS-TOTAL-COUNT' as const, value})
 
 
 //TC
-export const getCardsTC = (params: GetParamsCardsType) =>  async (dispatch: ThunkDispatchType) => {
-        try {
-            dispatch(setAppStatusAC("loading", true))
-            const response = await cardsAPI.getCards(params)
-            dispatch(setPageCount(response.data.pageCount))
-            dispatch(totalCountAC(response.data.cardsTotalCount))
-            dispatch(setCurrentPageAC(response.data.page))
-            dispatch(setCardAC(response.data.cards))
-            dispatch(setAppStatusAC("succeeded", false))
-        } catch (e) {
-            const err = e as Error | AxiosError<{ successError: null | string }>
-            errorUtils(err, dispatch)
-        }
+export const getCardsTC = (params: GetParamsCardsType) => async (dispatch: ThunkDispatchType) => {
+    dispatch(setAppStatusAC("loading", true))
+    try {
+        const response = await cardsAPI.getCards(params)
+        dispatch(setPageCount(response.data.pageCount))
+        dispatch(totalCountAC(response.data.cardsTotalCount))
+        dispatch(setCurrentPageAC(response.data.page))
+        dispatch(setCardAC(response.data.cards))
+        dispatch(setAppStatusAC("succeeded", false))
+    } catch (e) {
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
     }
-
+}
 
 
 export const deleteCardTC = (cardID: string) => (dispatch: ThunkDispatchType) => {

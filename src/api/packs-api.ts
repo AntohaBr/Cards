@@ -64,7 +64,7 @@ type PacksGetParamsType = {
     // sortPacks: number
     page: number
     pageCount: number
-    user_id: number
+    user_id: string
     // block: boolean
 }
 
@@ -110,11 +110,9 @@ type PacksTypeForDelete = {
 }
 
 export type PostPacksType = {
-    cardsPack: {
         name?: string
-        deckCover?: "url" | "base64"
+        deckCover?: string
         private?: boolean
-    }
 }
 
 export type UpdatePacksType = {
