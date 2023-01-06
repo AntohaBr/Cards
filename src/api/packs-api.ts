@@ -61,30 +61,33 @@ type PacksGetParamsType = {
     packName: string
     min: number
     max: number
-    sortPacks: number
+    // sortPacks: number
+    page: number
     pageCount: number
     user_id: number
-    block: boolean
+    // block: boolean
 }
 
 export type PacksGetParamsTypeNotNeeded = Partial<PacksGetParamsType>
 
 export type PacksType = {
     _id: string
-    user_id: string
+    user_id?: string
     name: string
-    cardsCount: number
-    created: Date
-    updated: Date
-    grade: number
-    more_id: string
-    path: string
-    private: boolean
-    rating: number
-    shots: number
-    type: string
-    user_name: string
-    __v: number
+    cardsCount?: number
+    created?: string
+    updated?: string
+    // created?: Date
+    // updated?: Date
+    grade?: number
+    more_id?: string
+    path?: string
+    private?: boolean
+    rating?: number
+    shots?: number
+    type?: string
+    user_name?: string
+    __v?: number
     deckCover: null | string
 }
 

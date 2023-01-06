@@ -55,10 +55,6 @@ export const App = () => {
         dispatch(isInitializedTC())
     }, [])
 
-    // useEffect(() => {
-    //     dispatch(getPacksTC({}))
-    // }, [])
-
     if (!isInitialized) {
         return <div
             style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
