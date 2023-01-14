@@ -1,3 +1,7 @@
+import React, {useEffect, useState} from 'react';
+import {Avatar, Badge, Button, Container, IconButton, Paper, TextField} from "@mui/material";
+import Box from "@mui/material/Box";
+import s from "./Profile.module.css"
 import React, {ChangeEvent, useState} from 'react';
 import {Avatar, Badge, Button, Icon, IconButton, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -121,4 +125,3 @@ export const Profile = React.memo(() => {
         </div>
     </div>
 })
-

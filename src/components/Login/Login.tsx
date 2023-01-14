@@ -1,16 +1,22 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     Button,
     Checkbox,
     FormControl,
     FormControlLabel,
-    FormGroup, FormLabel,
-    Input, InputLabel,
+    FormGroup,
+    Grid,
+    Paper,
+    TextField
 } from "@mui/material";
-import {Navigate, useNavigate} from "react-router-dom";
+import {Navigate, NavLink} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import {RemoveRedEye} from "@mui/icons-material";
+
+import {RootReducerType, ThunkDispatchType} from "../../redux/store";
+import {loginTC} from "../../redux/login-Reducer";
 import {URL} from "../../app/App";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -19,19 +25,13 @@ import style from './Login.module.css'
 import {VisibilityOff} from "@mui/icons-material";
 import {loginTC} from "../../redux/Auth-reducer";
 
-
-
-interface State {
-    password: string;
-    showPassword: boolean;
-}
-
 export const Login = () => {
-
     const dispatch = useDispatch<ThunkDispatchType>()
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
-    const navigate = useNavigate()
+    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.login.isLoggedIn)
+    const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
+    const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
+
+
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -128,6 +128,11 @@ export const Login = () => {
                         Sing Up
                     </Button>
                     <FormLabel>
+                        {error === "" ? "" : <div style={{
+                            color: "red",
+                            display: "flex",
+                            justifyContent: "center"
+                        }}>{error}</div>}
                         <p className={style.loginRegister}>Already have an account?</p>
                         <a className={style.loginLink} onClick={onClickBackToRegistrationHandler}>Sign up</a>
                     </FormLabel>
@@ -144,5 +149,3 @@ type FormikErrorType = {
     password?: string
     rememberMe?: boolean
 }
-
-
