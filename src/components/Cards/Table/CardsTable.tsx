@@ -5,16 +5,15 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
-import GradeIcon from "@mui/icons-material/Grade";
 import {NativeSelect, Pagination, Table} from '@mui/material';
-import {getCardsTC} from "../../../redux/cards-Reducer";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../../redux/store";
-import {CardsType} from "../../../api/api";
+import {getCardsTC} from "../../../redux/Cards-reducer";
+import {useDispatch} from "react-redux";
+import {ThunkDispatchType} from "../../../redux/Store";
+import {CardsType} from "../../../api/cards-api";
 import {useParams} from 'react-router-dom';
 import {setPagination} from "../../../features/pagination";
-import {setCurrentPageAC} from "../../../redux/Reducer-pagination";
 import Rating from "@mui/material/Rating";
+import {setCurrentPageAC} from "../../../redux/Pagination-reducer";
 
 
 type PropsType = {
@@ -31,11 +30,9 @@ const CardsTable = (props: PropsType) => {
     const pagination = Math.ceil(props.totalCount / props.pageCount)
     let arraySelect = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
         dispatch(getCardsTC(packId ? packId : "", props.totalCount, +e.currentTarget.value))
         console.log(props.pageCount)
-
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -43,13 +40,9 @@ const CardsTable = (props: PropsType) => {
         dispatch(setCurrentPageAC(page))
     }
 
-
-    const newArray = arraySelect.map((el,i) => {
-        return <>
-            <option value={el} key={i}>{el}</option>
-        </>
+    const newArray = arraySelect.map((el, i) => {
+        return <div><option value={el} key={i}>{el}</option></div>
     })
-
 
     return (
         <div>
@@ -57,12 +50,10 @@ const CardsTable = (props: PropsType) => {
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-
                             <TableCell align="right">Question</TableCell>
                             <TableCell align="right">Answer</TableCell>
                             <TableCell align="right">Last updated</TableCell>
                             <TableCell align="right">Grade</TableCell>
-
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -85,20 +76,15 @@ const CardsTable = (props: PropsType) => {
                     </TableBody>
                 </Table>
             </TableContainer>
-
-
             <span>
                 <Pagination count={setPagination([], pagination).length} variant={"outlined"} shape={"rounded"}
                             color={"primary"}
                             onChange={paginationFunc}/>
-
                  <NativeSelect variant={"outlined"} defaultValue={props.totalCount} onChange={setPageCount}>
                      {newArray}
                  </NativeSelect>
-
             </span>
         </div>
-    );
-};
+    )
+}
 
-export default CardsTable;

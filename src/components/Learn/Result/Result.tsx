@@ -3,8 +3,8 @@ import {Button, Container, FormControlLabel, Grid, Paper, Radio, RadioGroup} fro
 
 import {useNavigate} from 'react-router-dom';
 import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../../redux/store";
-import {CardsInitStateType, setUtils, updateGradeTC} from "../../../redux/cards-Reducer";
+import {RootReducerType, ThunkDispatchType} from "../../../redux/Store";
+import {CardsInitStateType, setUtils, updateGradeTC} from "../../../redux/Cards-reducer";
 import {getCard} from "../../../features/smart-random";
 import {URL} from "../../../app/App";
 import styles  from "./Result.module.css"

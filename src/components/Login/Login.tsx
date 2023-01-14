@@ -1,22 +1,15 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
     Button,
     Checkbox,
     FormControl,
     FormControlLabel,
-    FormGroup,
-    Grid,
-    Paper,
-    TextField
+    FormGroup, FormLabel, Input, InputLabel,
 } from "@mui/material";
-import {Navigate, NavLink} from "react-router-dom";
+import {Navigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import {RemoveRedEye} from "@mui/icons-material";
-
-import {RootReducerType, ThunkDispatchType} from "../../redux/store";
-import {loginTC} from "../../redux/login-Reducer";
+import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {URL} from "../../app/App";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -25,12 +18,12 @@ import style from './Login.module.css'
 import {VisibilityOff} from "@mui/icons-material";
 import {loginTC} from "../../redux/Auth-reducer";
 
+
 export const Login = () => {
     const dispatch = useDispatch<ThunkDispatchType>()
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.login.isLoggedIn)
+    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
     const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
-    const isDisable=useSelector<RootReducerType,boolean>(state => state.app.isDisabled)
-
+    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
 
 
     const [values, setValues] = React.useState<State>({
@@ -46,11 +39,11 @@ export const Login = () => {
     }
 
     const onClickBackToRegistrationHandler = () => {
-        navigate(URL.REGISTRATION)
+        return <Navigate to={URL.REGISTRATION}/>
     }
 
     const onClickBackToRecoveryPasswordHandler = () => {
-        navigate(URL.RECOVERY_PASSWORD)
+        return <Navigate to={URL.RECOVERY_PASSWORD}/>
     }
 
     const formik = useFormik({

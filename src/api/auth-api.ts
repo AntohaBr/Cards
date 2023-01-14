@@ -1,11 +1,5 @@
-import axios, {AxiosResponse} from "axios";
-
-
-const instance = axios.create({
-    // baseURL: process.env.NODE_ENV === 'development' ? 'http://localhost:7542/2.0/' : 'https://neko-back.herokuapp.com/2.0/',
-    baseURL:'https://neko-back.herokuapp.com/2.0/',
-    withCredentials: true,
-})
+import {AxiosResponse} from "axios";
+import {instance} from "./Instance";
 
 
 //api
@@ -75,12 +69,6 @@ export type LogInResponseType = {
     avatar: string
 }
 
-// export type NewDataType = {
-//     name?: string
-//     avatar?: string
-//
-// }
-
 export type ForgotType={
     email: string
     message: string
@@ -106,8 +94,6 @@ export type LoginType = {
     password: string
     rememberMe: boolean
 }
-
-// export type UpdateProfileResponseType = ResponseType
 
 export type UpdateProfileResponseType = {
     updatedProfile: ResponseType

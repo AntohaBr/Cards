@@ -1,7 +1,3 @@
-import React, {useEffect, useState} from 'react';
-import {Avatar, Badge, Button, Container, IconButton, Paper, TextField} from "@mui/material";
-import Box from "@mui/material/Box";
-import s from "./Profile.module.css"
 import React, {ChangeEvent, useState} from 'react';
 import {Avatar, Badge, Button, Icon, IconButton, TextField} from "@mui/material";
 import Box from "@mui/material/Box";
@@ -15,7 +11,7 @@ import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Auth-reducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {setAppErrorAC} from "../../redux/App-reducer";
-import {convertFileToBase64} from "../../utils/Convert-fаile-to-base64";
+import {convertFileToBase64} from "../../features/Convert-fаile-to-base64";
 
 
 export const Profile = React.memo(() => {

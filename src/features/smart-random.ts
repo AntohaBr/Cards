@@ -1,4 +1,4 @@
-import {CardsType} from "../api/api";
+import {CardsType} from "../api/cards-api";
 
 export const getCard = (cards: CardsType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) * (6 - card.grade), 0);
