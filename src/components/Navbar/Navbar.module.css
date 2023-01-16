@@ -1,21 +1,12 @@
-
-.navbar {
-    background-color: white;
-
+.main{
     display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
+    padding-right: 20px;
+    background-color: white;
+    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2 );
+    justify-content: space-between;
+    align-items: center;
 }
 
-.item {
-
-    margin: 15px;
-}
-
-.link {
-    color: #110808;
-    text-decoration: none;
-}
 .forMe div {
     width: 60px;
     min-height: 60px;
@@ -23,30 +14,19 @@
     background-repeat: no-repeat;
     background-position: center;
     border-radius: 50%;
-
 }
 
 .forMe {
     display: flex;
     justify-content: center;
-
     align-items: center;
 }
 .forMe p{
-    font-family: 'Montserrat';
     font-style: normal;
     font-weight: 500;
-    font-size: 16px;
     line-height: 24px;
     padding: 12px;
     font-size: 20px;
 }
-.main{
-    display: flex;
-   padding-right: 20px;
-    background-color: white;
-    box-shadow: 2px 2px 2px 1px rgba(0, 0, 0, 0.2 );
-    justify-content: space-between;
-    align-items: center;
-}
+
 

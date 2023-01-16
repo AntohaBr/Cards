@@ -6,15 +6,14 @@ import {ArrowBack} from "@mui/icons-material";
 import {useNavigate} from 'react-router-dom';
 import {useSelector} from "react-redux";
 import {RootReducerType} from "../../redux/Store";
-import Result from "./Result/Result";
-import {CardsInitStateType} from "../../redux/Cards-reducer";
+import {CardsReducerStateType} from "../../redux/Cards-reducer";
 
 
 export const Learn = () => {
 
-    const packName = useSelector<RootReducerType, string>(state => state.cardPacks.packName)
-    const cardStore = useSelector<RootReducerType, CardsInitStateType>(state => state.cards)
-    const {question, shots} = cardStore
+    const packName = useSelector<RootReducerType, string>(state => state.cards.packName)
+    const cardStore = useSelector<RootReducerType, CardsReducerStateType>(state => state.cards)
+    // const {question, shots} = cardStore
     const navigate = useNavigate();
     const [show, setShow] = useState(false)
 
@@ -31,12 +30,12 @@ export const Learn = () => {
                 <h3 style={{textAlign: "center"}}>{packName}</h3>
                 <Paper>
                     <div className={styles.main}>
-                        <p>{question}?</p>
-                        <p>Количество попыток: <span>{shots}</span></p>
+                        {/*<p>{question}?</p>*/}
+                        {/*<p>Количество попыток: <span>{shots}</span></p>*/}
                         <Button variant={"contained"} onClick={() => {
                             setShow(!show)
                         }}>{show ? 'Hide answer' : 'Show answer'}</Button>
-                        {show ? <Result/> : null}
+                        {/*{show ? <Result/> : null}*/}
                     </div>
                 </Paper>
             </Container>

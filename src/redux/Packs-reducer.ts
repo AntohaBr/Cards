@@ -2,22 +2,40 @@ import {AxiosError} from 'axios';
 import {errorUtils} from '../utils/Error-utils';
 import {setAppStatusAC} from './App-reducer';
 import {ThunkDispatchType} from "./Store";
-import {cardsAPI, PacksGetParamsTypeNotNeeded, PacksType, PostPacksType, UpdatePacksType} from "../api/cards-api";
+import {
+    cardsAPI,
+    PacksGetParamsType,
+    PacksGetParamsTypeNotNeeded,
+    PacksType,
+    PostPacksType,
+    UpdatePacksType
+} from "../api/cards-api";
 
 
-const initialState: PacksGetResponseType = {
-    cardPacks: [],
-    cardPacksTotalCount: 0,
-    maxCardsCount: 0,
-    minCardsCount: 0,
-    page: 0,
-    pageCount: 0,
-    token: '',
-    tokenDeathTime: 0,
+const initialState = {
+    cardPacks: [] as PacksType[],
+    cardPacksTotalCount: 0 as number,
+    page: 0 as number,
+    pageCount: 5 as number,
+    showPackCards: 'all' as 'all' | 'my',
+    minCardsCount: 0 as number,
+    maxCardsCount: 110 as number,
+    params: {
+        page: 1,
+        pageCount: 5,
+        min: 0,
+        max: 0,
+        user_id: '',
+        packName: '',
+        search: ''
+    } as PacksGetParamsType,
 }
 
+export type PackReducerStateType = typeof initialState
+
+
 //reducers
-export const packsReducer = (state = initialState, action: PacksActionType): PacksGetResponseType => {
+export const packsReducer = (state:PackReducerStateType = initialState, action: PacksActionType): PackReducerStateType => {
     switch (action.type) {
         case 'PACKS/SET-PACKS':
             return {...state, cardPacks: [...action.packs]}
@@ -96,7 +114,7 @@ export const deletePackTC = (packID: string) => async (dispatch: ThunkDispatchTy
 export const addNewPackTC = (data: PostPacksType) => async (dispatch: ThunkDispatchType) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsAPI.addNewPacks({...data})
+        const res = await cardsAPI.addNewPacks(data)
         dispatch(addNewPackAC(res.data.newCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {

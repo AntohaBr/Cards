@@ -6,7 +6,7 @@ import {
     FormControlLabel,
     FormGroup, FormLabel, Input, InputLabel,
 } from "@mui/material";
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
@@ -19,8 +19,15 @@ import {VisibilityOff} from "@mui/icons-material";
 import {loginTC} from "../../redux/Auth-reducer";
 
 
+interface State {
+    password: string;
+    showPassword: boolean;
+}
+
+
 export const Login = () => {
     const dispatch = useDispatch<ThunkDispatchType>()
+    const navigate = useNavigate()
     const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
     const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
     const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
@@ -39,11 +46,11 @@ export const Login = () => {
     }
 
     const onClickBackToRegistrationHandler = () => {
-        return <Navigate to={URL.REGISTRATION}/>
+        navigate(URL.REGISTRATION)
     }
 
     const onClickBackToRecoveryPasswordHandler = () => {
-        return <Navigate to={URL.RECOVERY_PASSWORD}/>
+        navigate(URL.RECOVERY_PASSWORD)
     }
 
     const formik = useFormik({
@@ -118,7 +125,7 @@ export const Login = () => {
                     </div>
                     <Button type={'submit'} variant={'contained'} color={'primary'}
                             style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
-                        Sing Up
+                        Sing In
                     </Button>
                     <FormLabel>
                         {error === "" ? "" : <div style={{

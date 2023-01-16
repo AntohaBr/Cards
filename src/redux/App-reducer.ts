@@ -21,9 +21,6 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
         case 'APP/SET-APP-ERROR': {
             return {...state, successError: action.successError}
         }
-        case 'APP/SET-APP-SUCCESS-MESSAGE' : {
-            return {...state, successMessage: action.successMessage}
-        }
         case 'APP/SET-APP-STATUS': {
             return {...state, status: action.status, isDisabled: action.isDisabled}
         }
@@ -42,8 +39,7 @@ export const isInitializedAC = (isInitialized: boolean) => ({type: 'APP/IS-INITI
 export const setAppErrorAC = (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const)
 export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) =>
     ({type: 'APP/SET-APP-STATUS', status, isDisabled} as const)
-export const setAppSuccessMessageAC = (successMessage: null | string) =>
-    ({type: 'APP/SET-APP-SUCCESS-MESSAGE', successMessage} as const)
+
 
 
 //thunks
@@ -71,7 +67,6 @@ type AppStateType = typeof initialState
 export type AppActionType =
     | SetAppStatusActionType
     | ReturnType<typeof isInitializedAC>
-    | ReturnType<typeof setAppSuccessMessageAC>
     | SetAppErrorActionType
     | ReturnType<typeof addLoginAC>
     | SetInfoUserActionType

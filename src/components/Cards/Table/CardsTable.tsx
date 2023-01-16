@@ -9,21 +9,21 @@ import {NativeSelect, Pagination, Table} from '@mui/material';
 import {getCardsTC} from "../../../redux/Cards-reducer";
 import {useDispatch} from "react-redux";
 import {ThunkDispatchType} from "../../../redux/Store";
-import {CardsType} from "../../../api/cards-api";
 import {useParams} from 'react-router-dom';
 import {setPagination} from "../../../features/pagination";
 import Rating from "@mui/material/Rating";
 import {setCurrentPageAC} from "../../../redux/Pagination-reducer";
+import {CardType} from "../../../api/cards-api";
 
 
 type PropsType = {
     pageCount: number
     totalCount: number
     currentPage: number
-    cards: CardsType[]
+    cards: CardType[]
 }
 
-const CardsTable = (props: PropsType) => {
+export const CardsTable = (props: PropsType) => {
     const params = useParams<'packId'>()
     const {packId} = params
     const dispatch = useDispatch<ThunkDispatchType>()
@@ -31,13 +31,12 @@ const CardsTable = (props: PropsType) => {
     let arraySelect = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        dispatch(getCardsTC(packId ? packId : "", props.totalCount, +e.currentTarget.value))
-        console.log(props.pageCount)
+        // dispatch(getCardsTC({cardsPack_id: packId ? packId : '', props.totalCount, pageCount: +e.currentTarget.value}))
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
-        dispatch(getCardsTC(packId ? packId : "", page, props.pageCount))
-        dispatch(setCurrentPageAC(page))
+        dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page, pageCount: props.pageCount}))
+        // dispatch(setCurrentPageAC(page))
     }
 
     const newArray = arraySelect.map((el, i) => {
@@ -58,7 +57,6 @@ const CardsTable = (props: PropsType) => {
                     </TableHead>
                     <TableBody>
                         {props.cards?.map((row) => {
-
                             return (<TableRow key={row._id}>
                                     <TableCell component="th" scope="row" align={"right"}>
                                         {row.question}

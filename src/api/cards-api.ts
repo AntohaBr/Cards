@@ -12,7 +12,8 @@ export const cardsAPI = {
                     user_id: params.user_id,
                     min: params.min,
                     max: params.max,
-                    packName: params.packName
+                    packName: params.packName,
+                    search: params.search
                 }
             }
         )
@@ -86,13 +87,14 @@ export type PacksType = {
     deckCover: null | string
 }
 
-type PacksGetParamsType = {
-    page?: string
-    pageCount?: string
-    min?: string
-    max?: string
+export type PacksGetParamsType = {
+    page?: number
+    pageCount?: number
+    min?: number
+    max?: number
     user_id?: string
     packName?: string
+    search?: string
 }
 
 export type PacksGetParamsTypeNotNeeded = Partial<PacksGetParamsType>

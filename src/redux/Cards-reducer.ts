@@ -1,37 +1,56 @@
 import {Dispatch} from "redux";
 import {setAppStatusAC} from "./App-reducer";
-import {RootReducerType} from "./Store";
+import {RootReducerType, ThunkDispatchType} from "./Store";
 import {setCurrentPageAC, setPageCount, totalCountAC} from "./Pagination-reducer";
+import {cardsAPI, CardType, GetCardsParamsType, GetCardsResponseType} from "../api/cards-api";
+import {AxiosError} from "axios";
+import {errorUtils} from "../utils/Error-utils";
 
 
 export const initialState = {
-    cards: [] as CardsType[],
-    question: '',
-    answer: '',
-    shots: 0,
-    grade: 0,
-    card_id: ''
+    cards: [] as CardType[],
+    packUserId: '',
+    packName: '',
+    packPrivate: false,
+    packDeckCover: '',
+    packCreated: '',
+    packUpdated: '',
+    page: 0,
+    pageCount: 0,
+    cardsTotalCount: 0 as number,
+    minGrade: 0,
+    maxGrade: 0,
+    cardsPack_id: '' as string,
 }
 
-export const cardsReducer = (state:typeof initialState=initialState,action: any): typeof initialState=> {
+export type CardsReducerStateType = typeof initialState
+
+export const cardsReducer = (state: CardsReducerStateType = initialState, action: CardsActionType): CardsReducerStateType => {
     switch (action.type) {
-        case "SET-CARDS": {
-            return {...state, cards: action.cards}
-        }
-
-        case "SET-UTILS": {
-            const currentCard = state.cards.find(el => el._id === action.id)
-            console.log(`currentCard ${currentCard}`)
-
-            if (currentCard) {
-                return {...state, answer: currentCard.answer, question: currentCard.question}
+        case "CARDS/SET_CARDS":
+            return {
+                ...state,
+                cards: action.data.cards,
+                packName: action.data.packName,
+                page: action.data.page,
+                packDeckCover: action.data.packDeckCover,
+                packUserId: action.data.packUserId
             }
-            return state
-        }
 
-        case "CARDS/SET-GRADE-AND-SHOTS": {
-            return {...state, grade: action.grade, shots: action.shots}
-        }
+
+        // case "SET-UTILS": {
+        //     const currentCard = state.cards.find(el => el._id === action.id)
+        //     console.log(`currentCard ${currentCard}`)
+        //
+        //     if (currentCard) {
+        //         return {...state, answer: currentCard.answer, question: currentCard.question}
+        //     }
+        //     return state
+        // }
+        //
+        // case "CARDS/SET-GRADE-AND-SHOTS": {
+        //     return {...state, grade: action.grade, shots: action.shots}
+        // }
 
 
         default: {
@@ -42,77 +61,59 @@ export const cardsReducer = (state:typeof initialState=initialState,action: any)
 }
 
 
-export const setCardsAC = (cards: CardsType[]) => {
-    return {
-        type: 'SET-CARDS', cards
-    } as const
-}
-
-export const setUtils = (id: string) => {
-
-    return {
-        type: 'SET-UTILS',
-        id
-    } as const
-}
-
-
-export const setGradeAndShots = (card_id: string, grade: number, shots: number) => {
-    return {
-        type: 'CARDS/SET-GRADE-AND-SHOTS',
-        card_id,
-        grade,
-        shots
-    } as const
-}
-
-export const testFunc=(example:number)=>{
-    return example*2
-}
+export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET_CARDS', data} as const)
+// export const setCardsLearnDataAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/SET_CARDS_LEARN_DATA', data} as const)
+// export const setPackIdAC = (cardsPack_id: string) => ({type: 'CARDS/SET_PACK_ID', cardsPack_id} as const)
+// export const setTotalCardsCountAC = (cardsTotalCount: number) =>
+//     ({
+//         type: 'CARDS/SET_TOTAL_CARDS_COUNT',
+//         cardsTotalCount,
+//     } as const)
 
 
 //thunks
-export const getCardsTC = (cardsPack_id: string, page: number, pageCount: number) => {
-    return async (dispatch: Dispatch) => {
-        try {
-            dispatch(setAppStatusAC("loading", true))
-            const response = await cardsAPI.getCards(cardsPack_id, page, pageCount)
-            dispatch(setPageCount(response.data.pageCount))
-            dispatch(totalCountAC(response.data.cardsTotalCount))
-            dispatch(setCurrentPageAC(response.data.page))
-            dispatch(setCardsAC(response.data.cards))
-            dispatch(setAppStatusAC("succeeded", false))
-
-
-        } catch (e) {
-            dispatch(setAppStatusAC("failed", false))
-        }
+export const getCardsTC = (params: GetCardsParamsType) => async (dispatch: ThunkDispatchType) => {
+    dispatch(setAppStatusAC("loading", true))
+    try {
+        const res = await cardsAPI.getCards(params)
+        dispatch(setPageCount(res.data.pageCount))
+        dispatch(totalCountAC(res.data.cardsTotalCount))
+        dispatch(setCurrentPageAC(res.data.page))
+        dispatch(setCardsAC(res.data))
+        dispatch(setAppStatusAC("succeeded", false))
+    } catch (e) {
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('idle', false))
     }
 }
 
-export const updateGradeTC = (model: Partial<GradeModelType>) => {
-    return async (dispatch: Dispatch, getState: () => RootReducerType) => {
-
-        const card = getState().cards
-        const apiModel: GradeModelType = {
-
-            grade: card.grade,
-            card_id: card.card_id,
-            ...model
-        }
-
-
-        try {
-            const response = await cardsAPI.grade(apiModel)
-            console.log(response.data, 'RESPONSE---')
-            dispatch(setGradeAndShots(response.data.updatedGrade._id, response.data.updatedGrade.grade, response.data.updatedGrade.shots))
-
-        } catch (e) {
-
-        }
-    }
-}
+//
+// export const updateGradeTC = (model: Partial<GradeModelType>) => {
+//     return async (dispatch: Dispatch, getState: () => RootReducerType) => {
+//
+//         const card = getState().cards
+//         const apiModel: GradeModelType = {
+//
+//             grade: card.grade,
+//             card_id: card.card_id,
+//             ...model
+//         }
+//
+//
+//         try {
+//             const response = await cardsAPI.grade(apiModel)
+//             console.log(response.data, 'RESPONSE---')
+//             dispatch(setGradeAndShots(response.data.updatedGrade._id, response.data.updatedGrade.grade, response.data.updatedGrade.shots))
+//
+//         } catch (e) {
+//             const err = e as Error | AxiosError<{ successError: null | string }>
+//             errorUtils(err, dispatch)
+//         }
+//     }
+// }
 
 //types
-export type CardsInitStateType = typeof initialState
+export type CardsActionType = ReturnType<typeof setCardsAC>
 

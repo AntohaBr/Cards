@@ -2,7 +2,7 @@ import React from 'react';
 import style from './Check-email.module.css'
 import {Button} from '@mui/material';
 import envelope from '../../assets/icon/envelope.jpg'
-import {Navigate, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 import {RootReducerType} from '../../redux/Store';
 import {URL} from '../../app/App';

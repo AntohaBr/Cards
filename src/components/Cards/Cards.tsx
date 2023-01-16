@@ -2,15 +2,16 @@ import React, {useEffect} from 'react';
 import {Button, Container, Grid} from "@mui/material";
 import {useDispatch, useSelector} from "react-redux";
 import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {CardsType} from "../../api/cards-api";
-import {getCardsTC, setUtils} from "../../redux/Cards-reducer";
-import {getCardPackTC} from "../../redux/cardPacks-Reducer";
 import {useNavigate, useParams} from 'react-router-dom';
 import {ArrowBack} from "@mui/icons-material";
 import {URL} from "../../app/App";
 import styles from './Cards.module.css'
 import {getCard} from "../../features/smart-random";
 import {InputWithIcon} from "../Util-components/Input-with-icon";
+import {CardsTable} from "./Table/CardsTable";
+import {CardType} from "../../api/cards-api";
+import {getCardsTC} from "../../redux/Cards-reducer";
+import {getPacksTC} from "../../redux/Packs-reducer";
 
 
 export const Cards = () => {
@@ -20,17 +21,17 @@ export const Cards = () => {
     const params = useParams()
     const navigate = useNavigate();
     const {packId} = params
-    const cards = useSelector<RootReducerType, CardsType[]>(state => state.cards.cards)
+    const cards = useSelector<RootReducerType, CardType[]>(state => state.cards.cards)
     const dispatch = useDispatch<ThunkDispatchType>()
 
     useEffect(() => {
-        dispatch(getCardsTC(packId ? packId : "", currentPage, pageCount))
-        dispatch(getCardPackTC({pageCount, page: currentPage, cardsPackId: packId}))
+        dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page:currentPage, pageCount}))
+        // dispatch(getPacksTC({pageCount, page: currentPage, cardsPackId: packId}))
     }, [])
 
     const setUtilsHandler = () => {
         const cardId = getCard(cards)._id
-        dispatch(setUtils(cardId))
+        // dispatch(setUtils(cardId))
         navigate(`${URL.LEARN}/${cardId}`)
     }
 
