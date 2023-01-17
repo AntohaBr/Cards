@@ -7,6 +7,7 @@ import {errorUtils} from "../utils/Error-utils";
 import {AxiosError} from "axios";
 import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/auth-api";
 import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
+import {AppThunkType} from "./Store";
 
 
 const initialState = {
@@ -42,7 +43,7 @@ export const setNewPasswordAC = (newPassport: string) => ({type: 'AUTH/SET-NEW-P
 
 
 //thunks
-export const loginTC = (data: LoginType) => async (dispatch: Dispatch<AuthActionType>) => {
+export const loginTC = (data: LoginType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC("loading", true))
     try {
         const res = await authAPI.login(data)
@@ -55,7 +56,7 @@ export const loginTC = (data: LoginType) => async (dispatch: Dispatch<AuthAction
     }
 }
 
-export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
+export const logOutTC = (): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC("loading", true))
     try {
         await authAPI.logOut()
@@ -67,7 +68,7 @@ export const logOutTC = () => async (dispatch: Dispatch<AppActionType>) => {
     }
 }
 
-export const registrationTC = (value: RegistrationType) => async (dispatch: Dispatch<AuthActionType>) => {
+export const registrationTC = (value: RegistrationType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         await authAPI.registration(value)
@@ -79,7 +80,7 @@ export const registrationTC = (value: RegistrationType) => async (dispatch: Disp
     }
 }
 
-export const recoveryPasswordTC = (email: string) => async (dispatch: Dispatch<AuthActionType>) => {
+export const recoveryPasswordTC = (email: string): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const data: ForgotType = {
@@ -97,7 +98,7 @@ password recovery link:
     }
 }
 
-export const setNewPasswordTC = (password: string, token: string) => async (dispatch: Dispatch<AuthActionType>) => {
+export const setNewPasswordTC = (password: string, token: string): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const data: NewPasswordType = {password: password, resetPasswordToken: token}
@@ -119,6 +120,5 @@ export type AuthActionType =
     | SetAppErrorActionType
     | SetAppStatusActionType
     | SetInfoUserActionType
-
 type InitialStateType = typeof initialState
 

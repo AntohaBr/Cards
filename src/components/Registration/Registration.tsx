@@ -12,11 +12,10 @@ import IconButton from "@mui/material/IconButton";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import Visibility from "@mui/icons-material/Visibility";
 import style from './Registration.module.css'
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate} from "react-router-dom";
 import {registrationTC} from "../../redux/Auth-reducer";
 import {URL} from "../../app/App";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 
 interface State {
@@ -28,10 +27,9 @@ interface State {
 
 
 export const Registration = () => {
-
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
-    const isRegistered = useSelector<RootReducerType, boolean>((state) => state.auth.isRegistered)
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const isDisable = useAppSelector(state => state.app.isDisabled)
+    const isRegistered = useAppSelector((state) => state.auth.isRegistered)
+    const dispatch = useAppDispatch()
 
     const [values, setValues] = React.useState<State>({
         password: '',

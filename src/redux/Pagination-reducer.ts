@@ -49,6 +49,5 @@ export const setPageCountPacks = (count: number) => ({type: 'PACKS/SET-PAGE-COUN
 
 //types
 export type initStateType = typeof initState
-
 export type PaginationActionType = ReturnType<typeof setPageCount | typeof setCurrentPageAC | typeof totalCountAC
     | typeof setCurrentPagePacksAC | typeof setPageCountPacks | typeof totalCountPacksAC>

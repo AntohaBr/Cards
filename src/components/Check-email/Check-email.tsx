@@ -3,14 +3,13 @@ import style from './Check-email.module.css'
 import {Button} from '@mui/material';
 import envelope from '../../assets/icon/envelope.jpg'
 import {useNavigate} from 'react-router-dom';
-import {useSelector} from 'react-redux';
-import {RootReducerType} from '../../redux/Store';
 import {URL} from '../../app/App';
+import {useAppSelector} from "../../utils/Hooks";
 
 
 export const CheckEmail = () => {
 
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const isDisable = useAppSelector(state => state.app.isDisabled)
     const navigate = useNavigate()
 
     const envelopeIcon = {

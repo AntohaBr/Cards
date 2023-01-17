@@ -8,16 +8,15 @@ import {Profile} from "../components/Profile/Profile";
 import {NewPassword} from "../components/New-password/New-password";
 import {RecoveryPassword} from "../components/Recovery-password/Recovery-password";
 import {Error404} from "../components/Error-404/Error-404";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../redux/Store";
-import {AppStatusType, isInitializedTC} from "../redux/App-reducer";
+import {isInitializedTC} from "../redux/App-reducer";
 import {CircularProgress, LinearProgress} from "@mui/material";
 import {Packs} from "../components/Cards/Packs";
 import {Cards} from "../components/Cards/Cards";
-// import Result from "../components/Learn/Result/Result";
 import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
 import {Learn} from "../components/Learn/Learn";
 import {CheckEmail} from "../components/Check-email/Check-email";
+import {Result} from "../components/Learn/Result/Result";
+import {useAppDispatch, useAppSelector} from "../utils/Hooks";
 
 
 export enum URL {
@@ -36,9 +35,9 @@ export enum URL {
 }
 
 export const App = () => {
-    const status = useSelector<RootReducerType, AppStatusType>(state => state.app.status)
-    const dispatch = useDispatch<ThunkDispatchType>()
-    const isInitialized = useSelector<RootReducerType, boolean>(state => state.app.isInitialized)
+    const status = useAppSelector(state => state.app.status)
+    const dispatch = useAppDispatch()
+    const isInitialized = useAppSelector(state => state.app.isInitialized)
 
     useEffect(() => {
         dispatch(isInitializedTC())
@@ -73,7 +72,7 @@ export const App = () => {
                     <Route path={URL.PACKS} element={<Packs/>}/>
                     <Route path={`${URL.CARDS}/:packId`} element={<Cards/>}/>
                     <Route path={`${URL.LEARN}/:cardId`} element={<Learn/>}/>
-                    {/*<Route path={URL.RESULT} element={<Result/>}/>*/}
+                    <Route path={URL.RESULT} element={<Result/>}/>
                 </Routes>
             </div>
         </div>

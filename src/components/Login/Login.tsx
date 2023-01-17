@@ -8,8 +8,6 @@ import {
 } from "@mui/material";
 import {Navigate, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {URL} from "../../app/App";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
@@ -17,6 +15,7 @@ import Visibility from "@mui/icons-material/Visibility";
 import style from './Login.module.css'
 import {VisibilityOff} from "@mui/icons-material";
 import {loginTC} from "../../redux/Auth-reducer";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 
 interface State {
@@ -26,11 +25,11 @@ interface State {
 
 
 export const Login = () => {
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
-    const error = useSelector<RootReducerType, null | string>(state => state.app.successError)
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const error = useAppSelector(state => state.app.successError)
+    const isDisable = useAppSelector(state => state.app.isDisabled)
 
 
     const [values, setValues] = React.useState<State>({

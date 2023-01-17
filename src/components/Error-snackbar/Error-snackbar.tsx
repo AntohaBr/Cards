@@ -1,9 +1,8 @@
 import React  from 'react'
 import Snackbar from '@mui/material/Snackbar'
 import MuiAlert, { AlertProps } from '@mui/material/Alert'
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {setAppErrorAC} from "../../redux/App-reducer";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
@@ -14,8 +13,8 @@ const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(
 });
 
 export const ErrorSnackbar = () => {
-    const error = useSelector<RootReducerType, null | string>(state => state.app.successError);
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const error = useAppSelector(state => state.app.successError);
+    const dispatch = useAppDispatch()
 
     const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
         if (reason === 'clickaway') {

@@ -224,7 +224,7 @@ export type NewCardPostType = {
     questionVideo: string
 }
 
-type UpdateCardType = {
+export type UpdateCardType = {
     card: {
         _id: string
         answer?: string

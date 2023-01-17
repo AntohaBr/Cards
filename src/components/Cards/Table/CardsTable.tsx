@@ -7,13 +7,12 @@ import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import {NativeSelect, Pagination, Table} from '@mui/material';
 import {getCardsTC} from "../../../redux/Cards-reducer";
-import {useDispatch} from "react-redux";
-import {ThunkDispatchType} from "../../../redux/Store";
 import {useParams} from 'react-router-dom';
 import {setPagination} from "../../../features/pagination";
 import Rating from "@mui/material/Rating";
 import {setCurrentPageAC} from "../../../redux/Pagination-reducer";
 import {CardType} from "../../../api/cards-api";
+import {useAppDispatch} from "../../../utils/Hooks";
 
 
 type PropsType = {
@@ -26,17 +25,17 @@ type PropsType = {
 export const CardsTable = (props: PropsType) => {
     const params = useParams<'packId'>()
     const {packId} = params
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const dispatch = useAppDispatch()
     const pagination = Math.ceil(props.totalCount / props.pageCount)
     let arraySelect = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        // dispatch(getCardsTC({cardsPack_id: packId ? packId : '', props.totalCount, pageCount: +e.currentTarget.value}))
+        dispatch(getCardsTC({cardsPack_id: packId ? packId : '',  pageCount: +e.currentTarget.value}))
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
         dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page, pageCount: props.pageCount}))
-        // dispatch(setCurrentPageAC(page))
+        dispatch(setCurrentPageAC(page))
     }
 
     const newArray = arraySelect.map((el, i) => {

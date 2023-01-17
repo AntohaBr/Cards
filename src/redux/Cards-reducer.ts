@@ -1,8 +1,15 @@
-import {Dispatch} from "redux";
 import {setAppStatusAC} from "./App-reducer";
-import {RootReducerType, ThunkDispatchType} from "./Store";
+import {AppThunkType} from "./Store";
 import {setCurrentPageAC, setPageCount, totalCountAC} from "./Pagination-reducer";
-import {cardsAPI, CardType, GetCardsParamsType, GetCardsResponseType} from "../api/cards-api";
+import {
+    CardLearnType,
+    cardsAPI,
+    CardType,
+    GetCardsParamsType,
+    GetCardsResponseType,
+    PostCardType,
+    UpdateCardType, UpdatedGradeCartType
+} from "../api/cards-api";
 import {AxiosError} from "axios";
 import {errorUtils} from "../utils/Error-utils";
 
@@ -21,6 +28,10 @@ export const initialState = {
     minGrade: 0,
     maxGrade: 0,
     cardsPack_id: '' as string,
+    question: '',
+    answer: '',
+    shots: 0,
+    grade: 0,
 }
 
 export type CardsReducerStateType = typeof initialState
@@ -36,33 +47,34 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
                 packDeckCover: action.data.packDeckCover,
                 packUserId: action.data.packUserId
             }
+        case 'CARDS/UPDATE_GRADE_CARD':
+            return {
+                ...state,
+                cards: state.cards.map(el =>
+                    el._id === action.data.card_id
+                        ? {...el, grade: action.data.grade, shots: action.data.shots}
+                        : el
+                ),
+            }
+        case "CARDS/SET_UTILS": {
+            const currentCard = state.cards.find(el => el._id === action._id)
+            // console.log(currentCard ${currentCard})
 
-
-        // case "SET-UTILS": {
-        //     const currentCard = state.cards.find(el => el._id === action.id)
-        //     console.log(`currentCard ${currentCard}`)
-        //
-        //     if (currentCard) {
-        //         return {...state, answer: currentCard.answer, question: currentCard.question}
-        //     }
-        //     return state
-        // }
-        //
-        // case "CARDS/SET-GRADE-AND-SHOTS": {
-        //     return {...state, grade: action.grade, shots: action.shots}
-        // }
-
-
+            if (currentCard) {
+                return {...state, answer: currentCard.answer, question: currentCard.question}
+            }
+            return state
+        }
         default: {
             return state
         }
     }
-
 }
 
-
 export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET_CARDS', data} as const)
-// export const setCardsLearnDataAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/SET_CARDS_LEARN_DATA', data} as const)
+export const updateGradeCardAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/UPDATE_GRADE_CARD', data} as const)
+export const setUtilsAC = (_id:string) => ({type: 'CARDS/SET_UTILS', _id} as const)
+
 // export const setPackIdAC = (cardsPack_id: string) => ({type: 'CARDS/SET_PACK_ID', cardsPack_id} as const)
 // export const setTotalCardsCountAC = (cardsTotalCount: number) =>
 //     ({
@@ -72,7 +84,7 @@ export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET_CAR
 
 
 //thunks
-export const getCardsTC = (params: GetCardsParamsType) => async (dispatch: ThunkDispatchType) => {
+export const getCardsTC = (params: GetCardsParamsType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC("loading", true))
     try {
         const res = await cardsAPI.getCards(params)
@@ -89,31 +101,66 @@ export const getCardsTC = (params: GetCardsParamsType) => async (dispatch: Thunk
     }
 }
 
-//
-// export const updateGradeTC = (model: Partial<GradeModelType>) => {
-//     return async (dispatch: Dispatch, getState: () => RootReducerType) => {
-//
-//         const card = getState().cards
-//         const apiModel: GradeModelType = {
-//
-//             grade: card.grade,
-//             card_id: card.card_id,
-//             ...model
-//         }
-//
-//
-//         try {
-//             const response = await cardsAPI.grade(apiModel)
-//             console.log(response.data, 'RESPONSE---')
-//             dispatch(setGradeAndShots(response.data.updatedGrade._id, response.data.updatedGrade.grade, response.data.updatedGrade.shots))
-//
-//         } catch (e) {
-//             const err = e as Error | AxiosError<{ successError: null | string }>
-//             errorUtils(err, dispatch)
-//         }
-//     }
-// }
+export const deleteCardsTC = (_id: string): AppThunkType => async (dispatch) => {
+    dispatch(setAppStatusAC("loading", true))
+    try {
+        const res = await cardsAPI.deleteCards(_id)
+        dispatch(getCardsTC({cardsPack_id: res.data.deletedCard.cardsPack_id}))
+        dispatch(setAppStatusAC("succeeded", false))
+    } catch (e) {
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('idle', false))
+    }
+}
+
+export const addNewCardsTC = (postModel: PostCardType): AppThunkType => async (dispatch) => {
+    dispatch(setAppStatusAC("loading", true))
+    try {
+        const res = await cardsAPI.addNewCards(postModel)
+        dispatch(getCardsTC({cardsPack_id: res.data.newCard.cardsPack_id}))
+        dispatch(setAppStatusAC("succeeded", false))
+    } catch (e) {
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('idle', false))
+    }
+}
+
+export const updateCardsTC = (putModel: UpdateCardType): AppThunkType => async (dispatch) => {
+    dispatch(setAppStatusAC("loading", true))
+    try {
+        const res = await cardsAPI.updateCards(putModel)
+        dispatch(getCardsTC({cardsPack_id: res.data.updatedCard.cardsPack_id}))
+        dispatch(setAppStatusAC("succeeded", false))
+    } catch (e) {
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('idle', false))
+    }
+}
+
+export const updateGradeCardTC = (putModelGrade: CardLearnType): AppThunkType => async (dispatch) => {
+    dispatch(setAppStatusAC("loading", true))
+    try {
+        const res = await cardsAPI.updateGradeCard(putModelGrade)
+        dispatch(updateGradeCardAC(res.data.updatedGrade))
+        dispatch(setAppStatusAC("succeeded", false))
+    } catch (e) {
+        const err = e as Error | AxiosError<{ successError: null | string }>
+        errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('idle', false))
+    }
+}
+
 
 //types
-export type CardsActionType = ReturnType<typeof setCardsAC>
+export type CardsActionType =
+    ReturnType<typeof setCardsAC>
+    | ReturnType<typeof updateGradeCardAC>
+    | ReturnType<typeof setUtilsAC>
 

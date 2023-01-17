@@ -6,11 +6,10 @@ import InputAdornment from '@mui/material/InputAdornment';
 import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {useDispatch, useSelector} from 'react-redux';
-import {RootReducerType, ThunkDispatchType} from '../../redux/Store';
 import {useNavigate, useParams} from 'react-router-dom';
 import {URL} from '../../app/App';
 import {setNewPasswordTC} from '../../redux/Auth-reducer';
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 
 interface State {
@@ -20,8 +19,8 @@ interface State {
 
 export const NewPassword = () => {
 
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const isDisable = useAppSelector(state => state.app.isDisabled)
+    const dispatch = useAppDispatch()
     const {token} = useParams<{ token: string }>()
     const navigate = useNavigate()
 

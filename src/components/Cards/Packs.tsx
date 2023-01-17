@@ -1,18 +1,17 @@
 import React, {useEffect} from 'react';
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate} from "react-router-dom";
 import {URL} from "../../app/App";
 import {PacksTable} from "./Table/PacksTable";
 import {isInitializedTC} from "../../redux/App-reducer";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 
 export const Packs = () => {
-    const pageCount = useSelector<RootReducerType, number>(state => state.pagination.packsPageCount)
-    const isLoggedIn = useSelector<RootReducerType, boolean>(state => state.auth.isLoggedIn)
-    const currentPage = useSelector<RootReducerType, number>(state => state.pagination.packsCurrentPage)
-    const totalCount = useSelector<RootReducerType, number>(state => state.pagination.allCardsPack)
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const pageCount = useAppSelector(state => state.pagination.packsPageCount)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
+    const totalCount = useAppSelector(state => state.pagination.allCardsPack)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(isInitializedTC())

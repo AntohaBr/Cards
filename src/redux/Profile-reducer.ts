@@ -1,9 +1,8 @@
-import {Dispatch} from 'redux';
 import {AxiosError} from 'axios';
 import {errorUtils} from '../utils/Error-utils';
 import {authAPI, ResponseType} from '../api/auth-api';
 import {setAppStatusAC} from "./App-reducer";
-
+import {AppThunkType} from "./Store";
 
 
 const initialState = {
@@ -18,7 +17,7 @@ const initialState = {
 export const profileReducer = (state: initialStateType = initialState, action: ProfileActionType): initialStateType => {
     switch (action.type) {
         case 'PROFILE/UPDATE-PROFILE':
-            return {...state, ...action.newData};
+            return {...state, ...action.newData}
         case 'PROFILE/SET-INFO-USER':
             return {...state, ...action.profile}
         default:
@@ -33,7 +32,7 @@ export const setInfoUserAC = (profile: ProfileType) => ({type: 'PROFILE/SET-INFO
 
 
 //thunks
-export const updateProfileTC = (name: string, avatar?: string) => async (dispatch: Dispatch<ProfileActionType>) => {
+export const updateProfileTC = (name: string, avatar?: string): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await authAPI.updateProfile(name, avatar)
@@ -42,6 +41,8 @@ export const updateProfileTC = (name: string, avatar?: string) => async (dispatc
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('idle', false))
     }
 }
 
@@ -51,11 +52,8 @@ export type ProfileActionType =
     UpdateProfileActionType
     | SetInfoUserActionType
     | ReturnType<typeof setAppStatusAC>
-
 export type SetInfoUserActionType = ReturnType<typeof setInfoUserAC>
 export type UpdateProfileActionType = ReturnType<typeof updateProfileAC>
-
 type initialStateType = typeof initialState
-
 type ProfileType = initialStateType
 

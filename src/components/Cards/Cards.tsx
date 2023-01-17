@@ -1,7 +1,5 @@
 import React, {useEffect} from 'react';
 import {Button, Container, Grid} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {useNavigate, useParams} from 'react-router-dom';
 import {ArrowBack} from "@mui/icons-material";
 import {URL} from "../../app/App";
@@ -9,29 +7,29 @@ import styles from './Cards.module.css'
 import {getCard} from "../../features/smart-random";
 import {InputWithIcon} from "../Util-components/Input-with-icon";
 import {CardsTable} from "./Table/CardsTable";
-import {CardType} from "../../api/cards-api";
-import {getCardsTC} from "../../redux/Cards-reducer";
+import {getCardsTC, setUtilsAC} from "../../redux/Cards-reducer";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {getPacksTC} from "../../redux/Packs-reducer";
 
 
 export const Cards = () => {
-    const pageCount = useSelector<RootReducerType, number>(state => state.pagination.cardsPageCount)
-    const currentPage = useSelector<RootReducerType, number>(state => state.pagination.cardsCurrentPage)
-    const totalCount = useSelector<RootReducerType, number>(state => state.pagination.allCards)
+    const pageCount = useAppSelector(state => state.pagination.cardsPageCount)
+    const currentPage = useAppSelector(state => state.pagination.cardsCurrentPage)
+    const totalCount = useAppSelector(state => state.pagination.allCards)
+    const cards = useAppSelector(state => state.cards.cards)
     const params = useParams()
     const navigate = useNavigate();
     const {packId} = params
-    const cards = useSelector<RootReducerType, CardType[]>(state => state.cards.cards)
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page:currentPage, pageCount}))
-        // dispatch(getPacksTC({pageCount, page: currentPage, cardsPackId: packId}))
+        dispatch(getPacksTC({pageCount, page: currentPage, user_id: packId}))
     }, [])
 
     const setUtilsHandler = () => {
         const cardId = getCard(cards)._id
-        // dispatch(setUtils(cardId))
+        dispatch(setUtilsAC(cardId))
         navigate(`${URL.LEARN}/${cardId}`)
     }
 

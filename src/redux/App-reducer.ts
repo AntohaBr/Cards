@@ -1,9 +1,9 @@
-import {Dispatch} from "redux";
 import {authAPI} from "../api/auth-api";
 import {addLoginAC} from "./Auth-reducer";
 import {AxiosError} from "axios";
 import {errorUtils} from "../utils/Error-utils";
 import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
+import {AppThunkType} from "./Store";
 
 
 const initialState = {
@@ -41,11 +41,10 @@ export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) =>
     ({type: 'APP/SET-APP-STATUS', status, isDisabled} as const)
 
 
-
 //thunks
-export const isInitializedTC = () => async (dispatch: Dispatch<AppActionType>) => {
+export const isInitializedTC = (): AppThunkType => async (dispatch) => {
+    dispatch(setAppStatusAC("loading", true))
     try {
-        dispatch(setAppStatusAC("loading", true))
         const res = await authAPI.me()
         dispatch(addLoginAC(true))
         dispatch(setInfoUserAC(res.data))
@@ -55,21 +54,20 @@ export const isInitializedTC = () => async (dispatch: Dispatch<AppActionType>) =
         dispatch(isInitializedAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtils(err, dispatch)
+    } finally {
+        dispatch(setAppStatusAC('idle', false))
     }
 }
 
 
 //types
 export type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed' | 'none'
-
 type AppStateType = typeof initialState
-
 export type AppActionType =
     | SetAppStatusActionType
     | ReturnType<typeof isInitializedAC>
     | SetAppErrorActionType
     | ReturnType<typeof addLoginAC>
     | SetInfoUserActionType
-
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>

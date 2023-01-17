@@ -8,9 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
 import SchoolIcon from '@mui/icons-material/School';
-import {RootReducerType, ThunkDispatchType} from "../../../redux/Store";
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
 import {Navigate, NavLink, useNavigate} from 'react-router-dom';
@@ -18,10 +16,11 @@ import {URL} from "../../../app/App";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useEffect} from "react";
 import {setPagination} from "../../../features/pagination";
-import {initStateType, setCurrentPagePacksAC} from "../../../redux/Pagination-reducer";
-import {addNewPackTC, getPacksTC, PackReducerStateType} from "../../../redux/Packs-reducer";
+import {setCurrentPagePacksAC} from "../../../redux/Pagination-reducer";
+import {addNewPackTC, getPacksTC} from "../../../redux/Packs-reducer";
 import {RangeSlider} from "../../Util-components/Slider";
-// import { useDebounce } from 'use-debounce';
+import {useDebounce} from "../../../utils/Use-debounce";
+import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
 
 
 type PropsType = {
@@ -31,28 +30,26 @@ type PropsType = {
 }
 
 export const PacksTable = (props: PropsType) => {
-
-    const cardPacksStore = useSelector<RootReducerType, PackReducerStateType>(state => state.packs)
+    const cardPacksStore = useAppSelector(state => state.packs)
+    const user_id = useAppSelector(state => state.profile._id)
+    const paginationStore = useAppSelector(state => state.pagination)
     const navigate = useNavigate()
-    const dispatch = useDispatch<ThunkDispatchType>()
-    const user_id = useSelector<RootReducerType, string>(state => state.profile._id)
-    const paginationStore = useSelector<RootReducerType, initStateType>(state => state.pagination)
+    const dispatch = useAppDispatch()
 
     const [value, setValue] = useState('')
-    // const debouncedValue = useDebounce<string>(value, 500)
+    const debouncedValue = useDebounce<string>(value, 500)
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     useEffect(() => {
         dispatch(getPacksTC({search: value}))
-    }, [])
+    }, [debouncedValue])
 
     const redirectToCards = () => {
         return <Navigate to={URL.CARDS}/>
     }
 
     const createPackHandler = () => {
-        // dispatch(addNewPackTC({}))
-        // dispatch(createPackTC())
+        dispatch(addNewPackTC({name:'111',private:false,deckCover:'222'}))
     }
 
     const myPacks = (status: 'my' | 'all') => {
@@ -107,7 +104,6 @@ export const PacksTable = (props: PropsType) => {
                                 <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
                                 <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
                             </div>
-                            {/*<MySlider/>*/}
                             <RangeSlider/>
                             <Button color={"inherit"}>
                                 <FilterAltOffIcon/>
@@ -135,7 +131,7 @@ export const PacksTable = (props: PropsType) => {
                                                 {row.name}
                                             </TableCell>
                                             <TableCell align="right">{row.cardsCount}</TableCell>
-                                            {/*<TableCell align="right">{row.updated.split('').splice(0, 10)}</TableCell>*/}
+                                            <TableCell align="right">{row.updated?.split('').splice(0, 10)}</TableCell>
                                             <TableCell align="right">{row.user_name}</TableCell>
                                             <TableCell align={"right"}>
                                                 <div>

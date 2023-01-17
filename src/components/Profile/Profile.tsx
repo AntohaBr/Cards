@@ -3,8 +3,6 @@ import {Avatar, Badge, Button, Icon, IconButton, TextField} from "@mui/material"
 import Box from "@mui/material/Box";
 import style from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
-import {useDispatch, useSelector} from "react-redux";
 import {updateProfileTC} from "../../redux/Profile-reducer";
 import {Navigate, useNavigate} from 'react-router-dom';
 import {URL} from "../../app/App";
@@ -12,16 +10,17 @@ import {logOutTC} from "../../redux/Auth-reducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {setAppErrorAC} from "../../redux/App-reducer";
 import {convertFileToBase64} from "../../features/Convert-fаile-to-base64";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 
 export const Profile = React.memo(() => {
 
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
-    const isLoggedIn = useSelector<RootReducerType, boolean>((state) => state.auth.isLoggedIn)
-    const email = useSelector<RootReducerType, string>(state => state.profile.email)
-    const avatar = useSelector<RootReducerType, string>(state => state.profile.avatar)
-    const name = useSelector<RootReducerType, string>(state => state.profile.name)
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const isDisable = useAppSelector(state => state.app.isDisabled)
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const email = useAppSelector(state => state.profile.email)
+    const avatar = useAppSelector(state => state.profile.avatar)
+    const name = useAppSelector(state => state.profile.name)
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const [userName, setUserName] = useState<string>(name)

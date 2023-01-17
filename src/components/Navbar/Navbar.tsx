@@ -1,13 +1,12 @@
 import {Link} from "react-router-dom";
 import style from"./Navbar.module.css"
 import {URL} from "../../app/App";
-import {useSelector} from "react-redux";
-import {RootReducerType} from "../../redux/Store";
+import {useAppSelector} from "../../utils/Hooks";
 
 
 export const Navbar = () => {
-    const avatar=useSelector<RootReducerType,string>(state => state.profile.avatar)
-    const name=useSelector<RootReducerType,string>(state => state.profile.name)
+    const avatar = useAppSelector(state => state.profile.avatar)
+    const name = useAppSelector(state => state.profile.name)
 
     const imageStyle = {
         backgroundImage:`url(${avatar})`

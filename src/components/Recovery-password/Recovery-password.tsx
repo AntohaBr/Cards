@@ -3,18 +3,16 @@ import style from './Recovery-password.module.css'
 import {Button, FormControl, FormLabel, Input, InputLabel} from "@mui/material";
 import {useFormik} from "formik";
 import {FormikErrorType} from "../Registration/Registration";
-import {useDispatch, useSelector} from "react-redux";
-import {RootReducerType, ThunkDispatchType} from "../../redux/Store";
 import {Navigate, useNavigate} from "react-router-dom";
 import {URL} from "../../app/App";
 import {recoveryPasswordTC} from "../../redux/Auth-reducer";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 
 export const RecoveryPassword = () => {
-
-    const recoveryPassword = useSelector<RootReducerType, string>((state)=> state.auth.recoveryPassword)
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
-    const dispatch = useDispatch<ThunkDispatchType>()
+    const recoveryPassword = useAppSelector((state)=> state.auth.recoveryPassword)
+    const isDisable = useAppSelector(state => state.app.isDisabled)
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const onClickBackToLoginHandler = () => {

@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios';
 import {errorUtils} from '../utils/Error-utils';
 import {setAppStatusAC} from './App-reducer';
-import {ThunkDispatchType} from "./Store";
+import {AppThunkType} from "./Store";
 import {
     cardsAPI,
     PacksGetParamsType,
@@ -82,7 +82,7 @@ export const clearFiltersAC = () => ({type: 'PACKS/REBOOT-FILTER-PACKS-CARDS'}) 
 
 
 //thunks
-export const getPacksTC = (params: PacksGetParamsTypeNotNeeded) => async (dispatch: ThunkDispatchType) => {
+export const getPacksTC = (params: PacksGetParamsTypeNotNeeded):AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.getPacks({...params})
@@ -97,7 +97,7 @@ export const getPacksTC = (params: PacksGetParamsTypeNotNeeded) => async (dispat
     }
 }
 
-export const deletePackTC = (packID: string) => async (dispatch: ThunkDispatchType) => {
+export const deletePackTC = (packID: string):AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     const res = await cardsAPI.deletePacks(packID)
     try {
@@ -111,7 +111,7 @@ export const deletePackTC = (packID: string) => async (dispatch: ThunkDispatchTy
     }
 }
 
-export const addNewPackTC = (data: PostPacksType) => async (dispatch: ThunkDispatchType) => {
+export const addNewPackTC = (data: PostPacksType):AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.addNewPacks(data)
@@ -125,7 +125,7 @@ export const addNewPackTC = (data: PostPacksType) => async (dispatch: ThunkDispa
     }
 }
 
-export const updatePackTC = (params: UpdatePacksType) => async (dispatch: ThunkDispatchType) => {
+export const updatePackTC = (params: UpdatePacksType):AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.updatePacks({...params})
@@ -149,9 +149,6 @@ export type PacksActionType = SetPackACType
     | ReturnType<typeof setMaxCardsCountAC>
     | ReturnType<typeof setMinCardsCountAC>
     | ReturnType<typeof clearFiltersAC>
-
 export type SetPackACType = ReturnType<typeof setPacksAC>
-
 export type AddNewPackACType = ReturnType<typeof addNewPackAC>
-
 export type DeletePackACType = ReturnType<typeof deletePackAC>
