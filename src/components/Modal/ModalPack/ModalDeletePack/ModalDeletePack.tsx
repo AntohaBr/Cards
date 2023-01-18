@@ -5,11 +5,12 @@ import {RootReducerType} from '../../../../redux/Store';
 import CloseIcon from '@mui/icons-material/Close';
 import style from './ModalDeletePack.module.css'
 import {ButtonBlockModal} from "../../../../common/Modals/Button-block-modal/Button-block-modal";
+import {useAppSelector} from "../../../../utils/Hooks";
 
 
 export const ModalDeletePack = () => {
 
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const isDisable = useAppSelector(state => state.app.isDisabled)
 
     const [open, setOpen] = React.useState(false)
 

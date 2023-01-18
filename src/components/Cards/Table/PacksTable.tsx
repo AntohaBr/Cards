@@ -17,11 +17,12 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useEffect} from "react";
 import {setPagination} from "../../../features/pagination";
 import {setCurrentPagePacksAC} from "../../../redux/Pagination-reducer";
-import {getPacksTC} from "../../../redux/Packs-reducer";
+import {addNewPackTC, getPacksTC} from "../../../redux/Packs-reducer";
 import {RangeSlider} from "../../Util-components/Slider";
 import {useDebounce} from "../../../utils/Use-debounce";
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
 import {ModalAddPack} from "../../../common/Modals/Modal-pack/Modal-add-pack";
+import {PostPacksType} from "../../../api/cards-api";
 
 
 type PropsType = {
@@ -50,11 +51,11 @@ export const PacksTable = (props: PropsType) => {
         return <Navigate to={URL.CARDS}/>
     }
 
-    const addNewPack = () => {
-
+    const addNewPack = (name: string, deckCover:string) => {
+        dispatch(addNewPackTC( {name,deckCover}))
     }
 
-    const createPackHandler = () => {
+    const buttonClickHandler = () => {
         setOpenModalAddPack(true)
     }
 
@@ -78,76 +79,76 @@ export const PacksTable = (props: PropsType) => {
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
-            dispatch(getPacksTC({pageCount: props.pageCount, page}))
-            dispatch(setCurrentPagePacksAC(page))
-        }
+        dispatch(getPacksTC({pageCount: props.pageCount, page}))
+        dispatch(setCurrentPagePacksAC(page))
+    }
 
-        const pagination = Math.ceil(props.totalCount / props.pageCount)
+    const pagination = Math.ceil(props.totalCount / props.pageCount)
 
-        const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            setValue(e.currentTarget.value)
-        }
+    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.currentTarget.value)
+    }
 
-        return (
-            <div>
-                <Grid container spacing={2}>
-                    <Container fixed={true}>
-                        <div>
-                            <h2>Pack list</h2>
-                            <Button variant={"contained"} onClick={createPackHandler}>Add new pack</Button>
-                        </div>
-                        <ModalAddPack
-                            title={'Add new pack'}
-                            open={openModalAddPack}
-                            toggleOpenMode={setOpenModalAddPack}
-                            addItem={addNewPack}
-                        />
+    return (
+        <div>
+            <Grid container spacing={2}>
+                <Container fixed={true}>
+                    <div>
+                        <h2>Pack list</h2>
+                        <Button variant={"contained"} onClick={buttonClickHandler}>Add new pack</Button>
+                    </div>
+                    <ModalAddPack
+                        title={'Add new pack'}
+                        open={openModalAddPack}
+                        toggleOpenMode={setOpenModalAddPack}
+                        addItem={addNewPack}
+                    />
+                    <div style={{
+                        display: 'flex',
+                        justifyContent: 'space-between',
+                        alignItems: 'center'
+                    }}>
+                        <input onChange={onChangeHandler} value={value}/>
                         <div style={{
                             display: 'flex',
-                            justifyContent: 'space-between',
-                            alignItems: 'center'
+                            justifyContent: 'space-around',
+                            width: '150px'
                         }}>
-                            <input onChange={onChangeHandler} value={value}/>
-                            <div style={{
-                                display: 'flex',
-                                justifyContent: 'space-around',
-                                width: '150px'
-                            }}>
-                                <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
-                                <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
-                            </div>
-                            <RangeSlider/>
-                            <Button color={"inherit"}>
-                                <FilterAltOffIcon/>
-                            </Button>
+                            <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
+                            <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
                         </div>
-                        <TableContainer component={Paper}>
-                            <Table sx={{minWidth: 650}} aria-label="simple table">
-                                <TableHead>
-                                    <TableRow onClick={redirectToCards}>
-                                        <TableCell align="right">Name</TableCell>
-                                        <TableCell align="right">Cards</TableCell>
-                                        <TableCell align="right">Last updated(g)</TableCell>
-                                        <TableCell align="right">Created by</TableCell>
-                                        <TableCell align="right">Actions </TableCell>
-                                    </TableRow>
-                                </TableHead>
-                                <TableBody>
-                                    {cardPacksStore.cardPacks.map((row) => (
-                                        <TableRow
-                                            key={row._id}
-                                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                            onClick={redirectToCards}
-                                        >
-                                            <TableCell component="th" scope="row" align="right">
-                                                {row.name}
-                                            </TableCell>
-                                            <TableCell align="right">{row.cardsCount}</TableCell>
-                                            <TableCell align="right">{row.updated?.split('').splice(0, 10)}</TableCell>
-                                            <TableCell align="right">{row.user_name}</TableCell>
-                                            <TableCell align={"right"}>
-                                                <div>
-                                                    {row.user_id === user_id ? <span>
+                        <RangeSlider/>
+                        <Button color={"inherit"}>
+                            <FilterAltOffIcon/>
+                        </Button>
+                    </div>
+                    <TableContainer component={Paper}>
+                        <Table sx={{minWidth: 650}} aria-label="simple table">
+                            <TableHead>
+                                <TableRow onClick={redirectToCards}>
+                                    <TableCell align="right">Name</TableCell>
+                                    <TableCell align="right">Cards</TableCell>
+                                    <TableCell align="right">Last updated(g)</TableCell>
+                                    <TableCell align="right">Created by</TableCell>
+                                    <TableCell align="right">Actions </TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {cardPacksStore.cardPacks.map((row) => (
+                                    <TableRow
+                                        key={row._id}
+                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                                        onClick={redirectToCards}
+                                    >
+                                        <TableCell component="th" scope="row" align="right">
+                                            {row.name}
+                                        </TableCell>
+                                        <TableCell align="right">{row.cardsCount}</TableCell>
+                                        <TableCell align="right">{row.updated?.split('').splice(0, 10)}</TableCell>
+                                        <TableCell align="right">{row.user_name}</TableCell>
+                                        <TableCell align={"right"}>
+                                            <div>
+                                                {row.user_id === user_id ? <span>
                                                     <Button disabled={row.cardsCount === 0}
                                                             onClick={() => navigate(`${URL.CARDS}/${row._id}`)}>
                                                          <SchoolIcon/>
@@ -166,14 +167,14 @@ export const PacksTable = (props: PropsType) => {
                                                        <SchoolIcon/>
                                                 </Button>
                                                 </NavLink></span>}
-                                                </div>
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                        </TableContainer>
-                        <span>
+                                            </div>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                    <span>
                 <Pagination count={setPagination([], pagination).length} variant={"outlined"} shape={"rounded"}
                             color={"primary"}
                             onChange={paginationFunc}/>
@@ -187,9 +188,9 @@ export const PacksTable = (props: PropsType) => {
                 })}
             </NativeSelect>
                   </span>
-                    </Container>
-                </Grid>
-            </div>
-        )
-    }
+                </Container>
+            </Grid>
+        </div>
+    )
+}
 
