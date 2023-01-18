@@ -17,10 +17,11 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useEffect} from "react";
 import {setPagination} from "../../../features/pagination";
 import {setCurrentPagePacksAC} from "../../../redux/Pagination-reducer";
-import {addNewPackTC, getPacksTC} from "../../../redux/Packs-reducer";
+import {getPacksTC} from "../../../redux/Packs-reducer";
 import {RangeSlider} from "../../Util-components/Slider";
 import {useDebounce} from "../../../utils/Use-debounce";
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
+import {ModalAddPack} from "../../../common/Modals/Modal-pack/Modal-add-pack";
 
 
 type PropsType = {
@@ -37,6 +38,7 @@ export const PacksTable = (props: PropsType) => {
     const dispatch = useAppDispatch()
 
     const [value, setValue] = useState('')
+    const [openModalAddPack, setOpenModalAddPack] = useState(false)
     const debouncedValue = useDebounce<string>(value, 500)
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
@@ -48,8 +50,12 @@ export const PacksTable = (props: PropsType) => {
         return <Navigate to={URL.CARDS}/>
     }
 
+    const addNewPack = () => {
+
+    }
+
     const createPackHandler = () => {
-        dispatch(addNewPackTC({name:'111',private:false,deckCover:'222'}))
+        setOpenModalAddPack(true)
     }
 
     const myPacks = (status: 'my' | 'all') => {
@@ -90,6 +96,12 @@ export const PacksTable = (props: PropsType) => {
                             <h2>Pack list</h2>
                             <Button variant={"contained"} onClick={createPackHandler}>Add new pack</Button>
                         </div>
+                        <ModalAddPack
+                            title={'Add new pack'}
+                            open={openModalAddPack}
+                            toggleOpenMode={setOpenModalAddPack}
+                            addItem={addNewPack}
+                        />
                         <div style={{
                             display: 'flex',
                             justifyContent: 'space-between',

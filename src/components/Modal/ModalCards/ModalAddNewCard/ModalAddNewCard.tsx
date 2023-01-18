@@ -48,57 +48,57 @@ export const ModalAddNewCard = () => {
     }
 
     return <div>
-            <Button variant="outlined" onClick={handleClickOpen}>Add new card</Button>
-            <Dialog open={open} onClose={handleClose}>
-                    <div className={style.modalAddNewCardTitle}>Add new card</div>
-                <DialogContent>
-                    <Box
-                        noValidate
-                        component="form"
-                        sx={{
-                            display: 'flex',
-                            flexDirection: 'column',
-                            m: 'auto',
-                            width: 'fit-content',
-                        }}
-                    >
-                        <FormControl sx={{mt: 2, minWidth: 350}}>
-                            <Select autoFocus value={text} onChange={handleMaxWidthChange}>
-                                <MenuItem value="Text">Text</MenuItem>
-                                <MenuItem value="File">File</MenuItem>
-                            </Select>
-                        </FormControl>
-                    </Box>
-                    {text === 'Text'
-                        ?
-                        <FormControl>
-                            <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
-                                <InputLabel>Question</InputLabel>
-                                <Input/>
-                            </FormControl>
-                            <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
-                                <InputLabel>Answer</InputLabel>
-                                <Input/>
-                            </FormControl>
-                        </FormControl>
-                        : null}
-                    {file === 'File'
-                        ?
-                    <input type={'file'} id='avatar' style={{display: 'none'}}
-                           accept={'.jpg, .jpeg, .png, img'} multiple onChange={photoUpload}
-                           src={file}/>
-                        : null}
-                </DialogContent>
-                <div className={style.modalDeleteCardButton}>
-                    <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'inherit'}
-                            style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>
-                        Cancel
-                    </Button>
-                    <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>
-                        Save
-                    </Button>
-                </div>
-            </Dialog>
+            {/*<Button variant="outlined" onClick={handleClickOpen}>Add new card</Button>*/}
+            {/*<Dialog open={open} onClose={handleClose}>*/}
+            {/*        <div className={style.modalAddNewCardTitle}>Add new card</div>*/}
+            {/*    <DialogContent>*/}
+            {/*        <Box*/}
+            {/*            noValidate*/}
+            {/*            component="form"*/}
+            {/*            sx={{*/}
+            {/*                display: 'flex',*/}
+            {/*                flexDirection: 'column',*/}
+            {/*                m: 'auto',*/}
+            {/*                width: 'fit-content',*/}
+            {/*            }}*/}
+            {/*        >*/}
+            {/*            <FormControl sx={{mt: 2, minWidth: 350}}>*/}
+            {/*                <Select autoFocus value={text} onChange={handleMaxWidthChange}>*/}
+            {/*                    <MenuItem value="Text">Text</MenuItem>*/}
+            {/*                    <MenuItem value="File">File</MenuItem>*/}
+            {/*                </Select>*/}
+            {/*            </FormControl>*/}
+            {/*        </Box>*/}
+            {/*        {text === 'Text'*/}
+            {/*            ?*/}
+            {/*            <FormControl>*/}
+            {/*                <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">*/}
+            {/*                    <InputLabel>Question</InputLabel>*/}
+            {/*                    <Input/>*/}
+            {/*                </FormControl>*/}
+            {/*                <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">*/}
+            {/*                    <InputLabel>Answer</InputLabel>*/}
+            {/*                    <Input/>*/}
+            {/*                </FormControl>*/}
+            {/*            </FormControl>*/}
+            {/*            : null}*/}
+            {/*        {file === 'File'*/}
+            {/*            ?*/}
+            {/*        <input type={'file'} id='avatar' style={{display: 'none'}}*/}
+            {/*               accept={'.jpg, .jpeg, .png, img'} multiple onChange={photoUpload}*/}
+            {/*               src={file}/>*/}
+            {/*            : null}*/}
+            {/*    </DialogContent>*/}
+            {/*    <div className={style.modalDeleteCardButton}>*/}
+            {/*        <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'inherit'}*/}
+            {/*                style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>*/}
+            {/*            Cancel*/}
+            {/*        </Button>*/}
+            {/*        <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'primary'}*/}
+            {/*                style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>*/}
+            {/*            Save*/}
+            {/*        </Button>*/}
+            {/*    </div>*/}
+            {/*</Dialog>*/}
         </div>
 }

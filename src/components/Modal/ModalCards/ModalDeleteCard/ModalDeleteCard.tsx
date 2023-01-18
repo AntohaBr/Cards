@@ -21,28 +21,28 @@ export const ModalDeleteCard = () => {
     };
 
     return <div>
-        <Button variant='outlined' onClick={handleClickOpen}>Delete Card</Button>
-        <Dialog open={open} onClose={handleClose}>
-            <div className={style.modalDeleteCardContainer}>
-                <div className={style.modalDeleteCard}>
-                    <div className={style.modalDeleteCardTitle}>Delete Card</div>
-                    <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={handleClose}/>
-                </div>
-                <div className={style.modalDeleteCardText}>
-                    <p>Do you really want to remove <b>Card Name?</b></p>
-                    <p>All cards will be deleted.</p>
-                </div>
-                <div className={style.modalDeleteCardButton}>
-                    <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'inherit'}
-                            style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>
-                        Cancel
-                    </Button>
-                    <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'error'}
-                            style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>
-                        Delete
-                    </Button>
-                </div>
-            </div>
-        </Dialog>
+        {/*<Button variant='outlined' onClick={handleClickOpen}>Delete Card</Button>*/}
+        {/*<Dialog open={open} onClose={handleClose}>*/}
+        {/*    <div className={style.modalDeleteCardContainer}>*/}
+        {/*        <div className={style.modalDeleteCard}>*/}
+        {/*            <div className={style.modalDeleteCardTitle}>Delete Card</div>*/}
+        {/*            <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={handleClose}/>*/}
+        {/*        </div>*/}
+        {/*        <div className={style.modalDeleteCardText}>*/}
+        {/*            <p>Do you really want to remove <b>Card Name?</b></p>*/}
+        {/*            <p>All cards will be deleted.</p>*/}
+        {/*        </div>*/}
+        {/*        <div className={style.modalDeleteCardButton}>*/}
+        {/*            <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'inherit'}*/}
+        {/*                    style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>*/}
+        {/*                Cancel*/}
+        {/*            </Button>*/}
+        {/*            <Button onClick={handleClose} type={'submit'} variant={'contained'} color={'error'}*/}
+        {/*                    style={{width: '120px', borderRadius: '90px'}} disabled={isDisable}>*/}
+        {/*                Delete*/}
+        {/*            </Button>*/}
+        {/*        </div>*/}
+        {/*    </div>*/}
+        {/*</Dialog>*/}
     </div>
 }

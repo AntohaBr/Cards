@@ -63,7 +63,6 @@ export const packsReducer = (state:PackReducerStateType = initialState, action: 
 
         case 'PACKS/REBOOT-FILTER-PACKS-CARDS':
             return {...state, minCardsCount: 0, cardPacksTotalCount: 5, maxCardsCount: 10}
-
         default:
             return state
     }
@@ -101,7 +100,7 @@ export const deletePackTC = (packID: string):AppThunkType => async (dispatch) =>
     dispatch(setAppStatusAC('loading', true))
     const res = await cardsAPI.deletePacks(packID)
     try {
-        dispatch(deletePackAC(res.data.deletedCardsPack._id))
+        dispatch(getPacksTC(res.data.deletedCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -115,7 +114,7 @@ export const addNewPackTC = (data: PostPacksType):AppThunkType => async (dispatc
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.addNewPacks(data)
-        dispatch(addNewPackAC(res.data.newCardsPack))
+        dispatch(getPacksTC(res.data.newCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -129,7 +128,7 @@ export const updatePackTC = (params: UpdatePacksType):AppThunkType => async (dis
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.updatePacks({...params})
-        dispatch(updatePackAC(res.data.updatedCardsPack))
+        dispatch(getPacksTC(res.data.updatedCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>

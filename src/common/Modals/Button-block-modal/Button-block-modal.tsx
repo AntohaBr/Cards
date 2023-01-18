@@ -4,7 +4,7 @@ import style from './Button-block-modal.module.css'
 
 
 type ButtonBlockModalPropsType = {
-    closeModalHandler: () => void
+    onCloseModalHandler: () => void
     isDisable: boolean
     actionModalHandler: () => void
     buttonTitleModal : string
@@ -15,7 +15,7 @@ export const ButtonBlockModal = (props:ButtonBlockModalPropsType) => {
     return (
         <div className={style.buttonModalBlock}>
             <Button
-                onClick={props.closeModalHandler}
+                onClick={props.onCloseModalHandler}
                 disabled={props.isDisable}
                 variant={'contained'}
                 color={'inherit'}

@@ -8,7 +8,8 @@ type MainBlockModalType = {
     children?: ReactNode
     title: string
     open: boolean
-    onClose: () => void
+    toggleOpenMode: (value: boolean) => void
+    onCloseModal: () => void
 }
 
 
@@ -16,11 +17,11 @@ export const MainBlockModal = (props: MainBlockModalType) => {
 
     return (
         <div>
-            <Dialog open={props.open} onClose={props.onClose}>
+            <Dialog open={props.open} onClose={props.onCloseModal}>
                 <div className={style.modalBlock}>
                     <div className={style.modalContainer}>
                         <div className={style.modalTitle}>{props.title}</div>
-                        <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={props.onClose}/>
+                        <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={props.onCloseModal}/>
                     </div>
                     {props.children}
                 </div>

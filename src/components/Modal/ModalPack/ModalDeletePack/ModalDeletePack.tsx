@@ -26,24 +26,24 @@ export const ModalDeletePack = () => {
     }
 
     return <div>
-        <Button variant='outlined' onClick={handleClickOpen}>Delete Pack</Button>
-        <Dialog open={open} onClose={closeModalHandler}>
-            <div className={style.modalDeletePackContainer}>
-                <div className={style.modalDeletePack}>
-                    <div className={style.modalDeletePackTitle}>Delete Pack</div>
-                    <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={closeModalHandler}/>
-                </div>
-                <div className={style.modalDeletePackText}>
-                    <p>Do you really want to remove <b>Pack Name?</b></p>
-                    <p>All cards will be deleted.</p>
-                </div>
-                    <ButtonBlockModal
-                        closeModalHandler={closeModalHandler}
-                        actionModalHandler={deleteButtonHandler}
-                        isDisable={isDisable}
-                        buttonTitleModal={'Delete'}
-                    />
-            </div>
-        </Dialog>
+        {/*<Button variant='outlined' onClick={handleClickOpen}>Delete Pack</Button>*/}
+        {/*<Dialog open={open} onClose={closeModalHandler}>*/}
+        {/*    <div className={style.modalDeletePackContainer}>*/}
+        {/*        <div className={style.modalDeletePack}>*/}
+        {/*            <div className={style.modalDeletePackTitle}>Delete Pack</div>*/}
+        {/*            <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={closeModalHandler}/>*/}
+        {/*        </div>*/}
+        {/*        <div className={style.modalDeletePackText}>*/}
+        {/*            <p>Do you really want to remove <b>Pack Name?</b></p>*/}
+        {/*            <p>All cards will be deleted.</p>*/}
+        {/*        </div>*/}
+        {/*            <ButtonBlockModal*/}
+        {/*                closeModalHandler={closeModalHandler}*/}
+        {/*                actionModalHandler={deleteButtonHandler}*/}
+        {/*                isDisable={isDisable}*/}
+        {/*                buttonTitleModal={'Delete'}*/}
+        {/*            />*/}
+        {/*    </div>*/}
+        {/*</Dialog>*/}
     </div>
 }

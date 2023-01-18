@@ -31,28 +31,28 @@ export const ModalEditPack = () => {
     }
 
     return <div>
-        <Button variant='outlined' onClick={handleClickOpen}>Edit pack</Button>
-        <Dialog open={open}  onClose={closeModalHandler}>
-            <div className={style.modalEditContainer}>
-                <div className={style.modalEditPack}>
-                    <div className={style.modalEditPackTitle}>Edit pack</div>
-                    <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={closeModalHandler}/>
-                </div>
-                <TextField
-                    autoFocus
-                    label='Name pack'
-                    fullWidth
-                    variant='standard'
-                    sx={{m: 2, width: '40ch'}}
-                />
-                <FormControlLabel control={<Checkbox defaultChecked/>} label='Private pack' style={{marginLeft: 10}}/>
-                <ButtonBlockModal
-                    closeModalHandler={closeModalHandler}
-                    actionModalHandler={saveButtonHandler}
-                    isDisable={isDisable}
-                    buttonTitleModal={'Save'}
-                />
-            </div>
-        </Dialog>
+        {/*<Button variant='outlined' onClick={handleClickOpen}>Edit pack</Button>*/}
+        {/*<Dialog open={open}  onClose={closeModalHandler}>*/}
+        {/*    <div className={style.modalEditContainer}>*/}
+        {/*        <div className={style.modalEditPack}>*/}
+        {/*            <div className={style.modalEditPackTitle}>Edit pack</div>*/}
+        {/*            <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={closeModalHandler}/>*/}
+        {/*        </div>*/}
+        {/*        <TextField*/}
+        {/*            autoFocus*/}
+        {/*            label='Name pack'*/}
+        {/*            fullWidth*/}
+        {/*            variant='standard'*/}
+        {/*            sx={{m: 2, width: '40ch'}}*/}
+        {/*        />*/}
+        {/*        <FormControlLabel control={<Checkbox defaultChecked/>} label='Private pack' style={{marginLeft: 10}}/>*/}
+        {/*        <ButtonBlockModal*/}
+        {/*            // closeModalHandler={closeModalHandler}*/}
+        {/*            actionModalHandler={saveButtonHandler}*/}
+        {/*            isDisable={isDisable}*/}
+        {/*            buttonTitleModal={'Save'}*/}
+        {/*        />*/}
+        {/*    </div>*/}
+        {/*</Dialog>*/}
     </div>
 }

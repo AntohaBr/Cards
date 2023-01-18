@@ -1,47 +1,42 @@
 import React from 'react';
 import {
-    Button, Checkbox,
+    Checkbox,
     FormControlLabel,
     TextField
 } from '@mui/material';
-import {useSelector} from 'react-redux';
 import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
-import {RootReducerType} from "../../../redux/Store";
 import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
+import {useAppSelector} from "../../../utils/Hooks";
 
 
-type ModalAddPackType = {
-    open: boolean
+type ModalAddPackPropsType = {
     title: string
-    toggleOpen: (value: boolean) => void
+    open: boolean
+    toggleOpenMode: (value: boolean) => void
+    addItem: (name: string, deckCover: string) => void
 }
 
 
-export const ModalAddPack = (props: ModalAddPackType) => {
+export const ModalAddPack = (props: ModalAddPackPropsType) => {
 
-    const isDisable = useSelector<RootReducerType, boolean>(state => state.app.isDisabled)
+    const isDisable = useAppSelector(state => state.app.isDisabled)
 
-    const [open, setOpen] = React.useState(false);
-
-    const handleClickOpen = () => {
-        setOpen(true)
-    }
-
-    const closeModalHandler = () => {
-        props.toggleOpen(false)
+    const onCloseModalHandler = () => {
+        props.toggleOpenMode(false)
     }
 
     const saveButtonHandler = () => {
-
+        // props.addItem(name, deckCover)
+        props.toggleOpenMode(false)
     }
 
     return <div>
-        <Button variant='outlined' onClick={handleClickOpen}>(Add new pack)</Button>
         <MainBlockModal
-            open={props.open}
-            onClose={closeModalHandler}
             title={props.title}
-            >
+            open={props.open}
+            toggleOpenMode={props.toggleOpenMode}
+            onCloseModal={onCloseModalHandler}
+        >
             <TextField
                 autoFocus
                 id='name'
@@ -53,7 +48,7 @@ export const ModalAddPack = (props: ModalAddPackType) => {
             />
             <FormControlLabel control={<Checkbox defaultChecked/>} label='Private pack' style={{marginLeft: 10}}/>
             <ButtonBlockModal
-                closeModalHandler={closeModalHandler}
+                onCloseModalHandler={onCloseModalHandler}
                 isDisable={isDisable}
                 actionModalHandler={saveButtonHandler}
                 buttonTitleModal={'Save'}
