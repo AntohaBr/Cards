@@ -8,9 +8,10 @@ import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 
 export const Packs = () => {
     const pageCount = useAppSelector(state => state.pagination.packsPageCount)
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
     const totalCount = useAppSelector(state => state.pagination.allCardsPack)
+    const packs = useAppSelector(state => state.packs.cardPacks)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
@@ -20,7 +21,12 @@ export const Packs = () => {
     if (isLoggedIn) {
         return (
             <div>
-                <PacksTable pageCount={pageCount} totalCount={totalCount} currentPage={currentPage}/>
+                <PacksTable
+                    pageCount={pageCount}
+                    totalCount={totalCount}
+                    currentPage={currentPage}
+                    packs={packs}
+                />
             </div>
         )
     } else {

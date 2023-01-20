@@ -113,7 +113,7 @@ export const deletePackTC = (packID: string):AppThunkType => async (dispatch) =>
 export const addNewPackTC = (data: PostPacksType):AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsAPI.addNewPacks(data)
+        const res = await cardsAPI.addNewPacks({...data})
         dispatch(getPacksTC(res.data.newCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {

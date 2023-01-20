@@ -23,7 +23,7 @@ export const Cards = () => {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page:currentPage, pageCount}))
+        dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page: currentPage, pageCount}))
         dispatch(getPacksTC({pageCount, page: currentPage, user_id: packId}))
     }, [])
 
@@ -49,7 +49,12 @@ export const Cards = () => {
                             Learn Pack
                         </Button>
                     </div>
-                    <CardsTable pageCount={pageCount} totalCount={totalCount} currentPage={currentPage} cards={cards}/>
+                    <CardsTable
+                        pageCount={pageCount}
+                        totalCount={totalCount}
+                        currentPage={currentPage}
+                        cards={cards}
+                    />
                 </Container>
             </Grid>
             <div>

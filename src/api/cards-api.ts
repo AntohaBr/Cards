@@ -19,7 +19,7 @@ export const cardsAPI = {
         )
     },
     addNewPacks(data: PostPacksType) {
-        return instance.post<PostPacksType, AxiosResponse<AddNewPackTypeResponseType>>(`cards/pack`, data)
+        return instance.post<PostPacksType, AxiosResponse<AddNewPackTypeResponseType>>(`cards/pack`, {cardsPack: data})
     },
     deletePacks(packID: string) {
         return instance.delete<DeletePackResponseType>(`cards/pack?id=${packID}`)

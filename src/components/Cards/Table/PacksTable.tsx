@@ -11,24 +11,26 @@ import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
 import SchoolIcon from '@mui/icons-material/School';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditIcon from '@mui/icons-material/Edit';
-import {Navigate, NavLink, useNavigate} from 'react-router-dom';
+import {Navigate, NavLink, useNavigate, useSearchParams} from 'react-router-dom';
 import {URL} from "../../../app/App";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useEffect} from "react";
 import {setPagination} from "../../../features/pagination";
 import {setCurrentPagePacksAC} from "../../../redux/Pagination-reducer";
-import {addNewPackTC, getPacksTC} from "../../../redux/Packs-reducer";
+import {addNewPackTC, deletePackTC, getPacksTC} from "../../../redux/Packs-reducer";
 import {RangeSlider} from "../../Util-components/Slider";
 import {useDebounce} from "../../../utils/Use-debounce";
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
 import {ModalAddPack} from "../../../common/Modals/Modal-pack/Modal-add-pack";
-import {PostPacksType} from "../../../api/cards-api";
+import {ModalDeletePack} from "../../../common/Modals/Modal-pack/Moda-delete-pack";
+import {PacksType} from "../../../api/cards-api";
 
 
 type PropsType = {
     totalCount: number
     pageCount: number
     currentPage: number
+    packs: PacksType[]
 }
 
 export const PacksTable = (props: PropsType) => {
@@ -38,10 +40,13 @@ export const PacksTable = (props: PropsType) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
+    const [searchParams,setSearchParams ] = useSearchParams()
     const [value, setValue] = useState('')
     const [openModalAddPack, setOpenModalAddPack] = useState(false)
+    const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
     const debouncedValue = useDebounce<string>(value, 500)
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+
 
     useEffect(() => {
         dispatch(getPacksTC({search: value}))
@@ -51,12 +56,22 @@ export const PacksTable = (props: PropsType) => {
         return <Navigate to={URL.CARDS}/>
     }
 
-    const addNewPack = (name: string, deckCover:string) => {
-        dispatch(addNewPackTC( {name,deckCover}))
+    const addNewPack = (name: string, deckCover: string) => {
+        dispatch(addNewPackTC({name, deckCover}))
     }
 
-    const buttonClickHandler = () => {
+    const deletePack = () => {
+        const packId = searchParams.get('id')
+        if (packId) dispatch(deletePackTC(packId))
+    }
+
+    const addButtonClickHandler = () => {
         setOpenModalAddPack(true)
+    }
+
+    const deleteButtonClickHandler = (_id:string) => {
+        setSearchParams({id: _id})
+        setOpenModalDeletePack (true)
     }
 
     const myPacks = (status: 'my' | 'all') => {
@@ -95,7 +110,7 @@ export const PacksTable = (props: PropsType) => {
                 <Container fixed={true}>
                     <div>
                         <h2>Pack list</h2>
-                        <Button variant={"contained"} onClick={buttonClickHandler}>Add new pack</Button>
+                        <Button variant={"contained"} onClick={addButtonClickHandler}>Add new pack</Button>
                     </div>
                     <ModalAddPack
                         title={'Add new pack'}
@@ -157,7 +172,7 @@ export const PacksTable = (props: PropsType) => {
                                                 <Button>
                                                     <EditIcon/>
                                                 </Button>
-                                                <Button>
+                                                <Button onClick={()=> deleteButtonClickHandler(row._id)}>
                                                        <DeleteOutlineIcon/>
                                                 </Button>
                                            </span>
@@ -169,6 +184,13 @@ export const PacksTable = (props: PropsType) => {
                                                 </NavLink></span>}
                                             </div>
                                         </TableCell>
+                                        <ModalDeletePack
+                                            title={'Delete Pack'}
+                                            open={openModalDeletePack}
+                                            // name={name}
+                                            toggleOpenMode={setOpenModalDeletePack}
+                                            deleteItem={deletePack}
+                                        />
                                     </TableRow>
                                 ))}
                             </TableBody>

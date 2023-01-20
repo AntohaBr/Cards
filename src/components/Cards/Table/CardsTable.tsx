@@ -23,18 +23,18 @@ type PropsType = {
 }
 
 export const CardsTable = (props: PropsType) => {
-    const params = useParams<'packId'>()
-    const {packId} = params
+    const params = useParams<'cardId'>()
+    const {cardId} = params
     const dispatch = useAppDispatch()
     const pagination = Math.ceil(props.totalCount / props.pageCount)
     let arraySelect = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        dispatch(getCardsTC({cardsPack_id: packId ? packId : '',  pageCount: +e.currentTarget.value}))
+        dispatch(getCardsTC({cardsPack_id: cardId ? cardId : '',  pageCount: +e.currentTarget.value}))
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
-        dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page, pageCount: props.pageCount}))
+        dispatch(getCardsTC({cardsPack_id: cardId ? cardId : '', page, pageCount: props.pageCount}))
         dispatch(setCurrentPageAC(page))
     }
 
