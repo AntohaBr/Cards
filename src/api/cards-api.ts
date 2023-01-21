@@ -4,19 +4,18 @@ import {instance} from "./Instance";
 
 //api
 export const cardsAPI = {
-    getPacks(params: PacksGetParamsTypeNotNeeded) {
-        return instance.get<GetPacksResponseType>(`cards/pack`, {
-                params: {
-                    page: params.page,
-                    pageCount: params.pageCount,
-                    user_id: params.user_id,
-                    min: params.min,
-                    max: params.max,
-                    packName: params.packName,
-                    search: params.search
-                }
+    getCardsPack(pageCount?:number,page?:number, search?:string, user_id?:string, ){
+        console.log(    'from api')
+        return instance.get<GetPacksResponseType>(`/cards/pack`,{
+            params:{
+
+                pageCount:pageCount,
+                page,
+                user_id,
+                packName:search
+
             }
-        )
+        })
     },
     addNewPacks(data: PostPacksType) {
         return instance.post<PostPacksType, AxiosResponse<AddNewPackTypeResponseType>>(`cards/pack`, {cardsPack: data})
