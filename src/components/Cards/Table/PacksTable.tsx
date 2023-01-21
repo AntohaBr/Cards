@@ -8,45 +8,35 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
-import SchoolIcon from '@mui/icons-material/School';
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import EditIcon from '@mui/icons-material/Edit';
-import {Navigate, NavLink, useNavigate, useSearchParams} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {URL} from "../../../app/App";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useEffect} from "react";
 import {setPagination} from "../../../features/pagination";
 import {setCurrentPagePacksAC} from "../../../redux/Pagination-reducer";
-import {addNewPackTC, deletePackTC, getPacksTC} from "../../../redux/Packs-reducer";
+import {addNewPackTC, getPacksTC} from "../../../redux/Packs-reducer";
 import {RangeSlider} from "../../Util-components/Slider";
 import {useDebounce} from "../../../utils/Use-debounce";
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
 import {ModalAddPack} from "../../../common/Modals/Modal-pack/Modal-add-pack";
-import {ModalDeletePack} from "../../../common/Modals/Modal-pack/Moda-delete-pack";
-import {PacksType} from "../../../api/cards-api";
+import {Pack} from "./Pack";
 
 
 type PropsType = {
     totalCount: number
     pageCount: number
     currentPage: number
-    packs: PacksType[]
 }
 
 export const PacksTable = (props: PropsType) => {
-    const cardPacksStore = useAppSelector(state => state.packs)
+    const packs = useAppSelector(state => state.packs.cardPacks)
     const user_id = useAppSelector(state => state.profile._id)
     const paginationStore = useAppSelector(state => state.pagination)
-    const navigate = useNavigate()
     const dispatch = useAppDispatch()
-
-    const [searchParams,setSearchParams ] = useSearchParams()
     const [value, setValue] = useState('')
     const [openModalAddPack, setOpenModalAddPack] = useState(false)
-    const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
     const debouncedValue = useDebounce<string>(value, 500)
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
 
     useEffect(() => {
         dispatch(getPacksTC({search: value}))
@@ -60,18 +50,8 @@ export const PacksTable = (props: PropsType) => {
         dispatch(addNewPackTC({name, deckCover}))
     }
 
-    const deletePack = () => {
-        const packId = searchParams.get('id')
-        if (packId) dispatch(deletePackTC(packId))
-    }
-
     const addButtonClickHandler = () => {
         setOpenModalAddPack(true)
-    }
-
-    const deleteButtonClickHandler = (_id:string) => {
-        setSearchParams({id: _id})
-        setOpenModalDeletePack (true)
     }
 
     const myPacks = (status: 'my' | 'all') => {
@@ -149,49 +129,16 @@ export const PacksTable = (props: PropsType) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {cardPacksStore.cardPacks.map((row) => (
-                                    <TableRow
-                                        key={row._id}
-                                        sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                                        onClick={redirectToCards}
-                                    >
-                                        <TableCell component="th" scope="row" align="right">
-                                            {row.name}
-                                        </TableCell>
-                                        <TableCell align="right">{row.cardsCount}</TableCell>
-                                        <TableCell align="right">{row.updated?.split('').splice(0, 10)}</TableCell>
-                                        <TableCell align="right">{row.user_name}</TableCell>
-                                        <TableCell align={"right"}>
-                                            <div>
-                                                {row.user_id === user_id ? <span>
-                                                    <Button disabled={row.cardsCount === 0}
-                                                            onClick={() => navigate(`${URL.CARDS}/${row._id}`)}>
-                                                         <SchoolIcon/>
-                                                    </Button>
-                                           <span>
-                                                <Button>
-                                                    <EditIcon/>
-                                                </Button>
-                                                <Button onClick={()=> deleteButtonClickHandler(row._id)}>
-                                                       <DeleteOutlineIcon/>
-                                                </Button>
-                                           </span>
-                                            </span> : <span>
-                                                <NavLink to={`${URL.CARDS}/${row._id}`}>
-                                                <Button disabled={row.cardsCount === 0}>
-                                                       <SchoolIcon/>
-                                                </Button>
-                                                </NavLink></span>}
-                                            </div>
-                                        </TableCell>
-                                        <ModalDeletePack
-                                            title={'Delete Pack'}
-                                            open={openModalDeletePack}
-                                            // name={name}
-                                            toggleOpenMode={setOpenModalDeletePack}
-                                            deleteItem={deletePack}
-                                        />
-                                    </TableRow>
+                                {packs.map(pack => (
+                                    <Pack
+                                        key={pack._id}
+                                        _id={pack._id}
+                                        user_id={pack.user_id}
+                                        name={pack.name}
+                                        user_name={pack.user_name}
+                                        updated={pack.updated}
+                                        deckCover={pack.deckCover}
+                                    />
                                 ))}
                             </TableBody>
                         </Table>

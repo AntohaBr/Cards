@@ -7,7 +7,7 @@ import style from './ModalDeletePack.module.css'
 type ModalDeletePackPropsType = {
     title: string
     open: boolean
-    // name: string
+    name: string
     toggleOpenMode: (value: boolean) => void
     deleteItem: () => void
 }
@@ -33,7 +33,7 @@ export const ModalDeletePack = (props: ModalDeletePackPropsType) => {
             onCloseModal={onCloseModalHandler}
         >
             <div className={style.modalDeletePackText}>
-                <p>Do you really want to remove <b>{'props.name'}</b></p>
+                <p>Do you really want to remove <b>{props.name}</b></p>
                 <p>All cards will be deleted.</p>
             </div>
             <ButtonBlockModal
