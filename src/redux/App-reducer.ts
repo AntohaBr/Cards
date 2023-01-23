@@ -47,8 +47,8 @@ export const isInitializedTC = (): AppThunkType => async (dispatch) => {
     try {
         const res = await authAPI.me()
         dispatch(addLoginAC(true))
-        dispatch(setInfoUserAC(res.data))
         dispatch(isInitializedAC(true))
+        dispatch(setInfoUserAC(res.data))
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         dispatch(isInitializedAC(true))

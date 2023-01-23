@@ -6,13 +6,13 @@ import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import TableBody from "@mui/material/TableBody";
 import {NativeSelect, Pagination, Table} from '@mui/material';
-import {getCardsTC} from "../../../redux/Cards-reducer";
+import {getCardsTC} from "../../redux/Cards-reducer";
 import {useParams} from 'react-router-dom';
-import {setPagination} from "../../../features/pagination";
-import Rating from "@mui/material/Rating";
-import {setCurrentPageAC} from "../../../redux/Pagination-reducer";
-import {CardType} from "../../../api/cards-api";
-import {useAppDispatch} from "../../../utils/Hooks";
+import {setCurrentPageAC} from "../../redux/Pagination-reducer";
+import {CardType} from "../../api/cards-api";
+import {useAppDispatch} from "../../utils/Hooks";
+import {Card} from "./Card";
+import {setPagination} from "../../features/Pagination";
 
 
 type PropsType = {
@@ -30,7 +30,7 @@ export const CardsTable = (props: PropsType) => {
     let arraySelect = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        dispatch(getCardsTC({cardsPack_id: cardId ? cardId : '',  pageCount: +e.currentTarget.value}))
+        dispatch(getCardsTC({cardsPack_id: cardId ? cardId : '', pageCount: +e.currentTarget.value}))
     }
 
     const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
@@ -39,7 +39,9 @@ export const CardsTable = (props: PropsType) => {
     }
 
     const newArray = arraySelect.map((el, i) => {
-        return <div><option value={el} key={i}>{el}</option></div>
+        return <div>
+            <option value={el} key={i}>{el}</option>
+        </div>
     })
 
     return (
@@ -55,21 +57,27 @@ export const CardsTable = (props: PropsType) => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {props.cards?.map((row) => {
-                            return (<TableRow key={row._id}>
-                                    <TableCell component="th" scope="row" align={"right"}>
-                                        {row.question}
-                                    </TableCell>
-                                    <TableCell align="right">{row.answer}</TableCell>
-                                    <TableCell align="right">{row.updated}</TableCell>
-                                    <TableCell align="right">
-                                            <span>
-                                                <Rating name="disabled" value={row.grade} disabled/>
-                                            </span>
-                                    </TableCell>
-                                </TableRow>
-                            )
-                        })}
+                        {props.cards?.map(card => (
+                            <Card
+                                key={card._id}
+                                _id={card._id}
+                                cardsPack_id={card.cardsPack_id}
+                                user_id={card.user_id}
+                                answer={card.answer}
+                                question={card.question}
+                                answerImg={card.answerImg}
+                                questionImg={card.questionImg}
+                                grade={card.grade}
+                                shots={card.shots}
+                                comments={card.comments}
+                                type={card.type}
+                                rating={card.rating}
+                                more_id={card.more_id}
+                                created={card.created}
+                                updated={card.updated}
+                                __v={card.__v}
+                            />
+                        ))}
                     </TableBody>
                 </Table>
             </TableContainer>

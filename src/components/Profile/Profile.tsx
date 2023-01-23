@@ -22,7 +22,6 @@ export const Profile = React.memo(() => {
     const name = useAppSelector(state => state.profile.name)
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
-
     const [userName, setUserName] = useState<string>(name)
     const [userAvatar, setUserAvatar] = useState<string>(avatar);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)

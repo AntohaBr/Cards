@@ -9,27 +9,28 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
 import {Navigate} from 'react-router-dom';
-import {URL} from "../../../app/App";
+import {URL} from "../../app/App";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useEffect} from "react";
-import {setPagination} from "../../../features/pagination";
-import {setCurrentPagePacksAC} from "../../../redux/Pagination-reducer";
-import {addNewPackTC, getPacksTC} from "../../../redux/Packs-reducer";
-import {RangeSlider} from "../../Util-components/Slider";
-import {useDebounce} from "../../../utils/Use-debounce";
-import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
-import {ModalAddPack} from "../../../common/Modals/Modal-pack/Modal-add-pack";
+import {setCurrentPagePacksAC} from "../../redux/Pagination-reducer";
+import {addNewPackTC, getPacksTC} from "../../redux/Packs-reducer";
+import {RangeSlider} from "../Util-components/Slider";
+import {useDebounce} from "../../utils/Use-debounce";
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
+import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack";
 import {Pack} from "./Pack";
+import {PacksType} from "../../api/cards-api";
+import {setPagination} from "../../features/Pagination";
 
 
 type PropsType = {
     totalCount: number
     pageCount: number
     currentPage: number
+    packs: PacksType[]
 }
 
 export const PacksTable = (props: PropsType) => {
-    const packs = useAppSelector(state => state.packs.cardPacks)
     const user_id = useAppSelector(state => state.profile._id)
     const paginationStore = useAppSelector(state => state.pagination)
     const dispatch = useAppDispatch()
@@ -129,7 +130,7 @@ export const PacksTable = (props: PropsType) => {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {packs.map(pack => (
+                                {props.packs.map(pack => (
                                     <Pack
                                         key={pack._id}
                                         _id={pack._id}
@@ -148,13 +149,11 @@ export const PacksTable = (props: PropsType) => {
                             color={"primary"}
                             onChange={paginationFunc}/>
                 Show <NativeSelect variant={"outlined"} defaultValue={props.pageCount} onChange={setPageCount}>
-                {array.map(n => {
-                    return (
-                        <div>
-                            <option value={n}>{n}</option>
-                        </div>
-                    )
-                })}
+                {array.map(n => (
+                    <div>
+                        <option value={n}>{n}</option>
+                    </div>
+                ))}
             </NativeSelect>
                   </span>
                 </Container>

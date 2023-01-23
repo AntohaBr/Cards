@@ -84,7 +84,7 @@ export const clearFiltersAC = () => ({type: 'PACKS/REBOOT-FILTER-PACKS-CARDS'}) 
 export const getPacksTC = (params: PacksGetParamsTypeNotNeeded):AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsAPI.getPacks({...params})
+        const res = await cardsAPI.getCardsPack({...params})
         dispatch(setPacksAC(res.data.cardPacks))
         dispatch(setTotalPacksCountAC(res.data.cardPacksTotalCount))
         dispatch(setAppStatusAC('succeeded', false))

@@ -10,7 +10,7 @@ import {RecoveryPassword} from "../components/Recovery-password/Recovery-passwor
 import {Error404} from "../components/Error-404/Error-404";
 import {isInitializedTC} from "../redux/App-reducer";
 import {CircularProgress, LinearProgress} from "@mui/material";
-import {Packs} from "../components/Cards/Packs";
+import {Packs} from "../components/Packs/Packs";
 import {Cards} from "../components/Cards/Cards";
 import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
 import {Learn} from "../components/Learn/Learn";

@@ -4,18 +4,8 @@ import {instance} from "./Instance";
 
 //api
 export const cardsAPI = {
-    getCardsPack(pageCount?:number,page?:number, search?:string, user_id?:string, ){
-        console.log(    'from api')
-        return instance.get<GetPacksResponseType>(`/cards/pack`,{
-            params:{
-
-                pageCount:pageCount,
-                page,
-                user_id,
-                packName:search
-
-            }
-        })
+    getCardsPack(params:PacksGetParamsTypeNotNeeded){
+        return instance.get<PacksGetParamsTypeNotNeeded, AxiosResponse<GetPacksResponseType>>(`cards/pack`, {params})
     },
     addNewPacks(data: PostPacksType) {
         return instance.post<PostPacksType, AxiosResponse<AddNewPackTypeResponseType>>(`cards/pack`, {cardsPack: data})
@@ -27,18 +17,7 @@ export const cardsAPI = {
         return instance.put<UpdatePacksType, AxiosResponse<UpdatePackResponseType>>(`cards/pack`, params)
     },
     getCards(params: GetCardsParamsType) {
-        return instance.get<GetCardsResponseType>(`cards/card`, {
-            params: {
-                cardAnswer: params.cardAnswer,
-                cardQuestion: params.cardQuestion,
-                cardsPack_id: params.cardsPack_id,
-                min: params.min,
-                max: params.max,
-                sortCards: params.sortCards,
-                page: params.page,
-                pageCount: params.pageCount,
-            },
-        })
+        return instance.get<GetCardsResponseType>(`cards/card`, {params})
     },
     deleteCards(cardID: string) {
         return instance.delete<string, AxiosResponse<DeleteCardRespondType>>(`cards/card`, {params: {id: cardID}})

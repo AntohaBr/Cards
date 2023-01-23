@@ -1,6 +1,5 @@
-import {Dispatch} from "redux";
 import {
-    AppActionType, SetAppErrorActionType,
+    SetAppErrorActionType,
     setAppStatusAC, SetAppStatusActionType,
 } from "./App-reducer";
 import {errorUtils} from "../utils/Error-utils";

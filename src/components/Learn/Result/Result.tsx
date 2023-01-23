@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Button, Container, Grid} from "@mui/material";
 import {useNavigate} from 'react-router-dom';
-import {getCard} from "../../../features/smart-random";
 import {URL} from "../../../app/App";
 import styles  from "./Result.module.css"
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
 import {setUtilsAC, updateGradeCardTC} from "../../../redux/Cards-reducer";
+import {getCard} from "../../../features/Smart-random";
 
 
 export const Result = () => {
