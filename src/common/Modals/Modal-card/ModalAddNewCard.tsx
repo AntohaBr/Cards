@@ -1,28 +1,33 @@
-import React, {useState} from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import FormControl from '@mui/material/FormControl';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
-import style from "../../../components/Modal/ModalCards/ModalDeleteCard/ModalDeleteCard.module.css";
-import {Input} from "@mui/material";
+import {TextField} from "@mui/material";
 import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
 import {useAppSelector} from "../../../utils/Hooks";
 import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
+import {InputFile} from "../../../utils/Input-file/Input-file";
+import {CardType} from "../../../api/cards-api";
+import {useParams} from "react-router-dom";
 
 
 type ModalAddNewCardPropsType = {
     title: string
     open: boolean
     toggleOpenMode: (value: boolean) => void
-    addItem: () => void
+    addItem: (card: CardType) => void
 }
 
 
 export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
     const isDisable = useAppSelector(state => state.app.isDisabled)
+    const {packId} = useParams()
     const [question, setQuestion] = useState('')
+    const [questionImg, setQuestionImg] = useState('')
+    const [answerImg, setAnswerImg] = useState('')
     const [answer, setAnswer] = useState('')
-    const [typeOfQuestion, setTypeOfQuestion] = useState('Text')
+    const [questionType, setQuestionType] = useState('Text')
 
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
@@ -30,27 +35,34 @@ export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
         setAnswer('')
     }
 
-    const addCardButtonHandler = () => {
-
+    const onChangeQuestionTypeHandler = (event: SelectChangeEvent) => {
+        setQuestionType(event.target.value)
     }
 
-    // const handleMaxWidthChange = (event: SelectChangeEvent<typeof text>) => {
-    //     setText(
-    //         event.target.value,
-    //     );
-    // };
-    //
-    // const photoUpload = (e: any): void => {
-    //     e.preventDefault()
-    //     const reader = new FileReader()
-    //     const file = e.target.files[0]
-    //     if (reader !== undefined && file !== undefined) {
-    //         reader.onloadend = () => {
-    //             setFile(reader.result as string)
-    //         }
-    //         reader.readAsDataURL(file)
-    //     }
-    // }
+    const addCardHandler = () => {
+        if (packId) {
+            props.addItem(card)
+            props.toggleOpenMode(false)
+            setQuestion('')
+            setAnswer('')
+        }
+    }
+
+    const questionFileChangeHandler = (questionFile: string) => {
+        setQuestionImg(questionFile)
+    }
+
+    const answerFileChangeHandler = (answerFile: string) => {
+        setAnswerImg(answerFile)
+    }
+
+    const addQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setQuestion(e.currentTarget.value)
+    }
+
+    const addAnswerHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setAnswer(e.currentTarget.value)
+    }
 
     return <div>
         <MainBlockModal
@@ -64,41 +76,52 @@ export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
                 <Select
                     autoFocus
                     label="Choose a question format"
-                    // value={text}
-                    // onChange={handleMaxWidthChange}
+                    value={questionType}
+                    onChange={onChangeQuestionTypeHandler}
                 >
                     <MenuItem value="Text">Text</MenuItem>
                     <MenuItem value="File">File</MenuItem>
                 </Select>
             </FormControl>
-            {typeOfQuestion === 'Text'
+            {questionType === 'Text'
                 ? <div>
-                    <FormControl>
-                            <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
-                                <InputLabel>Question</InputLabel>
-                                <Input/>
-                            </FormControl>
-                            <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
-                                <InputLabel>Answer</InputLabel>
-                                <Input/>
-                            </FormControl>
-                        </FormControl>
+                    <TextField
+                        value={question}
+                        onChange={addQuestionHandler}
+                        autoFocus
+                        label='Question'
+                        variant='standard'
+                        sx={{width: '100%'}}
+                    />
+                    <TextField
+                        value={answer}
+                        onChange={addAnswerHandler}
+                        autoFocus
+                        label='Answer'
+                        variant='standard'
+                        sx={{width: '100%'}}
+                    />
                 </div>
                 :
                 <div>
-                    <input type={'file'} id='avatar' style={{display: 'none'}}
-                           accept={'.jpg, .jpeg, .png, img'} multiple
-                           src={'file'}/>
-                    <input type={'file'} id='avatar' style={{display: 'none'}}
-                           accept={'.jpg, .jpeg, .png, img'} multiple
-                           src={'file'}/>
+                    <InputFile
+                        Img={questionImg}
+                        saveImg={questionFileChangeHandler}
+                        title={'Upload a question'}
+                        name={'questionFile'}
+                    />
+                    <InputFile
+                        Img={answerImg}
+                        saveImg={answerFileChangeHandler}
+                        title={'Upload a answer'}
+                        name={'answerFile'}
+                    />
                 </div>
-
             }
             <ButtonBlockModal
                 onCloseModalHandler={onCloseModalHandler}
                 isDisable={isDisable}
-                actionModalHandler={addCardButtonHandler}
+                actionModalHandler={addCardHandler}
                 buttonTitleModal={'Save'}
             />
         </MainBlockModal>

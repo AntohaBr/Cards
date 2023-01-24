@@ -1,16 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {Button, Container, Grid} from "@mui/material";
+import {Button} from "@mui/material";
 import {useNavigate, useParams} from 'react-router-dom';
-import {ArrowBack} from "@mui/icons-material";
 import {URL} from "../../app/App";
-import styles from './Cards.module.css'
-import {InputWithIcon} from "../Util-components/Input-with-icon";
 import {CardsTable} from "./CardsTable";
-import {getCardsTC, setUtilsAC} from "../../redux/Cards-reducer";
+import {addNewCardsTC, getCardsTC, setUtilsAC} from "../../redux/Cards-reducer";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {getPacksTC} from "../../redux/Packs-reducer";
 import {getCard} from "../../features/Smart-random";
 import {ModalAddNewCard} from "../../common/Modals/Modal-card/ModalAddNewCard";
+import {CardType} from "../../api/cards-api";
 
 
 export const Cards = () => {
@@ -21,9 +18,8 @@ export const Cards = () => {
     const myID = useAppSelector(state => state.profile._id)
     const userID = useAppSelector(state => state.cards.packUserId)
     const cards = useAppSelector(state => state.cards.cards)
-    const params = useParams()
     const navigate = useNavigate();
-    const {packId} = params
+    const {packId} = useParams()
     const dispatch = useAppDispatch()
     const [openAddCardModal, setOpenAddCardModal] = useState(false)
 
@@ -43,8 +39,8 @@ export const Cards = () => {
         setOpenAddCardModal(true)
     }
 
-    const addCard = () => {
-
+    const addCard = (card:CardType) => {
+        dispatch(addNewCardsTC({card}))
     }
 
     return (

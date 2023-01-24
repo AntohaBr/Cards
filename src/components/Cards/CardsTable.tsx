@@ -15,14 +15,14 @@ import {Card} from "./Card";
 import {setPagination} from "../../features/Pagination";
 
 
-type PropsType = {
+type CardsTablePropsType = {
     pageCount: number
     totalCount: number
     currentPage: number
     cards: CardType[]
 }
 
-export const CardsTable = (props: PropsType) => {
+export const CardsTable = (props: CardsTablePropsType) => {
     const params = useParams<'cardId'>()
     const {cardId} = params
     const dispatch = useAppDispatch()
