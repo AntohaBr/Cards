@@ -1,7 +1,6 @@
 import React from 'react';
 import {Button} from '@mui/material';
 import style from './Button-block-modal.module.css'
-import {CardType} from "../../../api/cards-api";
 
 
 type ButtonBlockModalPropsType = {

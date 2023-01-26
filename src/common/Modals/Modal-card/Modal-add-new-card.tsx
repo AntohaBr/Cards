@@ -8,7 +8,7 @@ import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
 import {useAppSelector} from "../../../utils/Hooks";
 import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
 import {InputFile} from "../../../utils/Input-file/Input-file";
-import {CardType} from "../../../api/cards-api";
+import {PostCardType} from "../../../api/cards-api";
 import {useParams} from "react-router-dom";
 
 
@@ -16,7 +16,7 @@ type ModalAddNewCardPropsType = {
     title: string
     open: boolean
     toggleOpenMode: (value: boolean) => void
-    addItem: (card: CardType) => void
+    addItem: (postModel: PostCardType) => void
 }
 
 
@@ -41,7 +41,7 @@ export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
 
     const addCardHandler = () => {
         if (packId) {
-            props.addItem(card)
+            props.addItem({card:{cardsPack_id: packId ? packId : '',question, answer, questionImg, answerImg}})
             props.toggleOpenMode(false)
             setQuestion('')
             setAnswer('')

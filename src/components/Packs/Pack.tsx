@@ -32,6 +32,7 @@ export const Pack = (props: PacksType) => {
     const deleteButtonClickHandler = () => {
         setOpenModalDeletePack(true)
     }
+
     const editButtonClickHandler = () => {
         setOpenEditModalPack(true)
     }
@@ -40,9 +41,7 @@ export const Pack = (props: PacksType) => {
         <TableRow
             key={props._id}
             sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-            <TableCell component="th" scope="row" align="right">
-                {props.name}
-            </TableCell>
+            <TableCell component="th" scope="row" align="right">{props.name}</TableCell>
             <TableCell align="right">{props.cardsCount}</TableCell>
             <TableCell align="right">{props.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align="right">{props.user_name}</TableCell>

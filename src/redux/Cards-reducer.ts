@@ -132,7 +132,7 @@ export const addNewCardsTC = (postModel: PostCardType): AppThunkType => async (d
 export const updateCardsTC = (putModel: UpdateCardType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC("loading", true))
     try {
-        const res = await cardsAPI.updateCards(putModel)
+        const res = await cardsAPI.updateCards({...putModel})
         dispatch(getCardsTC({cardsPack_id: res.data.updatedCard.cardsPack_id}))
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {

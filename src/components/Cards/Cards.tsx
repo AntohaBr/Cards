@@ -6,8 +6,8 @@ import {CardsTable} from "./CardsTable";
 import {addNewCardsTC, getCardsTC, setUtilsAC} from "../../redux/Cards-reducer";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {getCard} from "../../features/Smart-random";
-import {ModalAddNewCard} from "../../common/Modals/Modal-card/ModalAddNewCard";
-import {CardType} from "../../api/cards-api";
+import {ModalAddNewCard} from "../../common/Modals/Modal-card/Modal-add-new-card";
+import {PostCardType} from "../../api/cards-api";
 
 
 export const Cards = () => {
@@ -26,7 +26,6 @@ export const Cards = () => {
 
     useEffect(() => {
         dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page: currentPage, pageCount}))
-        // dispatch(getPacksTC({pageCount, page: currentPage, user_id: packId}))
     }, [])
 
     const setUtilsHandler = () => {
@@ -39,8 +38,8 @@ export const Cards = () => {
         setOpenAddCardModal(true)
     }
 
-    const addCard = (card:CardType) => {
-        dispatch(addNewCardsTC({card}))
+    const addCard = (postModel: PostCardType) => {
+        dispatch(addNewCardsTC(postModel))
     }
 
     return (

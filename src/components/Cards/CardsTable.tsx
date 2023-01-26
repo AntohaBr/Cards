@@ -23,8 +23,7 @@ type CardsTablePropsType = {
 }
 
 export const CardsTable = (props: CardsTablePropsType) => {
-    const params = useParams<'cardId'>()
-    const {cardId} = params
+    const {cardId} = useParams<'cardId'>()
     const dispatch = useAppDispatch()
     const pagination = Math.ceil(props.totalCount / props.pageCount)
     let arraySelect = [1, 2, 3, 4, 5, 6, 7, 8, 9]

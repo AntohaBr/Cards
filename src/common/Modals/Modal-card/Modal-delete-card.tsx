@@ -1,26 +1,25 @@
 import React from 'react';
+import style from './Modal-delete-card.module.css'
 import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
 import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
 import {useAppSelector} from "../../../utils/Hooks";
-import style from './Modal-delete-pack.module.css'
 
-type ModalDeletePackPropsType = {
+
+type ModalDeleteCardPropsType = {
     title: string
     open: boolean
-    name: string
     toggleOpenMode: (value: boolean) => void
     deleteItem: () => void
 }
 
-
-export const ModalDeletePack = (props: ModalDeletePackPropsType) => {
+export const ModalDeleteCard = (props: ModalDeleteCardPropsType) => {
     const isDisable = useAppSelector(state => state.app.isDisabled)
 
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
     }
 
-    const deletePackButtonHandler = () => {
+    const deleteCardButtonHandler = () => {
         props.deleteItem()
         props.toggleOpenMode(false)
     }
@@ -33,19 +32,15 @@ export const ModalDeletePack = (props: ModalDeletePackPropsType) => {
             onCloseModal={onCloseModalHandler}
         >
             <div className={style.modalDeletePackText}>
-                <p>Do you really want to remove <b>{props.name}</b></p>
-                <p>All packs will be deleted.</p>
+                <p>Do you really want to remove.</p>
+                <p>All cards will be deleted.</p>
             </div>
             <ButtonBlockModal
                 onCloseModalHandler={onCloseModalHandler}
                 isDisable={isDisable}
-                actionModalHandler={deletePackButtonHandler}
+                actionModalHandler={deleteCardButtonHandler}
                 buttonTitleModal={'Delete'}
             />
         </MainBlockModal>
     </div>
 }
-
-
-
-
