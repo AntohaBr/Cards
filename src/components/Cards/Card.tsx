@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {CardType, UpdateCardType} from "../../api/cards-api";
+import {CardType} from "../../api/cards-api";
 import TableCell from "@mui/material/TableCell";
 import Rating from "@mui/material/Rating";
 import TableRow from "@mui/material/TableRow";
@@ -70,7 +70,12 @@ export const Card = (props: CardType) => {
         <TableCell align="right"> {props.updated?.split('').splice(0, 10)}</TableCell>
         <TableCell align="right">
                 <span>
-                    <Rating name="disabled" value={props.grade} disabled/>
+                           <Rating
+                               name="only"
+                               value={props.grade}
+                               precision={0.1}
+                               readOnly
+                           />
                 </span>
         </TableCell>
         {myID === props.user_id && (

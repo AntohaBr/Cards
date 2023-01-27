@@ -5,7 +5,7 @@ import {URL} from "../../../app/App";
 import styles  from "./Result.module.css"
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
 import {setUtilsAC, updateGradeCardTC} from "../../../redux/Cards-reducer";
-import {getCard} from "../../../features/Smart-random";
+import {getCard} from "../../../features/smart-random";
 
 
 export const Result = () => {

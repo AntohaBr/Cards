@@ -5,9 +5,12 @@ import {URL} from "../../app/App";
 import {CardsTable} from "./CardsTable";
 import {addNewCardsTC, getCardsTC, setUtilsAC} from "../../redux/Cards-reducer";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {getCard} from "../../features/Smart-random";
 import {ModalAddNewCard} from "../../common/Modals/Modal-card/Modal-add-new-card";
 import {PostCardType} from "../../api/cards-api";
+import {getCard} from "../../features/smart-random";
+import style from "../Profile/Profile.module.css";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import {InputWithIcon} from "../Util-components/Input-with-icon";
 
 
 export const Cards = () => {
@@ -42,8 +45,16 @@ export const Cards = () => {
         dispatch(addNewCardsTC(postModel))
     }
 
+    const onClickBackToPacksHandler = () => {
+        navigate(URL.PACKS)
+    }
+
     return (
         <div>
+            <div className={style.profileBackToPacks}>
+                <ArrowBackIcon color={'primary'}/>
+                <span className={style.profileBackToPacksText} onClick={onClickBackToPacksHandler}>Back to Packs List</span>
+            </div>
             {cards.length === 0
                 ?
                 <div>
@@ -69,63 +80,36 @@ export const Cards = () => {
                     }
                 </div>
                 :
+                <div>
+                    {myID === userID
+                        ?
+                        <div>
+                            <Button onClick={onClickButtonAddCardHandler} type={'submit'} variant={'contained'}
+                                    color={'primary'}
+                                    style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
+                                Add New Card
+                            </Button>
+                            <ModalAddNewCard
+                                title='Add new card'
+                                open={openAddCardModal}
+                                toggleOpenMode={setOpenAddCardModal}
+                                addItem={addCard}
+                            />
+                        </div>
+                        :
+                        <div>
+                            <Button variant={"contained"} color={"primary"} onClick={setUtilsHandler}>Learn to pack</Button>
+                            <InputWithIcon/>
+                        </div>
+                    }
                 <CardsTable
                     pageCount={pageCount}
                     totalCount={totalCount}
                     currentPage={currentPage}
                     cards={cards}
                 />
+                </div>
             }
         </div>
     )
-}
-
-
-{/*<Grid container>*/
-}
-{/*    <Container fixed={true}>*/
-}
-{/*        <div>*/
-}
-{/*            <Button onClick={() => navigate(URL.PACKS)}><ArrowBack/></Button>*/
-}
-{/*            <span>Back to pack-list</span>*/
-}
-{/*        </div>*/
-}
-{/*        <h3>Friend`s Pack</h3>*/
-}
-{/*        <div className={styles.firstBlock}>*/
-}
-{/*            <InputWithIcon/>*/
-}
-{/*            <Button variant={"contained"} color={"primary"} className={styles.learnPackBtn}*/
-}
-{/*                    onClick={setUtilsHandler}>*/
-}
-{/*                Learn Pack*/
-}
-{/*            </Button>*/
-}
-{/*        </div>*/
-}
-{/*        <CardsTable*/
-}
-{/*            pageCount={pageCount}*/
-}
-{/*            totalCount={totalCount}*/
-}
-{/*            currentPage={currentPage}*/
-}
-{/*            cards={cards}*/
-}
-{/*        />*/
-}
-{/*    </Container>*/
-}
-{/*</Grid>*/
-}
-{/*<div>*/
-}
-{/*</div>*/
 }

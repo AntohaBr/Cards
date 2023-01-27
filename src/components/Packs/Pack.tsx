@@ -56,14 +56,13 @@ export const Pack = (props: PacksType) => {
                             <Button onClick={deleteButtonClickHandler}>
                                 <DeleteOutlineIcon/>
                             </Button>
-                             <Button disabled={props.cardsCount === 0}
-                                     onClick={() => navigate(`${URL.CARDS}/${props._id}`)}>
+                            <Button onClick={() => navigate(`${URL.CARDS}/${props._id}`)}>
                                 <SchoolIcon/>
                             </Button>
                         </span>
                         : <span>
                             <NavLink to={`${URL.CARDS}/${props._id}`}>
-                                <Button disabled={props.cardsCount === 0}>
+                                <Button>
                                     <SchoolIcon/>
                                 </Button>
                             </NavLink>

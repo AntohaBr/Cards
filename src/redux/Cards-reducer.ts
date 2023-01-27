@@ -73,7 +73,7 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
 
 export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET_CARDS', data} as const)
 export const updateGradeCardAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/UPDATE_GRADE_CARD', data} as const)
-export const setUtilsAC = (_id:string) => ({type: 'CARDS/SET_UTILS', _id} as const)
+export const setUtilsAC = (_id: string) => ({type: 'CARDS/SET_UTILS', _id} as const)
 
 // export const setPackIdAC = (cardsPack_id: string) => ({type: 'CARDS/SET_PACK_ID', cardsPack_id} as const)
 // export const setTotalCardsCountAC = (cardsTotalCount: number) =>
