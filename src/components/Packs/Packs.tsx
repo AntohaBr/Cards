@@ -1,8 +1,8 @@
 import React from 'react';
 import {Navigate} from "react-router-dom";
-import {URL} from "../../app/App";
 import {PacksTable} from "./PacksTable";
 import {useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const Packs = () => {
@@ -13,7 +13,7 @@ export const Packs = () => {
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
 
     if (!isLoggedIn) {
-        return <Navigate to={URL.LOGIN}/>
+        return <Navigate to={PATH.LOGIN}/>
     }
 
     return (

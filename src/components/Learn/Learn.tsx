@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {Button, Container, Grid, Paper} from "@mui/material";
 import styles from './Learn.module.css'
-import {URL} from "../../app/App";
 import {ArrowBack} from "@mui/icons-material";
 import {useNavigate} from 'react-router-dom';
 import {Result} from "./Result/Result";
 import {useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const Learn = () => {
@@ -19,7 +19,7 @@ export const Learn = () => {
         <Grid container xs={6} sm={12}>
             <Container fixed>
                 <div>
-                    <Button onClick={() => navigate(URL.PACKS)}>
+                    <Button onClick={() => navigate(PATH.PACKS)}>
                         <ArrowBack/>
                     </Button>
                     <span>Back to pack list</span>

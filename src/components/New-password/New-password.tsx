@@ -7,9 +7,9 @@ import IconButton from '@mui/material/IconButton';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
 import {useNavigate, useParams} from 'react-router-dom';
-import {URL} from '../../app/App';
 import {setNewPasswordTC} from '../../redux/Auth-reducer';
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 interface State {
@@ -52,7 +52,7 @@ export const NewPassword = () => {
         },
         onSubmit: values => {
             dispatch(setNewPasswordTC(values.password, token || ''))
-            navigate(URL.LOGIN)
+            navigate(PATH.LOGIN)
         },
     })
 

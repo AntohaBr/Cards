@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import style from"./Navbar.module.css"
-import {URL} from "../../app/App";
 import {useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const Navbar = () => {
@@ -15,7 +15,7 @@ export const Navbar = () => {
     return (
         <nav className={style.main}>
             <div className={style.forMe}>
-                <Link to={URL.PROFILE}><div style={imageStyle}/></Link>
+                <Link to={PATH.PROFILE}><div style={imageStyle}/></Link>
                 <p>{name}</p>
             </div>
         </nav>

@@ -5,12 +5,12 @@ import style from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
 import {updateProfileTC} from "../../redux/Profile-reducer";
 import {Navigate, useNavigate} from 'react-router-dom';
-import {URL} from "../../app/App";
 import {logOutTC} from "../../redux/Auth-reducer";
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {setAppErrorAC} from "../../redux/App-reducer";
 import {convertFileToBase64} from "../../features/Convert-fаile-to-base64";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const Profile = React.memo(() => {
@@ -36,7 +36,7 @@ export const Profile = React.memo(() => {
     }
 
     const onClickBackToPacksHandler = () => {
-        navigate(URL.PACKS)
+        navigate(PATH.PACKS)
     }
 
     const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +57,7 @@ export const Profile = React.memo(() => {
     }
 
     if (!isLoggedIn) {
-        return <Navigate to={URL.LOGIN}/>
+        return <Navigate to={PATH.LOGIN}/>
     }
 
     return <div className={style.profileBlock}>

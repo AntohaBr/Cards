@@ -14,8 +14,8 @@ import Visibility from "@mui/icons-material/Visibility";
 import style from './Registration.module.css'
 import {Navigate} from "react-router-dom";
 import {registrationTC} from "../../redux/Auth-reducer";
-import {URL} from "../../app/App";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 interface State {
@@ -79,7 +79,7 @@ export const Registration = () => {
     })
 
     if (isRegistered) {
-        return <Navigate to={URL.LOGIN}/>
+        return <Navigate to={PATH.LOGIN}/>
     }
 
     return <div className={style.registrationBlock}>
@@ -139,7 +139,7 @@ export const Registration = () => {
                     </Button>
                     <FormLabel>
                         <p className={style.register}>Already have an account?</p>
-                        <a className={style.link} href={URL.LOGIN} target={'_self'}>Sign In</a>
+                        <a className={style.link} href={PATH.LOGIN} target={'_self'}>Sign In</a>
                     </FormLabel>
                 </FormGroup>
             </form>

@@ -2,7 +2,6 @@ import * as React from 'react';
 import TableRow from "@mui/material/TableRow";
 import TableCell from "@mui/material/TableCell";
 import {Button} from "@mui/material";
-import {URL} from "../../app/App";
 import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -13,6 +12,7 @@ import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {useState} from "react";
 import {deletePackTC, updatePackTC} from "../../redux/Packs-reducer";
 import {ModalEditPack} from "../../common/Modals/Modal-pack/Modal-edit-pack";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const Pack = (props: PacksType) => {
@@ -56,12 +56,12 @@ export const Pack = (props: PacksType) => {
                             <Button onClick={deleteButtonClickHandler}>
                                 <DeleteOutlineIcon/>
                             </Button>
-                            <Button onClick={() => navigate(`${URL.CARDS}/${props._id}`)}>
+                            <Button onClick={() => navigate(`${PATH.CARDS}/${props._id}`)}>
                                 <SchoolIcon/>
                             </Button>
                         </span>
                         : <span>
-                            <NavLink to={`${URL.CARDS}/${props._id}`}>
+                            <NavLink to={`${PATH.CARDS}/${props._id}`}>
                                 <Button>
                                     <SchoolIcon/>
                                 </Button>

@@ -8,7 +8,6 @@ import {
 } from "@mui/material";
 import {Navigate, useNavigate} from "react-router-dom";
 import {useFormik} from "formik";
-import {URL} from "../../app/App";
 import InputAdornment from "@mui/material/InputAdornment";
 import IconButton from "@mui/material/IconButton";
 import Visibility from "@mui/icons-material/Visibility";
@@ -16,6 +15,7 @@ import style from './Login.module.css'
 import {VisibilityOff} from "@mui/icons-material";
 import {loginTC} from "../../redux/Auth-reducer";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 interface State {
@@ -45,11 +45,11 @@ export const Login = () => {
     }
 
     const onClickBackToRegistrationHandler = () => {
-        navigate(URL.REGISTRATION)
+        navigate(PATH.REGISTRATION)
     }
 
     const onClickBackToRecoveryPasswordHandler = () => {
-        navigate(URL.RECOVERY_PASSWORD)
+        navigate(PATH.RECOVERY_PASSWORD)
     }
 
     const formik = useFormik({
@@ -76,7 +76,7 @@ export const Login = () => {
     })
 
     if (isLoggedIn) {
-        return <Navigate to={URL.PROFILE}/>
+        return <Navigate to={PATH.PROFILE}/>
     }
 
     return <div className={style.loginBlock}>

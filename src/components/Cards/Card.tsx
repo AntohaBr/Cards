@@ -3,7 +3,7 @@ import {CardType} from "../../api/cards-api";
 import TableCell from "@mui/material/TableCell";
 import Rating from "@mui/material/Rating";
 import TableRow from "@mui/material/TableRow";
-import {Button, Skeleton} from "@mui/material";
+import {Button} from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";

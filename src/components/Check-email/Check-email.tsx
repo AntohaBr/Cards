@@ -3,8 +3,8 @@ import style from './Check-email.module.css'
 import {Button} from '@mui/material';
 import envelope from '../../assets/icon/envelope.jpg'
 import {useNavigate} from 'react-router-dom';
-import {URL} from '../../app/App';
 import {useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const CheckEmail = () => {
@@ -17,7 +17,7 @@ export const CheckEmail = () => {
     }
 
     const onClickBackToLoginHandler = () =>{
-        navigate(URL.LOGIN)
+        navigate(PATH.LOGIN)
     }
 
     return (

@@ -4,9 +4,9 @@ import {Button, FormControl, FormLabel, Input, InputLabel} from "@mui/material";
 import {useFormik} from "formik";
 import {FormikErrorType} from "../Registration/Registration";
 import {Navigate, useNavigate} from "react-router-dom";
-import {URL} from "../../app/App";
 import {recoveryPasswordTC} from "../../redux/Auth-reducer";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const RecoveryPassword = () => {
@@ -16,7 +16,7 @@ export const RecoveryPassword = () => {
     const navigate = useNavigate()
 
     const onClickBackToLoginHandler = () => {
-        navigate(URL.LOGIN)
+        navigate(PATH.LOGIN)
     }
 
     const formik = useFormik({
@@ -38,7 +38,7 @@ export const RecoveryPassword = () => {
     })
 
     if (recoveryPassword) {
-        return <Navigate to={URL.CHECK_EMAIL}/>
+        return <Navigate to={PATH.CHECK_EMAIL}/>
     }
 
     return (

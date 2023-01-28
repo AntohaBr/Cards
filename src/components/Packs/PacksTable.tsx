@@ -9,7 +9,6 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
 import {Navigate} from 'react-router-dom';
-import {URL} from "../../app/App";
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
 import {useEffect} from "react";
 import {setCurrentPagePacksAC} from "../../redux/Pagination-reducer";
@@ -21,6 +20,7 @@ import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack";
 import {Pack} from "./Pack";
 import {PacksType} from "../../api/cards-api";
 import {setPagination} from "../../features/Pagination";
+import {PATH} from "../../app/Routes/Routes";
 
 
 type PropsType = {
@@ -44,7 +44,7 @@ export const PacksTable = (props: PropsType) => {
     }, [debouncedValue])
 
     const redirectToCards = () => {
-        return <Navigate to={URL.CARDS}/>
+        return <Navigate to={PATH.CARDS}/>
     }
 
     const addNewPack = (name: string, deckCover: string) => {

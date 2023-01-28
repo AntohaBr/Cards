@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Button} from "@mui/material";
 import {useNavigate, useParams} from 'react-router-dom';
-import {URL} from "../../app/App";
 import {CardsTable} from "./CardsTable";
 import {addNewCardsTC, getCardsTC, setUtilsAC} from "../../redux/Cards-reducer";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
@@ -11,6 +10,7 @@ import {getCard} from "../../features/smart-random";
 import style from "../Profile/Profile.module.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {InputWithIcon} from "../Util-components/Input-with-icon";
+import {PATH} from "../../app/Routes/Routes";
 
 
 export const Cards = () => {
@@ -34,7 +34,7 @@ export const Cards = () => {
     const setUtilsHandler = () => {
         const cardId = getCard(cards)._id
         dispatch(setUtilsAC(cardId))
-        navigate(`${URL.LEARN}/${cardId}`)
+        navigate(`${PATH.LEARN}/${cardId}`)
     }
 
     const onClickButtonAddCardHandler = () => {
@@ -46,7 +46,7 @@ export const Cards = () => {
     }
 
     const onClickBackToPacksHandler = () => {
-        navigate(URL.PACKS)
+        navigate(PATH.PACKS)
     }
 
     return (

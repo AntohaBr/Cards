@@ -1,11 +1,11 @@
 import React, {ChangeEvent, useState} from 'react';
 import {Button, Container, Grid} from "@mui/material";
 import {useNavigate} from 'react-router-dom';
-import {URL} from "../../../app/App";
 import styles  from "./Result.module.css"
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
 import {setUtilsAC, updateGradeCardTC} from "../../../redux/Cards-reducer";
 import {getCard} from "../../../features/smart-random";
+import {PATH} from "../../../app/Routes/Routes";
 
 
 export const Result = () => {
@@ -33,7 +33,7 @@ export const Result = () => {
          else {
             const cardId = getCard(cards)._id
             dispatch(setUtilsAC(cardId))
-            navigate(`${URL.LEARN}/${cardId}`)
+            navigate(`${PATH.LEARN}/${cardId}`)
             dispatch(updateGradeCardTC({grade:state,card_id:cardId,shots}))
         }
     }
