@@ -3,6 +3,7 @@ import {TextField} from '@mui/material';
 import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
 import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
 import {useAppSelector} from "../../../utils/Hooks";
+import {InputFile} from "../../../utils/Input-file/Input-file";
 
 
 type ModalAddPackPropsType = {
@@ -42,6 +43,14 @@ export const ModalAddPack = (props: ModalAddPackPropsType) => {
             toggleOpenMode={props.toggleOpenMode}
             onCloseModal={onCloseModalHandler}
         >
+            <div>
+                <InputFile
+                    Img={deckCover}
+                    saveImg={setDeckCover}
+                    title={'Upload the pack cover'}
+                    name={'packCoverFile'}
+                />
+            </div>
             <TextField
                 value={name}
                 onChange={textFieldChangeHandler}

@@ -13,7 +13,7 @@ import {useState} from "react";
 import {deletePackTC, updatePackTC} from "../../redux/Packs-reducer";
 import {ModalEditPack} from "../../common/Modals/Modal-pack/Modal-edit-pack";
 import {PATH} from "../../app/Routes/Routes";
-
+import defaultCover from '../../assets/icon/defaultCover.jpg'
 
 export const Pack = (props: PacksType) => {
     const myID = useAppSelector(state => state.profile._id)
@@ -41,6 +41,13 @@ export const Pack = (props: PacksType) => {
         <TableRow
             key={props._id}
             sx={{'&:last-child td, &:last-child th': {border: 0}}}>
+            <TableCell align="right">
+                <img
+                    style={{ width: '60px', height: '40px' }}
+                    src={props.deckCover ? props.deckCover : defaultCover}
+                    alt="img"
+                />
+            </TableCell>
             <TableCell component="th" scope="row" align="right">{props.name}</TableCell>
             <TableCell align="right">{props.cardsCount}</TableCell>
             <TableCell align="right">{props.updated?.split('').splice(0, 10)}</TableCell>

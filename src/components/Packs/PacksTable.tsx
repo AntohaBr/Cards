@@ -122,6 +122,7 @@ export const PacksTable = (props: PropsType) => {
                         <Table sx={{minWidth: 650}} aria-label="simple table">
                             <TableHead>
                                 <TableRow onClick={redirectToCards}>
+                                    <TableCell align="right">Cover</TableCell>
                                     <TableCell align="right">Name</TableCell>
                                     <TableCell align="right">Cards</TableCell>
                                     <TableCell align="right">Last updated(g)</TableCell>

@@ -44,7 +44,6 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
     const editCardHandler = () => {
             props.editItem(question, answer, questionImg, answerImg)
             props.toggleOpenMode(false)
-
     }
 
     const questionFileChangeHandler = (questionFile: string) => {
