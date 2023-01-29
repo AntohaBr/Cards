@@ -21,6 +21,7 @@ import {Pack} from "./Pack";
 import {PacksType} from "../../api/cards-api";
 import {setPagination} from "../../features/Pagination";
 import {PATH} from "../../app/Routes/Routes";
+import {Search} from "../../common/Search/Search";
 
 
 type PropsType = {
@@ -30,17 +31,18 @@ type PropsType = {
     packs: PacksType[]
 }
 
+
 export const PacksTable = (props: PropsType) => {
     const user_id = useAppSelector(state => state.profile._id)
     const paginationStore = useAppSelector(state => state.pagination)
     const dispatch = useAppDispatch()
-    const [value, setValue] = useState('')
+    const [packName, setPackName] = useState<string>('')
     const [openModalAddPack, setOpenModalAddPack] = useState(false)
-    const debouncedValue = useDebounce<string>(value, 500)
+    const debouncedValue = useDebounce<string>(packName, 500)
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     useEffect(() => {
-        dispatch(getPacksTC({search: value}))
+        dispatch(getPacksTC({search: packName}))
     }, [debouncedValue])
 
     const redirectToCards = () => {
@@ -81,8 +83,8 @@ export const PacksTable = (props: PropsType) => {
 
     const pagination = Math.ceil(props.totalCount / props.pageCount)
 
-    const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.currentTarget.value)
+    const searchValueHandler = (searchValue: string) => {
+        setPackName(searchValue)
     }
 
     return (
@@ -104,7 +106,10 @@ export const PacksTable = (props: PropsType) => {
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                        <input onChange={onChangeHandler} value={value}/>
+                        <Search
+                            onChange={ searchValueHandler}
+                            searchValue={packName}
+                        />
                         <div style={{
                             display: 'flex',
                             justifyContent: 'space-around',

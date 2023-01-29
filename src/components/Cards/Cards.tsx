@@ -9,8 +9,9 @@ import {PostCardType} from "../../api/cards-api";
 import {getCard} from "../../features/smart-random";
 import style from "../Profile/Profile.module.css";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import {InputWithIcon} from "../Util-components/Input-with-icon";
 import {PATH} from "../../app/Routes/Routes";
+import defaultCover from "../../assets/icon/defaultCover.jpg";
+import {Search} from "../../common/Search/Search";
 
 
 export const Cards = () => {
@@ -21,10 +22,14 @@ export const Cards = () => {
     const myID = useAppSelector(state => state.profile._id)
     const userID = useAppSelector(state => state.cards.packUserId)
     const cards = useAppSelector(state => state.cards.cards)
+    const packDeckCover = useAppSelector(state => state.cards.packDeckCover)
+    const packName = useAppSelector(state => state.cards.packName)
+    const [question, setQuestion] = useState<string>('')
     const navigate = useNavigate();
     const {packId} = useParams()
     const dispatch = useAppDispatch()
     const [openAddCardModal, setOpenAddCardModal] = useState(false)
+
 
 
     useEffect(() => {
@@ -49,11 +54,30 @@ export const Cards = () => {
         navigate(PATH.PACKS)
     }
 
+    const searchValueHandler = (questionValue: string) => {
+        setQuestion(questionValue)
+    }
+
     return (
         <div>
             <div className={style.profileBackToPacks}>
                 <ArrowBackIcon color={'primary'}/>
-                <span className={style.profileBackToPacksText} onClick={onClickBackToPacksHandler}>Back to Packs List</span>
+                <span className={style.profileBackToPacksText}
+                      onClick={onClickBackToPacksHandler}>Back to Packs List</span>
+            </div>
+            <div>{packName}</div>
+            <div>
+                <img
+                    style={{width: '130px', height: '130px'}}
+                    src={packDeckCover ? packDeckCover : defaultCover}
+                    alt="img"
+                />
+            </div>
+            <div>
+                {cards.length >= 1 && <Search
+                    onChange={searchValueHandler}
+                    searchValue={question}
+                />}
             </div>
             {cards.length === 0
                 ?
@@ -98,16 +122,16 @@ export const Cards = () => {
                         </div>
                         :
                         <div>
-                            <Button variant={"contained"} color={"primary"} onClick={setUtilsHandler}>Learn to pack</Button>
-                            <InputWithIcon/>
+                            <Button variant={"contained"} color={"primary"} onClick={setUtilsHandler}>Learn to
+                                pack</Button>
                         </div>
                     }
-                <CardsTable
-                    pageCount={pageCount}
-                    totalCount={totalCount}
-                    currentPage={currentPage}
-                    cards={cards}
-                />
+                    <CardsTable
+                        pageCount={pageCount}
+                        totalCount={totalCount}
+                        currentPage={currentPage}
+                        cards={cards}
+                    />
                 </div>
             }
         </div>

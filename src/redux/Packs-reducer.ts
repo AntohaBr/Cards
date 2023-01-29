@@ -19,7 +19,7 @@ const initialState = {
     pageCount: 5 as number,
     showPackCards: 'all' as 'all' | 'my',
     minCardsCount: 0 as number,
-    maxCardsCount: 110 as number,
+    maxCardsCount: 100 as number,
     params: {
         page: 1,
         pageCount: 5,
@@ -61,8 +61,8 @@ export const packsReducer = (state:PackReducerStateType = initialState, action: 
         case 'PACKS/CHANGE-MIN-CARDS-COUNT':
             return {...state, minCardsCount: action.value}
 
-        case 'PACKS/REBOOT-FILTER-PACKS-CARDS':
-            return {...state, minCardsCount: 0, cardPacksTotalCount: 5, maxCardsCount: 10}
+        case 'PACKS/CLEAR_FILTERS':
+            return {...state, minCardsCount: 0, maxCardsCount: 100, showPackCards: 'all'}
         default:
             return state
     }
@@ -77,7 +77,7 @@ export const deletePackAC = (packID: string) => ({type: 'PACKS/DELETE-PACK', pac
 export const setTotalPacksCountAC = (value: number) => ({type: 'PACKS/CHANGE-CARD-PACKS-TOTAL-COUNT', value}) as const
 export const setMaxCardsCountAC = (value: number) => ({type: 'PACKS/CHANGE-MAX-CARDS-COUNT', value}) as const
 export const setMinCardsCountAC = (value: number) => ({type: 'PACKS/CHANGE-MIN-CARDS-COUNT', value}) as const
-export const clearFiltersAC = () => ({type: 'PACKS/REBOOT-FILTER-PACKS-CARDS'}) as const
+export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'}) as const
 
 
 //thunks
