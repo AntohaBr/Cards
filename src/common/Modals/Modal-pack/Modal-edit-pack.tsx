@@ -3,6 +3,7 @@ import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
 import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
 import {TextField} from "@mui/material";
 import {useAppSelector} from "../../../utils/Hooks";
+import {InputFile} from "../../../utils/Input-file/Input-file";
 
 type ModalEditPackPropsType = {
     title: string
@@ -35,6 +36,12 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
             toggleOpenMode={props.toggleOpenMode}
             onCloseModal={onCloseModalHandler}
         >
+            <InputFile
+                Img={deckCover}
+                saveImg={setDeckCover}
+                title={'Change pack cover'}
+                name={'editPackCoverFile'}
+            />
             <TextField
                 value={name}
                 onChange={textFieldChangeHandler}

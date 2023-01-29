@@ -10,7 +10,7 @@ type ModalAddPackPropsType = {
     title: string
     open: boolean
     toggleOpenMode: (value: boolean) => void
-    addItem: (name: string,deckCover:string) => void
+    addItem: (name: string, deckCover: string) => void
 }
 
 
@@ -43,14 +43,12 @@ export const ModalAddPack = (props: ModalAddPackPropsType) => {
             toggleOpenMode={props.toggleOpenMode}
             onCloseModal={onCloseModalHandler}
         >
-            <div>
-                <InputFile
-                    Img={deckCover}
-                    saveImg={setDeckCover}
-                    title={'Upload the pack cover'}
-                    name={'packCoverFile'}
-                />
-            </div>
+            <InputFile
+                Img={deckCover}
+                saveImg={setDeckCover}
+                title={'Upload the pack cover'}
+                name={'packCoverFile'}
+            />
             <TextField
                 value={name}
                 onChange={textFieldChangeHandler}
