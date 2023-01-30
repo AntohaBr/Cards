@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {ChangeEvent, useState} from 'react';
+import {ChangeEvent} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -7,21 +7,15 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button, Container, Grid, NativeSelect, Pagination} from "@mui/material";
+import {Container, Grid, NativeSelect, Pagination} from "@mui/material";
 import {Navigate} from 'react-router-dom';
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff';
-import {useEffect} from "react";
 import {setCurrentPagePacksAC} from "../../redux/Pagination-reducer";
-import {addNewPackTC, getPacksTC} from "../../redux/Packs-reducer";
-import {RangeSlider} from "../Util-components/Slider";
-import {useDebounce} from "../../utils/Use-debounce";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack";
+import {getPacksTC} from "../../redux/Packs-reducer";
+import {useAppDispatch} from "../../utils/Hooks";
 import {Pack} from "./Pack";
 import {PacksType} from "../../api/cards-api";
 import {setPagination} from "../../features/Pagination";
 import {PATH} from "../../app/Routes/Routes";
-import {Search} from "../../common/Search/Search";
 
 
 type PropsType = {
@@ -33,43 +27,11 @@ type PropsType = {
 
 
 export const PacksTable = (props: PropsType) => {
-    const user_id = useAppSelector(state => state.profile._id)
-    const paginationStore = useAppSelector(state => state.pagination)
     const dispatch = useAppDispatch()
-    const [packName, setPackName] = useState<string>('')
-    const [openModalAddPack, setOpenModalAddPack] = useState(false)
-    const debouncedValue = useDebounce<string>(packName, 500)
     const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-    useEffect(() => {
-        dispatch(getPacksTC({search: packName}))
-    }, [debouncedValue])
 
     const redirectToCards = () => {
         return <Navigate to={PATH.CARDS}/>
-    }
-
-    const addNewPack = (name: string, deckCover: string) => {
-        dispatch(addNewPackTC({name, deckCover}))
-    }
-
-    const addButtonClickHandler = () => {
-        setOpenModalAddPack(true)
-    }
-
-    const myPacks = (status: 'my' | 'all') => {
-        if (status === "my") {
-            console.log('MY')
-            dispatch(getPacksTC({
-                pageCount: paginationStore.packsPageCount,
-                page: paginationStore.packsCurrentPage,
-                user_id
-            }))
-            console.log(user_id)
-        }
-        if (status === "all") {
-            dispatch(getPacksTC({pageCount: paginationStore.packsPageCount, page: paginationStore.packsCurrentPage}))
-        }
     }
 
     const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
@@ -83,46 +45,10 @@ export const PacksTable = (props: PropsType) => {
 
     const pagination = Math.ceil(props.totalCount / props.pageCount)
 
-    const searchValueHandler = (searchValue: string) => {
-        setPackName(searchValue)
-    }
-
     return (
         <div>
             <Grid container spacing={2}>
                 <Container fixed={true}>
-                    <div>
-                        <h2>Pack list</h2>
-                        <Button variant={"contained"} onClick={addButtonClickHandler}>Add new pack</Button>
-                    </div>
-                    <ModalAddPack
-                        title={'Add new pack'}
-                        open={openModalAddPack}
-                        toggleOpenMode={setOpenModalAddPack}
-                        addItem={addNewPack}
-                    />
-                    <div style={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center'
-                    }}>
-                        <Search
-                            onChange={ searchValueHandler}
-                            searchValue={packName}
-                        />
-                        <div style={{
-                            display: 'flex',
-                            justifyContent: 'space-around',
-                            width: '150px'
-                        }}>
-                            <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
-                            <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
-                        </div>
-                        <RangeSlider/>
-                        <Button color={"inherit"}>
-                            <FilterAltOffIcon/>
-                        </Button>
-                    </div>
                     <TableContainer component={Paper}>
                         <Table sx={{minWidth: 650}} aria-label="simple table">
                             <TableHead>
