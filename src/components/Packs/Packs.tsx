@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {Navigate} from "react-router-dom";
+import {Navigate, useNavigate, useParams} from "react-router-dom";
 import {PacksTable} from "./PacksTable";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {PATH} from "../../app/Routes/Routes";
@@ -23,7 +23,8 @@ export const Packs = () => {
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     const dispatch = useAppDispatch()
-
+    const {packURL} = useParams<'packURL'>()
+    const navigate = useNavigate()
     const [openModalAddPack, setOpenModalAddPack] = useState(false)
     const [minRange, setMinRange] = useState<number>(minCardsCount)
     const [maxRange, setMaxRange] = useState<number>(maxCardsCount)
@@ -31,8 +32,9 @@ export const Packs = () => {
     const debouncedValue = useDebounce<string>(packName, 500)
 
     useEffect(() => {
-        dispatch(getPacksTC({search: packName}))
-    }, [debouncedValue])
+        if (packURL === 'my') dispatch(getPacksTC({search: packName, user_id}))
+        else dispatch(getPacksTC({search: packName}))
+    }, [debouncedValue, packURL])
 
 
     const myPacks = (status: 'my' | 'all') => {
@@ -48,6 +50,7 @@ export const Packs = () => {
         if (status === "all") {
             dispatch(getPacksTC({pageCount: paginationStore.packsPageCount, page: paginationStore.packsCurrentPage}))
         }
+        navigate(`${PATH.PACKS}/${status}`)
     }
 
     const addNewPack = (name: string, deckCover: string) => {
