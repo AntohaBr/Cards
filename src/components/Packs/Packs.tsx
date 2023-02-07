@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Navigate, useNavigate, useParams} from "react-router-dom";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import {PacksTable} from "./PacksTable";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {PATH} from "../../app/Routes/Routes";
@@ -7,12 +7,12 @@ import {Button, Container, Grid} from "@mui/material";
 import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack";
 import {Search} from "../../common/Search/Search";
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import {addNewPackTC, getPacksTC} from "../../redux/Packs-reducer";
+import {addNewPackTC, getPacksTC, setMinMaxAC} from "../../redux/Packs-reducer";
 import {useDebounce} from "../../utils/Use-debounce";
 import {RangeSlider} from "../Super-components/SuperDoubleRange/SuperDoubleRange";
 
 
-export const Packs = () => {
+export const Packs =  React.memo(() => {
     const pageCount = useAppSelector(state => state.pagination.packsPageCount)
     const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
     const totalCount = useAppSelector(state => state.pagination.allCardsPack)
@@ -22,19 +22,23 @@ export const Packs = () => {
     const paginationStore = useAppSelector(state => state.pagination)
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
+    const min = useAppSelector(state => state.packs.params.min)
+    const max = useAppSelector(state => state.packs.params.max)
+
+    const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
+    const [value, setValue] = React.useState<number | number[]>([min, max])
+    const [packName, setPackName] = React.useState<string>('')
+
+    const debouncedValue = useDebounce<string>(packName, 500)
+
     const dispatch = useAppDispatch()
     const {packURL} = useParams<'packURL'>()
     const navigate = useNavigate()
-    const [openModalAddPack, setOpenModalAddPack] = useState(false)
-    const [minRange, setMinRange] = useState<number>(minCardsCount)
-    const [maxRange, setMaxRange] = useState<number>(maxCardsCount)
-    const [packName, setPackName] = useState<string>('')
-    const debouncedValue = useDebounce<string>(packName, 500)
 
     useEffect(() => {
-        if (packURL === 'my') dispatch(getPacksTC({search: packName, user_id}))
-        else dispatch(getPacksTC({search: packName}))
-    }, [debouncedValue, packURL])
+        if (packURL === 'my') dispatch(getPacksTC({search: packName, user_id, min, max}))
+        else dispatch(getPacksTC({search: packName, min, max }))
+    }, [dispatch, debouncedValue, packURL, min, max])
 
 
     const myPacks = (status: 'my' | 'all') => {
@@ -64,9 +68,15 @@ export const Packs = () => {
         setOpenModalAddPack(true)
     }
 
-    const onChangeRangeHandler = (value: [number, number]) => {
-        setMinRange(value[0])
-        setMaxRange(value[1])
+    const onChangeRangeHandler = (event: Event, newValue: number | number[]) => {
+        setValue(newValue as [number, number])
+    }
+
+    const handleChangeMinMaxPacks = (event: React.SyntheticEvent | Event, value: number | Array<number>) => {
+        if (Array.isArray(value)) {
+            dispatch(setMinMaxAC(value[0], value[1]));
+            setValue([value[0], value[1]])
+        }
     }
 
     if (!isLoggedIn) {
@@ -107,14 +117,13 @@ export const Packs = () => {
                         <div>
                             <h4>Number of cards</h4>
                             <div>
-                                <div>{minRange}</div>
                                 <RangeSlider
-                                    value={[minRange, maxRange]}
                                     min={minCardsCount}
                                     max={maxCardsCount}
-                                    onChangeRange={onChangeRangeHandler}
+                                    value={value}
+                                    onChange={onChangeRangeHandler}
+                                    onChangeCommitted={handleChangeMinMaxPacks}
                                 />
-                                <div>{maxRange}</div>
                             </div>
                         </div>
                         <Button color={"inherit"}>
@@ -131,5 +140,5 @@ export const Packs = () => {
             </Grid>
         </div>
     )
-}
+})
 

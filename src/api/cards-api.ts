@@ -68,8 +68,8 @@ export type PacksType = {
 export type PacksGetParamsType = {
     page?: number
     pageCount?: number
-    min?: number
-    max?: number
+    min: number
+    max: number
     user_id?: string
     packName?: string
     search?: string

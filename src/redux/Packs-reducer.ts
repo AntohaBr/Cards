@@ -14,17 +14,17 @@ import {
 
 const initialState = {
     cardPacks: [] as PacksType[],
-    cardPacksTotalCount: 0 as number,
-    page: 0 as number,
-    pageCount: 5 as number,
+    cardPacksTotalCount: 0,
+    page: 0,
+    pageCount: 10,
     showPackCards: 'all' as 'all' | 'my',
-    minCardsCount: 0 as number,
-    maxCardsCount: 100 as number,
+    minCardsCount: 0,
+    maxCardsCount: 110,
     params: {
         page: 1,
-        pageCount: 5,
+        pageCount: 10,
         min: 0,
-        max: 0,
+        max: 110,
         user_id: '',
         packName: '',
         search: ''
@@ -35,7 +35,7 @@ export type PackReducerStateType = typeof initialState
 
 
 //reducers
-export const packsReducer = (state:PackReducerStateType = initialState, action: PacksActionType): PackReducerStateType => {
+export const packsReducer = (state: PackReducerStateType = initialState, action: PacksActionType): PackReducerStateType => {
     switch (action.type) {
         case 'PACKS/SET-PACKS':
             return {...state, cardPacks: [...action.packs]}
@@ -52,17 +52,14 @@ export const packsReducer = (state:PackReducerStateType = initialState, action: 
                     ),
                 ],
             }
-        case 'PACKS/CHANGE-CARD-PACKS-TOTAL-COUNT':
+        case 'PACKS/SET-CARD-PACKS-TOTAL-COUNT':
             return {...state, cardPacksTotalCount: action.value}
-
-        case 'PACKS/CHANGE-MAX-CARDS-COUNT':
-            return {...state, maxCardsCount: action.value}
-
-        case 'PACKS/CHANGE-MIN-CARDS-COUNT':
-            return {...state, minCardsCount: action.value}
-
+        case 'PACKS/SET-MIN-MAX':
+            return {...state, params: {...state.params, min: action.min, max: action.max}}
+        case 'PACKS/SET-MIN-MAX-COUNT':
+            return {...state, minCardsCount:action.minCardsCount, maxCardsCount: action.maxCardsCount}
         case 'PACKS/CLEAR_FILTERS':
-            return {...state, minCardsCount: 0, maxCardsCount: 100, showPackCards: 'all'}
+            return {...state, minCardsCount: 0, maxCardsCount: 110, showPackCards: 'all'}
         default:
             return state
     }
@@ -74,19 +71,21 @@ export const setPacksAC = (packs: PacksType[]) => ({type: 'PACKS/SET-PACKS', pac
 export const addNewPackAC = (newPack: PacksType) => ({type: 'PACKS/ADD-NEW-PACK', newPack}) as const
 export const updatePackAC = (updatedPack: PacksType) => ({type: 'PACKS/UPDATE-PACK', updatedPack}) as const
 export const deletePackAC = (packID: string) => ({type: 'PACKS/DELETE-PACK', packID}) as const
-export const setTotalPacksCountAC = (value: number) => ({type: 'PACKS/CHANGE-CARD-PACKS-TOTAL-COUNT', value}) as const
-export const setMaxCardsCountAC = (value: number) => ({type: 'PACKS/CHANGE-MAX-CARDS-COUNT', value}) as const
-export const setMinCardsCountAC = (value: number) => ({type: 'PACKS/CHANGE-MIN-CARDS-COUNT', value}) as const
-export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'}) as const
+export const setCardPacksTotalCountAC = (value: number) => ({type: 'PACKS/SET-CARD-PACKS-TOTAL-COUNT', value}) as const
+export const setMinMaxAC = (min: number, max: number) => ({type: 'PACKS/SET-MIN-MAX', min, max} as const)
+export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) =>
+    ({type: 'PACKS/SET-MIN-MAX-COUNT', minCardsCount, maxCardsCount} as const)
+export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'} as const)
 
 
 //thunks
-export const getPacksTC = (params: PacksGetParamsTypeNotNeeded):AppThunkType => async (dispatch) => {
+export const getPacksTC = (params: PacksGetParamsTypeNotNeeded): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.getCardsPack({...params})
         dispatch(setPacksAC(res.data.cardPacks))
-        dispatch(setTotalPacksCountAC(res.data.cardPacksTotalCount))
+        dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
+        dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -96,7 +95,7 @@ export const getPacksTC = (params: PacksGetParamsTypeNotNeeded):AppThunkType => 
     }
 }
 
-export const deletePackTC = (packID: string):AppThunkType => async (dispatch) => {
+export const deletePackTC = (packID: string): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     const res = await cardsAPI.deletePacks(packID)
     try {
@@ -110,7 +109,7 @@ export const deletePackTC = (packID: string):AppThunkType => async (dispatch) =>
     }
 }
 
-export const addNewPackTC = (data: PostPacksType):AppThunkType => async (dispatch) => {
+export const addNewPackTC = (data: PostPacksType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.addNewPacks({...data})
@@ -124,7 +123,7 @@ export const addNewPackTC = (data: PostPacksType):AppThunkType => async (dispatc
     }
 }
 
-export const updatePackTC = (params: UpdatePacksType):AppThunkType => async (dispatch) => {
+export const updatePackTC = (params: UpdatePacksType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsAPI.updatePacks({...params})
@@ -144,10 +143,10 @@ export type PacksActionType = SetPackACType
     | DeletePackACType
     | AddNewPackACType
     | ReturnType<typeof updatePackAC>
-    | ReturnType<typeof setTotalPacksCountAC>
-    | ReturnType<typeof setMaxCardsCountAC>
-    | ReturnType<typeof setMinCardsCountAC>
+    | ReturnType<typeof setCardPacksTotalCountAC>
     | ReturnType<typeof clearFiltersAC>
+    | ReturnType<typeof setMinMaxAC>
+    | ReturnType<typeof setMinMaxCountAC>
 export type SetPackACType = ReturnType<typeof setPacksAC>
 export type AddNewPackACType = ReturnType<typeof addNewPackAC>
 export type DeletePackACType = ReturnType<typeof deletePackAC>

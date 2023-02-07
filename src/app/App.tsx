@@ -1,11 +1,10 @@
 import React, {useEffect} from 'react';
 import './App.css';
 import {Navbar} from "../components/Navbar/Navbar";
-import {Navigate} from "react-router-dom";
 import {isInitializedTC} from "../redux/App-reducer";
 import {CircularProgress, LinearProgress} from "@mui/material";
 import {useAppDispatch, useAppSelector} from "../utils/Hooks";
-import {PagesRoutes, PATH} from "./Routes/Routes";
+import {PagesRoutes} from "./Routes/Routes";
 import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
 
 

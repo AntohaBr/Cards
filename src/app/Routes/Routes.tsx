@@ -23,7 +23,7 @@ export enum PATH {
     NEW_PASSWORD = '/new-password/:token',
     PACKS = '/packs',
     CARDS = '/card',
-    ERROR404 = 'error404',
+    ERROR404 = '/error404',
     LEARN = '/learn',
     RESULT = '/result'
 
