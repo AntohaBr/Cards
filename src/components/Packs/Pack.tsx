@@ -17,10 +17,12 @@ import defaultCover from '../../assets/icon/defaultCover.jpg'
 
 export const Pack = (props: PacksType) => {
     const myID = useAppSelector(state => state.profile._id)
-    const navigate = useNavigate()
-    const dispatch = useAppDispatch()
+
     const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
     const [openEditModalPack, setOpenEditModalPack] = useState(false)
+
+    const navigate = useNavigate()
+    const dispatch = useAppDispatch()
 
     const deletePack = () => {
         dispatch(deletePackTC(props._id))

@@ -68,6 +68,7 @@ export const PacksTable = (props: PropsType) => {
                                         _id={pack._id}
                                         user_id={pack.user_id}
                                         name={pack.name}
+                                        cardsCount={pack.cardsCount}
                                         user_name={pack.user_name}
                                         updated={pack.updated}
                                         deckCover={pack.deckCover}

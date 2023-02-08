@@ -1,15 +1,15 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom";
-import {PacksTable} from "./PacksTable";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {PATH} from "../../app/Routes/Routes";
-import {Button, Container, Grid} from "@mui/material";
-import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack";
-import {Search} from "../../common/Search/Search";
-import FilterAltOffIcon from "@mui/icons-material/FilterAltOff";
-import {addNewPackTC, getPacksTC, setMinMaxAC} from "../../redux/Packs-reducer";
-import {useDebounce} from "../../utils/Use-debounce";
-import {RangeSlider} from "../Super-components/SuperDoubleRange/SuperDoubleRange";
+import React, {useEffect} from 'react'
+import {Navigate, useNavigate, useParams} from "react-router-dom"
+import {PacksTable} from "./PacksTable"
+import {useAppDispatch, useAppSelector} from "../../utils/Hooks"
+import {PATH} from "../../app/Routes/Routes"
+import {Button, Container, Grid} from "@mui/material"
+import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack"
+import {Search} from "../../common/Search/Search"
+import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
+import {addNewPackTC, getPacksTC, setMinMaxAC} from "../../redux/Packs-reducer"
+import {useDebounce} from "../../utils/Use-debounce"
+import {RangeSlider} from "../Super-components/SuperDoubleRange/SuperDoubleRange"
 
 
 export const Packs =  React.memo(() => {
@@ -30,7 +30,6 @@ export const Packs =  React.memo(() => {
     const [packName, setPackName] = React.useState<string>('')
 
     const debouncedValue = useDebounce<string>(packName, 500)
-
     const dispatch = useAppDispatch()
     const {packURL} = useParams<'packURL'>()
     const navigate = useNavigate()
@@ -43,13 +42,11 @@ export const Packs =  React.memo(() => {
 
     const myPacks = (status: 'my' | 'all') => {
         if (status === "my") {
-            console.log('MY')
             dispatch(getPacksTC({
                 pageCount: paginationStore.packsPageCount,
                 page: paginationStore.packsCurrentPage,
                 user_id
             }))
-            console.log(user_id)
         }
         if (status === "all") {
             dispatch(getPacksTC({pageCount: paginationStore.packsPageCount, page: paginationStore.packsCurrentPage}))
@@ -74,7 +71,7 @@ export const Packs =  React.memo(() => {
 
     const handleChangeMinMaxPacks = (event: React.SyntheticEvent | Event, value: number | Array<number>) => {
         if (Array.isArray(value)) {
-            dispatch(setMinMaxAC(value[0], value[1]));
+            dispatch(setMinMaxAC(value[0], value[1]))
             setValue([value[0], value[1]])
         }
     }
