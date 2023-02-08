@@ -7,7 +7,7 @@ import {Button, Container, Grid} from "@mui/material"
 import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack"
 import {Search} from "../../common/Search/Search"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
-import {addNewPackTC, getPacksTC, setMinMaxAC} from "../../redux/Packs-reducer"
+import {addNewPackTC, getPacksTC, setMinMaxAC, setParamsSortPack} from "../../redux/Packs-reducer"
 import {useDebounce} from "../../utils/Use-debounce"
 import {RangeSlider} from "../Super-components/SuperDoubleRange/SuperDoubleRange"
 
@@ -24,6 +24,7 @@ export const Packs =  React.memo(() => {
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     const min = useAppSelector(state => state.packs.params.min)
     const max = useAppSelector(state => state.packs.params.max)
+    const sort = useAppSelector(state => state.packs.params.sortPacks)
 
     const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
     const [value, setValue] = React.useState<number | number[]>([min, max])
@@ -74,6 +75,11 @@ export const Packs =  React.memo(() => {
             dispatch(setMinMaxAC(value[0], value[1]))
             setValue([value[0], value[1]])
         }
+    }
+
+    const sortUpdate = (sortParams: string) => {
+        return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`))
+            : dispatch(setParamsSortPack(`1${sortParams}`))
     }
 
     if (!isLoggedIn) {
@@ -132,6 +138,8 @@ export const Packs =  React.memo(() => {
                         totalCount={totalCount}
                         currentPage={currentPage}
                         packs={packs}
+                        sortUpdate={sortUpdate}
+                        sort={sort}
                     />
                 </Container>
             </Grid>

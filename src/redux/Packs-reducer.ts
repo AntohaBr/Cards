@@ -27,7 +27,8 @@ const initialState = {
         max: 110,
         user_id: '',
         packName: '',
-        search: ''
+        search: '',
+        sortPacks: ''
     } as PacksGetParamsType,
 }
 
@@ -57,7 +58,9 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
         case 'PACKS/SET-MIN-MAX':
             return {...state, params: {...state.params, min: action.min, max: action.max}}
         case 'PACKS/SET-MIN-MAX-COUNT':
-            return {...state, minCardsCount:action.minCardsCount, maxCardsCount: action.maxCardsCount}
+            return {...state, minCardsCount: action.minCardsCount, maxCardsCount: action.maxCardsCount}
+        case 'PACKS/SORT-PACKS':
+            return {...state, params: {...state.params, sortPacks: action.sortPacks}}
         case 'PACKS/CLEAR_FILTERS':
             return {...state, minCardsCount: 0, maxCardsCount: 110, showPackCards: 'all'}
         default:
@@ -75,6 +78,7 @@ export const setCardPacksTotalCountAC = (value: number) => ({type: 'PACKS/SET-CA
 export const setMinMaxAC = (min: number, max: number) => ({type: 'PACKS/SET-MIN-MAX', min, max} as const)
 export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) =>
     ({type: 'PACKS/SET-MIN-MAX-COUNT', minCardsCount, maxCardsCount} as const)
+export const sortPacksAC = (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const)
 export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'} as const)
 
 
@@ -137,6 +141,11 @@ export const updatePackTC = (params: UpdatePacksType): AppThunkType => async (di
     }
 }
 
+export const setParamsSortPack = (sortParams: string): AppThunkType => dispatch => {
+    dispatch(sortPacksAC(sortParams))
+    // dispatch(getPacksTC({sortPacks}))
+}
+
 
 //types
 export type PacksActionType = SetPackACType
@@ -147,6 +156,7 @@ export type PacksActionType = SetPackACType
     | ReturnType<typeof clearFiltersAC>
     | ReturnType<typeof setMinMaxAC>
     | ReturnType<typeof setMinMaxCountAC>
+    | ReturnType<typeof sortPacksAC>
 export type SetPackACType = ReturnType<typeof setPacksAC>
 export type AddNewPackACType = ReturnType<typeof addNewPackAC>
 export type DeletePackACType = ReturnType<typeof deletePackAC>

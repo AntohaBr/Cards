@@ -44,6 +44,7 @@ export type GetPacksResponseType = {
     maxCardsCount: number
     token: string
     tokenDeathTime: number
+    sortPacks:string
 }
 
 export type PacksType = {
@@ -73,6 +74,7 @@ export type PacksGetParamsType = {
     user_id?: string
     packName?: string
     search?: string
+    sortPacks:string
 }
 
 export type PacksGetParamsTypeNotNeeded = Partial<PacksGetParamsType>

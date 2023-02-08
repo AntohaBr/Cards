@@ -16,6 +16,7 @@ import {Pack} from "./Pack";
 import {PacksType} from "../../api/cards-api";
 import {setPagination} from "../../features/Pagination";
 import {PATH} from "../../app/Routes/Routes";
+import styles from './PacksTable.module.css'
 
 
 type PropsType = {
@@ -23,6 +24,8 @@ type PropsType = {
     pageCount: number
     currentPage: number
     packs: PacksType[]
+    sortUpdate: (sortParams: string) => void
+    sort: string
 }
 
 
@@ -54,10 +57,30 @@ export const PacksTable = (props: PropsType) => {
                             <TableHead>
                                 <TableRow onClick={redirectToCards}>
                                     <TableCell align="right">Cover</TableCell>
-                                    <TableCell align="right">Name</TableCell>
-                                    <TableCell align="right">Cards</TableCell>
-                                    <TableCell align="right">Last updated(g)</TableCell>
-                                    <TableCell align="right">Created by</TableCell>
+                                    <TableCell
+                                        align="right"
+                                        className={props.sort === '0name' ? styles.sortUp : styles.sortDown}
+                                        onClick={() => props.sortUpdate('name')}
+                                    >Name
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                        className={props.sort === '0cardsCount' ? styles.sortUp : styles.sortDown}
+                                        onClick={() => props.sortUpdate('cardsCount')}
+                                    >Cards
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                        className={props.sort === '0updated' ? styles.sortUp : styles.sortDown}
+                                        onClick={() => props.sortUpdate('updated')}
+                                    >Last updated(g)
+                                    </TableCell>
+                                    <TableCell
+                                        align="right"
+                                        className={props.sort === '0user_name' ? styles.sortUp : styles.sortDown}
+                                        onClick={() => props.sortUpdate('user_name')}
+                                    >Created by
+                                    </TableCell>
                                     <TableCell align="right">Actions </TableCell>
                                 </TableRow>
                             </TableHead>

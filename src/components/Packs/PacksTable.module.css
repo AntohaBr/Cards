@@ -1,0 +1,16 @@
+.sortUp {
+    cursor: pointer;
+    background-image: url(../../assets/icon/arrow-up.png);
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    padding-right: 25px !important;
+
+}
+
+.sortDown {
+    cursor: pointer;
+    background-image: url(../../assets/icon/arrow-down.png);
+    background-repeat: no-repeat;
+    background-position: 100% center;
+    padding-right: 25px !important;
+}
