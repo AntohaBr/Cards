@@ -38,7 +38,7 @@ export const Card = (props: CardType) => {
         setOpenModalEditCard(true)
     }
 
-    const deleteCardButtonClickHandler = () => {
+     const deleteCardButtonClickHandler = () => {
         setOpenModalDeleteCard(true)
     }
 

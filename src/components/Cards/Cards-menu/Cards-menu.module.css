@@ -1,0 +1,12 @@
+.button {
+    text-decoration: none;
+    background: none;
+    border: none;
+}
+
+.moreVertIcon {
+    cursor: pointer;
+    margin-left: 10px ;
+    border: 2px solid black;
+    border-radius: 50%;
+}

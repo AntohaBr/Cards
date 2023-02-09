@@ -12,6 +12,7 @@ import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {PATH} from "../../app/Routes/Routes";
 import defaultCover from "../../assets/icon/defaultCover.jpg";
 import {Search} from "../../common/Search/Search";
+import {CardsMenu} from "./Cards-menu/Cards-menu";
 
 
 export const Cards = () => {
@@ -29,7 +30,6 @@ export const Cards = () => {
     const {packId} = useParams()
     const dispatch = useAppDispatch()
     const [openAddCardModal, setOpenAddCardModal] = useState(false)
-
 
 
     useEffect(() => {
@@ -65,13 +65,17 @@ export const Cards = () => {
                 <span className={style.profileBackToPacksText}
                       onClick={onClickBackToPacksHandler}>Back to Packs List</span>
             </div>
-            <div>{packName}</div>
+            <div>
+                {packName}
+                <CardsMenu/>
+            </div>
             <div>
                 <img
                     style={{width: '130px', height: '130px'}}
                     src={packDeckCover ? packDeckCover : defaultCover}
                     alt="img"
                 />
+
             </div>
             <div>
                 {cards.length >= 1 && <Search
@@ -90,7 +94,8 @@ export const Cards = () => {
                             </div>
                             <Button onClick={onClickButtonAddCardHandler} type={'submit'} variant={'contained'}
                                     color={'primary'}
-                                    style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
+                                    style={{width: "350px", borderRadius: "90px", margin: "25px"}}
+                                    disabled={isDisable}>
                                 Add New Card
                             </Button>
                             <ModalAddNewCard
@@ -110,7 +115,8 @@ export const Cards = () => {
                         <div>
                             <Button onClick={onClickButtonAddCardHandler} type={'submit'} variant={'contained'}
                                     color={'primary'}
-                                    style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
+                                    style={{width: "350px", borderRadius: "90px", margin: "25px"}}
+                                    disabled={isDisable}>
                                 Add New Card
                             </Button>
                             <ModalAddNewCard
