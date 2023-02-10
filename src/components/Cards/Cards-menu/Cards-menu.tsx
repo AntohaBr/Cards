@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {ModalEditPack} from "../../../common/Modals/Modal-pack/Modal-edit-pack";
 import {ModalDeletePack} from "../../../common/Modals/Modal-pack/Modal-delete-pack";
-import {Link, useNavigate, useParams} from "react-router-dom";
+import {NavLink, useNavigate, useParams} from "react-router-dom";
 import {cardsAPI} from "../../../api/cards-api";
 import {PATH} from "../../../app/Routes/Routes";
 import {getCardsTC} from "../../../redux/Cards-reducer";
@@ -68,7 +68,7 @@ export const CardsMenu = () => {
         <div>
             {myID === userID && (
                 <div>
-                    <button className={styles.button} onClick={buttonClickHandler}>
+                    <button className={styles.menuButton} onClick={buttonClickHandler}>
                         <MoreVertIcon className={styles.moreVertIcon}/>
                     </button>
                     <Popover
@@ -78,25 +78,22 @@ export const CardsMenu = () => {
                         onClose={popoverCloseHandler}
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     >
-                        <div>
-                            {/*<NavLink to={`${PATH.LEARN}/${props._id}`}>*/}
-
-                            {/*</NavLink>*/}
-                            <Link to={PATH.LEARN}>
+                        <div className={styles.menu}>
+                            <NavLink to={PATH.LEARN} style={{textDecoration:"none"}}>
                                 <Button onClick={learnButtonCloseHandler}>
-                                    <div>
-                                        <SchoolIcon/> Learn
+                                    <div className={styles.icon}>
+                                        <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                                     </div>
                                 </Button>
-                            </Link>
+                            </NavLink>
                             <Button onClick={editCardButtonClickHandler}>
-                                <div>
-                                    <EditIcon/> Edit
+                                <div className={styles.icon}>
+                                    <EditIcon sx={{marginRight: '5px'}}/> Edit
                                 </div>
                             </Button>
                             <Button onClick={deleteCardButtonClickHandler}>
-                                <div>
-                                    <DeleteOutlineIcon/> Delete
+                                <div className={styles.icon}>
+                                    <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
                                 </div>
                             </Button>
                         </div>
@@ -107,7 +104,7 @@ export const CardsMenu = () => {
                         open={openModalEditPack}
                         toggleOpenMode={setOpenModalEditPack}
                         editItem={editPack}
-                        // img={packDeckCover}
+                        img={packDeckCover}
                     />
                     <ModalDeletePack
                         title={'Delete Pack'}

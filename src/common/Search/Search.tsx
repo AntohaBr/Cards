@@ -1,4 +1,4 @@
-import React, {ChangeEvent, memo, useCallback} from 'react';
+import React, {ChangeEvent, useCallback} from 'react';
 import SearchIcon from '@mui/icons-material/Search'
 import {alpha, InputBase, styled} from "@mui/material";
 
@@ -43,7 +43,7 @@ type SearchPropsType = {
 }
 
 
- export const Search = memo ((props:SearchPropsType) => {
+ export const Search = React.memo((props:SearchPropsType) => {
     const changeHandler = useCallback ((e: ChangeEvent<HTMLInputElement>) => {
         props.onChange(e.currentTarget.value)
     },[props.onChange])

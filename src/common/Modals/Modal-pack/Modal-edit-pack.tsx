@@ -1,9 +1,10 @@
-import React, {ChangeEvent, useState} from 'react';
-import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
-import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
-import {TextField} from "@mui/material";
-import {useAppSelector} from "../../../utils/Hooks";
-import {InputFile} from "../../../utils/Input-file/Input-file";
+import React, {ChangeEvent, useState} from 'react'
+import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal"
+import {MainBlockModal} from "../Main-block-modal/Main-block-modal"
+import {TextField} from "@mui/material"
+import {useAppSelector} from "../../../utils/Hooks"
+import {InputFile} from "../../../utils/Input-file/Input-file"
+
 
 type ModalEditPackPropsType = {
     title: string
@@ -11,12 +12,15 @@ type ModalEditPackPropsType = {
     toggleOpenMode: (value: boolean) => void
     editItem: (name: string, deckCover: string) => void
     itemTitle: string
+    img: string
 }
+
 
 export const ModalEditPack = (props: ModalEditPackPropsType) => {
     const isDisable = useAppSelector(state => state.app.isDisabled)
+
     const [name, setName] = useState(props.itemTitle)
-    const [deckCover, setDeckCover] = useState('')
+    const [deckCover, setDeckCover] = useState(props.img)
 
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
@@ -37,7 +41,7 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
             onCloseModal={onCloseModalHandler}
         >
             <InputFile
-                Img={deckCover}
+                img={deckCover}
                 saveImg={setDeckCover}
                 title={'Change pack cover'}
                 name={'editPackCoverFile'}

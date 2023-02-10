@@ -63,7 +63,7 @@ export type PacksType = {
     type?: string
     user_name?: string
     __v?: number
-    deckCover: null | string
+    deckCover: string
 }
 
 export type PacksGetParamsType = {

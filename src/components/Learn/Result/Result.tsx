@@ -1,11 +1,11 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Button, Container, Grid} from "@mui/material";
-import {useNavigate} from 'react-router-dom';
+import React, {ChangeEvent, useState} from 'react'
+import {Button, Container, Grid} from "@mui/material"
+import {useNavigate} from 'react-router-dom'
 import styles  from "./Result.module.css"
-import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
-import {setUtilsAC, updateGradeCardTC} from "../../../redux/Cards-reducer";
-import {getCard} from "../../../features/smart-random";
-import {PATH} from "../../../app/Routes/Routes";
+import {useAppDispatch, useAppSelector} from "../../../utils/Hooks"
+import {setUtilsAC, updateGradeCardTC} from "../../../redux/Cards-reducer"
+import {getCard} from "../../../features/smart-random"
+import {PATH} from "../../../app/Routes/Routes"
 
 
 export const Result = () => {
@@ -40,7 +40,6 @@ export const Result = () => {
 
     const onChangeCallBack=(e:ChangeEvent<HTMLInputElement>)=>{
         setState(+e.currentTarget.value)
-        console.log(state)
     }
 
     const gradeBlock=answers.map(el => {

@@ -4,13 +4,13 @@ import Box from "@mui/material/Box";
 import style from "./Profile.module.css"
 import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
 import {updateProfileTC} from "../../redux/Profile-reducer";
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Navigate} from 'react-router-dom';
 import {logOutTC} from "../../redux/Auth-reducer";
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {setAppErrorAC} from "../../redux/App-reducer";
 import {convertFileToBase64} from "../../features/Convert-fаile-to-base64";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {PATH} from "../../app/Routes/Routes";
+import {BackToPackList} from "../../common/Back-to-pack-list/Back-to-pack-list";
 
 
 export const Profile = React.memo(() => {
@@ -21,7 +21,6 @@ export const Profile = React.memo(() => {
     const avatar = useAppSelector(state => state.profile.avatar)
     const name = useAppSelector(state => state.profile.name)
     const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const [userName, setUserName] = useState<string>(name)
     const [userAvatar, setUserAvatar] = useState<string>(avatar);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
@@ -33,10 +32,6 @@ export const Profile = React.memo(() => {
     const updateUserHandler = () => {
         dispatch(updateProfileTC(userName, userAvatar))
         setEditNameMod(false)
-    }
-
-    const onClickBackToPacksHandler = () => {
-        navigate(PATH.PACKS)
     }
 
     const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -61,10 +56,7 @@ export const Profile = React.memo(() => {
     }
 
     return <div className={style.profileBlock}>
-        <div className={style.profileBackToPacks}>
-            <ArrowBackIcon color={'primary'}/>
-            <span className={style.profileBackToPacksText} onClick={onClickBackToPacksHandler}>Back to Packs List</span>
-        </div>
+        <BackToPackList/>
         <div className={style.profileContainer}>
             <h2 className={style.profileTitle}>Personal information</h2>
             <Badge className={style.profileBadge}

@@ -9,7 +9,7 @@ import style from './Input-file.module.css'
 type InputFilePropsType = {
     saveImg: (questionImg: string) => void
     title: string
-    Img: string
+    img: string
     name: string
 }
 
@@ -44,6 +44,6 @@ export const InputFile = (props:InputFilePropsType) => {
                 onChange={uploadHandler}
             />
         </Button>
-        {props.Img && <div className={style.file} style={{ backgroundImage: `url(${props.Img})`}}/>}
+        {props.img && <div className={style.file} style={{ backgroundImage: `url(${props.img})`}}/>}
     </label>
 }

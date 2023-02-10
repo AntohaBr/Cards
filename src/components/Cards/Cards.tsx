@@ -7,12 +7,11 @@ import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {ModalAddNewCard} from "../../common/Modals/Modal-card/Modal-add-new-card";
 import {PostCardType} from "../../api/cards-api";
 import {getCard} from "../../features/smart-random";
-import style from "../Profile/Profile.module.css";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import {PATH} from "../../app/Routes/Routes";
 import defaultCover from "../../assets/icon/defaultCover.jpg";
 import {Search} from "../../common/Search/Search";
 import {CardsMenu} from "./Cards-menu/Cards-menu";
+import {BackToPackList} from "../../common/Back-to-pack-list/Back-to-pack-list";
 
 
 export const Cards = () => {
@@ -50,21 +49,13 @@ export const Cards = () => {
         dispatch(addNewCardsTC(postModel))
     }
 
-    const onClickBackToPacksHandler = () => {
-        navigate(PATH.PACKS)
-    }
-
     const searchValueHandler = (questionValue: string) => {
         setQuestion(questionValue)
     }
 
     return (
         <div>
-            <div className={style.profileBackToPacks}>
-                <ArrowBackIcon color={'primary'}/>
-                <span className={style.profileBackToPacksText}
-                      onClick={onClickBackToPacksHandler}>Back to Packs List</span>
-            </div>
+            <BackToPackList/>
             <div>
                 {packName}
                 <CardsMenu/>
@@ -125,6 +116,8 @@ export const Cards = () => {
                                 toggleOpenMode={setOpenAddCardModal}
                                 addItem={addCard}
                             />
+                            <Button variant={"contained"} color={"primary"} onClick={setUtilsHandler}>Learn to
+                                pack</Button>
                         </div>
                         :
                         <div>

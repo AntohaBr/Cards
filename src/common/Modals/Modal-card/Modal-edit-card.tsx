@@ -103,13 +103,13 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
                 :
                 <div>
                     <InputFile
-                        Img={questionImg}
+                        img={questionImg}
                         saveImg={questionFileChangeHandler}
                         title={'Upload a question'}
                         name={'questionFile'}
                     />
                     <InputFile
-                        Img={answerImg}
+                        img={answerImg}
                         saveImg={answerFileChangeHandler}
                         title={'Upload a answer'}
                         name={'answerFile'}

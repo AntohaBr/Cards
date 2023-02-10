@@ -44,7 +44,7 @@ export const ModalAddPack = (props: ModalAddPackPropsType) => {
             onCloseModal={onCloseModalHandler}
         >
             <InputFile
-                Img={deckCover}
+                img={deckCover}
                 saveImg={setDeckCover}
                 title={'Upload the pack cover'}
                 name={'packCoverFile'}

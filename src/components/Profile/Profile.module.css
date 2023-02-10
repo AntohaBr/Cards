@@ -1,24 +1,6 @@
-eBlock {
+.eBlock {
     min-height: 100vh;
     padding: 60px 0;
-}
-
-.profileBackToPacks{
-    display: flex;
-    flex-direction: row;
-    justify-content: flex-start;
-    padding-left: 350px;
-}
-
-.profileBackToPacksText{
-    font-style: normal;
-    font-weight: 600;
-    font-size: 20px;
-    line-height: 24px;
-    display: flex;
-    align-items: center;
-    color: #020eff;
-    cursor: pointer;
 }
 
 .profileContainer {

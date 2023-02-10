@@ -5,7 +5,7 @@ import {Button} from "@mui/material";
 import SchoolIcon from "@mui/icons-material/School";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {Link, NavLink, useNavigate} from "react-router-dom";
+import {NavLink, useNavigate} from "react-router-dom";
 import {ModalDeletePack} from "../../common/Modals/Modal-pack/Modal-delete-pack";
 import {PacksType} from "../../api/cards-api";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
@@ -28,7 +28,7 @@ export const Pack = (props: PacksType) => {
     const dispatch = useAppDispatch()
 
     const setUtilsHandler = () => {
-        const cardId = getCard(cards)._id
+        const cardId = getCard(cards).cardsPack_id
         dispatch(setUtilsAC(cardId))
         navigate(`${PATH.LEARN}/${cardId}`)
     }
@@ -60,7 +60,7 @@ export const Pack = (props: PacksType) => {
                 />
             </TableCell>
             <TableCell component="th" scope="row" align="right">
-                <NavLink to={`${PATH.CARDS}/${props._id}`}>
+                <NavLink to={`${PATH.CARDS}/${props._id}`} style={{textDecoration:"none"}}>
                     {props.name}
                 </NavLink>
             </TableCell>
@@ -103,6 +103,7 @@ export const Pack = (props: PacksType) => {
                 open={openEditModalPack}
                 toggleOpenMode={setOpenEditModalPack}
                 editItem={editPack}
+                img={props.deckCover}
             />
         </TableRow>
     )
