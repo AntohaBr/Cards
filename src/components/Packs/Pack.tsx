@@ -13,7 +13,7 @@ import {useState} from "react";
 import {deletePackTC, updatePackTC} from "../../redux/Packs-reducer";
 import {ModalEditPack} from "../../common/Modals/Modal-pack/Modal-edit-pack";
 import {PATH} from "../../app/Routes/Routes";
-import defaultCover from '../../assets/icon/defaultCover.jpg'
+import defaultCover from '../../assets/Icon/defaultCover.jpg'
 import {getCard} from "../../features/Smart-random";
 import {setUtilsAC} from "../../redux/Cards-reducer";
 

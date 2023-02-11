@@ -27,7 +27,7 @@ interface State {
 
 export const Login = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const loading = useAppSelector((state) => state.app.status)
+    const status = useAppSelector((state) => state.app.status)
     const error = useAppSelector(state => state.app.successError)
 
     const dispatch = useAppDispatch()
@@ -66,7 +66,7 @@ export const Login = () => {
             <h2 className={style.loginTitle}>Sign in</h2>
             <form onSubmit={formik.handleSubmit} className={style.loginForm}>
                 <FormGroup>
-                    <FormControl style={{padding: '5%'}} variant="outlined">
+                    <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
                         <InputLabel>Email</InputLabel>
                         <Input
                             {...formik.getFieldProps('email')}
@@ -74,13 +74,13 @@ export const Login = () => {
                         {formik.touched.email && formik.errors.email ?
                             <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                     </FormControl>
-                    <FormControl style={{padding: '5%'}} variant="outlined">
+                    <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
                         <InputLabel>Password</InputLabel>
                         <Input
-                            type={values.showPassword ? "text" : "password"}
+                            type={values.showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('password')}
                             endAdornment={
-                                <InputAdornment position="end">
+                                <InputAdornment position='end'>
                                     <IconButton
                                         onClick={handleClickShowConfirmPassword}
                                         onMouseDown={handleMouseDownPassword}
@@ -97,7 +97,7 @@ export const Login = () => {
                         className={style.formControlLabel}
                         label={'Remember me'}
                         control={<Checkbox
-                            {...formik.getFieldProps("rememberMe")}
+                            {...formik.getFieldProps('rememberMe')}
                             checked={formik.values.rememberMe}
                         />}
                     />
@@ -106,16 +106,16 @@ export const Login = () => {
                     </div>
                     <div className={style.buttonBlock}>
                         <Button type={'submit'} variant={'contained'} color={'primary'}
-                                style={{width: "100%", borderRadius: "90px"}}
-                                disabled={loading === 'loading'}>
+                                style={{width: '100%', borderRadius: '90px'}}
+                                disabled={status === 'loading'}>
                             Sing In
                         </Button>
                     </div>
                     <FormLabel>
-                        {error === "" ? "" : <div style={{
-                            color: "red",
-                            display: "flex",
-                            justifyContent: "center"
+                        {error === '' ? '' : <div style={{
+                            color: 'red',
+                            display: 'flex',
+                            justifyContent: 'center'
                         }}>{error}</div>}
                         <p className={style.loginRegister}>Already have an account?</p>
                         <div className={style.loginLinkBlock}>

@@ -8,7 +8,7 @@ import {ModalAddNewCard} from "../../common/Modals/Modal-card/Modal-add-new-card
 import {PostCardType} from "../../api/cards-api";
 import {getCard} from "../../features/Smart-random";
 import {PATH} from "../../app/Routes/Routes";
-import defaultCover from "../../assets/icon/defaultCover.jpg";
+import defaultCover from "../../assets/Icon/defaultCover.jpg";
 import {Search} from "../../common/Search/Search";
 import {CardsMenu} from "./Cards-menu/Cards-menu";
 import {BackToPackList} from "../../common/Back-to-pack-list/Back-to-pack-list";
