@@ -1,15 +1,16 @@
 import React from 'react';
 import style from './Check-email.module.css'
-import {Button} from '@mui/material';
+import {Button} from '@mui/material'
 import envelope from '../../assets/Icon/envelope.jpg'
-import {useNavigate} from 'react-router-dom';
-import {useAppSelector} from "../../utils/Hooks";
-import {PATH} from "../../app/Routes/Routes";
+import {useNavigate} from 'react-router-dom'
+import {useAppSelector} from '../../utils/Hooks'
+import {PATH} from '../../app/Routes/Routes'
 
 
 export const CheckEmail = () => {
 
     const isDisable = useAppSelector(state => state.app.isDisabled)
+
     const navigate = useNavigate()
 
     const envelopeIcon = {

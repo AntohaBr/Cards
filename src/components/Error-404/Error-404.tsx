@@ -1,6 +1,7 @@
-import React from 'react';
+import React from 'react'
 
-export const Error404 = (props:{}) =>{
+
+export const Error404 = () =>{
     return (
         <div>
             <h1>Error404</h1>

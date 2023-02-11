@@ -11,13 +11,12 @@ import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
-import style from './Registration.module.css'
-import {Navigate} from 'react-router-dom'
+import {Navigate, NavLink} from 'react-router-dom'
 import {registrationTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
 import {validateUtil} from '../../utils/Validate-util/Validate-util'
-
+import styleForms from '../../assets/Styles/Style-forms.module.css'
 
 interface State {
     password: string;
@@ -28,7 +27,7 @@ interface State {
 
 
 export const Registration = () => {
-    const isDisable = useAppSelector(state => state.app.isDisabled)
+    const status = useAppSelector((state) => state.app.status)
     const isRegistered = useAppSelector((state) => state.auth.isRegistered)
 
     const dispatch = useAppDispatch()
@@ -68,21 +67,21 @@ export const Registration = () => {
         return <Navigate to={PATH.LOGIN}/>
     }
 
-    return <div className={style.registrationBlock}>
-        <div className={style.registrationContainer}>
-            <h2 className={style.title}>Sign Up</h2>
-            <form onSubmit={formik.handleSubmit} className={style.form}>
+    return <div className={styleForms.block}>
+        <div className={styleForms.container}>
+            <h2 className={styleForms.title}>Sign Up</h2>
+            <form onSubmit={formik.handleSubmit} className={styleForms.form}>
                 <FormGroup>
-                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
-                        <InputLabel>Email</InputLabel>
+                    <FormControl style={{padding: '0% 5% 5% 5%'}} variant="outlined">
+                        <InputLabel style={{paddingLeft: '6px'}}>Email</InputLabel>
                         <Input
                             {...formik.getFieldProps('email')}
                         />
                         {formik.touched.email && formik.errors.email ?
                             <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                     </FormControl>
-                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
-                        <InputLabel>Password</InputLabel>
+                    <FormControl style={{padding: '0% 5% 5% 5%'}} variant="outlined">
+                        <InputLabel style={{paddingLeft: '6px'}}>Password</InputLabel>
                         <Input
                             type={values.showPassword ? "text" : "password"}
                             {...formik.getFieldProps('password')}
@@ -100,8 +99,8 @@ export const Registration = () => {
                         {formik.touched.password && formik.errors.password ?
                             <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                     </FormControl>
-                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
-                        <InputLabel>Confirm password</InputLabel>
+                    <FormControl style={{padding: '0% 5% 5% 5%'}} variant="outlined">
+                        <InputLabel style={{paddingLeft: '6px'}}>Confirm password</InputLabel>
                         <Input
                             type={values.showConfirmPassword ? "text" : "password"}
                             {...formik.getFieldProps('confirmPassword')}
@@ -119,13 +118,18 @@ export const Registration = () => {
                         {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                             <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                     </FormControl>
-                    <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
-                        Sing Up
-                    </Button>
+                    <div className={styleForms.buttonBlock}>
+                        <Button type={'submit'} variant={'contained'} color={'primary'}
+                                style={{width: '100%', borderRadius: '90px'}}
+                                disabled={status === 'loading'}>
+                            Sing Up
+                        </Button>
+                    </div>
                     <FormLabel>
-                        <p className={style.register}>Already have an account?</p>
-                        <a className={style.link} href={PATH.LOGIN} target={'_self'}>Sign In</a>
+                        <p className={styleForms.text}>Already have an account?</p>
+                        <div className={styleForms.navLinkBlock}>
+                            <NavLink className={styleForms.navLink} to={PATH.LOGIN}>Sign In</NavLink>
+                        </div>
                     </FormLabel>
                 </FormGroup>
             </form>

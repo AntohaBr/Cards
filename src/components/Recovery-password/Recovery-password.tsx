@@ -6,7 +6,7 @@ import {recoveryPasswordTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
 import {validateUtil} from '../../utils/Validate-util/Validate-util'
-import style from '../../assets/Styles/Style-forms.module.css'
+import styleForms from '../../assets/Styles/Style-forms.module.css'
 
 
 export const RecoveryPassword = () => {
@@ -25,7 +25,9 @@ export const RecoveryPassword = () => {
         },
         validate: validateUtil,
         onSubmit: values => {
-            dispatch(recoveryPasswordTC(values.email))
+            if (values.email) {
+                dispatch(recoveryPasswordTC(values.email))
+            }
         },
     })
 
@@ -38,12 +40,12 @@ export const RecoveryPassword = () => {
     }
 
     return (
-        <div className={style.block}>
-            <div className={style.container}>
-                <h2 className={style.title}>Forgot your password?</h2>
-                <form onSubmit={formik.handleSubmit} className={style.form}>
-                    <FormControl sx={{padding: '0% 5% 5% 5%'}} variant="outlined">
-                        <InputLabel style={{paddingLeft:'6px'}}>Email</InputLabel>
+        <div className={styleForms.block}>
+            <div className={styleForms.container}>
+                <h2 className={styleForms.title}>Forgot your password?</h2>
+                <form onSubmit={formik.handleSubmit} className={styleForms.form}>
+                    <FormControl sx={{padding: '0% 5% 5% 5%'}} variant='outlined'>
+                        <InputLabel style={{paddingLeft: '6px'}}>Email</InputLabel>
                         <Input
                             {...formik.getFieldProps('email')}
                         />
@@ -51,10 +53,10 @@ export const RecoveryPassword = () => {
                             <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                     </FormControl>
                     <FormLabel>
-                        <p className={style.text}>Enter your email address and we will send
+                        <p className={styleForms.text}>Enter your email address and we will send
                             you further instructions </p>
                     </FormLabel>
-                    <div className={style.buttonBlock}>
+                    <div className={styleForms.buttonBlock}>
                         <Button type={'submit'} variant={'contained'} color={'primary'}
                                 style={{width: '100%', borderRadius: '90px'}}
                                 disabled={status === 'loading'}>
@@ -62,9 +64,9 @@ export const RecoveryPassword = () => {
                         </Button>
                     </div>
                     <FormLabel>
-                        <p className={style.text}>Did you remember your password?</p>
-                        <div className={style.navLinkBlock}>
-                            <NavLink className={style.navLink} to={PATH.LOGIN} >Try logging in</NavLink>
+                        <p className={styleForms.text}>Did you remember your password?</p>
+                        <div className={styleForms.navLinkBlock}>
+                            <NavLink className={styleForms.navLink} to={PATH.LOGIN} >Try logging in</NavLink>
                         </div>
                     </FormLabel>
                 </form>

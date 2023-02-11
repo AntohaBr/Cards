@@ -11,12 +11,13 @@ import {useFormik} from 'formik'
 import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
-import style from './Login.module.css'
 import {VisibilityOff} from '@mui/icons-material'
 import {loginTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
 import {validateUtil} from '../../utils/Validate-util/Validate-util'
+import styleForms from '../../assets/Styles/Style-forms.module.css'
+import style from './Login.module.css'
 
 
 interface State {
@@ -61,13 +62,13 @@ export const Login = () => {
         return <Navigate to={PATH.PROFILE}/>
     }
 
-    return <div className={style.loginBlock}>
-        <div className={style.loginContainer}>
-            <h2 className={style.loginTitle}>Sign in</h2>
-            <form onSubmit={formik.handleSubmit} className={style.loginForm}>
+    return <div className={styleForms.block}>
+        <div className={styleForms.container}>
+            <h2 className={styleForms.title}>Sign in</h2>
+            <form onSubmit={formik.handleSubmit} className={styleForms.form}>
                 <FormGroup>
                     <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
-                        <InputLabel>Email</InputLabel>
+                        <InputLabel style={{paddingLeft: '6px'}}>Email</InputLabel>
                         <Input
                             {...formik.getFieldProps('email')}
                         />
@@ -75,7 +76,7 @@ export const Login = () => {
                             <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                     </FormControl>
                     <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
-                        <InputLabel>Password</InputLabel>
+                        <InputLabel style={{paddingLeft: '6px'}}>Password</InputLabel>
                         <Input
                             type={values.showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('password')}
@@ -104,7 +105,7 @@ export const Login = () => {
                     <div className={style.forgotBlock}>
                         <NavLink className={style.textForgot} to={PATH.RECOVERY_PASSWORD}>Forgot Password?</NavLink>
                     </div>
-                    <div className={style.buttonBlock}>
+                    <div className={styleForms.buttonBlock}>
                         <Button type={'submit'} variant={'contained'} color={'primary'}
                                 style={{width: '100%', borderRadius: '90px'}}
                                 disabled={status === 'loading'}>
@@ -117,9 +118,9 @@ export const Login = () => {
                             display: 'flex',
                             justifyContent: 'center'
                         }}>{error}</div>}
-                        <p className={style.loginRegister}>Already have an account?</p>
-                        <div className={style.loginLinkBlock}>
-                            <NavLink className={style.loginLink} to={PATH.REGISTRATION}>Sign up</NavLink>
+                        <p className={styleForms.text}>Already have an account?</p>
+                        <div className={styleForms.navLinkBlock}>
+                            <NavLink className={styleForms.navLink} to={PATH.REGISTRATION}>Sign up</NavLink>
                         </div>
                     </FormLabel>
                 </FormGroup>
