@@ -14,7 +14,7 @@ import {deletePackTC, updatePackTC} from "../../redux/Packs-reducer";
 import {ModalEditPack} from "../../common/Modals/Modal-pack/Modal-edit-pack";
 import {PATH} from "../../app/Routes/Routes";
 import defaultCover from '../../assets/icon/defaultCover.jpg'
-import {getCard} from "../../features/smart-random";
+import {getCard} from "../../features/Smart-random";
 import {setUtilsAC} from "../../redux/Cards-reducer";
 
 export const Pack = (props: PacksType) => {

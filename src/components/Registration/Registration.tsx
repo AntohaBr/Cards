@@ -1,21 +1,22 @@
-import React from 'react';
+import React from 'react'
 import {
     Button,
     FormControl,
     FormGroup,
     FormLabel,
     Input, InputLabel,
-} from "@mui/material";
-import {useFormik} from "formik";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import VisibilityOff from "@mui/icons-material/VisibilityOff";
-import Visibility from "@mui/icons-material/Visibility";
+} from '@mui/material'
+import {useFormik} from 'formik'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import Visibility from '@mui/icons-material/Visibility'
 import style from './Registration.module.css'
-import {Navigate} from "react-router-dom";
-import {registrationTC} from "../../redux/Auth-reducer";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {PATH} from "../../app/Routes/Routes";
+import {Navigate} from 'react-router-dom'
+import {registrationTC} from '../../redux/Auth-reducer'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {PATH} from '../../app/Routes/Routes'
+import {validateUtil} from '../../utils/Validate-util/Validate-util'
 
 
 interface State {
@@ -29,6 +30,7 @@ interface State {
 export const Registration = () => {
     const isDisable = useAppSelector(state => state.app.isDisabled)
     const isRegistered = useAppSelector((state) => state.auth.isRegistered)
+
     const dispatch = useAppDispatch()
 
     const [values, setValues] = React.useState<State>({
@@ -52,26 +54,10 @@ export const Registration = () => {
         initialValues: {
             email: '',
             password: '',
+            rememberMe: false,
             confirmPassword: ''
         },
-
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-            if (!values.email) {
-                errors.email = 'Required'
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address'
-            }
-            if (!values.password) {
-                errors.password = 'Required'
-            } else if (values.password.length < 8) {
-                errors.password = 'Password must contain at least 8 characters'
-            } else if (values.confirmPassword !== values.password) {
-                errors.confirmPassword = 'The password is not confirmed'
-            }
-            return errors
-        },
-
+        validate: validateUtil,
         onSubmit: values => {
             dispatch(registrationTC(values))
             formik.resetForm()
@@ -145,12 +131,4 @@ export const Registration = () => {
             </form>
         </div>
     </div>
-}
-
-
-//types
-export type FormikErrorType = {
-    email?: string,
-    password?: string,
-    confirmPassword?: string
 }

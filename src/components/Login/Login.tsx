@@ -1,21 +1,22 @@
-import React from 'react';
+import React from 'react'
 import {
     Button,
     Checkbox,
     FormControl,
     FormControlLabel,
     FormGroup, FormLabel, Input, InputLabel,
-} from "@mui/material";
-import {Navigate, useNavigate} from "react-router-dom";
-import {useFormik} from "formik";
-import InputAdornment from "@mui/material/InputAdornment";
-import IconButton from "@mui/material/IconButton";
-import Visibility from "@mui/icons-material/Visibility";
+} from '@mui/material'
+import {Navigate, NavLink} from 'react-router-dom'
+import {useFormik} from 'formik'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import Visibility from '@mui/icons-material/Visibility'
 import style from './Login.module.css'
-import {VisibilityOff} from "@mui/icons-material";
-import {loginTC} from "../../redux/Auth-reducer";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {PATH} from "../../app/Routes/Routes";
+import {VisibilityOff} from '@mui/icons-material'
+import {loginTC} from '../../redux/Auth-reducer'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {PATH} from '../../app/Routes/Routes'
+import {validateUtil} from '../../utils/Validate-util/Validate-util'
 
 
 interface State {
@@ -25,12 +26,11 @@ interface State {
 
 
 export const Login = () => {
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate()
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const loading = useAppSelector((state) => state.app.status)
     const error = useAppSelector(state => state.app.successError)
-    const isDisable = useAppSelector(state => state.app.isDisabled)
 
+    const dispatch = useAppDispatch()
 
     const [values, setValues] = React.useState<State>({
         password: '',
@@ -38,40 +38,22 @@ export const Login = () => {
     })
 
     const handleClickShowConfirmPassword = () => {
-        setValues({...values, showPassword: !values.showPassword});
+        setValues({...values, showPassword: !values.showPassword})
     }
     const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
-    }
-
-    const onClickBackToRegistrationHandler = () => {
-        navigate(PATH.REGISTRATION)
-    }
-
-    const onClickBackToRecoveryPasswordHandler = () => {
-        navigate(PATH.RECOVERY_PASSWORD)
+        event.preventDefault()
     }
 
     const formik = useFormik({
         initialValues: {
-            email: "",
-            password: "",
-            rememberMe: false
+            email: '',
+            password: '',
+            rememberMe: false,
+            confirmPassword: ''
         },
+        validate: validateUtil,
         onSubmit(values) {
             dispatch(loginTC(values))
-        },
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-            if (!values.email) {
-                errors.email = 'Required'
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address'
-            }
-            if (values.password.length < 8) {
-                errors.password = "invalid password"
-            }
-            return errors
         },
     })
 
@@ -84,7 +66,7 @@ export const Login = () => {
             <h2 className={style.loginTitle}>Sign in</h2>
             <form onSubmit={formik.handleSubmit} className={style.loginForm}>
                 <FormGroup>
-                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
+                    <FormControl style={{padding: '5%'}} variant="outlined">
                         <InputLabel>Email</InputLabel>
                         <Input
                             {...formik.getFieldProps('email')}
@@ -92,7 +74,7 @@ export const Login = () => {
                         {formik.touched.email && formik.errors.email ?
                             <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                     </FormControl>
-                    <FormControl sx={{m: 2, width: '40ch'}} variant="outlined">
+                    <FormControl style={{padding: '5%'}} variant="outlined">
                         <InputLabel>Password</InputLabel>
                         <Input
                             type={values.showPassword ? "text" : "password"}
@@ -112,6 +94,7 @@ export const Login = () => {
                             <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                     </FormControl>
                     <FormControlLabel
+                        className={style.formControlLabel}
                         label={'Remember me'}
                         control={<Checkbox
                             {...formik.getFieldProps("rememberMe")}
@@ -119,13 +102,15 @@ export const Login = () => {
                         />}
                     />
                     <div className={style.forgotBlock}>
-                        <a className={style.textForgot} onClick={onClickBackToRecoveryPasswordHandler}>Forgot
-                            Password?</a>
+                        <NavLink className={style.textForgot} to={PATH.RECOVERY_PASSWORD}>Forgot Password?</NavLink>
                     </div>
-                    <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: "350px", borderRadius: "90px", margin: "25px"}} disabled={isDisable}>
-                        Sing In
-                    </Button>
+                    <div className={style.buttonBlock}>
+                        <Button type={'submit'} variant={'contained'} color={'primary'}
+                                style={{width: "100%", borderRadius: "90px"}}
+                                disabled={loading === 'loading'}>
+                            Sing In
+                        </Button>
+                    </div>
                     <FormLabel>
                         {error === "" ? "" : <div style={{
                             color: "red",
@@ -133,18 +118,12 @@ export const Login = () => {
                             justifyContent: "center"
                         }}>{error}</div>}
                         <p className={style.loginRegister}>Already have an account?</p>
-                        <a className={style.loginLink} onClick={onClickBackToRegistrationHandler}>Sign up</a>
+                        <div className={style.loginLinkBlock}>
+                            <NavLink className={style.loginLink} to={PATH.REGISTRATION}>Sign up</NavLink>
+                        </div>
                     </FormLabel>
                 </FormGroup>
             </form>
         </div>
     </div>
-}
-
-
-//types
-type FormikErrorType = {
-    email?: string
-    password?: string
-    rememberMe?: boolean
 }

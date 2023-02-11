@@ -10,12 +10,12 @@ import {ErrorSnackbar} from "../components/Error-snackbar/Error-snackbar";
 
 export const App = () => {
     const status = useAppSelector(state => state.app.status)
-    const dispatch = useAppDispatch()
     const isInitialized = useAppSelector(state => state.app.isInitialized)
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(isInitializedTC())
-    }, [dispatch])
+    }, [])
 
     if (!isInitialized) {
         return (
@@ -24,16 +24,12 @@ export const App = () => {
             </div>
         )
     }
-
     return (
         <div>
             <Navbar/>
             <div className='app-wrapper'>
                 <ErrorSnackbar/>
-                {status === "loading" ?
-                    <LinearProgress color={"primary"}/>
-                    : null}
-                {/*{isLoggedIn ? <Button   variant={"outlined"} color={"primary"} onClick={applogOut} style={{width:'100px',margin:'15px'}}> LOG OUT</Button> : null}*/}
+                {status === "loading" ? <LinearProgress color={"primary"}/> : <div style={{ height: '5px' }}/>}
                <PagesRoutes/>
             </div>
         </div>

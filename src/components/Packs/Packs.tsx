@@ -9,7 +9,8 @@ import {Search} from "../../common/Search/Search"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
 import {addNewPackTC, getPacksTC, setMinMaxAC, setParamsSortPack} from "../../redux/Packs-reducer"
 import {useDebounce} from "../../utils/Use-debounce"
-import {RangeSlider} from "../Super-components/SuperDoubleRange/SuperDoubleRange"
+import {RangeSlider} from "../Super-double-range/Super-double-range";
+
 
 
 export const Packs =  React.memo(() => {

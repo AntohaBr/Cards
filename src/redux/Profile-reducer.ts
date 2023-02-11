@@ -1,5 +1,5 @@
 import {AxiosError} from 'axios';
-import {errorUtils} from '../utils/Error-utils';
+import {errorUtil} from '../utils/Error-util';
 import {authAPI, ResponseType} from '../api/auth-api';
 import {setAppStatusAC} from "./App-reducer";
 import {AppThunkType} from "./Store";
@@ -40,7 +40,7 @@ export const updateProfileTC = (name: string, avatar?: string): AppThunkType => 
         dispatch(updateProfileAC(res.data.updatedProfile))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }

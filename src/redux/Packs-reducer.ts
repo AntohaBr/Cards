@@ -1,5 +1,5 @@
 import {AxiosError} from 'axios';
-import {errorUtils} from '../utils/Error-utils';
+import {errorUtil} from '../utils/Error-util';
 import {setAppStatusAC} from './App-reducer';
 import {AppThunkType} from "./Store";
 import {
@@ -93,7 +93,7 @@ export const getPacksTC = (params: PacksGetParamsTypeNotNeeded): AppThunkType =>
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }
@@ -107,7 +107,7 @@ export const deletePackTC = (packID: string): AppThunkType => async (dispatch) =
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }
@@ -121,7 +121,7 @@ export const addNewPackTC = (data: PostPacksType): AppThunkType => async (dispat
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }
@@ -135,7 +135,7 @@ export const updatePackTC = (params: UpdatePacksType): AppThunkType => async (di
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }

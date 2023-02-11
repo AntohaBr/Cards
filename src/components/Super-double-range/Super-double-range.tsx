@@ -15,5 +15,3 @@ export const RangeSlider: React.FC<SliderProps> =  React.memo(({...restProps}) =
         </Box>
     )
 })
-
-

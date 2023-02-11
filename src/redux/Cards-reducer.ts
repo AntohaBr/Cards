@@ -11,7 +11,7 @@ import {
     UpdateCardType, UpdatedGradeCartType
 } from "../api/cards-api";
 import {AxiosError} from "axios";
-import {errorUtils} from "../utils/Error-utils";
+import {errorUtil} from "../utils/Error-util";
 
 
 export const initialState = {
@@ -95,7 +95,7 @@ export const getCardsTC = (params: GetCardsParamsType): AppThunkType => async (d
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }
@@ -109,7 +109,7 @@ export const deleteCardsTC = (_id: string): AppThunkType => async (dispatch) => 
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }
@@ -123,7 +123,7 @@ export const addNewCardsTC = (postModel: PostCardType): AppThunkType => async (d
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }
@@ -137,7 +137,7 @@ export const updateCardsTC = (putModel: UpdateCardType): AppThunkType => async (
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }
@@ -151,7 +151,7 @@ export const updateGradeCardTC = (putModelGrade: CardLearnType): AppThunkType =>
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }

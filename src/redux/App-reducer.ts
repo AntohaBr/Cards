@@ -1,7 +1,7 @@
 import {authAPI} from "../api/auth-api";
 import {addLoginAC} from "./Auth-reducer";
 import {AxiosError} from "axios";
-import {errorUtils} from "../utils/Error-utils";
+import {errorUtil} from "../utils/Error-util";
 import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
 import {AppThunkType} from "./Store";
 
@@ -53,7 +53,7 @@ export const isInitializedTC = (): AppThunkType => async (dispatch) => {
     } catch (e) {
         dispatch(isInitializedAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     } finally {
         dispatch(setAppStatusAC('idle', false))
     }

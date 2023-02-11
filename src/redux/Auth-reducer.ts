@@ -2,7 +2,7 @@ import {
     SetAppErrorActionType,
     setAppStatusAC, SetAppStatusActionType,
 } from "./App-reducer";
-import {errorUtils} from "../utils/Error-utils";
+import {errorUtil} from "../utils/Error-util";
 import {AxiosError} from "axios";
 import {authAPI, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/auth-api";
 import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
@@ -51,7 +51,7 @@ export const loginTC = (data: LoginType): AppThunkType => async (dispatch) => {
         dispatch(setAppStatusAC("succeeded", true))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     }
 }
 
@@ -63,7 +63,7 @@ export const logOutTC = (): AppThunkType => async (dispatch) => {
         dispatch(setAppStatusAC("succeeded", false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     }
 }
 
@@ -75,7 +75,7 @@ export const registrationTC = (value: RegistrationType): AppThunkType => async (
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     }
 }
 
@@ -93,7 +93,7 @@ password recovery link:
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     }
 }
 
@@ -105,7 +105,7 @@ export const setNewPasswordTC = (password: string, token: string): AppThunkType 
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
-        errorUtils(err, dispatch)
+        errorUtil(err, dispatch)
     }
 }
 

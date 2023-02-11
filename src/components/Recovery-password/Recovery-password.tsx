@@ -1,17 +1,18 @@
-import React from 'react';
+import React from 'react'
 import style from './Recovery-password.module.css'
-import {Button, FormControl, FormLabel, Input, InputLabel} from "@mui/material";
-import {useFormik} from "formik";
-import {FormikErrorType} from "../Registration/Registration";
-import {Navigate, useNavigate} from "react-router-dom";
-import {recoveryPasswordTC} from "../../redux/Auth-reducer";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {PATH} from "../../app/Routes/Routes";
+import {Button, FormControl, FormLabel, Input, InputLabel} from '@mui/material'
+import {useFormik} from 'formik'
+import {Navigate, useNavigate} from 'react-router-dom'
+import {recoveryPasswordTC} from '../../redux/Auth-reducer'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {PATH} from '../../app/Routes/Routes'
+import {validateUtil} from '../../utils/Validate-util/Validate-util'
 
 
 export const RecoveryPassword = () => {
     const recoveryPassword = useAppSelector((state)=> state.auth.recoveryPassword)
     const isDisable = useAppSelector(state => state.app.isDisabled)
+
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -22,16 +23,11 @@ export const RecoveryPassword = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
+            password: '',
+            rememberMe: false,
+            confirmPassword: ''
         },
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-            if (!values.email) {
-                errors.email = 'Required'
-            } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-                errors.email = 'Invalid email address'
-            }
-            return errors
-        },
+        validate: validateUtil,
         onSubmit: values => {
             dispatch(recoveryPasswordTC(values.email))
         },

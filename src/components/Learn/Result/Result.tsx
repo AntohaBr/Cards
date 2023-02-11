@@ -4,7 +4,7 @@ import {useNavigate} from 'react-router-dom'
 import styles  from "./Result.module.css"
 import {useAppDispatch, useAppSelector} from "../../../utils/Hooks"
 import {setUtilsAC, updateGradeCardTC} from "../../../redux/Cards-reducer"
-import {getCard} from "../../../features/smart-random"
+import {getCard} from "../../../features/Smart-random"
 import {PATH} from "../../../app/Routes/Routes"
 
 
