@@ -18,6 +18,7 @@ import {PATH} from '../../app/Routes/Routes'
 import {validateUtil} from '../../utils/Validate-util/Validate-util'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import style from './Login.module.css'
+import {LoginType} from '../../api/auth-api'
 
 
 interface State {
@@ -50,10 +51,9 @@ export const Login = () => {
             email: '',
             password: '',
             rememberMe: false,
-            confirmPassword: ''
         },
         validate: validateUtil,
-        onSubmit(values) {
+        onSubmit:(values:LoginType) => {
             dispatch(loginTC(values))
         },
     })

@@ -1,7 +1,7 @@
 import React from 'react'
 import {Button, FormControl, FormLabel, Input, InputLabel} from '@mui/material'
 import {useFormik} from 'formik'
-import {Navigate, NavLink, useNavigate} from 'react-router-dom'
+import {Navigate, NavLink} from 'react-router-dom'
 import {recoveryPasswordTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'

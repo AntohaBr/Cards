@@ -1,15 +1,15 @@
-import React from 'react';
-import {useFormik} from 'formik';
-import {Button, FormControl, Input, InputLabel} from '@mui/material';
+import React from 'react'
+import {useFormik} from 'formik'
+import {Button, FormControl, Input, InputLabel} from '@mui/material'
 import style from './New-password.module.css'
-import InputAdornment from '@mui/material/InputAdornment';
-import IconButton from '@mui/material/IconButton';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import {useNavigate, useParams} from 'react-router-dom';
-import {setNewPasswordTC} from '../../redux/Auth-reducer';
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {PATH} from "../../app/Routes/Routes";
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+import Visibility from '@mui/icons-material/Visibility'
+import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import {useNavigate, useParams} from 'react-router-dom'
+import {setNewPasswordTC} from '../../redux/Auth-reducer'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {PATH} from '../../app/Routes/Routes'
 
 
 interface State {
@@ -18,10 +18,10 @@ interface State {
 }
 
 export const NewPassword = () => {
-
     const isDisable = useAppSelector(state => state.app.isDisabled)
-    const dispatch = useAppDispatch()
+
     const {token} = useParams<{ token: string }>()
+    const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
     const [values, setValues] = React.useState<State>({
@@ -30,11 +30,11 @@ export const NewPassword = () => {
     })
 
     const handleClickShowNewPassword = () => {
-        setValues({...values, showPassword: !values.showPassword});
+        setValues({...values, showPassword: !values.showPassword})
     }
 
     const handleMouseDownNewPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
-        event.preventDefault();
+        event.preventDefault()
     }
 
     const formik = useFormik({
