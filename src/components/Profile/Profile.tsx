@@ -1,29 +1,30 @@
-import React, {ChangeEvent, useState} from 'react';
-import {Avatar, Badge, Button, Icon, IconButton, TextField} from "@mui/material";
-import Box from "@mui/material/Box";
-import style from "./Profile.module.css"
-import {AddAPhoto, BorderColor, Logout} from "@mui/icons-material";
-import {updateProfileTC} from "../../redux/Profile-reducer";
-import {Navigate} from 'react-router-dom';
-import {logOutTC} from "../../redux/Auth-reducer";
-import {setAppErrorAC} from "../../redux/App-reducer";
-import {convertFileToBase64} from "../../features/Convert-fаile-to-base64";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {PATH} from "../../app/Routes/Routes";
-import {BackToPackList} from "../../common/Back-to-pack-list/Back-to-pack-list";
+import React, {ChangeEvent, useState} from 'react'
+import {Avatar, Badge, Button, Icon, IconButton, TextField} from '@mui/material'
+import Box from '@mui/material/Box'
+import style from './Profile.module.css'
+import {AddAPhoto, BorderColor, Logout} from '@mui/icons-material'
+import {updateProfileTC} from '../../redux/Profile-reducer'
+import {Navigate} from 'react-router-dom'
+import {logOutTC} from '../../redux/Auth-reducer'
+import {setAppErrorAC} from '../../redux/App-reducer'
+import {convertFileToBase64} from '../../features/Convert-fаile-to-base64'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {PATH} from '../../app/Routes/Routes'
+import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
 
 
 export const Profile = React.memo(() => {
-
-    const isDisable = useAppSelector(state => state.app.isDisabled)
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const isDisable = useAppSelector(state => state.app.isDisabled)
     const email = useAppSelector(state => state.profile.email)
     const avatar = useAppSelector(state => state.profile.avatar)
     const name = useAppSelector(state => state.profile.name)
-    const dispatch = useAppDispatch()
+
     const [userName, setUserName] = useState<string>(name)
     const [userAvatar, setUserAvatar] = useState<string>(avatar);
     const [editNameMod, setEditNameMod] = useState<boolean>(false)
+
+    const dispatch = useAppDispatch()
 
     const logOutHandler = () => {
         dispatch(logOutTC())
@@ -104,7 +105,7 @@ export const Profile = React.memo(() => {
                 }
             </div>
             <div className={style.profileEmail}>{email}</div>
-            <Button onClick={logOutHandler} variant="outlined" style={{width: 130, borderRadius: 20}}
+            <Button onClick={logOutHandler} variant='outlined' style={{width: 130, borderRadius: 20}}
                     startIcon={<Logout/>} disabled={isDisable}>Log out</Button>
             <Button sx={{ml: 2}} onClick={updateUserHandler} size='small' variant='contained'
                     style={{width: 70, borderRadius: 20}}>Save</Button>

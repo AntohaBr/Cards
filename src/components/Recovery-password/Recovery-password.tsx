@@ -23,7 +23,7 @@ export const RecoveryPassword = () => {
             rememberMe: false,
             confirmPassword: ''
         },
-        validate: validateUtil,
+        // validate: validateUtil,
         onSubmit: values => {
             if (values.email) {
                 dispatch(recoveryPasswordTC(values.email))

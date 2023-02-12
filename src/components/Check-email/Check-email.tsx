@@ -18,7 +18,7 @@ export const CheckEmail = () => {
             <div className={styleForms.container}>
                 <h2 className={styleForms.title}>Check Email</h2>
                 <div className={style.icon}>
-                    <img src={envelope} alt="envelope"/>
+                    <img src={envelope} alt="envelope" className={style.img}/>
                 </div>
                 <div className={styleForms.text}>
                     <p>We’ve sent an Email with instructions to </p>
