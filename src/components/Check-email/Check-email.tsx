@@ -26,7 +26,7 @@ export const CheckEmail = () => {
                 </div>
                 <div className={styleForms.buttonBlock}>
                     <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: '100%', borderRadius: '90px'}}
+                            style={{width: '320px', borderRadius: '90px'}}
                             onClick={() => {navigate(PATH.LOGIN)}}>
                         Back to login
                     </Button>

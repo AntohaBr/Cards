@@ -1,7 +1,6 @@
 import React from 'react'
 import {useFormik} from 'formik'
 import {Button, FormControl, Input, InputLabel} from '@mui/material'
-import style from './New-password.module.css'
 import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
@@ -10,6 +9,9 @@ import {useNavigate, useParams} from 'react-router-dom'
 import {setNewPasswordTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
+import styleForms from '../../assets/Styles/Style-forms.module.css'
+import {validateUtil} from '../../utils/Validate-util/Validate-util'
+import {NewPasswordType} from "../../api/auth-api";
 
 
 interface State {
@@ -17,10 +19,11 @@ interface State {
     showPassword: boolean
 }
 
-export const NewPassword = () => {
-    const isDisable = useAppSelector(state => state.app.isDisabled)
 
-    const {token} = useParams<{ token: string }>()
+export const NewPassword = () => {
+    const status = useAppSelector((state) => state.app.status)
+
+    const {token} = useParams<{token: string}>()
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
@@ -39,30 +42,23 @@ export const NewPassword = () => {
 
     const formik = useFormik({
         initialValues: {
-            password: ''
+            password: '' ,
+            resetPasswordToken: ''
         },
-        validate: (values) => {
-            const errors: FormikErrorType = {}
-            if (!values.password) {
-                errors.password = 'Required'
-            } else if (values.password.length < 8) {
-                errors.password = 'Password must contain at least 8 characters'
-            }
-            return errors
-        },
-        onSubmit: values => {
+        validate:validateUtil,
+        onSubmit: (values: NewPasswordType) => {
             dispatch(setNewPasswordTC(values.password, token || ''))
             navigate(PATH.LOGIN)
         },
     })
 
     return (
-        <div className={style.newPasswordBlock}>
-            <div className={style.newPasswordContainer}>
-                <h2 className={style.title}>Create new password</h2>
-                <form onSubmit={formik.handleSubmit} className={style.form}>
-                    <FormControl sx={{m: 2, width: '40ch'}} variant='outlined'>
-                        <InputLabel>Password</InputLabel>
+        <div className={styleForms.block}>
+            <div className={styleForms.container}>
+                <h2 className={styleForms.title}>Create new password</h2>
+                <form onSubmit={formik.handleSubmit} className={styleForms.form}>
+                    <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
+                        <InputLabel style={{paddingLeft: '6px'}}>Password</InputLabel>
                         <Input
                             type={values.showPassword ? 'text' : 'password'}
                             {...formik.getFieldProps('password')}
@@ -80,21 +76,18 @@ export const NewPassword = () => {
                         {formik.touched.password && formik.errors.password ?
                             <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                     </FormControl>
-                    <div className={style.infoText}>Create new password and we will
+                    <div className={styleForms.text}>Create new password and we will
                         send you further instructions to email
                     </div>
-                    <Button type={'submit'} variant={'contained'} color={'primary'}
-                            style={{width: '350px', borderRadius: '90px', margin: '25px'}} disabled={isDisable}>
-                        Create new password
-                    </Button>
+                    <div className={styleForms.buttonBlock}>
+                        <Button type={'submit'} variant={'contained'} color={'primary'}
+                                style={{width: '100%', borderRadius: '90px'}}
+                                disabled={status === 'loading'}>
+                            Create new password
+                        </Button>
+                    </div>
                 </form>
             </div>
         </div>
     )
-}
-
-
-//types
-export type FormikErrorType = {
-    password?: string,
 }

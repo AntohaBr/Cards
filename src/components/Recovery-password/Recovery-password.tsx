@@ -19,11 +19,8 @@ export const RecoveryPassword = () => {
     const formik = useFormik({
         initialValues: {
             email: '',
-            password: '',
-            rememberMe: false,
-            confirmPassword: ''
         },
-        // validate: validateUtil,
+        validate: validateUtil,
         onSubmit: values => {
             if (values.email) {
                 dispatch(recoveryPasswordTC(values.email))
