@@ -1,35 +1,14 @@
-.eBlock {
-    min-height: 100vh;
-    padding: 60px 0;
-}
-
-.profileContainer {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    width: 413px;
-    height: 360px;
-    margin: 0 auto;
-    background: #FFFFFF;
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1), -1px -1px 2px rgba(0, 0, 0, 0.1);
-    border-radius: 2px;
-}
-
-.profileTitle {
-    font-weight: 600;
-    font-size: 22px;
-    line-height: 27px;
-    color: #000000;
+.container {
+justify-content: flex-start;
+    min-height: 380px;
 }
 
 .profileBadge {
     display: flex;
     align-items: flex-start;
     justify-content: center;
-    width: 100px;
-    height: 100px;
+    width: 95px;
+    height: 95px;
 }
 
 .profileBadge div {
@@ -40,17 +19,26 @@
 .profileSpan {
     display: flex;
     align-items: center;
-    color: #000000;
+    padding: 20px;
 }
 
-.profileEmail {
+.userName {
+    display: flex;
+    align-items: center;
+    font-size: larger;
+    padding: 20px;
+
+}
+
+.borderColor {
+    cursor: pointer;
+    padding-left: 2px;
+}
+
+.text {
+    padding: 20px;
     font-weight: 600;
     font-size: 14px;
-    line-height: 24px;
-    text-align: center;
-    color: #000000;
-    opacity: 0.5;
-    padding-top: 10px;
 }
 
 

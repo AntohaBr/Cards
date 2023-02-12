@@ -1,6 +1,5 @@
 import React, {ChangeEvent, useState} from 'react'
 import {Avatar, Badge, Button, Icon, IconButton, TextField} from '@mui/material'
-import Box from '@mui/material/Box'
 import style from './Profile.module.css'
 import {AddAPhoto, BorderColor, Logout} from '@mui/icons-material'
 import {updateProfileTC} from '../../redux/Profile-reducer'
@@ -11,11 +10,12 @@ import {convertFileToBase64} from '../../features/Convert-fаile-to-base64'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
 import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
+import styleForms from '../../assets/Styles/Style-forms.module.css'
+import defaultAvatar from '../../assets/Icon/defaultAvatar.jpg'
 
 
 export const Profile = React.memo(() => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const isDisable = useAppSelector(state => state.app.isDisabled)
     const email = useAppSelector(state => state.profile.email)
     const avatar = useAppSelector(state => state.profile.avatar)
     const name = useAppSelector(state => state.profile.name)
@@ -56,10 +56,10 @@ export const Profile = React.memo(() => {
         return <Navigate to={PATH.LOGIN}/>
     }
 
-    return <div className={style.profileBlock}>
+    return <div className={styleForms.block}>
         <BackToPackList/>
-        <div className={style.profileContainer}>
-            <h2 className={style.profileTitle}>Personal information</h2>
+        <div className={`${styleForms.container} ${style.container}`}>
+            <h2 className={styleForms.title}>Personal information</h2>
             <Badge className={style.profileBadge}
                    overlap='circular'
                    anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
@@ -81,12 +81,11 @@ export const Profile = React.memo(() => {
                        </label>
                    }
             >
-                <Avatar alt={'avatar'} src={userAvatar}/>
+                <Avatar alt={'avatar'} src={userAvatar === '' ? defaultAvatar : avatar}/>
             </Badge>
-            <div className={style.profileSpan}>
                 {editNameMod
                     ?
-                    <Box sx={{display: 'flex', alignItems: 'flex-end'}}>
+                    <div className={style.profileSpan}>
                         <TextField
                             value={userName}
                             onChange={inputChangeHandler}
@@ -94,21 +93,20 @@ export const Profile = React.memo(() => {
                             autoFocus
                             label='NickName'
                         />
-                    </Box>
+                        <Button onClick={updateUserHandler} size='small' variant='contained'
+                                style={{width: 70, borderRadius: 20}}>Save</Button>
+                    </div>
                     :
-                    <>
-                        <span onDoubleClick={() => setEditNameMod(true)}><h3>{userName}</h3></span>
-                        <IconButton>
-                            <BorderColor onClick={() => setEditNameMod(true)}/>
-                        </IconButton>
-                    </>
+                    <div onClick={() => setEditNameMod(true)} className={style.userName}>
+                        {userName}
+                        <BorderColor className={style.borderColor}/>
+                    </div>
                 }
+            <div className={`${styleForms.text} ${style.text}`}>{email}</div>
+            <div className={styleForms.buttonBlock}>
+                <Button onClick={logOutHandler} variant='outlined' style={{width: 130, borderRadius: 20}}
+                        startIcon={<Logout/>}>Log out</Button>
             </div>
-            <div className={style.profileEmail}>{email}</div>
-            <Button onClick={logOutHandler} variant='outlined' style={{width: 130, borderRadius: 20}}
-                    startIcon={<Logout/>} disabled={isDisable}>Log out</Button>
-            <Button sx={{ml: 2}} onClick={updateUserHandler} size='small' variant='contained'
-                    style={{width: 70, borderRadius: 20}}>Save</Button>
         </div>
     </div>
 })
