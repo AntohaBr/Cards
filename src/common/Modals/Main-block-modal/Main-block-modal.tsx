@@ -1,7 +1,7 @@
 import React, {ReactNode} from 'react'
 import style from './Main-block-modal.module.css'
 import CloseIcon from '@mui/icons-material/Close'
-import {Modal} from '@mui/material'
+import Modal from '@mui/material/Modal'
 
 
 type MainBlockModalType = {

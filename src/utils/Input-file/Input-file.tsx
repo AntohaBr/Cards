@@ -8,7 +8,7 @@ import style from './Input-file.module.css'
 
 
 type InputFilePropsType = {
-    saveImg: (questionImg: string) => void
+    saveImg: (img: string) => void
     title: string
     img: string
     name: string
@@ -22,8 +22,8 @@ export const InputFile = (props: InputFilePropsType) => {
         if (e.target.files && e.target.files.length) {
             const file = e.target.files[0]
             if (file.size < 102400) {
-                convertFileToBase64(file, (file64: string) => {
-                    props.saveImg(file64)
+                convertFileToBase64(file, (img64: string) => {
+                    props.saveImg(img64)
                 })
             } else {
                 dispatch(setAppErrorAC('File too large'))

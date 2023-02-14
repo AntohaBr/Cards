@@ -1,16 +1,20 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
-import FormControl from '@mui/material/FormControl';
-import InputLabel from '@mui/material/InputLabel';
-import MenuItem from '@mui/material/MenuItem';
-import Select, {SelectChangeEvent} from '@mui/material/Select';
-import {TextField} from "@mui/material";
-import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
-import {useAppSelector} from "../../../utils/Hooks";
-import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
-import {InputFile} from "../../../utils/Input-file/Input-file";
+import React, {ChangeEvent, useEffect, useState} from 'react'
+import FormControl from '@mui/material/FormControl'
+import InputLabel from '@mui/material/InputLabel'
+import MenuItem from '@mui/material/MenuItem'
+import Select, {SelectChangeEvent} from '@mui/material/Select'
+import {TextField} from '@mui/material'
+import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
+import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
+import {InputFile} from '../../../utils/Input-file/Input-file'
 
 
 type ModalEditCardPropsType = {
+    previousQuestion: string
+    previousAnswer: string
+    previousQuestionImg: string
+    previousAnswerImg: string
+    questionType: string
     title: string
     open: boolean
     toggleOpenMode: (value: boolean) => void
@@ -19,18 +23,18 @@ type ModalEditCardPropsType = {
 
 
 export const ModalEditCard = (props: ModalEditCardPropsType) => {
-    const isDisable = useAppSelector(state => state.app.isDisabled)
-    const [question, setQuestion] = useState('')
-    const [questionImg, setQuestionImg] = useState('')
-    const [answerImg, setAnswerImg] = useState('')
-    const [answer, setAnswer] = useState('')
-    const [questionType, setQuestionType] = useState('Text')
+    const [question, setQuestion] = useState(props.previousQuestion)
+    const [questionImg, setQuestionImg] = useState(props.previousQuestionImg)
+    const [answerImg, setAnswerImg] = useState(props.previousAnswerImg)
+    const [answer, setAnswer] = useState(props.previousAnswer)
+    const [questionType, setQuestionType] = useState('')
 
     useEffect(() => {
         setQuestion(question)
         setAnswer(answer)
         setQuestionImg(questionImg)
         setAnswerImg(answerImg)
+        props. previousQuestionImg ? setQuestionType('File') : setQuestionType('Text')
     }, [question, answer, questionImg, answerImg])
 
     const onCloseModalHandler = () => {
@@ -42,16 +46,16 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
     }
 
     const editCardHandler = () => {
-            props.editItem(question, answer, questionImg, answerImg)
-            props.toggleOpenMode(false)
+        props.editItem(question, answer, questionImg, answerImg)
+        props.toggleOpenMode(false)
     }
 
-    const questionFileChangeHandler = (questionFile: string) => {
-        setQuestionImg(questionFile)
+    const questionFileChangeHandler = (questionImg: string) => {
+        setQuestionImg(questionImg)
     }
 
-    const answerFileChangeHandler = (answerFile: string) => {
-        setAnswerImg(answerFile)
+    const answerFileChangeHandler = (answerImg: string) => {
+        setAnswerImg(answerImg)
     }
 
     const addQuestionHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -62,65 +66,67 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
         setAnswer(e.currentTarget.value)
     }
 
-    return <div>
-        <MainBlockModal
-            title={props.title}
-            open={props.open}
-            toggleOpenMode={props.toggleOpenMode}
-            onCloseModal={onCloseModalHandler}
-        >
-            <FormControl sx={{mt: 2, minWidth: 350}}>
-                <InputLabel>Choose a question format</InputLabel>
-                <Select
-                    autoFocus
-                    label="Choose a question format"
-                    value={questionType}
-                    onChange={onChangeQuestionTypeHandler}
-                >
-                    <MenuItem value="Text">Text</MenuItem>
-                    <MenuItem value="File">File</MenuItem>
-                </Select>
-            </FormControl>
-            {questionType === 'Text'
-                ? <div>
-                    <TextField
-                        value={question}
-                        onChange={addQuestionHandler}
+    return (
+        <div>
+            <MainBlockModal
+                title={props.title}
+                open={props.open}
+                toggleOpenMode={props.toggleOpenMode}
+                onCloseModal={onCloseModalHandler}
+            >
+                <FormControl sx={{width: '100%'}}>
+                    <InputLabel>Choose a question format</InputLabel>
+                    <Select
                         autoFocus
-                        label='Question'
-                        variant='standard'
-                        sx={{width: '100%'}}
-                    />
-                    <TextField
-                        value={answer}
-                        onChange={addAnswerHandler}
-                        autoFocus
-                        label='Answer'
-                        variant='standard'
-                        sx={{width: '100%'}}
-                    />
-                </div>
-                :
-                <div>
-                    <InputFile
-                        img={questionImg}
-                        saveImg={questionFileChangeHandler}
-                        title={'Upload a question'}
-                        name={'questionFile'}
-                    />
-                    <InputFile
-                        img={answerImg}
-                        saveImg={answerFileChangeHandler}
-                        title={'Upload a answer'}
-                        name={'answerFile'}
-                    />
-                </div>
-            }
-            <ButtonBlockModal
-                onCloseModalHandler={onCloseModalHandler}
-                actionModalHandler={editCardHandler}
-                buttonTitleModal={'Edit'}
-            />
-        </MainBlockModal>
-    </div>
+                        label='Choose a question format'
+                        value={questionType}
+                        onChange={onChangeQuestionTypeHandler}
+                    >
+                        <MenuItem value='Text'>Text</MenuItem>
+                        <MenuItem value='File'>File</MenuItem>
+                    </Select>
+                </FormControl>
+                {questionType === 'Text'
+                    ? <div>
+                        <TextField
+                            value={question}
+                            onChange={addQuestionHandler}
+                            autoFocus
+                            label='Question'
+                            variant='standard'
+                            sx={{width: '100%'}}
+                        />
+                        <TextField
+                            value={answer}
+                            onChange={addAnswerHandler}
+                            autoFocus
+                            label='Answer'
+                            variant='standard'
+                            sx={{width: '100%'}}
+                        />
+                    </div>
+                    :
+                    <div>
+                        <InputFile
+                            img={questionImg}
+                            saveImg={questionFileChangeHandler}
+                            title={'Upload a question'}
+                            name={'questionFile'}
+                        />
+                        <InputFile
+                            img={answerImg}
+                            saveImg={answerFileChangeHandler}
+                            title={'Upload a answer'}
+                            name={'answerFile'}
+                        />
+                    </div>
+                }
+                <ButtonBlockModal
+                    onCloseModalHandler={onCloseModalHandler}
+                    actionModalHandler={editCardHandler}
+                    buttonTitleModal={'Edit'}
+                />
+            </MainBlockModal>
+        </div>
+    )
 }

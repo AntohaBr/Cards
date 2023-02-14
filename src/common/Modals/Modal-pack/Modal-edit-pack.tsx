@@ -48,12 +48,9 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
                     value={name}
                     onChange={textFieldChangeHandler}
                     autoFocus
-                    id='name'
                     label='Edit pack'
-                    type='edit pack'
-                    fullWidth
                     variant='standard'
-                    sx={{m: 2, width: '40ch'}}
+                    style={{width: '100%'}}
                 />
                 <ButtonBlockModal
                     onCloseModalHandler={onCloseModalHandler}

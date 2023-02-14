@@ -1,21 +1,22 @@
-import React, {useState} from 'react';
-import {CardType} from "../../api/cards-api";
-import TableCell from "@mui/material/TableCell";
-import Rating from "@mui/material/Rating";
-import TableRow from "@mui/material/TableRow";
-import {Button} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {ModalDeleteCard} from "../../common/Modals/Modal-card/Modal-delete-card";
-import {deleteCardsTC, updateCardsTC} from "../../redux/Cards-reducer";
-import {ModalEditCard} from "../../common/Modals/Modal-card/Modal-edit-card";
+import React, {useState} from 'react'
+import {CardType} from '../../api/cards-api'
+import TableCell from '@mui/material/TableCell'
+import Rating from '@mui/material/Rating'
+import TableRow from '@mui/material/TableRow'
+import Button from '@mui/material/Button'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {ModalDeleteCard} from '../../common/Modals/Modal-card/Modal-delete-card'
+import {deleteCardsTC, updateCardsTC} from '../../redux/Cards-reducer'
+import {ModalEditCard} from '../../common/Modals/Modal-card/Modal-edit-card'
 
 
 export const Card = (props: CardType) => {
-    const myID = useAppSelector(state => state.profile._id)
     const [openModalEditCard, setOpenModalEditCard] = useState(false)
     const [openModalDeleteCard, setOpenModalDeleteCard] = useState(false)
+
+    const myID = useAppSelector(state => state.profile._id)
     const dispatch = useAppDispatch()
 
     const question = () => {
@@ -93,12 +94,20 @@ export const Card = (props: CardType) => {
             open={openModalDeleteCard}
             toggleOpenMode={setOpenModalDeleteCard}
             deleteItem={deleteCard}
+            question={props.question}
+            questionImg={props.questionImg}
+
         />
         <ModalEditCard
             title={'Edit Card'}
             open={openModalEditCard}
             toggleOpenMode={setOpenModalEditCard}
             editItem={editCard}
+            previousQuestion={props.question}
+            previousAnswer={props.answer}
+            previousQuestionImg={props.questionImg}
+            previousAnswerImg={props.answerImg}
+            questionType={props.type}
         />
     </TableRow>
 }

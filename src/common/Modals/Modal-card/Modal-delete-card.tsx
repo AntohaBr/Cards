@@ -1,19 +1,19 @@
-import React from 'react';
-import style from './Modal-delete-card.module.css'
-import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
-import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
-import {useAppSelector} from "../../../utils/Hooks";
+import React from 'react'
+import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
+import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
 
 
 type ModalDeleteCardPropsType = {
     title: string
     open: boolean
+    question: string
+    questionImg: string
     toggleOpenMode: (value: boolean) => void
     deleteItem: () => void
 }
 
+
 export const ModalDeleteCard = (props: ModalDeleteCardPropsType) => {
-    const isDisable = useAppSelector(state => state.app.isDisabled)
 
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
@@ -24,22 +24,28 @@ export const ModalDeleteCard = (props: ModalDeleteCardPropsType) => {
         props.toggleOpenMode(false)
     }
 
-    return <div>
-        <MainBlockModal
-            title={props.title}
-            open={props.open}
-            toggleOpenMode={props.toggleOpenMode}
-            onCloseModal={onCloseModalHandler}
-        >
-            <div className={style.modalDeletePackText}>
-                <p>Do you really want to remove.</p>
-                <p>All cards will be deleted.</p>
-            </div>
-            <ButtonBlockModal
-                onCloseModalHandler={onCloseModalHandler}
-                actionModalHandler={deleteCardButtonHandler}
-                buttonTitleModal={'Delete'}
-            />
-        </MainBlockModal>
-    </div>
+    return (
+        <div>
+            <MainBlockModal
+                title={props.title}
+                open={props.open}
+                toggleOpenMode={props.toggleOpenMode}
+                onCloseModal={onCloseModalHandler}
+            >
+                {props.questionImg
+                    ? <div>
+                        <p>Do you really want to remove ?</p>
+                        <img src={props.questionImg} alt={'question image'}
+                             style={{maxWidth: '150px', display: 'block', margin: '0 auto'}}/>
+                    </div>
+                    : <p>Do you really want to remove <b>{props.question}</b>?</p>
+                }
+                <ButtonBlockModal
+                    onCloseModalHandler={onCloseModalHandler}
+                    actionModalHandler={deleteCardButtonHandler}
+                    buttonTitleModal={'Delete'}
+                />
+            </MainBlockModal>
+        </div>
+    )
 }
