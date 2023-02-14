@@ -5,7 +5,6 @@ import MenuItem from '@mui/material/MenuItem';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
 import {TextField} from "@mui/material";
 import {MainBlockModal} from "../Main-block-modal/Main-block-modal";
-import {useAppSelector} from "../../../utils/Hooks";
 import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal";
 import {InputFile} from "../../../utils/Input-file/Input-file";
 import {PostCardType} from "../../../api/cards-api";
@@ -21,7 +20,6 @@ type ModalAddNewCardPropsType = {
 
 
 export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
-    const isDisable = useAppSelector(state => state.app.isDisabled)
     const {packId} = useParams()
     const [question, setQuestion] = useState('')
     const [questionImg, setQuestionImg] = useState('')
@@ -120,7 +118,6 @@ export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
             }
             <ButtonBlockModal
                 onCloseModalHandler={onCloseModalHandler}
-                isDisable={isDisable}
                 actionModalHandler={addCardHandler}
                 buttonTitleModal={'Save'}
             />

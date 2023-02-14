@@ -1,9 +1,8 @@
 import React, {ChangeEvent, useState} from 'react'
-import {ButtonBlockModal} from "../Button-block-modal/Button-block-modal"
-import {MainBlockModal} from "../Main-block-modal/Main-block-modal"
-import {TextField} from "@mui/material"
-import {useAppSelector} from "../../../utils/Hooks"
-import {InputFile} from "../../../utils/Input-file/Input-file"
+import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
+import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
+import {TextField} from '@mui/material'
+import {InputFile} from '../../../utils/Input-file/Input-file'
 
 
 type ModalEditPackPropsType = {
@@ -17,8 +16,6 @@ type ModalEditPackPropsType = {
 
 
 export const ModalEditPack = (props: ModalEditPackPropsType) => {
-    const isDisable = useAppSelector(state => state.app.isDisabled)
-
     const [name, setName] = useState(props.itemTitle)
     const [deckCover, setDeckCover] = useState(props.img)
 
@@ -33,36 +30,37 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
         props.toggleOpenMode(false)
     }
 
-    return <div>
-        <MainBlockModal
-            title={props.title}
-            open={props.open}
-            toggleOpenMode={props.toggleOpenMode}
-            onCloseModal={onCloseModalHandler}
-        >
-            <InputFile
-                img={deckCover}
-                saveImg={setDeckCover}
-                title={'Change pack cover'}
-                name={'editPackCoverFile'}
-            />
-            <TextField
-                value={name}
-                onChange={textFieldChangeHandler}
-                autoFocus
-                id='name'
-                label='Edit pack'
-                type='edit pack'
-                fullWidth
-                variant='standard'
-                sx={{m: 2, width: '40ch'}}
-            />
-            <ButtonBlockModal
-                onCloseModalHandler={onCloseModalHandler}
-                isDisable={isDisable}
-                actionModalHandler={editPackButtonHandler}
-                buttonTitleModal={'Save'}
-            />
-        </MainBlockModal>
-    </div>
+    return (
+        <div>
+            <MainBlockModal
+                title={props.title}
+                open={props.open}
+                toggleOpenMode={props.toggleOpenMode}
+                onCloseModal={onCloseModalHandler}
+            >
+                <InputFile
+                    img={deckCover}
+                    saveImg={setDeckCover}
+                    title={'Change pack cover'}
+                    name={'editPackCoverFile'}
+                />
+                <TextField
+                    value={name}
+                    onChange={textFieldChangeHandler}
+                    autoFocus
+                    id='name'
+                    label='Edit pack'
+                    type='edit pack'
+                    fullWidth
+                    variant='standard'
+                    sx={{m: 2, width: '40ch'}}
+                />
+                <ButtonBlockModal
+                    onCloseModalHandler={onCloseModalHandler}
+                    actionModalHandler={editPackButtonHandler}
+                    buttonTitleModal={'Save'}
+                />
+            </MainBlockModal>
+        </div>
+    )
 }

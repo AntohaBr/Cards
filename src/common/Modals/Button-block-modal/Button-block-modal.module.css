@@ -1,7 +1,5 @@
 .buttonModalBlock {
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-around;
-    margin-top: 50px;
+    justify-content: space-between;
+    margin-top: 40px;
 }

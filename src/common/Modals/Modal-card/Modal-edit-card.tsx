@@ -118,7 +118,6 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
             }
             <ButtonBlockModal
                 onCloseModalHandler={onCloseModalHandler}
-                isDisable={isDisable}
                 actionModalHandler={editCardHandler}
                 buttonTitleModal={'Edit'}
             />

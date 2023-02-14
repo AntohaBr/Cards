@@ -1,17 +1,17 @@
-
 .modalBlock {
-    width: 395px;
-    height: 311px;
+    position: absolute;
+    top: 30%;
+    left: 38%;
+    width: 450px;
     background: #FFFFFF;
     border-radius: 2px;
 }
 
 .modalContainer {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-between;
-    margin: 25px 20px 30px 20px
+    margin: 20px;
 }
 
 .modalTitle {
@@ -19,5 +19,8 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 22px;
-    color: #000000;
+}
+
+.children {
+    margin: 15px 20px;
 }

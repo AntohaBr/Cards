@@ -37,7 +37,6 @@ export const ModalDeleteCard = (props: ModalDeleteCardPropsType) => {
             </div>
             <ButtonBlockModal
                 onCloseModalHandler={onCloseModalHandler}
-                isDisable={isDisable}
                 actionModalHandler={deleteCardButtonHandler}
                 buttonTitleModal={'Delete'}
             />
