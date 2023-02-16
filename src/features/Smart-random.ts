@@ -1,4 +1,4 @@
-import {CardType} from '../api/cards-api'
+import {CardType} from '../api/Cards-api'
 
 
 export const getCard = (cards: CardType[]) => {

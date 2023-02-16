@@ -1,10 +1,10 @@
-import React from 'react';
-import './index.css';
-import {App} from "./app/App";
-import {Provider} from "react-redux";
-import {store} from "./redux/Store";
-import {createRoot} from "react-dom/client";
-import {BrowserRouter, HashRouter} from "react-router-dom";
+import React from 'react'
+import './index.css'
+import {App} from './app/App'
+import {Provider} from 'react-redux'
+import {store} from './redux/Store'
+import {createRoot} from 'react-dom/client'
+import {BrowserRouter} from 'react-router-dom'
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container!)

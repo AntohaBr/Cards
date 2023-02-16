@@ -1,17 +1,17 @@
-import {Route, Routes} from "react-router-dom"
-import {Login} from "../../components/Login/Login"
-import {Registration} from "../../components/Registration/Registration"
-import {Profile} from "../../components/Profile/Profile"
-import {CheckEmail} from "../../components/Check-email/Check-email"
-import {RecoveryPassword} from "../../components/Recovery-password/Recovery-password";
-import {NewPassword} from "../../components/New-password/New-password"
-import {Error404} from "../../components/Error-404/Error-404"
-import {Packs} from "../../components/Packs/Packs"
-import {Cards} from "../../components/Cards/Cards"
-import {Learn} from "../../components/Learn/Learn"
-import {Result} from "../../components/Learn/Result/Result"
-import React from "react"
-import {Home} from "../../components/Home/Home"
+import {Route, Routes} from 'react-router-dom'
+import {Login} from '../../components/Login/Login'
+import {Registration} from '../../components/Registration/Registration'
+import {Profile} from '../../components/Profile/Profile'
+import {CheckEmail} from '../../components/Check-email/Check-email'
+import {RecoveryPassword} from '../../components/Recovery-password/Recovery-password'
+import {NewPassword} from '../../components/New-password/New-password'
+import {Error404} from '../../components/Error-404/Error-404'
+import {Packs} from '../../components/Packs/Packs'
+import {Cards} from '../../components/Cards/Cards'
+import {Learn} from '../../components/Learn/Learn'
+import {Result} from '../../components/Learn/Result/Result'
+import React from 'react'
+import {Home} from '../../components/Home/Home'
 
 
 export const PATH = {
@@ -32,7 +32,6 @@ export const PATH = {
 
 export const PagesRoutes = () => {
     return (
-        <div>
         <Routes>
             <Route path={PATH.HOME} element={<Home/>}/>
             <Route path={PATH.LOGIN} element={<Login/>}/>
@@ -48,6 +47,5 @@ export const PagesRoutes = () => {
             <Route path={`${PATH.LEARN}/:cardId`} element={<Learn/>}/>
             <Route path={PATH.RESULT} element={<Result/>}/>
         </Routes>
-    </div>
     )
 }

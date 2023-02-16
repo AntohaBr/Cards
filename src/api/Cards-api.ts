@@ -1,9 +1,9 @@
-import {AxiosResponse} from "axios";
-import {instance} from "./Instance";
+import {AxiosResponse} from 'axios'
+import {instance} from './Instance'
 
 
 //api
-export const cardsAPI = {
+export const cardsApi = {
     getCardsPack(params:PacksGetParamsTypeNotNeeded){
         return instance.get<PacksGetParamsTypeNotNeeded, AxiosResponse<GetPacksResponseType>>(`cards/pack`, {params})
     },

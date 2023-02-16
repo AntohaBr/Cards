@@ -17,7 +17,7 @@ import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
 import {validateUtil} from '../../utils/Validate-util/Validate-util'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
-import {RegistrationType} from '../../api/auth-api'
+import {RegistrationType} from '../../api/Auth-api'
 
 
 interface State {

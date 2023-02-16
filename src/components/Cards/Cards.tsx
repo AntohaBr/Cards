@@ -5,7 +5,7 @@ import {CardsTable} from "./CardsTable";
 import {addNewCardsTC, getCardsTC, setUtilsAC} from "../../redux/Cards-reducer";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {ModalAddNewCard} from "../../common/Modals/Modal-card/Modal-add-new-card";
-import {PostCardType} from "../../api/cards-api";
+import {PostCardType} from "../../api/Cards-api";
 import {getCard} from "../../features/Smart-random";
 import {PATH} from "../../app/Routes/Routes";
 import defaultCover from "../../assets/Icon/defaultCover.jpg";

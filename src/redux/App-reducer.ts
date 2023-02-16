@@ -1,4 +1,4 @@
-import {authAPI} from "../api/auth-api";
+import {authApi} from "../api/Auth-api";
 import {addLoginAC} from "./Auth-reducer";
 import {AxiosError} from "axios";
 import {errorUtil} from "../utils/Error-util";
@@ -45,7 +45,7 @@ export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) =>
 export const isInitializedTC = (): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC("loading", true))
     try {
-        const res = await authAPI.me()
+        const res = await authApi.me()
         dispatch(addLoginAC(true))
         dispatch(isInitializedAC(true))
         dispatch(setInfoUserAC(res.data))

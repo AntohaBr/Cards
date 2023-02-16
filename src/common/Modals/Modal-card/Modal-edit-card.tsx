@@ -3,7 +3,7 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import MenuItem from '@mui/material/MenuItem'
 import Select, {SelectChangeEvent} from '@mui/material/Select'
-import {TextField} from '@mui/material'
+import TextField from '@mui/material/TextField'
 import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
 import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
 import {InputFile} from '../../../utils/Input-file/Input-file'
@@ -34,7 +34,7 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
         setAnswer(answer)
         setQuestionImg(questionImg)
         setAnswerImg(answerImg)
-        props. previousQuestionImg ? setQuestionType('File') : setQuestionType('Text')
+        props. previousQuestionImg ? setQuestionType('Image') : setQuestionType('Text')
     }, [question, answer, questionImg, answerImg])
 
     const onCloseModalHandler = () => {
@@ -83,7 +83,7 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
                         onChange={onChangeQuestionTypeHandler}
                     >
                         <MenuItem value='Text'>Text</MenuItem>
-                        <MenuItem value='File'>File</MenuItem>
+                        <MenuItem value='Image'>Image</MenuItem>
                     </Select>
                 </FormControl>
                 {questionType === 'Text'
@@ -110,14 +110,14 @@ export const ModalEditCard = (props: ModalEditCardPropsType) => {
                         <InputFile
                             img={questionImg}
                             saveImg={questionFileChangeHandler}
-                            title={'Upload a question'}
-                            name={'questionFile'}
+                            title={'Upload question image'}
+                            name={'questionImage'}
                         />
                         <InputFile
                             img={answerImg}
                             saveImg={answerFileChangeHandler}
-                            title={'Upload a answer'}
-                            name={'answerFile'}
+                            title={'Upload answer image'}
+                            name={'answerImage'}
                         />
                     </div>
                 }

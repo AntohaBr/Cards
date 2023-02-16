@@ -3,13 +3,13 @@ import {errorUtil} from '../utils/Error-util';
 import {setAppStatusAC} from './App-reducer';
 import {AppThunkType} from "./Store";
 import {
-    cardsAPI,
+    cardsApi,
     PacksGetParamsType,
     PacksGetParamsTypeNotNeeded,
     PacksType,
     PostPacksType,
     UpdatePacksType
-} from "../api/cards-api";
+} from "../api/Cards-api";
 
 
 const initialState = {
@@ -86,7 +86,7 @@ export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'} as const)
 export const getPacksTC = (params: PacksGetParamsTypeNotNeeded): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsAPI.getCardsPack({...params})
+        const res = await cardsApi.getCardsPack({...params})
         dispatch(setPacksAC(res.data.cardPacks))
         dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
         dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
@@ -101,7 +101,7 @@ export const getPacksTC = (params: PacksGetParamsTypeNotNeeded): AppThunkType =>
 
 export const deletePackTC = (packID: string): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
-    const res = await cardsAPI.deletePacks(packID)
+    const res = await cardsApi.deletePacks(packID)
     try {
         dispatch(getPacksTC(res.data.deletedCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
@@ -116,7 +116,7 @@ export const deletePackTC = (packID: string): AppThunkType => async (dispatch) =
 export const addNewPackTC = (data: PostPacksType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsAPI.addNewPacks({...data})
+        const res = await cardsApi.addNewPacks({...data})
         dispatch(getPacksTC(res.data.newCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
@@ -130,7 +130,7 @@ export const addNewPackTC = (data: PostPacksType): AppThunkType => async (dispat
 export const updatePackTC = (params: UpdatePacksType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsAPI.updatePacks({...params})
+        const res = await cardsApi.updatePacks({...params})
         dispatch(getPacksTC(res.data.updatedCardsPack))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {

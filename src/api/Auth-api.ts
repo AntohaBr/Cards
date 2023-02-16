@@ -1,9 +1,9 @@
-import {AxiosResponse} from "axios";
-import {instance} from "./Instance";
+import {AxiosResponse} from 'axios'
+import {instance} from './Instance'
 
 
 //api
-export const authAPI = {
+export const authApi = {
     me() {
         return instance.post<ResponseType>('auth/me')
     },

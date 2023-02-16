@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useState} from 'react'
-import {TextField} from '@mui/material'
+import TextField from '@mui/material/TextField'
 import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
 import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
 import {InputFile} from '../../../utils/Input-file/Input-file'
@@ -45,7 +45,7 @@ export const ModalAddPack = (props: ModalAddPackPropsType) => {
                     img={deckCover}
                     saveImg={setDeckCover}
                     title={'Upload pack cover'}
-                    name={'packCoverFile'}
+                    name={'packCoverImage'}
                 />
                 <TextField
                     value={name}

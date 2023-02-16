@@ -4,7 +4,7 @@ import styles from './Learn.module.css'
 import {useNavigate} from 'react-router-dom'
 import {Result} from './Result/Result'
 import {useAppSelector} from '../../utils/Hooks'
-import {CardType} from '../../api/cards-api'
+import {CardType} from '../../api/Cards-api'
 import {BackToPackList} from "../../common/Back-to-pack-list/Back-to-pack-list";
 
 

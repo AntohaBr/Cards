@@ -9,7 +9,7 @@ import {NativeSelect, Pagination, Table} from '@mui/material';
 import {getCardsTC} from "../../redux/Cards-reducer";
 import {useParams} from 'react-router-dom';
 import {setCurrentPageAC} from "../../redux/Pagination-reducer";
-import {CardType} from "../../api/cards-api";
+import {CardType} from "../../api/Cards-api";
 import {useAppDispatch} from "../../utils/Hooks";
 import {Card} from "./Card";
 import {setPagination} from "../../features/Pagination";

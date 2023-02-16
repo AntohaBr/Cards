@@ -1,6 +1,6 @@
 import {AxiosError} from 'axios';
 import {errorUtil} from '../utils/Error-util';
-import {authAPI, ResponseType} from '../api/auth-api';
+import {authApi, ResponseType} from '../api/Auth-api';
 import {setAppStatusAC} from "./App-reducer";
 import {AppThunkType} from "./Store";
 
@@ -35,7 +35,7 @@ export const setInfoUserAC = (profile: ProfileType) => ({type: 'PROFILE/SET-INFO
 export const updateProfileTC = (name: string, avatar?: string): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await authAPI.updateProfile(name, avatar)
+        const res = await authApi.updateProfile(name, avatar)
         dispatch(setAppStatusAC('succeeded', false))
         dispatch(updateProfileAC(res.data.updatedProfile))
     } catch (e) {

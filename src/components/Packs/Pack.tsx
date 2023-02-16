@@ -7,7 +7,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import {NavLink, useNavigate} from "react-router-dom";
 import {ModalDeletePack} from "../../common/Modals/Modal-pack/Modal-delete-pack";
-import {PacksType} from "../../api/cards-api";
+import {PacksType} from "../../api/Cards-api";
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
 import {useState} from "react";
 import {deletePackTC, updatePackTC} from "../../redux/Packs-reducer";

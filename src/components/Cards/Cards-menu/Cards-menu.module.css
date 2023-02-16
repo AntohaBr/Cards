@@ -6,7 +6,7 @@
 
 .moreVertIcon {
     cursor: pointer;
-    margin-left: 10px ;
+    margin-left: 10px;
     border: 2px solid black;
     border-radius: 50%;
 }
@@ -18,7 +18,7 @@
 }
 
 .icon {
-    display:flex;
+    display: flex;
     align-items: center;
     color: black;
 }

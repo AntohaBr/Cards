@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {CardType} from '../../api/cards-api'
+import {CardType} from '../../api/Cards-api'
 import TableCell from '@mui/material/TableCell'
 import Rating from '@mui/material/Rating'
 import TableRow from '@mui/material/TableRow'

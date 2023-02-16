@@ -3,7 +3,7 @@ import {ChangeEvent} from 'react'
 import {convertFileToBase64} from '../../features/Convert-fаile-to-base64'
 import {setAppErrorAC} from '../../redux/App-reducer'
 import {useAppDispatch} from '../Hooks'
-import {Button} from '@mui/material'
+import Button from '@mui/material/Button'
 import style from './Input-file.module.css'
 
 
@@ -34,8 +34,8 @@ export const InputFile = (props: InputFilePropsType) => {
     return (
         <label>
             <Button
-                variant="contained"
-                component="label"
+                variant='contained'
+                component='label'
                 style={{borderRadius: '20px', width: '100%', marginTop: '10px'}}
             >
                 {props.title}

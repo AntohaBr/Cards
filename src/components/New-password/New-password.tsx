@@ -11,7 +11,7 @@ import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import {validateUtil} from '../../utils/Validate-util/Validate-util'
-import {NewPasswordType} from '../../api/auth-api'
+import {NewPasswordType} from '../../api/Auth-api'
 
 
 interface State {

@@ -13,7 +13,7 @@ import {setCurrentPagePacksAC} from "../../redux/Pagination-reducer";
 import {getPacksTC} from "../../redux/Packs-reducer";
 import {useAppDispatch} from "../../utils/Hooks";
 import {Pack} from "./Pack";
-import {PacksType} from "../../api/cards-api";
+import {PacksType} from "../../api/Cards-api";
 import {setPagination} from "../../features/Pagination";
 import {PATH} from "../../app/Routes/Routes";
 import styles from './PacksTable.module.css'

@@ -1,17 +1,17 @@
 import React, {useState} from 'react'
-import {useAppDispatch, useAppSelector} from "../../../utils/Hooks";
+import {useAppDispatch, useAppSelector} from '../../../utils/Hooks'
 import MoreVertIcon from '@mui/icons-material/MoreVert'
-import styles from './Cards-menu.module.css'
-import {Button, Popover} from "@mui/material";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {ModalEditPack} from "../../../common/Modals/Modal-pack/Modal-edit-pack";
-import {ModalDeletePack} from "../../../common/Modals/Modal-pack/Modal-delete-pack";
-import {NavLink, useNavigate, useParams} from "react-router-dom";
-import {cardsAPI} from "../../../api/cards-api";
-import {PATH} from "../../../app/Routes/Routes";
-import {getCardsTC} from "../../../redux/Cards-reducer";
-import SchoolIcon from "@mui/icons-material/School";
+import style from './Cards-menu.module.css'
+import {Button, Popover} from '@mui/material'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import {ModalEditPack} from '../../../common/Modals/Modal-pack/Modal-edit-pack'
+import {ModalDeletePack} from '../../../common/Modals/Modal-pack/Modal-delete-pack'
+import {NavLink, useNavigate, useParams} from 'react-router-dom'
+import {cardsApi} from '../../../api/Cards-api'
+import {PATH} from '../../../app/Routes/Routes'
+import {getCardsTC} from '../../../redux/Cards-reducer'
+import SchoolIcon from '@mui/icons-material/School'
 
 
 export const CardsMenu = () => {
@@ -48,14 +48,14 @@ export const CardsMenu = () => {
 
     const deletePack = async () => {
         if (packId) {
-            await cardsAPI.deletePacks(packId)
+            await cardsApi.deletePacks(packId)
             navigate(`${PATH.PACKS}`)
         }
     }
 
     const editPack = async (name: string, deckCover: string) => {
         if (packId) {
-            await cardsAPI.updatePacks({cardsPack: {_id: packId, name, deckCover}})
+            await cardsApi.updatePacks({cardsPack: {_id: packId, name, deckCover}})
             dispatch(getCardsTC({cardsPack_id: packId}))
         }
     }
@@ -68,8 +68,8 @@ export const CardsMenu = () => {
         <div>
             {myID === userID && (
                 <div>
-                    <button className={styles.menuButton} onClick={buttonClickHandler}>
-                        <MoreVertIcon className={styles.moreVertIcon}/>
+                    <button className={style.menuButton} onClick={buttonClickHandler}>
+                        <MoreVertIcon className={style.moreVertIcon}/>
                     </button>
                     <Popover
                         id={id}
@@ -78,21 +78,21 @@ export const CardsMenu = () => {
                         onClose={popoverCloseHandler}
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     >
-                        <div className={styles.menu}>
-                            <NavLink to={PATH.LEARN} style={{textDecoration:"none"}}>
+                        <div className={style.menu}>
+                            <NavLink to={PATH.LEARN} style={{textDecoration: 'none'}}>
                                 <Button onClick={learnButtonCloseHandler}>
-                                    <div className={styles.icon}>
+                                    <div className={style.icon}>
                                         <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                                     </div>
                                 </Button>
                             </NavLink>
                             <Button onClick={editCardButtonClickHandler}>
-                                <div className={styles.icon}>
+                                <div className={style.icon}>
                                     <EditIcon sx={{marginRight: '5px'}}/> Edit
                                 </div>
                             </Button>
                             <Button onClick={deleteCardButtonClickHandler}>
-                                <div className={styles.icon}>
+                                <div className={style.icon}>
                                     <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
                                 </div>
                             </Button>

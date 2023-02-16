@@ -1,5 +1,5 @@
 // import {Dispatch} from "redux";
-// import {cardsAPI} from "../api/api";
+// import {cardsApi} from "../api/api";
 // import {addLoginAC} from "./login-Reducer";
 // import {setAppErrorAC, setAppStatusAC} from "./app-Reducer";
 // import {setCurrentPagePacksAC, setPageCountPacks, totalCountPacksAC} from "./Reducer-pagination";
@@ -93,7 +93,7 @@
 //     return async (dispatch: Dispatch) => {
 //         try {
 //             dispatch(setAppStatusAC("loading", true))
-//             const response = await cardsAPI.getCardsPack(optionalParams?.pageCount, optionalParams?.page, optionalParams?.search, optionalParams?.userId)
+//             const response = await cardsApi.getCardsPack(optionalParams?.pageCount, optionalParams?.page, optionalParams?.search, optionalParams?.userId)
 //
 //             console.log(response)
 //
@@ -121,7 +121,7 @@
 // export const createPackTC = () => {
 //     return async (dispatch: Dispatch) => {
 //         try {
-//             const response = await cardsAPI.createCardsPack("Sa coloda", false)
+//             const response = await cardsApi.createCardsPack("Sa coloda", false)
 //             dispatch(createCardsPack(response.data.newCardsPack))
 //         } catch (e) {
 //
