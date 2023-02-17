@@ -30,23 +30,23 @@ type PropsType = {
 
 
 export const PacksTable = (props: PropsType) => {
-    const dispatch = useAppDispatch()
-    const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    // const dispatch = useAppDispatch()
+    // const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     const redirectToCards = () => {
         return <Navigate to={PATH.CARDS}/>
     }
 
-    const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-        dispatch(getPacksTC({pageCount: +e.currentTarget.value, page: props.currentPage}))
-    }
-
-    const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
-        dispatch(getPacksTC({pageCount: props.pageCount, page}))
-        dispatch(setCurrentPagePacksAC(page))
-    }
-
-    const pagination = Math.ceil(props.totalCount / props.pageCount)
+    // const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
+    //     dispatch(getPacksTC({pageCount: +e.currentTarget.value, page: props.currentPage}))
+    // }
+    //
+    // const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
+    //     dispatch(getPacksTC({pageCount: props.pageCount, page}))
+    //     dispatch(setCurrentPagePacksAC(page))
+    // }
+    //
+    // const pagination = Math.ceil(props.totalCount / props.pageCount)
 
     return (
         <div>
@@ -100,18 +100,18 @@ export const PacksTable = (props: PropsType) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <span>
-                <Pagination count={setPagination([], pagination).length} variant={"outlined"} shape={"rounded"}
-                            color={"primary"}
-                            onChange={paginationFunc}/>
-                Show <NativeSelect variant={"outlined"} defaultValue={props.pageCount} onChange={setPageCount}>
-                {array.map(n => (
-                    <div>
-                        <option value={n}>{n}</option>
-                    </div>
-                ))}
-            </NativeSelect>
-                  </span>
+            {/*        <span>*/}
+            {/*    <Pagination count={setPagination([], pagination).length} variant={"outlined"} shape={"rounded"}*/}
+            {/*                color={"primary"}*/}
+            {/*                onChange={paginationFunc}/>*/}
+            {/*    Show <NativeSelect variant={"outlined"} defaultValue={props.pageCount} onChange={setPageCount}>*/}
+            {/*    {array.map(n => (*/}
+            {/*        <div>*/}
+            {/*            <option value={n}>{n}</option>*/}
+            {/*        </div>*/}
+            {/*    ))}*/}
+            {/*</NativeSelect>*/}
+            {/*      </span>*/}
                 </Container>
             </Grid>
         </div>

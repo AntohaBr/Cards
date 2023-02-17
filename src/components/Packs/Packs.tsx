@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {ChangeEvent, useEffect} from 'react'
 import {Navigate, useNavigate, useParams} from "react-router-dom"
 import {PacksTable} from "./PacksTable"
 import {useAppDispatch, useAppSelector} from "../../utils/Hooks"
@@ -7,38 +7,43 @@ import {Button, Container, Grid} from "@mui/material"
 import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack"
 import {Search} from "../../common/Search/Search"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
-import {addNewPackTC, getPacksTC, setMinMaxAC, setParamsSortPack} from "../../redux/Packs-reducer"
+import {addNewPackTC, getPacksTC, searchPackAC, setMinMaxAC, setParamsSortPack} from "../../redux/Packs-reducer"
 import {useDebounce} from "../../utils/Use-debounce"
-import {RangeSlider} from "../Super-double-range/Super-double-range";
+import {RangeSlider} from "../Renge-slider/Renge-slider";
+import {Paginator} from "../../common/Paginator/Paginator";
 
 
 
 export const Packs =  React.memo(() => {
-    const pageCount = useAppSelector(state => state.pagination.packsPageCount)
+    const pageCount = useAppSelector(state => state.packs.pageCount)
     const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
-    const totalCount = useAppSelector(state => state.pagination.allCardsPack)
+    const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
+    const page = useAppSelector(state => state.packs.page)
     const packs = useAppSelector(state => state.packs.cardPacks)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const user_id = useAppSelector(state => state.profile._id)
     const paginationStore = useAppSelector(state => state.pagination)
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
+    const packName = useAppSelector(state => state.packs.params.packName)
     const min = useAppSelector(state => state.packs.params.min)
     const max = useAppSelector(state => state.packs.params.max)
     const sort = useAppSelector(state => state.packs.params.sortPacks)
 
     const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
     const [value, setValue] = React.useState<number | number[]>([min, max])
-    const [packName, setPackName] = React.useState<string>('')
+    // const [packName, setPackName] = React.useState<string>('')
 
-    const debouncedValue = useDebounce<string>(packName, 500)
+    const debouncedValue = useDebounce<string>(packName, 700)
     const dispatch = useAppDispatch()
     const {packURL} = useParams<'packURL'>()
     const navigate = useNavigate()
 
+    const paginationPages = Math.ceil(totalCount / pageCount)
+
     useEffect(() => {
         if (packURL === 'my') dispatch(getPacksTC({search: packName, user_id, min, max}))
-        else dispatch(getPacksTC({search: packName, min, max }))
+        else dispatch(getPacksTC({search: packName, min, max}))
     }, [dispatch, debouncedValue, packURL, min, max])
 
 
@@ -60,9 +65,10 @@ export const Packs =  React.memo(() => {
         dispatch(addNewPackTC({name, deckCover}))
     }
 
-    const searchValueHandler = (searchValue: string) => {
-        setPackName(searchValue)
+    const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
+        dispatch(searchPackAC(e.currentTarget.value))
     }
+
     const addButtonClickHandler = () => {
         setOpenModalAddPack(true)
     }
@@ -82,6 +88,21 @@ export const Packs =  React.memo(() => {
         return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`))
             : dispatch(setParamsSortPack(`1${sortParams}`))
     }
+
+    const handleChangePage = (
+        event: React.MouseEvent<HTMLButtonElement> | null,
+        newPage: number,
+    ) => {
+        // dispatch(setPageAC(newPage + 1))
+    }
+
+    const handleChangeRowsPerPage = (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    ) => {
+        // dispatch(setPageCountAC(Number(event.target.value)))
+        // dispatch(setPageAC(1))
+    }
+
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -108,7 +129,7 @@ export const Packs =  React.memo(() => {
                     }}>
                         <Search
                             onChange={searchValueHandler}
-                            searchValue={packName}
+                            valueSearch={packName}
                         />
                         <div style={{
                             display: 'flex',
@@ -141,6 +162,11 @@ export const Packs =  React.memo(() => {
                         packs={packs}
                         sortUpdate={sortUpdate}
                         sort={sort}
+                    />
+                    <Paginator
+                        paginationPages={paginationPages}
+                        page={page - 1}
+                        // onPageChange={handleChangePage}
                     />
                 </Container>
             </Grid>

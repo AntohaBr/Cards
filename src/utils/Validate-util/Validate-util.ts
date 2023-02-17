@@ -1,4 +1,3 @@
-
 type validateType = {
     email?: string
     name?: string

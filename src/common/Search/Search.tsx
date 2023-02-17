@@ -1,6 +1,6 @@
-import React, {ChangeEvent, useCallback} from 'react';
+import React, {ChangeEvent} from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import {alpha, InputBase, styled} from "@mui/material";
+import {alpha, InputBase, styled} from '@mui/material'
 
 
 const SearchContainer = styled('div')(({ theme }) => ({
@@ -38,28 +38,27 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 
 type SearchPropsType = {
-    onChange: (searchValue: string) => void
-    searchValue: string
+    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    valueSearch: string
 }
 
 
  export const Search = React.memo((props:SearchPropsType) => {
-    const changeHandler = useCallback ((e: ChangeEvent<HTMLInputElement>) => {
-        props.onChange(e.currentTarget.value)
-    },[props.onChange])
 
-    return <div>
-        <h4>Search</h4>
+    return (
+     <div>
         <SearchContainer>
             <SearchIconWrapper>
                 <SearchIcon/>
             </SearchIconWrapper>
             <StyledInputBase
-                placeholder="Provide your text"
+                placeholder='Provide your text'
                 inputProps={{ 'aria-label': 'search' }}
-                type="text"
-                onChange={changeHandler}
+                type='search'
+                value={props.valueSearch}
+                onChange={props.onChange}
             />
         </SearchContainer>
     </div>
+    )
 })

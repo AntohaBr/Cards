@@ -1,12 +1,11 @@
-import {combineReducers, legacy_createStore, applyMiddleware, AnyAction} from "redux";
-import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {useSelector} from "react-redux";
-import {CardsActionType, cardsReducer} from "./Cards-reducer";
-import {PaginationActionType, paginationReducer} from "./Pagination-reducer";
-import {AuthActionType, authReducer} from "./Auth-reducer";
-import {ProfileActionType, profileReducer} from "./Profile-reducer";
-import {PacksActionType, packsReducer} from "./Packs-reducer";
-import {AppActionType, appReducer} from "./App-reducer";
+import {combineReducers, legacy_createStore, applyMiddleware} from 'redux'
+import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk'
+import {CardsActionType, cardsReducer} from './Cards-reducer'
+import {PaginationActionType, paginationReducer} from './Pagination-reducer'
+import {AuthActionType, authReducer} from './Auth-reducer'
+import {ProfileActionType, profileReducer} from './Profile-reducer'
+import {PacksActionType, packsReducer} from './Packs-reducer'
+import {AppActionType, appReducer} from './App-reducer'
 
 
 const rootReducer = combineReducers({

@@ -24,10 +24,9 @@ const initialState = {
         page: 1,
         pageCount: 10,
         min: 0,
-        max: 110,
+        max: 0,
         user_id: '',
         packName: '',
-        search: '',
         sortPacks: ''
     } as PacksGetParamsType,
 }
@@ -61,8 +60,11 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
             return {...state, minCardsCount: action.minCardsCount, maxCardsCount: action.maxCardsCount}
         case 'PACKS/SORT-PACKS':
             return {...state, params: {...state.params, sortPacks: action.sortPacks}}
+        case 'PACKS/SEARCH-BY-PACK-NAME':
+            return {...state,params: {...state.params,packName: action.packName}}
         case 'PACKS/CLEAR_FILTERS':
             return {...state, minCardsCount: 0, maxCardsCount: 110, showPackCards: 'all'}
+
         default:
             return state
     }
@@ -79,6 +81,7 @@ export const setMinMaxAC = (min: number, max: number) => ({type: 'PACKS/SET-MIN-
 export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) =>
     ({type: 'PACKS/SET-MIN-MAX-COUNT', minCardsCount, maxCardsCount} as const)
 export const sortPacksAC = (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const)
+export const searchPackAC = (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const)
 export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'} as const)
 
 
@@ -157,6 +160,7 @@ export type PacksActionType = SetPackACType
     | ReturnType<typeof setMinMaxAC>
     | ReturnType<typeof setMinMaxCountAC>
     | ReturnType<typeof sortPacksAC>
+    | ReturnType<typeof searchPackAC>
 export type SetPackACType = ReturnType<typeof setPacksAC>
 export type AddNewPackACType = ReturnType<typeof addNewPackAC>
 export type DeletePackACType = ReturnType<typeof deletePackAC>

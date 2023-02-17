@@ -1,8 +1,8 @@
-import {AxiosError} from 'axios';
-import {errorUtil} from '../utils/Error-util';
-import {authApi, ResponseType} from '../api/Auth-api';
-import {setAppStatusAC} from "./App-reducer";
-import {AppThunkType} from "./Store";
+import {AxiosError} from 'axios'
+import {errorUtil} from '../utils/Error-util'
+import {authApi, ResponseType} from '../api/Auth-api'
+import {setAppStatusAC} from './App-reducer'
+import {AppThunkType} from './Store'
 
 
 const initialState = {

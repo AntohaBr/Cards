@@ -1,12 +1,12 @@
 import {
     SetAppErrorActionType,
     setAppStatusAC, SetAppStatusActionType,
-} from "./App-reducer";
-import {errorUtil} from "../utils/Error-util";
-import {AxiosError} from "axios";
-import {authApi, ForgotType, LoginType, NewPasswordType, RegistrationType} from "../api/Auth-api";
-import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
-import {AppThunkType} from "./Store";
+} from './App-reducer'
+import {errorUtil} from '../utils/Error-util'
+import {AxiosError} from 'axios'
+import {authApi, ForgotType, LoginType, NewPasswordType, RegistrationType} from '../api/Auth-api'
+import {setInfoUserAC, SetInfoUserActionType} from './Profile-reducer'
+import {AppThunkType} from './Store'
 
 
 const initialState = {
@@ -43,12 +43,12 @@ export const setNewPasswordAC = (newPassport: string) => ({type: 'AUTH/SET-NEW-P
 
 //thunks
 export const loginTC = (data: LoginType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC("loading", true))
+    dispatch(setAppStatusAC('loading', true))
     try {
         const res = await authApi.login(data)
         dispatch(addLoginAC(true))
         dispatch(setInfoUserAC(res.data))
-        dispatch(setAppStatusAC("succeeded", true))
+        dispatch(setAppStatusAC('succeeded', true))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
@@ -56,11 +56,11 @@ export const loginTC = (data: LoginType): AppThunkType => async (dispatch) => {
 }
 
 export const logOutTC = (): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC("loading", true))
+    dispatch(setAppStatusAC('loading', true))
     try {
         await authApi.logOut()
         dispatch(addLoginAC(false))
-        dispatch(setAppStatusAC("succeeded", false))
+        dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)

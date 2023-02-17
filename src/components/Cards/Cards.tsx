@@ -69,10 +69,10 @@ export const Cards = () => {
 
             </div>
             <div>
-                {cards.length >= 1 && <Search
-                    onChange={searchValueHandler}
-                    searchValue={question}
-                />}
+                {/*{cards.length >= 1 && <Search*/}
+                {/*    // onChange={searchValueHandler}*/}
+                {/*    valueSearch={question}*/}
+                {/*/>}*/}
             </div>
             {cards.length === 0
                 ?

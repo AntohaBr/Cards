@@ -1,9 +1,9 @@
-import {authApi} from "../api/Auth-api";
-import {addLoginAC} from "./Auth-reducer";
-import {AxiosError} from "axios";
-import {errorUtil} from "../utils/Error-util";
-import {setInfoUserAC, SetInfoUserActionType} from "./Profile-reducer";
-import {AppThunkType} from "./Store";
+import {authApi} from '../api/Auth-api'
+import {addLoginAC} from './Auth-reducer'
+import {AxiosError} from 'axios'
+import {errorUtil} from '../utils/Error-util'
+import {setInfoUserAC, SetInfoUserActionType} from './Profile-reducer'
+import {AppThunkType} from './Store'
 
 
 const initialState = {
@@ -43,13 +43,13 @@ export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) =>
 
 //thunks
 export const isInitializedTC = (): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC("loading", true))
+    dispatch(setAppStatusAC('loading', true))
     try {
         const res = await authApi.me()
         dispatch(addLoginAC(true))
         dispatch(isInitializedAC(true))
         dispatch(setInfoUserAC(res.data))
-        dispatch(setAppStatusAC("succeeded", false))
+        dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         dispatch(isInitializedAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>

@@ -72,7 +72,7 @@ export type PacksGetParamsType = {
     min: number
     max: number
     user_id?: string
-    packName?: string
+    packName: string
     search?: string
     sortPacks:string
 }
