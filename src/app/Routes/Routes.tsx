@@ -42,7 +42,7 @@ export const PagesRoutes = () => {
             <Route path={PATH.NEW_PASSWORD} element={<NewPassword/>}/>
             <Route path={PATH.ERROR404} element={<Error404/>}/>
             <Route path={PATH.PACKS} element={<Packs/>}/>
-            <Route path={`${PATH.PACKS}/:packURL`} element={<Packs/>}/>
+            {/*<Route path={`${PATH.PACKS}/:packURL`} element={<Packs/>}/>*/}
             <Route path={`${PATH.CARDS}/:packId`} element={<Cards/>}/>
             <Route path={`${PATH.LEARN}/:cardId`} element={<Learn/>}/>
             <Route path={PATH.RESULT} element={<Result/>}/>

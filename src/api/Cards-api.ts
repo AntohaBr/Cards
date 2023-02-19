@@ -4,7 +4,7 @@ import {instance} from './Instance'
 
 //api
 export const cardsApi = {
-    getCardsPack(params:PacksGetParamsTypeNotNeeded){
+    getCardsPack(params?:PacksGetParamsTypeNotNeeded){
         return instance.get<PacksGetParamsTypeNotNeeded, AxiosResponse<GetPacksResponseType>>(`cards/pack`, {params})
     },
     addNewPacks(data: PostPacksType) {
@@ -69,12 +69,11 @@ export type PacksType = {
 export type PacksGetParamsType = {
     page?: number
     pageCount?: number
-    min: number
-    max: number
+    min?: number
+    max?: number
     user_id?: string
-    packName: string
-    search?: string
-    sortPacks:string
+    packName?: string
+    sortPacks?:string
 }
 
 export type PacksGetParamsTypeNotNeeded = Partial<PacksGetParamsType>

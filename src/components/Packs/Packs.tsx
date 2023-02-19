@@ -7,22 +7,28 @@ import {Button, Container, Grid} from "@mui/material"
 import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack"
 import {Search} from "../../common/Search/Search"
 import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
-import {addNewPackTC, getPacksTC, searchPackAC, setMinMaxAC, setParamsSortPack} from "../../redux/Packs-reducer"
+import {
+    addNewPackTC,
+    getPacksTC,
+    searchPackAC,
+    setMinMaxAC,
+    setParamsSortPack,
+    setTypePackCardsAC
+} from "../../redux/Packs-reducer"
 import {useDebounce} from "../../utils/Use-debounce"
 import {RangeSlider} from "../Renge-slider/Renge-slider";
 import {Paginator} from "../../common/Paginator/Paginator";
 
 
-
-export const Packs =  React.memo(() => {
-    const pageCount = useAppSelector(state => state.packs.pageCount)
+export const Packs = React.memo(() => {
+    const pageCount = useAppSelector(state => state.packs.params.pageCount)
     const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
     const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
-    const page = useAppSelector(state => state.packs.page)
+    const page = useAppSelector(state => state.packs.params.page)
     const packs = useAppSelector(state => state.packs.cardPacks)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
-    const user_id = useAppSelector(state => state.profile._id)
-    const paginationStore = useAppSelector(state => state.pagination)
+    const status = useAppSelector(state => state.app.status)
+    const statusPackCards = useAppSelector(state => state.packs.statusPackCards)
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     const packName = useAppSelector(state => state.packs.params.packName)
@@ -32,40 +38,32 @@ export const Packs =  React.memo(() => {
 
     const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
     const [value, setValue] = React.useState<number | number[]>([min, max])
-    // const [packName, setPackName] = React.useState<string>('')
 
     const debouncedValue = useDebounce<string>(packName, 700)
     const dispatch = useAppDispatch()
-    const {packURL} = useParams<'packURL'>()
-    const navigate = useNavigate()
+    // const {packURL} = useParams<'packURL'>()
+    // const navigate = useNavigate()
 
     const paginationPages = Math.ceil(totalCount / pageCount)
 
     useEffect(() => {
-        if (packURL === 'my') dispatch(getPacksTC({search: packName, user_id, min, max}))
-        else dispatch(getPacksTC({search: packName, min, max}))
-    }, [dispatch, debouncedValue, packURL, min, max])
+        dispatch(getPacksTC())
+    }, [dispatch, debouncedValue, statusPackCards, min, max, pageCount, page])
 
+    const allPackCardsHandler = () => {
+        dispatch(setTypePackCardsAC('all'))
+    }
 
-    const myPacks = (status: 'my' | 'all') => {
-        if (status === "my") {
-            dispatch(getPacksTC({
-                pageCount: paginationStore.packsPageCount,
-                page: paginationStore.packsCurrentPage,
-                user_id
-            }))
-        }
-        if (status === "all") {
-            dispatch(getPacksTC({pageCount: paginationStore.packsPageCount, page: paginationStore.packsCurrentPage}))
-        }
-        navigate(`${PATH.PACKS}/${status}`)
+    const myPackCardsHandler = () => {
+        dispatch(setTypePackCardsAC('my'))
+        // navigate(`${PATH.PACKS}/${'my'}`)
     }
 
     const addNewPack = (name: string, deckCover: string) => {
         dispatch(addNewPackTC({name, deckCover}))
     }
 
-    const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> ) => {
+    const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch(searchPackAC(e.currentTarget.value))
     }
 
@@ -136,8 +134,18 @@ export const Packs =  React.memo(() => {
                             justifyContent: 'space-around',
                             width: '150px'
                         }}>
-                            <Button variant={"contained"} onClick={() => myPacks("my")}>My</Button>
-                            <Button variant={"contained"} onClick={() => myPacks("all")}> All</Button>
+                            <Button
+                                variant={statusPackCards === 'my' ? 'contained' : 'outlined'}
+                                disabled={statusPackCards === 'my' || status === 'loading'}
+                                onClick={myPackCardsHandler}>
+                                My
+                            </Button>
+                            <Button
+                                variant={statusPackCards === 'all' ? 'contained' : 'outlined'}
+                                disabled={statusPackCards === 'all' || status === 'loading'}
+                                onClick={allPackCardsHandler}>
+                                All
+                            </Button>
                         </div>
                         <div>
                             <h4>Number of cards</h4>

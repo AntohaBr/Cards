@@ -4,8 +4,6 @@ import {setAppStatusAC} from './App-reducer';
 import {AppThunkType} from "./Store";
 import {
     cardsApi,
-    PacksGetParamsType,
-    PacksGetParamsTypeNotNeeded,
     PacksType,
     PostPacksType,
     UpdatePacksType
@@ -15,23 +13,18 @@ import {
 const initialState = {
     cardPacks: [] as PacksType[],
     cardPacksTotalCount: 0,
-    page: 0,
-    pageCount: 10,
-    showPackCards: 'all' as 'all' | 'my',
+    statusPackCards: 'all' as 'all' | 'my',
     minCardsCount: 0,
     maxCardsCount: 110,
     params: {
         page: 1,
-        pageCount: 10,
+        pageCount: 7,
         min: 0,
-        max: 0,
-        user_id: '',
+        max: 110,
         packName: '',
         sortPacks: ''
-    } as PacksGetParamsType,
+    },
 }
-
-export type PackReducerStateType = typeof initialState
 
 
 //reducers
@@ -61,9 +54,11 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
         case 'PACKS/SORT-PACKS':
             return {...state, params: {...state.params, sortPacks: action.sortPacks}}
         case 'PACKS/SEARCH-BY-PACK-NAME':
-            return {...state,params: {...state.params,packName: action.packName}}
-        case 'PACKS/CLEAR_FILTERS':
-            return {...state, minCardsCount: 0, maxCardsCount: 110, showPackCards: 'all'}
+            return {...state, params: {...state.params, packName: action.packName}}
+        case 'PACKS/SET-TYPE-PACK-CARDS':
+            return {...state, statusPackCards: action.statusPackCards}
+        // case 'PACKS/CLEAR_FILTERS':
+        //     return {...state, minCardsCount: 0, maxCardsCount: 110, showPackCards: 'all'}
 
         default:
             return state
@@ -82,14 +77,18 @@ export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) =
     ({type: 'PACKS/SET-MIN-MAX-COUNT', minCardsCount, maxCardsCount} as const)
 export const sortPacksAC = (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const)
 export const searchPackAC = (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const)
+export const setTypePackCardsAC = (statusPackCards: 'my' | 'all') => ({type: 'PACKS/SET-TYPE-PACK-CARDS', statusPackCards} as const)
 export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'} as const)
 
 
 //thunks
-export const getPacksTC = (params: PacksGetParamsTypeNotNeeded): AppThunkType => async (dispatch) => {
+export const getPacksTC = (): AppThunkType => async (dispatch, getState) => {
+    const {statusPackCards, params} = getState().packs
+    const userId = getState().profile._id
+    const user_id = statusPackCards === 'my' ? userId : ''
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsApi.getCardsPack({...params})
+        const res = await cardsApi.getCardsPack({user_id, ...params})
         dispatch(setPacksAC(res.data.cardPacks))
         dispatch(setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
         dispatch(setMinMaxCountAC(res.data.minCardsCount, res.data.maxCardsCount))
@@ -104,9 +103,9 @@ export const getPacksTC = (params: PacksGetParamsTypeNotNeeded): AppThunkType =>
 
 export const deletePackTC = (packID: string): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
-    const res = await cardsApi.deletePacks(packID)
     try {
-        dispatch(getPacksTC(res.data.deletedCardsPack))
+        await cardsApi.deletePacks(packID)
+        dispatch(getPacksTC())
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -119,8 +118,8 @@ export const deletePackTC = (packID: string): AppThunkType => async (dispatch) =
 export const addNewPackTC = (data: PostPacksType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsApi.addNewPacks({...data})
-        dispatch(getPacksTC(res.data.newCardsPack))
+        await cardsApi.addNewPacks({...data})
+        dispatch(getPacksTC())
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -133,8 +132,8 @@ export const addNewPackTC = (data: PostPacksType): AppThunkType => async (dispat
 export const updatePackTC = (params: UpdatePacksType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading', true))
     try {
-        const res = await cardsApi.updatePacks({...params})
-        dispatch(getPacksTC(res.data.updatedCardsPack))
+        await cardsApi.updatePacks({...params})
+        dispatch(getPacksTC())
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -146,14 +145,15 @@ export const updatePackTC = (params: UpdatePacksType): AppThunkType => async (di
 
 export const setParamsSortPack = (sortParams: string): AppThunkType => dispatch => {
     dispatch(sortPacksAC(sortParams))
-    // dispatch(getPacksTC({sortPacks}))
+    dispatch(getPacksTC())
 }
 
 
 //types
-export type PacksActionType = SetPackACType
-    | DeletePackACType
-    | AddNewPackACType
+export type PackReducerStateType = typeof initialState
+export type PacksActionType = ReturnType<typeof setPacksAC>
+    | ReturnType<typeof deletePackAC>
+    | ReturnType<typeof addNewPackAC>
     | ReturnType<typeof updatePackAC>
     | ReturnType<typeof setCardPacksTotalCountAC>
     | ReturnType<typeof clearFiltersAC>
@@ -161,6 +161,4 @@ export type PacksActionType = SetPackACType
     | ReturnType<typeof setMinMaxCountAC>
     | ReturnType<typeof sortPacksAC>
     | ReturnType<typeof searchPackAC>
-export type SetPackACType = ReturnType<typeof setPacksAC>
-export type AddNewPackACType = ReturnType<typeof addNewPackAC>
-export type DeletePackACType = ReturnType<typeof deletePackAC>
+    | ReturnType<typeof setTypePackCardsAC>
