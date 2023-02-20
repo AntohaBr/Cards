@@ -1,30 +1,31 @@
 import React, {ChangeEvent, useEffect} from 'react'
-import {Navigate, useNavigate, useParams} from "react-router-dom"
-import {PacksTable} from "./PacksTable"
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks"
-import {PATH} from "../../app/Routes/Routes"
-import {Button, Container, Grid} from "@mui/material"
-import {ModalAddPack} from "../../common/Modals/Modal-pack/Modal-add-pack"
-import {Search} from "../../common/Search/Search"
-import FilterAltOffIcon from "@mui/icons-material/FilterAltOff"
+import {Navigate} from 'react-router-dom'
+import {PacksTable} from './PacksTable'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {PATH} from '../../app/Routes/Routes'
+import {Button, Container, Grid} from '@mui/material'
+import {ModalAddPack} from '../../common/Modals/Modal-pack/Modal-add-pack'
+import {Search} from '../../common/Search/Search'
+import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import {
     addNewPackTC,
     getPacksTC,
-    searchPackAC,
+    searchPacksAC,
     setMinMaxAC,
     setParamsSortPack,
     setTypePackCardsAC
-} from "../../redux/Packs-reducer"
-import {useDebounce} from "../../utils/Use-debounce"
-import {RangeSlider} from "../Renge-slider/Renge-slider";
-import {Paginator} from "../../common/Paginator/Paginator";
+} from '../../redux/Packs-reducer'
+import {useDebounce} from '../../utils/Use-debounce'
+import {RangeSlider} from '../Renge-slider/Renge-slider'
+import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
+
 
 
 export const Packs = React.memo(() => {
-    const pageCount = useAppSelector(state => state.packs.params.pageCount)
-    const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
-    const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const page = useAppSelector(state => state.packs.params.page)
+    const pageCount = useAppSelector(state => state.packs.params.pageCount)
+    const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
+    const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
     const packs = useAppSelector(state => state.packs.cardPacks)
     const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
     const status = useAppSelector(state => state.app.status)
@@ -40,11 +41,12 @@ export const Packs = React.memo(() => {
     const [value, setValue] = React.useState<number | number[]>([min, max])
 
     const debouncedValue = useDebounce<string>(packName, 700)
+
     const dispatch = useAppDispatch()
     // const {packURL} = useParams<'packURL'>()
     // const navigate = useNavigate()
 
-    const paginationPages = Math.ceil(totalCount / pageCount)
+    const PacksPaginationPages = Math.ceil(totalCount / pageCount)
 
     useEffect(() => {
         dispatch(getPacksTC())
@@ -64,7 +66,7 @@ export const Packs = React.memo(() => {
     }
 
     const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        dispatch(searchPackAC(e.currentTarget.value))
+        dispatch(searchPacksAC(e.currentTarget.value))
     }
 
     const addButtonClickHandler = () => {
@@ -112,7 +114,12 @@ export const Packs = React.memo(() => {
                 <Container fixed={true}>
                     <div>
                         <h2>Pack list</h2>
-                        <Button variant={"contained"} onClick={addButtonClickHandler}>Add new pack</Button>
+                        <Button
+                            variant={'contained'}
+                            onClick={addButtonClickHandler}
+                            disabled={status === 'loading'}>
+                            Add new pack
+                        </Button>
                     </div>
                     <ModalAddPack
                         title={'Add new pack'}
@@ -159,7 +166,7 @@ export const Packs = React.memo(() => {
                                 />
                             </div>
                         </div>
-                        <Button color={"inherit"}>
+                        <Button color={'inherit'}>
                             <FilterAltOffIcon/>
                         </Button>
                     </div>
@@ -170,11 +177,6 @@ export const Packs = React.memo(() => {
                         packs={packs}
                         sortUpdate={sortUpdate}
                         sort={sort}
-                    />
-                    <Paginator
-                        paginationPages={paginationPages}
-                        page={page - 1}
-                        // onPageChange={handleChangePage}
                     />
                 </Container>
             </Grid>

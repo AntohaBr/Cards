@@ -1,25 +1,27 @@
-import * as React from 'react';
-import TableRow from "@mui/material/TableRow";
-import TableCell from "@mui/material/TableCell";
-import {Button} from "@mui/material";
-import SchoolIcon from "@mui/icons-material/School";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
-import {NavLink, useNavigate} from "react-router-dom";
-import {ModalDeletePack} from "../../common/Modals/Modal-pack/Modal-delete-pack";
-import {PacksType} from "../../api/Cards-api";
-import {useAppDispatch, useAppSelector} from "../../utils/Hooks";
-import {useState} from "react";
-import {deletePackTC, updatePackTC} from "../../redux/Packs-reducer";
-import {ModalEditPack} from "../../common/Modals/Modal-pack/Modal-edit-pack";
-import {PATH} from "../../app/Routes/Routes";
+import * as React from 'react'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import Button from '@mui/material/Button'
+import SchoolIcon from '@mui/icons-material/School'
+import EditIcon from '@mui/icons-material/Edit'
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import {NavLink, useNavigate} from 'react-router-dom'
+import {ModalDeletePack} from '../../common/Modals/Modal-pack/Modal-delete-pack'
+import {PacksType} from '../../api/Cards-api'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useState} from 'react'
+import {deletePackTC, updatePackTC} from '../../redux/Packs-reducer'
+import {ModalEditPack} from '../../common/Modals/Modal-pack/Modal-edit-pack'
+import {PATH} from '../../app/Routes/Routes'
 import defaultCover from '../../assets/Icon/defaultCover.jpg'
-import {getCard} from "../../features/Smart-random";
-import {setUtilsAC} from "../../redux/Cards-reducer";
+import {getCard} from '../../features/Smart-random'
+import {setUtilsAC} from '../../redux/Cards-reducer'
+
 
 export const Pack = (props: PacksType) => {
     const myID = useAppSelector(state => state.profile._id)
     const cards = useAppSelector(state => state.cards.cards)
+    const status = useAppSelector(state => state.app.status)
 
     const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
     const [openEditModalPack, setOpenEditModalPack] = useState(false)
@@ -52,38 +54,38 @@ export const Pack = (props: PacksType) => {
         <TableRow
             key={props._id}
             sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-            <TableCell align="right">
+            <TableCell align='right'>
                 <img
                     style={{width: '60px', height: '40px'}}
                     src={props.deckCover ? props.deckCover : defaultCover}
-                    alt="img"
+                    alt='img'
                 />
             </TableCell>
-            <TableCell component="th" scope="row" align="right">
-                <NavLink to={`${PATH.CARDS}/${props._id}`} style={{textDecoration:"none"}}>
+            <TableCell component='th' scope='row' align='right'>
+                <NavLink to={`${PATH.CARDS}/${props._id}`} style={{textDecoration: 'none'}}>
                     {props.name}
                 </NavLink>
             </TableCell>
-            <TableCell align="right">{props.cardsCount}</TableCell>
-            <TableCell align="right">{props.updated?.split('').splice(0, 10)}</TableCell>
-            <TableCell align="right">{props.user_name}</TableCell>
-            <TableCell align={"right"}>
+            <TableCell align='right'>{props.cardsCount}</TableCell>
+            <TableCell align='right'>{props.updated?.split('').splice(0, 10)}</TableCell>
+            <TableCell align='right'>{props.user_name}</TableCell>
+            <TableCell align={'right'}>
                 <div>
                     {myID === props.user_id
                         ?
                         <span>
-                            <Button onClick={editButtonClickHandler}>
+                            <Button onClick={editButtonClickHandler} disabled={status === 'loading'}>
                                 <EditIcon/>
                             </Button>
-                            <Button onClick={deleteButtonClickHandler}>
+                            <Button onClick={deleteButtonClickHandler} disabled={status === 'loading'}>
                                 <DeleteOutlineIcon/>
                             </Button>
-                            <Button onClick={setUtilsHandler}>
+                            <Button onClick={setUtilsHandler} disabled={status === 'loading'}>
                                 <SchoolIcon/>
                             </Button>
                         </span>
                         : <span>
-                                <Button onClick={setUtilsHandler}>
+                                <Button onClick={setUtilsHandler} disabled={status === 'loading'}>
                                     <SchoolIcon/>
                                 </Button>
                         </span>

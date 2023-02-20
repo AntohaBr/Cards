@@ -1,6 +1,5 @@
 import {setAppStatusAC} from './App-reducer'
 import {AppThunkType} from './Store'
-import {setCurrentPageAC, setPageCount, totalCountAC} from './Pagination-reducer'
 import {
     CardLearnType,
     cardsApi,
@@ -18,27 +17,26 @@ export const initialState = {
     cards: [] as CardType[],
     packUserId: '',
     packName: '',
-    packPrivate: false,
+    // packPrivate: false,
     packDeckCover: '',
     packCreated: '',
     packUpdated: '',
-    page: 0,
-    pageCount: 0,
+    page: 1,
+    pageCount: 7,
     cardsTotalCount: 0 as number,
     minGrade: 0,
     maxGrade: 0,
     cardsPack_id: '' as string,
-    question: '',
-    answer: '',
+    cardQuestion: '',
+    cardAnswer: '',
     shots: 0,
     grade: 0,
 }
 
-export type CardsReducerStateType = typeof initialState
 
 export const cardsReducer = (state: CardsReducerStateType = initialState, action: CardsActionType): CardsReducerStateType => {
     switch (action.type) {
-        case "CARDS/SET_CARDS":
+        case 'CARDS/SET_CARDS':
             return {
                 ...state,
                 cards: action.data.cards,
@@ -56,15 +54,20 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
                         : el
                 ),
             }
-        case "CARDS/SET_UTILS": {
+        case 'CARDS/SET_UTILS':
             const currentCard = state.cards.find(el => el._id === action._id)
-            // console.log(currentCard ${currentCard})
-
             if (currentCard) {
-                return {...state, answer: currentCard.answer, question: currentCard.question}
+                return {...state, cardAnswer: currentCard.answer, cardQuestion: currentCard.question}
             }
             return state
-        }
+        case 'CARDS/SEARCH-BY-CARD-QUESTION':
+            return {...state, cardQuestion: action.cardQuestion}
+        case 'CARDS/SET-CARDS-PAGE':
+            return {...state, page: action.page}
+        case 'CARDS/SET-CARDS-PAGE-COUNT':
+            return {...state, pageCount: action.pageCount}
+        case 'CARDS/SET-CARDS-TOTAL-COUNT':
+            return {...state, cardsTotalCount: action.cardsTotalCount}
         default: {
             return state
         }
@@ -74,13 +77,12 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
 export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET_CARDS', data} as const)
 export const updateGradeCardAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/UPDATE_GRADE_CARD', data} as const)
 export const setUtilsAC = (_id: string) => ({type: 'CARDS/SET_UTILS', _id} as const)
-
-// export const setPackIdAC = (cardsPack_id: string) => ({type: 'CARDS/SET_PACK_ID', cardsPack_id} as const)
-// export const setTotalCardsCountAC = (cardsTotalCount: number) =>
-//     ({
-//         type: 'CARDS/SET_TOTAL_CARDS_COUNT',
-//         cardsTotalCount,
-//     } as const)
+export const searchCardsAC = (cardQuestion: string) => ({type: 'CARDS/SEARCH-BY-CARD-QUESTION', cardQuestion} as const)
+export const setCardsPageAC = (page: number) => ({type: 'CARDS/SET-CARDS-PAGE', page} as const)
+export const setCardsPageCountAC = (pageCount: number) => ({type: 'CARDS/SET-CARDS-PAGE-COUNT', pageCount} as const)
+export const setCardsTotalCountAC = (cardsTotalCount: number) => ({
+    type: 'CARDS/SET-CARDS-TOTAL-COUNT', cardsTotalCount
+} as const)
 
 
 //thunks
@@ -88,9 +90,9 @@ export const getCardsTC = (params: GetCardsParamsType): AppThunkType => async (d
     dispatch(setAppStatusAC('loading', true))
     try {
         const res = await cardsApi.getCards(params)
-        dispatch(setPageCount(res.data.pageCount))
-        dispatch(totalCountAC(res.data.cardsTotalCount))
-        dispatch(setCurrentPageAC(res.data.page))
+        dispatch(setCardsPageCountAC(res.data.pageCount))
+        dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
+        dispatch(setCardsPageAC(res.data.page))
         dispatch(setCardsAC(res.data))
         dispatch(setAppStatusAC('succeeded', false))
     } catch (e) {
@@ -159,8 +161,12 @@ export const updateGradeCardTC = (putModelGrade: CardLearnType): AppThunkType =>
 
 
 //types
-export type CardsActionType =
-    ReturnType<typeof setCardsAC>
+export type CardsReducerStateType = typeof initialState
+export type CardsActionType = ReturnType<typeof setCardsAC>
     | ReturnType<typeof updateGradeCardAC>
     | ReturnType<typeof setUtilsAC>
+    | ReturnType<typeof searchCardsAC>
+    | ReturnType<typeof setCardsPageAC>
+    | ReturnType<typeof setCardsPageCountAC>
+    | ReturnType<typeof setCardsTotalCountAC>
 

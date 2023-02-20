@@ -12,7 +12,13 @@ import {deleteCardsTC, updateCardsTC} from '../../redux/Cards-reducer'
 import {ModalEditCard} from '../../common/Modals/Modal-card/Modal-edit-card'
 
 
-export const Card = (props: CardType) => {
+type CardPropsType = {
+    card: CardType
+    status: string
+}
+
+
+export const Card = (props: CardPropsType) => {
     const [openModalEditCard, setOpenModalEditCard] = useState(false)
     const [openModalDeleteCard, setOpenModalDeleteCard] = useState(false)
 
@@ -20,19 +26,19 @@ export const Card = (props: CardType) => {
     const dispatch = useAppDispatch()
 
     const question = () => {
-        return props.question.length > 100
+        return props.card.question.length > 100
             ?
-            <img style={{maxWidth: '100px'}} src={props.question} alt={'answer'}/>
+            <img style={{maxWidth: '100px'}} src={props.card.question} alt={'answer'}/>
             :
-            props.question
+            props.card.question
     }
 
     const answer = () => {
-        return props.answer.length > 100
+        return props.card.answer.length > 100
             ?
-            <img style={{maxWidth: '100px'}} src={props.answer} alt={'answer'}/>
+            <img style={{maxWidth: '100px'}} src={props.card.answer} alt={'answer'}/>
             :
-            props.answer
+            props.card.answer
     }
 
     const editCardButtonClickHandler = () => {
@@ -44,47 +50,47 @@ export const Card = (props: CardType) => {
     }
 
     const deleteCard = () => {
-        dispatch(deleteCardsTC(props._id))
+        dispatch(deleteCardsTC(props.card._id))
     }
 
     const editCard = (question: string, answer: string, questionImg: string, answerImg: string) => {
-        dispatch(updateCardsTC({card:{_id: props._id,question, answer, questionImg, answerImg}}))
+        dispatch(updateCardsTC({card:{_id: props.card._id,question, answer, questionImg, answerImg}}))
     }
 
-    return <TableRow key={props._id}>
-        <TableCell component="th" scope="row" align={"right"}>
-            {props.questionImg
+    return <TableRow key={props.card._id}>
+        <TableCell component='th' scope='row' align={'right'}>
+            {props.card.questionImg
                 ?
-                <img style={{maxWidth: '100px'}} src={props.questionImg} alt={'question image'}/>
+                <img style={{maxWidth: '100px'}} src={props.card.questionImg} alt={'question image'}/>
                 :
                 question()
             }
         </TableCell>
-        <TableCell align="right">
-            {props.answerImg
+        <TableCell align='right'>
+            {props.card.answerImg
                 ?
-                <img style={{maxWidth: '100px'}} src={props.answerImg} alt={'answer image'}/>
+                <img style={{maxWidth: '100px'}} src={props.card.answerImg} alt={'answer image'}/>
                 :
                 answer()
             }
         </TableCell>
-        <TableCell align="right"> {props.updated?.split('').splice(0, 10)}</TableCell>
-        <TableCell align="right">
+        <TableCell align='right'> {props.card.updated?.split('').splice(0, 10)}</TableCell>
+        <TableCell align='right'>
                 <span>
                            <Rating
-                               name="only"
-                               value={props.grade}
+                               name='only'
+                               value={props.card.grade}
                                precision={0.1}
                                readOnly
                            />
                 </span>
         </TableCell>
-        {myID === props.user_id && (
+        {myID === props.card.user_id && (
             <span>
-                    <Button onClick={editCardButtonClickHandler}>
+                    <Button onClick={editCardButtonClickHandler} disabled={props.status === 'loading'}>
                         <EditIcon/>
                     </Button>
-                    <Button onClick={deleteCardButtonClickHandler}>
+                    <Button onClick={deleteCardButtonClickHandler} disabled={props.status === 'loading'}>
                         <DeleteOutlineIcon/>
                     </Button>
             </span>
@@ -94,8 +100,8 @@ export const Card = (props: CardType) => {
             open={openModalDeleteCard}
             toggleOpenMode={setOpenModalDeleteCard}
             deleteItem={deleteCard}
-            question={props.question}
-            questionImg={props.questionImg}
+            question={props.card.question}
+            questionImg={props.card.questionImg}
 
         />
         <ModalEditCard
@@ -103,11 +109,11 @@ export const Card = (props: CardType) => {
             open={openModalEditCard}
             toggleOpenMode={setOpenModalEditCard}
             editItem={editCard}
-            previousQuestion={props.question}
-            previousAnswer={props.answer}
-            previousQuestionImg={props.questionImg}
-            previousAnswerImg={props.answerImg}
-            questionType={props.type}
+            previousQuestion={props.card.question}
+            previousAnswer={props.card.answer}
+            previousQuestionImg={props.card.questionImg}
+            previousAnswerImg={props.card.answerImg}
+            questionType={props.card.type}
         />
     </TableRow>
 }

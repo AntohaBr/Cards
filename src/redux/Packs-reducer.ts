@@ -76,7 +76,7 @@ export const setMinMaxAC = (min: number, max: number) => ({type: 'PACKS/SET-MIN-
 export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) =>
     ({type: 'PACKS/SET-MIN-MAX-COUNT', minCardsCount, maxCardsCount} as const)
 export const sortPacksAC = (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const)
-export const searchPackAC = (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const)
+export const searchPacksAC = (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const)
 export const setTypePackCardsAC = (statusPackCards: 'my' | 'all') => ({type: 'PACKS/SET-TYPE-PACK-CARDS', statusPackCards} as const)
 export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'} as const)
 
@@ -160,5 +160,5 @@ export type PacksActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof setMinMaxAC>
     | ReturnType<typeof setMinMaxCountAC>
     | ReturnType<typeof sortPacksAC>
-    | ReturnType<typeof searchPackAC>
+    | ReturnType<typeof searchPacksAC>
     | ReturnType<typeof setTypePackCardsAC>

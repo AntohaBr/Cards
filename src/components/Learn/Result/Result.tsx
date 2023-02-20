@@ -12,7 +12,7 @@ export const Result = () => {
     const navigate = useNavigate()
     const cardStore = useAppSelector(state => state.cards)
     const shots = useAppSelector((state => state.cards.shots))
-    const {answer, cards} = cardStore
+    const {cardAnswer, cards} = cardStore
     const dispatch = useAppDispatch()
 
   const answers= [
@@ -62,7 +62,7 @@ export const Result = () => {
             <Container fixed>
                     <div className={styles.mainBlock}>
                         <div className={styles.answerBlock}>
-                            <i>{answer}</i>
+                            <i>{cardAnswer}</i>
                             </div>
                         <p>
                            <i>Оцени себя:</i>
