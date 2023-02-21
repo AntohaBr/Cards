@@ -1,7 +1,6 @@
 import {combineReducers, legacy_createStore, applyMiddleware} from 'redux'
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk'
 import {CardsActionType, cardsReducer} from './Cards-reducer'
-import {PaginationActionType, paginationReducer} from './Pagination-reducer'
 import {AuthActionType, authReducer} from './Auth-reducer'
 import {ProfileActionType, profileReducer} from './Profile-reducer'
 import {PacksActionType, packsReducer} from './Packs-reducer'
@@ -14,7 +13,6 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     packs: packsReducer,
     cards: cardsReducer,
-    pagination: paginationReducer
 })
 
 export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
@@ -27,7 +25,6 @@ export type AppActionsType =
     | AuthActionType
     | CardsActionType
     | PacksActionType
-    | PaginationActionType
     | ProfileActionType
 export type AppDispatchType = ThunkDispatch<RootReducerType, unknown, AppActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, RootReducerType, unknown, AppActionsType>

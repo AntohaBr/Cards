@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect} from 'react'
+import React, {ChangeEvent, useCallback, useEffect} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './PacksTable'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
@@ -10,9 +10,8 @@ import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import {
     addNewPackTC,
     getPacksTC,
-    searchPacksAC,
+    searchPacksAC, setCardPacksPageAC, setCardPacksPageCountAC,
     setMinMaxAC,
-    setParamsSortPack,
     setTypePackCardsAC
 } from '../../redux/Packs-reducer'
 import {useDebounce} from '../../utils/Use-debounce'
@@ -22,12 +21,10 @@ import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
 
 
 export const Packs = React.memo(() => {
+    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const page = useAppSelector(state => state.packs.params.page)
     const pageCount = useAppSelector(state => state.packs.params.pageCount)
-    const totalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
-    const currentPage = useAppSelector(state => state.pagination.packsCurrentPage)
-    const packs = useAppSelector(state => state.packs.cardPacks)
-    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const status = useAppSelector(state => state.app.status)
     const statusPackCards = useAppSelector(state => state.packs.statusPackCards)
     const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
@@ -35,7 +32,6 @@ export const Packs = React.memo(() => {
     const packName = useAppSelector(state => state.packs.params.packName)
     const min = useAppSelector(state => state.packs.params.min)
     const max = useAppSelector(state => state.packs.params.max)
-    const sort = useAppSelector(state => state.packs.params.sortPacks)
 
     const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
     const [value, setValue] = React.useState<number | number[]>([min, max])
@@ -43,10 +39,8 @@ export const Packs = React.memo(() => {
     const debouncedValue = useDebounce<string>(packName, 700)
 
     const dispatch = useAppDispatch()
-    // const {packURL} = useParams<'packURL'>()
-    // const navigate = useNavigate()
 
-    const PacksPaginationPages = Math.ceil(totalCount / pageCount)
+    const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
         dispatch(getPacksTC())
@@ -58,7 +52,6 @@ export const Packs = React.memo(() => {
 
     const myPackCardsHandler = () => {
         dispatch(setTypePackCardsAC('my'))
-        // navigate(`${PATH.PACKS}/${'my'}`)
     }
 
     const addNewPack = (name: string, deckCover: string) => {
@@ -84,24 +77,13 @@ export const Packs = React.memo(() => {
         }
     }
 
-    const sortUpdate = (sortParams: string) => {
-        return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`))
-            : dispatch(setParamsSortPack(`1${sortParams}`))
-    }
+    const packsPageCountHandler = useCallback( (value: string) => {
+        dispatch(setCardPacksPageCountAC(+value))
+    }, [])
 
-    const handleChangePage = (
-        event: React.MouseEvent<HTMLButtonElement> | null,
-        newPage: number,
-    ) => {
-        // dispatch(setPageAC(newPage + 1))
-    }
-
-    const handleChangeRowsPerPage = (
-        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-    ) => {
-        // dispatch(setPageCountAC(Number(event.target.value)))
-        // dispatch(setPageAC(1))
-    }
+    const packsHandleChangePage = useCallback ((page: number) => {
+        dispatch(setCardPacksPageAC(page))
+    },[])
 
 
     if (!isLoggedIn) {
@@ -170,16 +152,16 @@ export const Packs = React.memo(() => {
                             <FilterAltOffIcon/>
                         </Button>
                     </div>
-                    <PacksTable
-                        pageCount={pageCount}
-                        totalCount={totalCount}
-                        currentPage={currentPage}
-                        packs={packs}
-                        sortUpdate={sortUpdate}
-                        sort={sort}
-                    />
+                    <PacksTable/>
                 </Container>
             </Grid>
+            <PaginationBar
+                paginationPages={PacksPaginationPages}
+                pageCount={pageCount}
+                page={page}
+                pageCountHandler={packsPageCountHandler}
+                handleChangePage={packsHandleChangePage}
+            />
         </div>
     )
 })

@@ -1,17 +1,17 @@
-import {AxiosError} from 'axios';
-import {errorUtil} from '../utils/Error-util';
-import {setAppStatusAC} from './App-reducer';
-import {AppThunkType} from "./Store";
+import {AxiosError} from 'axios'
+import {errorUtil} from '../utils/Error-util'
+import {setAppStatusAC} from './App-reducer'
+import {AppThunkType} from './Store'
 import {
     cardsApi,
-    PacksType,
+    PackType,
     PostPacksType,
     UpdatePacksType
-} from "../api/Cards-api";
+} from '../api/Cards-api'
 
 
 const initialState = {
-    cardPacks: [] as PacksType[],
+    cardPacks: [] as PackType[],
     cardPacksTotalCount: 0,
     statusPackCards: 'all' as 'all' | 'my',
     minCardsCount: 0,
@@ -32,7 +32,7 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
     switch (action.type) {
         case 'PACKS/SET-PACKS':
             return {...state, cardPacks: [...action.packs]}
-        case "PACKS/DELETE-PACK":
+        case 'PACKS/DELETE-PACK':
             return {...state, cardPacks: state.cardPacks.filter((el) => el._id !== action.packID)}
         case 'PACKS/ADD-NEW-PACK':
             return {...state, cardPacks: [action.newPack, ...state.cardPacks]}
@@ -57,9 +57,12 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
             return {...state, params: {...state.params, packName: action.packName}}
         case 'PACKS/SET-TYPE-PACK-CARDS':
             return {...state, statusPackCards: action.statusPackCards}
+        case 'PACKS/SET-CARD-PACKS-PAGE':
+            return {...state,params: {...state.params,page: action.page}}
+        case 'PACKS/SET-CARD-PACKS-PAGE-COUNT':
+            return {...state, params: {...state.params,pageCount: action.pageCount}}
         // case 'PACKS/CLEAR_FILTERS':
         //     return {...state, minCardsCount: 0, maxCardsCount: 110, showPackCards: 'all'}
-
         default:
             return state
     }
@@ -67,17 +70,22 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
 
 
 //actions
-export const setPacksAC = (packs: PacksType[]) => ({type: 'PACKS/SET-PACKS', packs}) as const
-export const addNewPackAC = (newPack: PacksType) => ({type: 'PACKS/ADD-NEW-PACK', newPack}) as const
-export const updatePackAC = (updatedPack: PacksType) => ({type: 'PACKS/UPDATE-PACK', updatedPack}) as const
+export const setPacksAC = (packs: PackType[]) => ({type: 'PACKS/SET-PACKS', packs}) as const
+export const addNewPackAC = (newPack: PackType) => ({type: 'PACKS/ADD-NEW-PACK', newPack}) as const
+export const updatePackAC = (updatedPack: PackType) => ({type: 'PACKS/UPDATE-PACK', updatedPack}) as const
 export const deletePackAC = (packID: string) => ({type: 'PACKS/DELETE-PACK', packID}) as const
 export const setCardPacksTotalCountAC = (value: number) => ({type: 'PACKS/SET-CARD-PACKS-TOTAL-COUNT', value}) as const
 export const setMinMaxAC = (min: number, max: number) => ({type: 'PACKS/SET-MIN-MAX', min, max} as const)
 export const setMinMaxCountAC = (minCardsCount: number, maxCardsCount: number) =>
     ({type: 'PACKS/SET-MIN-MAX-COUNT', minCardsCount, maxCardsCount} as const)
+export const setCardPacksPageAC = (page: number) => ({type: 'PACKS/SET-CARD-PACKS-PAGE', page} as const)
+export const setCardPacksPageCountAC = (pageCount: number) => ({type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT', pageCount} as const)
 export const sortPacksAC = (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const)
 export const searchPacksAC = (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const)
-export const setTypePackCardsAC = (statusPackCards: 'my' | 'all') => ({type: 'PACKS/SET-TYPE-PACK-CARDS', statusPackCards} as const)
+export const setTypePackCardsAC = (statusPackCards: 'my' | 'all') => ({
+    type: 'PACKS/SET-TYPE-PACK-CARDS',
+    statusPackCards
+} as const)
 export const clearFiltersAC = () => ({type: 'PACKS/CLEAR_FILTERS'} as const)
 
 
@@ -150,7 +158,7 @@ export const setParamsSortPack = (sortParams: string): AppThunkType => dispatch 
 
 
 //types
-export type PackReducerStateType = typeof initialState
+type PackReducerStateType = typeof initialState
 export type PacksActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof deletePackAC>
     | ReturnType<typeof addNewPackAC>
@@ -162,3 +170,5 @@ export type PacksActionType = ReturnType<typeof setPacksAC>
     | ReturnType<typeof sortPacksAC>
     | ReturnType<typeof searchPacksAC>
     | ReturnType<typeof setTypePackCardsAC>
+    | ReturnType<typeof setCardPacksPageAC>
+    | ReturnType<typeof setCardPacksPageCountAC>

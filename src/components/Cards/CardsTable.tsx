@@ -1,31 +1,17 @@
 import React from 'react'
-import TableContainer from "@mui/material/TableContainer"
-import Paper from "@mui/material/Paper"
-import TableHead from "@mui/material/TableHead"
-import TableRow from "@mui/material/TableRow"
-import TableCell from "@mui/material/TableCell"
-import TableBody from "@mui/material/TableBody"
+import TableContainer from '@mui/material/TableContainer'
+import Paper from '@mui/material/Paper'
+import TableHead from '@mui/material/TableHead'
+import TableRow from '@mui/material/TableRow'
+import TableCell from '@mui/material/TableCell'
+import TableBody from '@mui/material/TableBody'
 import Table from '@mui/material/Table'
-import {useAppSelector} from "../../utils/Hooks"
-import {Card} from "./Card";
+import {useAppSelector} from '../../utils/Hooks'
+import {Card} from './Card'
 
 
-type CardsTablePropsType = {
-    status: string
-}
-
-
-export const CardsTable = (props: CardsTablePropsType) => {
+export const CardsTable = () => {
     const cards = useAppSelector(state => state.cards.cards)
-
-
-    // let arraySelect = [1, 2, 3, 4, 5, 6, 7, 8, 9]
-
-    // const newArray = arraySelect.map((el, i) => {
-    //     return <div>
-    //         <option value={el} key={i}>{el}</option>
-    //     </div>
-    // })
 
     return (
         <div>
@@ -44,7 +30,6 @@ export const CardsTable = (props: CardsTablePropsType) => {
                             <Card
                                 key={card._id}
                                 card={card}
-                                status={props.status}
                             />
                         ))}
                     </TableBody>

@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import {NavLink, useNavigate} from 'react-router-dom'
 import {ModalDeletePack} from '../../common/Modals/Modal-pack/Modal-delete-pack'
-import {PacksType} from '../../api/Cards-api'
+import {PackType} from '../../api/Cards-api'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {useState} from 'react'
 import {deletePackTC, updatePackTC} from '../../redux/Packs-reducer'
@@ -18,7 +18,12 @@ import {getCard} from '../../features/Smart-random'
 import {setUtilsAC} from '../../redux/Cards-reducer'
 
 
-export const Pack = (props: PacksType) => {
+type PackPropsType = {
+    pack: PackType
+}
+
+
+export const Pack = (props: PackPropsType) => {
     const myID = useAppSelector(state => state.profile._id)
     const cards = useAppSelector(state => state.cards.cards)
     const status = useAppSelector(state => state.app.status)
@@ -36,10 +41,10 @@ export const Pack = (props: PacksType) => {
     }
 
     const deletePack = () => {
-        dispatch(deletePackTC(props._id))
+        dispatch(deletePackTC(props.pack._id))
     }
     const editPack = (name: string, deckCover: string) => {
-        dispatch(updatePackTC({cardsPack: {_id: props._id, name, deckCover}}))
+        dispatch(updatePackTC({cardsPack: {_id: props.pack._id, name, deckCover}}))
     }
 
     const deleteButtonClickHandler = () => {
@@ -52,26 +57,26 @@ export const Pack = (props: PacksType) => {
 
     return (
         <TableRow
-            key={props._id}
+            key={props.pack._id}
             sx={{'&:last-child td, &:last-child th': {border: 0}}}>
             <TableCell align='right'>
                 <img
                     style={{width: '60px', height: '40px'}}
-                    src={props.deckCover ? props.deckCover : defaultCover}
+                    src={props.pack.deckCover ? props.pack.deckCover : defaultCover}
                     alt='img'
                 />
             </TableCell>
             <TableCell component='th' scope='row' align='right'>
-                <NavLink to={`${PATH.CARDS}/${props._id}`} style={{textDecoration: 'none'}}>
-                    {props.name}
+                <NavLink to={`${PATH.CARDS}/${props.pack._id}`} style={{textDecoration: 'none'}}>
+                    {props.pack.name}
                 </NavLink>
             </TableCell>
-            <TableCell align='right'>{props.cardsCount}</TableCell>
-            <TableCell align='right'>{props.updated?.split('').splice(0, 10)}</TableCell>
-            <TableCell align='right'>{props.user_name}</TableCell>
+            <TableCell align='right'>{props.pack.cardsCount}</TableCell>
+            <TableCell align='right'>{props.pack.updated?.split('').splice(0, 10)}</TableCell>
+            <TableCell align='right'>{props.pack.user_name}</TableCell>
             <TableCell align={'right'}>
                 <div>
-                    {myID === props.user_id
+                    {myID === props.pack.user_id
                         ?
                         <span>
                             <Button onClick={editButtonClickHandler} disabled={status === 'loading'}>
@@ -95,17 +100,17 @@ export const Pack = (props: PacksType) => {
             <ModalDeletePack
                 title={'Delete Pack'}
                 open={openModalDeletePack}
-                name={props.name}
+                name={props.pack.name}
                 toggleOpenMode={setOpenModalDeletePack}
                 deleteItem={deletePack}
             />
             <ModalEditPack
                 title={'Edit Pack'}
-                itemTitle={props.name}
+                itemTitle={props.pack.name}
                 open={openEditModalPack}
                 toggleOpenMode={setOpenEditModalPack}
                 editItem={editPack}
-                img={props.deckCover}
+                img={props.pack.deckCover}
             />
         </TableRow>
     )

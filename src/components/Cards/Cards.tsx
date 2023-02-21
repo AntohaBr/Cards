@@ -1,4 +1,4 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
+import React, {ChangeEvent, useCallback, useEffect, useState} from 'react'
 import Button from '@mui/material/Button'
 import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './CardsTable'
@@ -65,13 +65,13 @@ export const Cards = React.memo(() => {
             dispatch(searchCardsAC(e.currentTarget.value))
         }
 
-        const pageCountHandler = (value: string) => {
+        const cardsPageCountHandler = useCallback( (value: string) => {
             dispatch(setCardsPageCountAC(+value))
-        }
+        }, [])
 
-        const handleChangePage = (page: number) => {
+        const cardsHandleChangePage = useCallback ((page: number) => {
             dispatch(setCardsPageAC(page))
-        }
+        },[])
 
         return (
             <div>
@@ -152,21 +152,16 @@ export const Cards = React.memo(() => {
                                 </Button>
                             </div>
                         }
-                        <CardsTable
-                            status={status}
-                        />
+                        <CardsTable/>
                         <div>
                             <PaginationBar
                                 paginationPages={cardsPaginationPages}
                                 pageCount={pageCount}
                                 page={page}
-                                pageCountHandler={pageCountHandler}
-                                handleChangePage={handleChangePage}
-                                optionSelect={[10,25,50,100]}
-                                status={status}
+                                pageCountHandler={cardsPageCountHandler}
+                                handleChangePage={cardsHandleChangePage}
                             />
                         </div>
-
                     </div>
                 }
             </div>

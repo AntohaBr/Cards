@@ -36,7 +36,7 @@ export const cardsApi = {
 
 //types
 export type GetPacksResponseType = {
-    cardPacks: PacksType[]
+    cardPacks: PackType[]
     page: number
     pageCount: number
     cardPacksTotalCount: number
@@ -47,7 +47,7 @@ export type GetPacksResponseType = {
     sortPacks:string
 }
 
-export type PacksType = {
+export type PackType = {
     _id: string
     user_id?: string
     name: string
@@ -85,18 +85,18 @@ export type PostPacksType = {
 }
 
 type AddNewPackTypeResponseType = {
-    newCardsPack: PacksType
+    newCardsPack: PackType
     token: string
     tokenDeathTime: number
 }
 export type DeletePackResponseType = {
-    deletedCardsPack: PacksType
+    deletedCardsPack: PackType
     token: string
     tokenDeathTime: number
 }
 
 export type UpdatePackResponseType = {
-    updatedCardsPack: PacksType
+    updatedCardsPack: PackType
     token: string
     tokenDeathTime: number
 }

@@ -6,10 +6,10 @@ import {AppThunkType} from './Store'
 
 
 const initialState = {
-    _id: '' as string,
-    name: '' as string,
-    email: '' as string,
-    avatar: '' as string,
+    _id: '',
+    name: '',
+    email: '',
+    avatar: '',
 }
 
 
@@ -21,7 +21,7 @@ export const profileReducer = (state: initialStateType = initialState, action: P
         case 'PROFILE/SET-INFO-USER':
             return {...state, ...action.profile}
         default:
-            return state;
+            return state
     }
 }
 
@@ -48,12 +48,11 @@ export const updateProfileTC = (name: string, avatar?: string): AppThunkType => 
 
 
 //types
-export type ProfileActionType =
-    UpdateProfileActionType
-    | SetInfoUserActionType
-    | ReturnType<typeof setAppStatusAC>
-export type SetInfoUserActionType = ReturnType<typeof setInfoUserAC>
-export type UpdateProfileActionType = ReturnType<typeof updateProfileAC>
 type initialStateType = typeof initialState
 type ProfileType = initialStateType
+export type SetInfoUserActionType = ReturnType<typeof setInfoUserAC>
+export type ProfileActionType = ReturnType<typeof updateProfileAC>
+    | SetInfoUserActionType
+    | ReturnType<typeof setAppStatusAC>
+
 

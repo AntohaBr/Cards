@@ -14,15 +14,16 @@ import {ModalEditCard} from '../../common/Modals/Modal-card/Modal-edit-card'
 
 type CardPropsType = {
     card: CardType
-    status: string
 }
 
 
 export const Card = (props: CardPropsType) => {
+    const status = useAppSelector(state => state.app.status)
+    const myID = useAppSelector(state => state.profile._id)
+
     const [openModalEditCard, setOpenModalEditCard] = useState(false)
     const [openModalDeleteCard, setOpenModalDeleteCard] = useState(false)
 
-    const myID = useAppSelector(state => state.profile._id)
     const dispatch = useAppDispatch()
 
     const question = () => {
@@ -87,10 +88,10 @@ export const Card = (props: CardPropsType) => {
         </TableCell>
         {myID === props.card.user_id && (
             <span>
-                    <Button onClick={editCardButtonClickHandler} disabled={props.status === 'loading'}>
+                    <Button onClick={editCardButtonClickHandler} disabled={status === 'loading'}>
                         <EditIcon/>
                     </Button>
-                    <Button onClick={deleteCardButtonClickHandler} disabled={props.status === 'loading'}>
+                    <Button onClick={deleteCardButtonClickHandler} disabled={status === 'loading'}>
                         <DeleteOutlineIcon/>
                     </Button>
             </span>

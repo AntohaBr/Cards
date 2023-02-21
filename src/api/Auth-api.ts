@@ -11,19 +11,22 @@ export const authApi = {
         return instance.post<RegistrationType, AxiosResponse<ResponseRegistrationType>>('auth/register', data)
     },
     login(data: LoginType) {
-        return instance.post<LoginType,AxiosResponse<LogInResponseType> >('auth/login', data)
+        return instance.post<LoginType, AxiosResponse<LogInResponseType>>('auth/login', data)
     },
     logOut() {
         return instance.delete<{ info: string, error: string }>('auth/me')
     },
     updateProfile(name?: string, avatar?: string) {
-        return instance.put<{ name: string; avatar: string }, AxiosResponse<UpdateProfileResponseType>>('auth/me', {name, avatar})
+        return instance.put<{ name: string; avatar: string }, AxiosResponse<UpdateProfileResponseType>>('auth/me', {
+            name,
+            avatar
+        })
     },
-    recoveryPassword(data:ForgotType){
-        return instance.post<ForgotType,AxiosResponse<ResponseForgotType>>('auth/forgot',data)
+    recoveryPassword(data: ForgotType) {
+        return instance.post<ForgotType, AxiosResponse<ResponseForgotType>>('auth/forgot', data)
     },
-    setNewPassword(token:NewPasswordType){
-        return instance.post<NewPasswordType,AxiosResponse<ResponseNewPasswordType>>('auth/set-new-password',token)
+    setNewPassword(token: NewPasswordType) {
+        return instance.post<NewPasswordType, AxiosResponse<ResponseNewPasswordType>>('auth/set-new-password', token)
     }
 }
 
@@ -39,7 +42,7 @@ export type ResponseRegistrationType = {
     error?: string
 }
 
-export type ResponseType={
+export type ResponseType = {
     _id: string;
     email: string;
     name: string;
@@ -69,22 +72,22 @@ export type LogInResponseType = {
     avatar: string
 }
 
-export type ForgotType={
+export type ForgotType = {
     email: string
     message: string
 }
 
-type ResponseForgotType ={
-    info:string
+type ResponseForgotType = {
+    info: string
     error: string
 }
 
-export type NewPasswordType ={
+export type NewPasswordType = {
     password: string
     resetPasswordToken: string
 }
 
-type ResponseNewPasswordType ={
+type ResponseNewPasswordType = {
     info: string
     error: string
 }

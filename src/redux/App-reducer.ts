@@ -61,13 +61,12 @@ export const isInitializedTC = (): AppThunkType => async (dispatch) => {
 
 
 //types
-export type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed' | 'none'
+type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed' | 'none'
 type AppStateType = typeof initialState
-export type AppActionType =
-    | SetAppStatusActionType
-    | ReturnType<typeof isInitializedAC>
-    | SetAppErrorActionType
+export type AppActionType = ReturnType<typeof isInitializedAC>
     | ReturnType<typeof addLoginAC>
+    | SetAppStatusActionType
+    | SetAppErrorActionType
     | SetInfoUserActionType
 export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
 export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>

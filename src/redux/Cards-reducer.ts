@@ -36,7 +36,7 @@ export const initialState = {
 
 export const cardsReducer = (state: CardsReducerStateType = initialState, action: CardsActionType): CardsReducerStateType => {
     switch (action.type) {
-        case 'CARDS/SET_CARDS':
+        case 'CARDS/SET-CARDS':
             return {
                 ...state,
                 cards: action.data.cards,
@@ -45,7 +45,7 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
                 packDeckCover: action.data.packDeckCover,
                 packUserId: action.data.packUserId
             }
-        case 'CARDS/UPDATE_GRADE_CARD':
+        case 'CARDS/UPDATE-GRADE-CARD':
             return {
                 ...state,
                 cards: state.cards.map(el =>
@@ -54,7 +54,7 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
                         : el
                 ),
             }
-        case 'CARDS/SET_UTILS':
+        case 'CARDS/SET-UTILS':
             const currentCard = state.cards.find(el => el._id === action._id)
             if (currentCard) {
                 return {...state, cardAnswer: currentCard.answer, cardQuestion: currentCard.question}
@@ -74,9 +74,11 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
     }
 }
 
-export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET_CARDS', data} as const)
-export const updateGradeCardAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/UPDATE_GRADE_CARD', data} as const)
-export const setUtilsAC = (_id: string) => ({type: 'CARDS/SET_UTILS', _id} as const)
+
+//actions
+export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET-CARDS', data} as const)
+export const updateGradeCardAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/UPDATE-GRADE-CARD', data} as const)
+export const setUtilsAC = (_id: string) => ({type: 'CARDS/SET-UTILS', _id} as const)
 export const searchCardsAC = (cardQuestion: string) => ({type: 'CARDS/SEARCH-BY-CARD-QUESTION', cardQuestion} as const)
 export const setCardsPageAC = (page: number) => ({type: 'CARDS/SET-CARDS-PAGE', page} as const)
 export const setCardsPageCountAC = (pageCount: number) => ({type: 'CARDS/SET-CARDS-PAGE-COUNT', pageCount} as const)
@@ -161,7 +163,7 @@ export const updateGradeCardTC = (putModelGrade: CardLearnType): AppThunkType =>
 
 
 //types
-export type CardsReducerStateType = typeof initialState
+type CardsReducerStateType = typeof initialState
 export type CardsActionType = ReturnType<typeof setCardsAC>
     | ReturnType<typeof updateGradeCardAC>
     | ReturnType<typeof setUtilsAC>

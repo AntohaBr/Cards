@@ -111,13 +111,13 @@ export const setNewPasswordTC = (password: string, token: string): AppThunkType 
 
 
 //types
-export type AuthActionType =
-    ReturnType<typeof addLoginAC>
+type InitialStateType = typeof initialState
+export type AuthActionType = ReturnType<typeof addLoginAC>
     | ReturnType<typeof registrationAC>
     | ReturnType<typeof recoveryPasswordAC>
     | ReturnType<typeof setNewPasswordAC>
     | SetAppErrorActionType
     | SetAppStatusActionType
     | SetInfoUserActionType
-type InitialStateType = typeof initialState
+
 

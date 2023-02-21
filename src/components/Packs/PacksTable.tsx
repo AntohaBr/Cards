@@ -9,39 +9,33 @@ import Paper from '@mui/material/Paper'
 import {Container, Grid} from '@mui/material'
 import {Navigate} from 'react-router-dom'
 import {Pack} from './Pack'
-import {PacksType} from '../../api/Cards-api'
 import {PATH} from '../../app/Routes/Routes'
-import styles from './PacksTable.module.css'
+import style from './PacksTable.module.css'
+import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {setParamsSortPack} from '../../redux/Packs-reducer'
 
 
-type PropsType = {
-    totalCount: number
-    pageCount: number
-    currentPage: number
-    packs: PacksType[]
-    sortUpdate: (sortParams: string) => void
-    sort: string
-}
+export const PacksTable = () => {
+    const packs = useAppSelector(state => state.packs.cardPacks)
+    const sort = useAppSelector(state => state.packs.params.sortPacks)
 
+    const dispatch = useAppDispatch()
 
-export const PacksTable = (props: PropsType) => {
-    // const dispatch = useAppDispatch()
-    // const array = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    const sortUpdate = (sortParams: string) => {
+        return sort === `1${sortParams}` ? dispatch(setParamsSortPack(`0${sortParams}`))
+            : dispatch(setParamsSortPack(`1${sortParams}`))
+    }
+
 
     const redirectToCards = () => {
         return <Navigate to={PATH.CARDS}/>
     }
 
-    // const setPageCount = (e: ChangeEvent<HTMLSelectElement>) => {
-    //     dispatch(getPacksTC({pageCount: +e.currentTarget.value, page: props.currentPage}))
-    // }
-    //
-    // const paginationFunc = (event: React.ChangeEvent<unknown>, page: number) => {
-    //     dispatch(getPacksTC({pageCount: props.pageCount, page}))
-    //     dispatch(setCurrentPagePacksAC(page))
-    // }
-    //
-    // const pagination = Math.ceil(props.totalCount / props.pageCount)
+    if (sort.includes('updated')){
+
+    } else {
+
+    }
 
     return (
         <div>
@@ -54,59 +48,41 @@ export const PacksTable = (props: PropsType) => {
                                     <TableCell align='right'>Cover</TableCell>
                                     <TableCell
                                         align='right'
-                                        className={props.sort === '0name' ? styles.sortUp : styles.sortDown}
-                                        onClick={() => props.sortUpdate('name')}
+                                        className={sort === '0name' ? style.sortUp : style.sortDown}
+                                        onClick={() => sortUpdate('name')}
                                     >Name
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={props.sort === '0cardsCount' ? styles.sortUp : styles.sortDown}
-                                        onClick={() => props.sortUpdate('cardsCount')}
+                                        className={sort === '0cardsCount' ? style.sortUp : style.sortDown}
+                                        onClick={() => sortUpdate('cardsCount')}
                                     >Cards
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={props.sort === '0updated' ? styles.sortUp : styles.sortDown}
-                                        onClick={() => props.sortUpdate('updated')}
+                                        className={!sort.includes('updated') ? style.withoutSort : sort === '0updated' ? style.sortUp : style.sortDown}
+                                        onClick={() => sortUpdate('updated')}
                                     >Last updated(g)
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={props.sort === '0user_name' ? styles.sortUp : styles.sortDown}
-                                        onClick={() => props.sortUpdate('user_name')}
+                                        className={sort === '0user_name' ? style.sortUp : style.sortDown}
+                                        onClick={() => sortUpdate('user_name')}
                                     >Created by
                                     </TableCell>
                                     <TableCell align='right'>Actions</TableCell>
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                {props.packs.map(pack => (
+                                {packs.map(pack => (
                                     <Pack
                                         key={pack._id}
-                                        _id={pack._id}
-                                        user_id={pack.user_id}
-                                        name={pack.name}
-                                        cardsCount={pack.cardsCount}
-                                        user_name={pack.user_name}
-                                        updated={pack.updated}
-                                        deckCover={pack.deckCover}
+                                        pack={pack}
                                     />
                                 ))}
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    {/*        <span>*/}
-                    {/*    <Pagination count={setPagination([], pagination).length} variant={"outlined"} shape={"rounded"}*/}
-                    {/*                color={"primary"}*/}
-                    {/*                onChange={paginationFunc}/>*/}
-                    {/*    Show <NativeSelect variant={"outlined"} defaultValue={props.pageCount} onChange={setPageCount}>*/}
-                    {/*    {array.map(n => (*/}
-                    {/*        <div>*/}
-                    {/*            <option value={n}>{n}</option>*/}
-                    {/*        </div>*/}
-                    {/*    ))}*/}
-                    {/*</NativeSelect>*/}
-                    {/*      </span>*/}
                 </Container>
             </Grid>
         </div>
