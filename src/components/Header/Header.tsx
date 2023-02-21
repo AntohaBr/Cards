@@ -69,10 +69,7 @@ export const Header = () => {
                                 sx={{width: 50, height: 50}}
                             />
                         </Button>
-
-
                     </div>
-
                 </header>
             </div>
         </div>

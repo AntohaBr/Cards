@@ -26,15 +26,8 @@ export const PacksTable = () => {
             : dispatch(setParamsSortPack(`1${sortParams}`))
     }
 
-
     const redirectToCards = () => {
         return <Navigate to={PATH.CARDS}/>
-    }
-
-    if (sort.includes('updated')){
-
-    } else {
-
     }
 
     return (
@@ -48,25 +41,29 @@ export const PacksTable = () => {
                                     <TableCell align='right'>Cover</TableCell>
                                     <TableCell
                                         align='right'
-                                        className={sort === '0name' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('0name') ? style.withoutSort :
+                                        sort === '0name' ? style.sortUp : style.sortDown}
                                         onClick={() => sortUpdate('name')}
                                     >Name
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={sort === '0cardsCount' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('0cardsCount') ? style.withoutSort :
+                                            sort === '0cardsCount' ? style.sortUp : style.sortDown}
                                         onClick={() => sortUpdate('cardsCount')}
                                     >Cards
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={!sort.includes('updated') ? style.withoutSort : sort === '0updated' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('updated') ? style.withoutSort :
+                                             sort === '0updated' ? style.sortUp : style.sortDown}
                                         onClick={() => sortUpdate('updated')}
                                     >Last updated(g)
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={sort === '0user_name' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('0user_name') ? style.withoutSort :
+                                            sort === '0user_name' ? style.sortUp : style.sortDown}
                                         onClick={() => sortUpdate('user_name')}
                                     >Created by
                                     </TableCell>

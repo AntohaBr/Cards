@@ -30,7 +30,6 @@ interface State {
 export const Login = () => {
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
     const status = useAppSelector((state) => state.app.status)
-    const error = useAppSelector(state => state.app.successError)
 
     const dispatch = useAppDispatch()
 
@@ -114,11 +113,6 @@ export const Login = () => {
                             </Button>
                         </div>
                         <FormLabel>
-                            {error === '' ? '' : <div style={{
-                                color: 'red',
-                                display: 'flex',
-                                justifyContent: 'center'
-                            }}>{error}</div>}
                             <p className={styleForms.text}>Already have an account?</p>
                             <div className={styleForms.navLinkBlock}>
                                 <NavLink className={styleForms.navLink} to={PATH.REGISTRATION}>Sign up</NavLink>

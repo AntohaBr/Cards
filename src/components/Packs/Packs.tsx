@@ -8,16 +8,14 @@ import {ModalAddPack} from '../../common/Modals/Modal-pack/Modal-add-pack'
 import {Search} from '../../common/Search/Search'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import {
-    addNewPackTC,
+    addNewPackTC, clearFiltersAC,
     getPacksTC,
-    searchPacksAC, setCardPacksPageAC, setCardPacksPageCountAC,
-    setMinMaxAC,
-    setTypePackCardsAC
+    searchPacksAC, setCardPacksPageAC, setCardPacksPageCountAC, setMinMaxSearchCardAC,
+    setTypePackCardsAC, sortPacksAC
 } from '../../redux/Packs-reducer'
 import {useDebounce} from '../../utils/Use-debounce'
 import {RangeSlider} from '../Renge-slider/Renge-slider'
 import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
-
 
 
 export const Packs = React.memo(() => {
@@ -27,14 +25,12 @@ export const Packs = React.memo(() => {
     const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
     const status = useAppSelector(state => state.app.status)
     const statusPackCards = useAppSelector(state => state.packs.statusPackCards)
-    const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
     const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
     const packName = useAppSelector(state => state.packs.params.packName)
     const min = useAppSelector(state => state.packs.params.min)
     const max = useAppSelector(state => state.packs.params.max)
 
     const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
-    const [value, setValue] = React.useState<number | number[]>([min, max])
 
     const debouncedValue = useDebounce<string>(packName, 700)
 
@@ -66,25 +62,23 @@ export const Packs = React.memo(() => {
         setOpenModalAddPack(true)
     }
 
-    const onChangeRangeHandler = (event: Event, newValue: number | number[]) => {
-        setValue(newValue as [number, number])
-    }
-
-    const handleChangeMinMaxPacks = (event: React.SyntheticEvent | Event, value: number | Array<number>) => {
-        if (Array.isArray(value)) {
-            dispatch(setMinMaxAC(value[0], value[1]))
-            setValue([value[0], value[1]])
-        }
-    }
-
-    const packsPageCountHandler = useCallback( (value: string) => {
+    const packsPageCountHandler = useCallback((value: string) => {
         dispatch(setCardPacksPageCountAC(+value))
     }, [])
 
-    const packsHandleChangePage = useCallback ((page: number) => {
+    const packsHandleChangePage = useCallback((page: number) => {
         dispatch(setCardPacksPageAC(page))
-    },[])
+    }, [])
 
+    const resetFilterHandler = () => {
+        dispatch(clearFiltersAC(true))
+        dispatch(searchPacksAC(''))
+        dispatch(setCardPacksPageAC(1))
+        dispatch(setCardPacksPageCountAC(7))
+        dispatch(setTypePackCardsAC('all'))
+        dispatch(sortPacksAC(''))
+        dispatch(setMinMaxSearchCardAC(0,maxCardsCount))
+    }
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -139,16 +133,10 @@ export const Packs = React.memo(() => {
                         <div>
                             <h4>Number of cards</h4>
                             <div>
-                                <RangeSlider
-                                    min={minCardsCount}
-                                    max={maxCardsCount}
-                                    value={value}
-                                    onChange={onChangeRangeHandler}
-                                    onChangeCommitted={handleChangeMinMaxPacks}
-                                />
+                                <RangeSlider/>
                             </div>
                         </div>
-                        <Button color={'inherit'}>
+                        <Button color={'inherit'} onClick={resetFilterHandler} disabled={status === 'loading'}>
                             <FilterAltOffIcon/>
                         </Button>
                     </div>
