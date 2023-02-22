@@ -1,4 +1,4 @@
-import {Route, Routes} from 'react-router-dom'
+import {Navigate, Route, Routes} from 'react-router-dom'
 import {Login} from '../../components/Login/Login'
 import {Registration} from '../../components/Registration/Registration'
 import {Profile} from '../../components/Profile/Profile'
@@ -46,6 +46,7 @@ export const PagesRoutes = () => {
             <Route path={`${PATH.CARDS}/:packId`} element={<Cards/>}/>
             <Route path={`${PATH.LEARN}/:cardId`} element={<Learn/>}/>
             <Route path={PATH.RESULT} element={<Result/>}/>
+            <Route path={'*'} element={<Navigate to={PATH.ERROR404}/>}/>
         </Routes>
     )
 }

@@ -20,8 +20,7 @@ export const store = legacy_createStore(rootReducer, applyMiddleware(thunk))
 
 //type
 export type RootReducerType = ReturnType<typeof rootReducer>
-export type AppActionsType =
-    AppActionType
+export type AppActionsType = AppActionType
     | AuthActionType
     | CardsActionType
     | PacksActionType

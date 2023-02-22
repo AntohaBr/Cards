@@ -11,7 +11,6 @@ const initialState = {
     successError: null as null | string,
     isInitialized: false,
     successMessage: null as null | string,
-    isDisabled: false
 }
 
 
@@ -22,7 +21,7 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
             return {...state, successError: action.successError}
         }
         case 'APP/SET-APP-STATUS': {
-            return {...state, status: action.status, isDisabled: action.isDisabled}
+            return {...state, status: action.status}
         }
         case 'APP/IS-INITIALIZED': {
             return {...state, isInitialized: action.isInitialized}
@@ -37,25 +36,25 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 //actions
 export const isInitializedAC = (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const)
 export const setAppErrorAC = (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const)
-export const setAppStatusAC = (status: AppStatusType, isDisabled: boolean) =>
-    ({type: 'APP/SET-APP-STATUS', status, isDisabled} as const)
+export const setAppStatusAC = (status: AppStatusType) =>
+    ({type: 'APP/SET-APP-STATUS', status} as const)
 
 
 //thunks
 export const isInitializedTC = (): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await authApi.me()
         dispatch(addLoginAC(true))
         dispatch(isInitializedAC(true))
         dispatch(setInfoUserAC(res.data))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         dispatch(isInitializedAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle', false))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 

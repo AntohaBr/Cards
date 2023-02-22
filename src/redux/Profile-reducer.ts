@@ -33,16 +33,16 @@ export const setInfoUserAC = (profile: ProfileType) => ({type: 'PROFILE/SET-INFO
 
 //thunks
 export const updateProfileTC = (name: string, avatar?: string): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await authApi.updateProfile(name, avatar)
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
         dispatch(updateProfileAC(res.data.updatedProfile))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle', false))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 

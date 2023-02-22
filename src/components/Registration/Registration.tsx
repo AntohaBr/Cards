@@ -15,9 +15,9 @@ import {Navigate, NavLink} from 'react-router-dom'
 import {registrationTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
-import {validateUtil} from '../../utils/Validate-util/Validate-util'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import {RegistrationType} from '../../api/Auth-api'
+import {validateUtil} from '../../utils/Validate-util'
 
 
 interface State {

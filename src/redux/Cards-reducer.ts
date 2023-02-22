@@ -89,75 +89,75 @@ export const setCardsTotalCountAC = (cardsTotalCount: number) => ({
 
 //thunks
 export const getCardsTC = (params: GetCardsParamsType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.getCards(params)
         dispatch(setCardsPageCountAC(res.data.pageCount))
         dispatch(setCardsTotalCountAC(res.data.cardsTotalCount))
         dispatch(setCardsPageAC(res.data.page))
         dispatch(setCardsAC(res.data))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle', false))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 
 export const deleteCardsTC = (_id: string): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.deleteCards(_id)
         dispatch(getCardsTC({cardsPack_id: res.data.deletedCard.cardsPack_id}))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle', false))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 
 export const addNewCardsTC = (postModel: PostCardType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.addNewCards(postModel)
         dispatch(getCardsTC({cardsPack_id: res.data.newCard.cardsPack_id}))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle', false))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 
 export const updateCardsTC = (putModel: UpdateCardType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.updateCards({...putModel})
         dispatch(getCardsTC({cardsPack_id: res.data.updatedCard.cardsPack_id}))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle', false))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 
 export const updateGradeCardTC = (putModelGrade: CardLearnType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.updateGradeCard(putModelGrade)
         dispatch(updateGradeCardAC(res.data.updatedGrade))
-        dispatch(setAppStatusAC("succeeded", false))
+        dispatch(setAppStatusAC("succeeded"))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle', false))
+        dispatch(setAppStatusAC('idle'))
     }
 }
 

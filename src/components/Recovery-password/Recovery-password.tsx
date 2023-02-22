@@ -5,8 +5,8 @@ import {Navigate, NavLink} from 'react-router-dom'
 import {recoveryPasswordTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
-import {validateUtil} from '../../utils/Validate-util/Validate-util'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
+import {validateUtil} from '../../utils/Validate-util'
 
 
 export const RecoveryPassword = () => {

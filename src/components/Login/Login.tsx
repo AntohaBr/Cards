@@ -15,10 +15,10 @@ import {VisibilityOff} from '@mui/icons-material'
 import {loginTC} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
-import {validateUtil} from '../../utils/Validate-util/Validate-util'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import style from './Login.module.css'
 import {LoginType} from '../../api/Auth-api'
+import {validateUtil} from '../../utils/Validate-util'
 
 
 interface State {

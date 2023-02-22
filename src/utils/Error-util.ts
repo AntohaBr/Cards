@@ -12,6 +12,6 @@ export const errorUtil = (err: Error | AxiosError<{ successError: null | string 
     } else {
         dispatch(setAppErrorAC(`Native error ${err.message}`))
     }
-    dispatch(setAppStatusAC('failed',false))
+    dispatch(setAppStatusAC('failed'))
 }
 

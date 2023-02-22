@@ -6,6 +6,8 @@ import {useAppDispatch, useAppSelector} from '../utils/Hooks'
 import {PagesRoutes} from './Routes/Routes'
 import {ErrorSnackbar} from '../components/Error-snackbar/Error-snackbar'
 import {Header} from '../components/Header/Header'
+import {loadState} from '../utils/local-storage'
+import {setTypePackCardsAC} from '../redux/Packs-reducer'
 
 
 export const App = () => {
@@ -17,6 +19,7 @@ export const App = () => {
 
     useEffect(() => {
         dispatch(isInitializedTC())
+        dispatch(setTypePackCardsAC(loadState() as 'all' | 'my'))
     }, [])
 
     if (!isInitialized) {

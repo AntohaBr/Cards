@@ -16,6 +16,7 @@ import {
 import {useDebounce} from '../../utils/Use-debounce'
 import {RangeSlider} from '../Renge-slider/Renge-slider'
 import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
+import {saveState} from '../../utils/local-storage'
 
 
 export const Packs = React.memo(() => {
@@ -44,10 +45,12 @@ export const Packs = React.memo(() => {
 
     const allPackCardsHandler = () => {
         dispatch(setTypePackCardsAC('all'))
+        saveState('all')
     }
 
     const myPackCardsHandler = () => {
         dispatch(setTypePackCardsAC('my'))
+        saveState('my')
     }
 
     const addNewPack = (name: string, deckCover: string) => {

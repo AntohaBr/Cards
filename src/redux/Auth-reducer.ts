@@ -12,8 +12,8 @@ import {AppThunkType} from './Store'
 const initialState = {
     isLoggedIn: false,
     isRegistered: false,
-    recoveryPassword: '' as string,
-    newPassport: '' as string
+    recoveryPassword: '',
+    newPassport: ''
 }
 
 
@@ -43,12 +43,12 @@ export const setNewPasswordAC = (newPassport: string) => ({type: 'AUTH/SET-NEW-P
 
 //thunks
 export const loginTC = (data: LoginType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const res = await authApi.login(data)
         dispatch(addLoginAC(true))
         dispatch(setInfoUserAC(res.data))
-        dispatch(setAppStatusAC('succeeded', true))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
@@ -56,11 +56,11 @@ export const loginTC = (data: LoginType): AppThunkType => async (dispatch) => {
 }
 
 export const logOutTC = (): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         await authApi.logOut()
         dispatch(addLoginAC(false))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
@@ -68,11 +68,11 @@ export const logOutTC = (): AppThunkType => async (dispatch) => {
 }
 
 export const registrationTC = (value: RegistrationType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         await authApi.registration(value)
         dispatch(registrationAC(true))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
@@ -80,7 +80,7 @@ export const registrationTC = (value: RegistrationType): AppThunkType => async (
 }
 
 export const recoveryPasswordTC = (email: string): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const data: ForgotType = {
             email: email, message: `<div style="background-color: lime; padding: 15px">
@@ -90,7 +90,7 @@ password recovery link:
         }
         await authApi.recoveryPassword(data)
         dispatch(recoveryPasswordAC(email))
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
@@ -98,11 +98,11 @@ password recovery link:
 }
 
 export const setNewPasswordTC = (password: string, token: string): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading', true))
+    dispatch(setAppStatusAC('loading'))
     try {
         const data: NewPasswordType = {password: password, resetPasswordToken: token}
         await authApi.setNewPassword(data)
-        dispatch(setAppStatusAC('succeeded', false))
+        dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
