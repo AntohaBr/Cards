@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector} from '../utils/Hooks'
 import {PagesRoutes} from './Routes/Routes'
 import {ErrorSnackbar} from '../components/Error-snackbar/Error-snackbar'
 import {Header} from '../components/Header/Header'
-import {loadState} from '../utils/local-storage'
+import {loadState} from '../utils/Local-storage'
 import {setTypePackCardsAC} from '../redux/Packs-reducer'
 
 

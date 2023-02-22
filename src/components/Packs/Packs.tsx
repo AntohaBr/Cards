@@ -11,12 +11,12 @@ import {
     addNewPackTC, clearFiltersAC,
     getPacksTC,
     searchPacksAC, setCardPacksPageAC, setCardPacksPageCountAC, setMinMaxSearchCardAC,
-    setTypePackCardsAC, sortPacksAC
+    setTypePackCardsAC,
 } from '../../redux/Packs-reducer'
 import {useDebounce} from '../../utils/Use-debounce'
 import {RangeSlider} from '../Renge-slider/Renge-slider'
 import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
-import {saveState} from '../../utils/local-storage'
+import {saveState} from '../../utils/Local-storage'
 
 
 export const Packs = React.memo(() => {
@@ -74,13 +74,8 @@ export const Packs = React.memo(() => {
     }, [])
 
     const resetFilterHandler = () => {
-        dispatch(clearFiltersAC(true))
-        dispatch(searchPacksAC(''))
-        dispatch(setCardPacksPageAC(1))
-        dispatch(setCardPacksPageCountAC(7))
-        dispatch(setTypePackCardsAC('all'))
-        dispatch(sortPacksAC(''))
-        dispatch(setMinMaxSearchCardAC(0,maxCardsCount))
+        dispatch(clearFiltersAC())
+        dispatch(setMinMaxSearchCardAC(0, maxCardsCount))
     }
 
     if (!isLoggedIn) {
@@ -146,13 +141,16 @@ export const Packs = React.memo(() => {
                     <PacksTable/>
                 </Container>
             </Grid>
-            <PaginationBar
-                paginationPages={PacksPaginationPages}
-                pageCount={pageCount}
-                page={page}
-                pageCountHandler={packsPageCountHandler}
-                handleChangePage={packsHandleChangePage}
-            />
+            {cardPacksTotalCount === 0
+                ? <h4 style={{fontSize: '18px', marginTop: '50px', color: 'red'}}>Sorry, there are no such packages</h4>
+                : <PaginationBar
+                    paginationPages={PacksPaginationPages}
+                    pageCount={pageCount}
+                    page={page}
+                    pageCountHandler={packsPageCountHandler}
+                    handleChangePage={packsHandleChangePage}
+                />
+            }
         </div>
     )
 })

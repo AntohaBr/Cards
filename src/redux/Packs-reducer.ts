@@ -16,7 +16,6 @@ const initialState = {
     statusPackCards: 'all' as 'all' | 'my',
     minCardsCount: 0,
     maxCardsCount: 110,
-    clearFilter: false,
     params: {
         page: 1,
         pageCount: 7,
@@ -63,7 +62,8 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
         case 'PACKS/SET-CARD-PACKS-PAGE-COUNT':
             return {...state, params: {...state.params, pageCount: action.pageCount}}
         case 'PACKS/CLEAR-FILTERS':
-            return {...state, clearFilter: action.clearFilter}
+            return {...state, minCardsCount: 0, maxCardsCount: 110, statusPackCards: 'all',
+                params:{...state.params,packName: '', sortPacks: '',page: 1, pageCount: 7}}
         default:
             return state
     }
@@ -81,16 +81,12 @@ export const fetchMinMaxCardCountAC = (minCardsCount: number, maxCardsCount: num
     ({type: 'PACKS/FETCH-MIN-MAX-CARDS-COUNT', minCardsCount, maxCardsCount} as const)
 export const setCardPacksPageAC = (page: number) => ({type: 'PACKS/SET-CARD-PACKS-PAGE', page} as const)
 export const setCardPacksPageCountAC = (pageCount: number) => ({
-    type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT',
-    pageCount
-} as const)
+    type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT', pageCount} as const)
 export const sortPacksAC = (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const)
 export const searchPacksAC = (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const)
 export const setTypePackCardsAC = (statusPackCards: 'my' | 'all') => ({
-    type: 'PACKS/SET-TYPE-PACK-CARDS',
-    statusPackCards
-} as const)
-export const clearFiltersAC = (clearFilter: boolean) => ({type: 'PACKS/CLEAR-FILTERS', clearFilter} as const)
+    type: 'PACKS/SET-TYPE-PACK-CARDS', statusPackCards} as const)
+export const clearFiltersAC = () => ({type: 'PACKS/CLEAR-FILTERS'} as const)
 
 
 //thunks

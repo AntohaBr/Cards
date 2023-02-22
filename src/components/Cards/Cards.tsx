@@ -65,13 +65,13 @@ export const Cards = React.memo(() => {
             dispatch(searchCardsAC(e.currentTarget.value))
         }
 
-        const cardsPageCountHandler = useCallback( (value: string) => {
+        const cardsPageCountHandler = useCallback((value: string) => {
             dispatch(setCardsPageCountAC(+value))
         }, [])
 
-        const cardsHandleChangePage = useCallback ((page: number) => {
+        const cardsHandleChangePage = useCallback((page: number) => {
             dispatch(setCardsPageAC(page))
-        },[])
+        }, [])
 
         return (
             <div>
@@ -100,7 +100,10 @@ export const Cards = React.memo(() => {
                             ?
                             <div>
                                 <div>
-                                    This pack is empty. Click add new card to fill this pack
+                                    {!!cardQuestion
+                                        ? <h4 style={{fontSize: '18px', marginTop: '50px', color: 'red'}}>
+                                            Sorry, there are no such cards</h4>
+                                        : 'This pack is empty. Click add new card to fill this pack'}
                                 </div>
                                 <Button onClick={onClickButtonAddCardHandler} type={'submit'} variant={'contained'}
                                         color={'primary'}

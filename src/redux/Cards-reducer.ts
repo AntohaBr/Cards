@@ -83,8 +83,7 @@ export const searchCardsAC = (cardQuestion: string) => ({type: 'CARDS/SEARCH-BY-
 export const setCardsPageAC = (page: number) => ({type: 'CARDS/SET-CARDS-PAGE', page} as const)
 export const setCardsPageCountAC = (pageCount: number) => ({type: 'CARDS/SET-CARDS-PAGE-COUNT', pageCount} as const)
 export const setCardsTotalCountAC = (cardsTotalCount: number) => ({
-    type: 'CARDS/SET-CARDS-TOTAL-COUNT', cardsTotalCount
-} as const)
+    type: 'CARDS/SET-CARDS-TOTAL-COUNT', cardsTotalCount} as const)
 
 
 //thunks

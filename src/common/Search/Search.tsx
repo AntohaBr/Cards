@@ -54,7 +54,7 @@ export const Search = React.memo((props: SearchPropsType) => {
                         <SearchIcon/>
                     </SearchIconWrapper>
                     <StyledInputBase
-                        placeholder='Provide your text'
+                        placeholder={'Provide your text'}
                         inputProps={{'aria-label': 'search'}}
                         type='search'
                         value={props.valueSearch}
