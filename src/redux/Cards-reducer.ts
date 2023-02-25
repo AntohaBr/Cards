@@ -17,20 +17,15 @@ export const initialState = {
     cards: [] as CardType[],
     packUserId: '',
     packName: '',
-    // packPrivate: false,
     packDeckCover: '',
-    // packCreated: '',
-    // packUpdated: '',
     page: 1,
     pageCount: 7,
     cardsTotalCount: 0,
-    // minGrade: 0,
-    // maxGrade: 0,
     cardsPack_id: '',
     cardQuestion: '',
     cardAnswer: '',
     shots: 0,
-    // grade: 0,
+    grade: 0,
 }
 
 
@@ -54,12 +49,6 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
                         : el
                 ),
             }
-        case 'CARDS/SET-UTILS':
-            const currentCard = state.cards.find(el => el._id === action._id)
-            if (currentCard) {
-                return {...state, cardAnswer: currentCard.answer, cardQuestion: currentCard.question}
-            }
-            return state
         case 'CARDS/SEARCH-BY-CARD-QUESTION':
             return {...state, cardQuestion: action.cardQuestion}
         case 'CARDS/SET-CARDS-PAGE':
@@ -78,7 +67,6 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
 //actions
 export const setCardsAC = (data: GetCardsResponseType) => ({type: 'CARDS/SET-CARDS', data} as const)
 export const updateGradeCardAC = (data: UpdatedGradeCartType) => ({type: 'CARDS/UPDATE-GRADE-CARD', data} as const)
-export const setUtilsAC = (_id: string) => ({type: 'CARDS/SET-UTILS', _id} as const)
 export const searchCardsAC = (cardQuestion: string) => ({type: 'CARDS/SEARCH-BY-CARD-QUESTION', cardQuestion} as const)
 export const setCardsPageAC = (page: number) => ({type: 'CARDS/SET-CARDS-PAGE', page} as const)
 export const setCardsPageCountAC = (pageCount: number) => ({type: 'CARDS/SET-CARDS-PAGE-COUNT', pageCount} as const)
@@ -87,7 +75,7 @@ export const setCardsTotalCountAC = (cardsTotalCount: number) => ({
 
 
 //thunks
-export const getCardsTC = (params: GetCardsParamsType): AppThunkType => async (dispatch) => {
+export const setCardsTC = (params: GetCardsParamsType): AppThunkType => async (dispatch) => {
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.getCards(params)
@@ -108,7 +96,7 @@ export const deleteCardsTC = (_id: string): AppThunkType => async (dispatch) => 
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.deleteCards(_id)
-        dispatch(getCardsTC({cardsPack_id: res.data.deletedCard.cardsPack_id}))
+        dispatch(setCardsTC({cardsPack_id: res.data.deletedCard.cardsPack_id}))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -122,7 +110,7 @@ export const addNewCardsTC = (postModel: PostCardType): AppThunkType => async (d
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.addNewCards(postModel)
-        dispatch(getCardsTC({cardsPack_id: res.data.newCard.cardsPack_id}))
+        dispatch(setCardsTC({cardsPack_id: res.data.newCard.cardsPack_id}))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -136,7 +124,7 @@ export const updateCardsTC = (putModel: UpdateCardType): AppThunkType => async (
     dispatch(setAppStatusAC('loading'))
     try {
         const res = await cardsApi.updateCards({...putModel})
-        dispatch(getCardsTC({cardsPack_id: res.data.updatedCard.cardsPack_id}))
+        dispatch(setCardsTC({cardsPack_id: res.data.updatedCard.cardsPack_id}))
         dispatch(setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
@@ -165,7 +153,6 @@ export const updateGradeCardTC = (putModelGrade: CardLearnType): AppThunkType =>
 type CardsReducerStateType = typeof initialState
 export type CardsActionType = ReturnType<typeof setCardsAC>
     | ReturnType<typeof updateGradeCardAC>
-    | ReturnType<typeof setUtilsAC>
     | ReturnType<typeof searchCardsAC>
     | ReturnType<typeof setCardsPageAC>
     | ReturnType<typeof setCardsPageCountAC>

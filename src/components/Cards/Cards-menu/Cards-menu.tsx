@@ -10,7 +10,7 @@ import {ModalDeletePack} from '../../../common/Modals/Modal-pack/Modal-delete-pa
 import {NavLink, useNavigate, useParams} from 'react-router-dom'
 import {cardsApi} from '../../../api/Cards-api'
 import {PATH} from '../../../app/Routes/Routes'
-import {getCardsTC} from '../../../redux/Cards-reducer'
+import {setCardsTC} from '../../../redux/Cards-reducer'
 import SchoolIcon from '@mui/icons-material/School'
 
 
@@ -56,7 +56,7 @@ export const CardsMenu = () => {
     const editPack = async (name: string, deckCover: string) => {
         if (packId) {
             await cardsApi.updatePacks({cardsPack: {_id: packId, name, deckCover}})
-            dispatch(getCardsTC({cardsPack_id: packId}))
+            dispatch(setCardsTC({cardsPack_id: packId}))
         }
     }
 

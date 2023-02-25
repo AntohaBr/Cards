@@ -14,8 +14,7 @@ import {deletePackTC, updatePackTC} from '../../redux/Packs-reducer'
 import {ModalEditPack} from '../../common/Modals/Modal-pack/Modal-edit-pack'
 import {PATH} from '../../app/Routes/Routes'
 import defaultCover from '../../assets/Icon/defaultCover.jpg'
-import {getCard} from '../../features/Smart-random'
-import {setUtilsAC} from '../../redux/Cards-reducer'
+import {setCardsTC} from '../../redux/Cards-reducer'
 
 
 type PackPropsType = {
@@ -25,8 +24,8 @@ type PackPropsType = {
 
 export const Pack = (props: PackPropsType) => {
     const myID = useAppSelector(state => state.profile._id)
-    const cards = useAppSelector(state => state.cards.cards)
     const status = useAppSelector(state => state.app.status)
+    const page = useAppSelector(state => state.cards.page)
 
     const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
     const [openEditModalPack, setOpenEditModalPack] = useState(false)
@@ -34,10 +33,9 @@ export const Pack = (props: PackPropsType) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
-    const setUtilsHandler = () => {
-        const cardId = getCard(cards).cardsPack_id
-        dispatch(setUtilsAC(cardId))
-        navigate(`${PATH.LEARN}/${cardId}`)
+    const onClickLearnHandler = () => {
+        dispatch(setCardsTC({packName: props.pack.name, cardsPack_id:props.pack._id, page}))
+        navigate(`${PATH.LEARN}/${props.pack._id}`)
     }
 
     const deletePack = () => {
@@ -85,12 +83,16 @@ export const Pack = (props: PackPropsType) => {
                             <Button onClick={deleteButtonClickHandler} disabled={status === 'loading'}>
                                 <DeleteOutlineIcon/>
                             </Button>
-                            <Button onClick={setUtilsHandler} disabled={status === 'loading'}>
+                            <Button
+                                onClick={onClickLearnHandler}
+                                disabled={status === 'loading' || props.pack.cardsCount === 0}>
                                 <SchoolIcon/>
                             </Button>
                         </span>
                         : <span>
-                                <Button onClick={setUtilsHandler} disabled={status === 'loading'}>
+                                <Button
+                                    onClick={onClickLearnHandler}
+                                    disabled={status === 'loading' || props.pack.cardsCount === 0}>
                                     <SchoolIcon/>
                                 </Button>
                         </span>

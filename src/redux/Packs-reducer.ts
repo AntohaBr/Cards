@@ -20,7 +20,7 @@ const initialState = {
         page: 1,
         pageCount: 7,
         min: 0,
-        max: 0,
+        max: 110,
         packName: '',
         sortPacks: ''
     }

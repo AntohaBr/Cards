@@ -9,7 +9,7 @@ import {Error404} from '../../components/Error-404/Error-404'
 import {Packs} from '../../components/Packs/Packs'
 import {Cards} from '../../components/Cards/Cards'
 import {Learn} from '../../components/Learn/Learn'
-import {Result} from '../../components/Learn/Result/Result'
+// import {Result} from '../../components/Learn/Result/Result'
 import React from 'react'
 import {Home} from '../../components/Home/Home'
 
@@ -26,7 +26,7 @@ export const PATH = {
     CARDS: '/card',
     ERROR404: '/error404',
     LEARN: '/learn',
-    RESULT: '/result'
+    // RESULT: '/result'
 }
 
 
@@ -45,7 +45,7 @@ export const PagesRoutes = () => {
             {/*<Route path={`${PATH.PACKS}/:packURL`} element={<Packs/>}/>*/}
             <Route path={`${PATH.CARDS}/:packId`} element={<Cards/>}/>
             <Route path={`${PATH.LEARN}/:cardId`} element={<Learn/>}/>
-            <Route path={PATH.RESULT} element={<Result/>}/>
+            {/*<Route path={PATH.RESULT} element={<Result/>}/>*/}
             <Route path={'*'} element={<Navigate to={PATH.ERROR404}/>}/>
         </Routes>
     )

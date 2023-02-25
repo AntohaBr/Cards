@@ -4,10 +4,8 @@ import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './CardsTable'
 import {
     addNewCardsTC,
-    getCardsTC,
-    searchCardsAC, setCardsPageAC, setCardsPageCountAC,
-    setUtilsAC
-} from '../../redux/Cards-reducer'
+    setCardsTC,
+    searchCardsAC, setCardsPageAC, setCardsPageCountAC} from '../../redux/Cards-reducer'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {ModalAddNewCard} from '../../common/Modals/Modal-card/Modal-add-new-card'
 import {PostCardType} from '../../api/Cards-api'
@@ -44,12 +42,12 @@ export const Cards = React.memo(() => {
         const cardsPaginationPages = Math.ceil(cardsTotalCount / pageCount)
 
         useEffect(() => {
-            dispatch(getCardsTC({cardsPack_id: packId ? packId : '', page, pageCount, cardQuestion}))
+            dispatch(setCardsTC({cardsPack_id: packId ? packId : '', page, pageCount, cardQuestion}))
         }, [dispatch, packId, page, pageCount, debouncedValue])
 
         const setUtilsHandler = () => {
             const cardId = getCard(cards)._id
-            dispatch(setUtilsAC(cardId))
+            // dispatch(setUtilsAC(cardId))
             navigate(`${PATH.LEARN}/${cardId}`)
         }
 
@@ -138,13 +136,6 @@ export const Cards = React.memo(() => {
                                     toggleOpenMode={setOpenAddCardModal}
                                     addItem={addCard}
                                 />
-                                <Button
-                                    variant={'contained'}
-                                    color={'primary'}
-                                    onClick={setUtilsHandler}
-                                    disabled={status === 'loading'}>
-                                    Learn to pack
-                                </Button>
                             </div>
                             :
                             <div>

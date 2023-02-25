@@ -110,11 +110,10 @@ export type UpdatePacksType = {
 }
 
 export type GetCardsParamsType = {
+    packName?: string
     cardAnswer?: string
     cardQuestion?: string
     cardsPack_id: string
-    min?: number
-    max?: number
     sortCards?: number
     page?: number
     pageCount?: number
