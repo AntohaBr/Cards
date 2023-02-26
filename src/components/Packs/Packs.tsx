@@ -141,9 +141,11 @@ export const Packs = React.memo(() => {
                     <PacksTable/>
                 </Container>
             </Grid>
-            {cardPacksTotalCount === 0
-                ? <h4 style={{fontSize: '18px', marginTop: '50px', color: 'red'}}>Sorry, there are no such packages</h4>
-                : <PaginationBar
+            {cardPacksTotalCount === 0 && !!packName
+                ?
+                <h4 style={{fontSize: '18px', marginTop: '50px', color: 'red'}}>Sorry, there are no such packages</h4>
+                :
+                <PaginationBar
                     paginationPages={PacksPaginationPages}
                     pageCount={pageCount}
                     page={page}
