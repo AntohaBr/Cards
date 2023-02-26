@@ -64,8 +64,9 @@ export const Login = () => {
     return (
         <div className={styleForms.block}>
             <div className={styleForms.container}>
+                <div className={styleForms.form}>
                 <h2 className={styleForms.title}>Sign in</h2>
-                <form onSubmit={formik.handleSubmit} className={styleForms.form}>
+                <form onSubmit={formik.handleSubmit}>
                     <FormGroup>
                         <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
                             <InputLabel style={{paddingLeft: '6px'}}>Email</InputLabel>
@@ -120,6 +121,7 @@ export const Login = () => {
                         </FormLabel>
                     </FormGroup>
                 </form>
+                </div>
             </div>
         </div>
     )

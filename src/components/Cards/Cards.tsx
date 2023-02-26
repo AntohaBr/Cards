@@ -47,7 +47,6 @@ export const Cards = React.memo(() => {
 
         const setUtilsHandler = () => {
             const cardId = getCard(cards)._id
-            // dispatch(setUtilsAC(cardId))
             navigate(`${PATH.LEARN}/${cardId}`)
         }
 

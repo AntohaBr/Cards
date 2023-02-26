@@ -29,7 +29,8 @@ export const initialState = {
 }
 
 
-export const cardsReducer = (state: CardsReducerStateType = initialState, action: CardsActionType): CardsReducerStateType => {
+export const cardsReducer = (state: CardsReducerStateType = initialState, action: CardsActionType):
+    CardsReducerStateType => {
     switch (action.type) {
         case 'CARDS/SET-CARDS':
             return {

@@ -84,8 +84,8 @@ export const recoveryPasswordTC = (email: string): AppThunkType => async (dispat
     try {
         const data: ForgotType = {
             email: email, message: `<div style="background-color: lime; padding: 15px">
-password recovery link: 
-<a href='http://localhost:3000/new-password/$token$'>link</a>
+password recovery link:
+<a href='http://localhost:3000/Cards#/new-password/$token$'>link</a>
 </div>`
         }
         await authApi.recoveryPassword(data)
