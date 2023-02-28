@@ -1,16 +1,16 @@
+import React, {useState} from 'react'
 import {NavLink} from 'react-router-dom'
 import style from "./Header.module.css"
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import {Avatar, Button, Popover} from '@mui/material'
 import defaultAvatar from '../../assets/Icon/defaultAvatar.jpg'
-import React, {useState} from 'react'
 import styleIcon from '../Cards/Cards-menu/Cards-menu.module.css'
 import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import LogoutIcon from '@mui/icons-material/Logout'
 import {logOutTC} from '../../redux/Auth-reducer'
-import {selectProfileAvatar, selectProfileName} from '../../utils/Selectors'
+import {selectProfileAvatar, selectProfileName} from '../../redux/Selectors'
 
 
 export const Header = () => {

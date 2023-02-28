@@ -1,28 +1,26 @@
 import React, {ChangeEvent, useCallback, useEffect} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './PacksTable'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
-import {PATH} from '../../app/Routes/Routes'
 import {Button, Container, Grid} from '@mui/material'
-import {ModalAddPack} from '../../common/Modals/Modal-pack/Modal-add-pack'
-import {Search} from '../../common/Search/Search'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
+import {useDebounce, saveState,useAppDispatch, useAppSelector} from 'utils'
+import {Search,PaginationBar, ModalAddPack} from 'common'
+import {RangeSlider} from '../Renge-slider/Renge-slider'
+import {PATH} from '../../app/Routes/Routes'
 import {
     addNewPackTC, clearFiltersAC,
     getPacksTC,
     searchPacksAC, setCardPacksPageAC, setCardPacksPageCountAC, setMinMaxSearchCardAC,
     setTypePackCardsAC,
 } from '../../redux/Packs-reducer'
-import {useDebounce, saveState} from 'utils'
-import {RangeSlider} from '../Renge-slider/Renge-slider'
-import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
 import {
     selectAppStatus,
-    selectAuthIsLoggedIn, selectPacksCardPacksTotalCount,
-    selectPacksMax, selectPacksMaxCardsCount,
-    selectPacksMin, selectPacksPackName,
-    selectPacksPage, selectPacksPageCount, selectPacksStatusPackCards
-} from '../../utils/Selectors'
+    selectAuthIsLoggedIn,
+    selectPacksCardPacksTotalCount, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksPackName,
+    selectPacksPage,
+    selectPacksPageCount, selectPacksStatusPackCards
+} from '../../redux/Selectors'
+// import * as selectors from '../../utils/Selectors'
 
 
 export const Packs = React.memo(() => {

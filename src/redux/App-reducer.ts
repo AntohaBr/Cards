@@ -1,9 +1,9 @@
 import {authApi} from '../api/Auth-api'
 import {addLoginAC} from './Auth-reducer'
 import {AxiosError} from 'axios'
-import {errorUtil} from '../utils/Error-util'
+import {errorUtil} from 'utils'
 import {setInfoUserAC, SetInfoUserActionType} from './Profile-reducer'
-import {AppThunkType} from './Store'
+import {AppThunkType} from './Store/Store'
 
 
 const initialState = {

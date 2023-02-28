@@ -1,5 +1,5 @@
 import {setAppStatusAC} from './App-reducer'
-import {AppThunkType} from './Store'
+import {AppThunkType} from './Store/Store'
 import {
     CardLearnType,
     cardsApi,
@@ -10,7 +10,7 @@ import {
     UpdateCardType, UpdatedGradeCartType
 } from '../api/Cards-api'
 import {AxiosError} from 'axios'
-import {errorUtil} from '../utils/Error-util'
+import {errorUtil} from 'utils'
 
 
 export const initialState = {

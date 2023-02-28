@@ -6,9 +6,9 @@ import TableRow from '@mui/material/TableRow'
 import TableCell from '@mui/material/TableCell'
 import TableBody from '@mui/material/TableBody'
 import Table from '@mui/material/Table'
-import {useAppSelector} from '../../utils/Hooks'
+import {useAppSelector} from 'utils'
 import {Card} from './Card'
-import {selectCards} from '../../utils/Selectors'
+import {selectCards} from '../../redux/Selectors'
 
 
 export const CardsTable = () => {

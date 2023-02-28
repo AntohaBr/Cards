@@ -2,11 +2,11 @@ import {
     SetAppErrorActionType,
     setAppStatusAC, SetAppStatusActionType,
 } from './App-reducer'
-import {errorUtil} from '../utils/Error-util'
+import {errorUtil} from 'utils'
 import {AxiosError} from 'axios'
 import {authApi, ForgotType, LoginType, NewPasswordType, RegistrationType} from '../api/Auth-api'
 import {setInfoUserAC, SetInfoUserActionType} from './Profile-reducer'
-import {AppThunkType} from './Store'
+import {AppThunkType} from './Store/Store'
 
 
 const initialState = {

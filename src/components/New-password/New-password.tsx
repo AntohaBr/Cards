@@ -7,12 +7,11 @@ import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {useNavigate, useParams} from 'react-router-dom'
 import {setNewPasswordTC} from '../../redux/Auth-reducer'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector, validateUtil} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import {NewPasswordType} from '../../api/Auth-api'
-import {validateUtil} from '../../utils/Validate-util'
-import {selectAppStatus} from '../../utils/Selectors'
+import {selectAppStatus} from '../../redux/Selectors'
 
 
 interface State {

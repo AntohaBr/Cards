@@ -13,12 +13,12 @@ import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
 import {Navigate, NavLink} from 'react-router-dom'
 import {registrationTC} from '../../redux/Auth-reducer'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector, validateUtil} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import {RegistrationType} from '../../api/Auth-api'
-import {validateUtil} from '../../utils/Validate-util'
-import {selectAppStatus, selectAuthIsRegistered} from '../../utils/Selectors'
+import {selectAppStatus, selectAuthIsRegistered} from '../../redux/Selectors'
+
 
 
 interface State {

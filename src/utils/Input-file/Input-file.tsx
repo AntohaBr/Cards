@@ -1,6 +1,6 @@
 import React from 'react'
 import {ChangeEvent} from 'react'
-import {convertFileToBase64} from '../../features/Convert-fаile-to-base64'
+import {convertFileToBase64} from '../Convert-fаile-to-base64'
 import {setAppErrorAC} from '../../redux/App-reducer'
 import {useAppDispatch} from '../Hooks'
 import Button from '@mui/material/Button'

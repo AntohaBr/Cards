@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios'
-import {errorUtil} from '../utils/Error-util'
+import {errorUtil} from 'utils'
 import {setAppStatusAC} from './App-reducer'
-import {AppThunkType} from './Store'
+import {AppThunkType} from './Store/Store'
 import {
     cardsApi,
     PackType,

@@ -3,11 +3,10 @@ import {Button, FormControl, FormGroup, FormLabel, Input, InputLabel} from '@mui
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
 import {recoveryPasswordTC} from '../../redux/Auth-reducer'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector, validateUtil} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
-import {validateUtil} from '../../utils/Validate-util'
-import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from '../../utils/Selectors'
+import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from '../../redux/Selectors'
 
 
 export const RecoveryPassword = () => {

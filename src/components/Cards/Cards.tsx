@@ -6,24 +6,27 @@ import {
     addNewCardsTC,
     setCardsTC,
     searchCardsAC, setCardsPageAC, setCardsPageCountAC} from '../../redux/Cards-reducer'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector, getCard, useDebounce} from 'utils'
 import {ModalAddNewCard} from '../../common/Modals/Modal-card/Modal-add-new-card'
 import {PostCardType} from '../../api/Cards-api'
-import {getCard} from '../../features/Smart-random'
 import {PATH} from '../../app/Routes/Routes'
 import defaultCover from '../../assets/Icon/defaultCover.jpg'
-import {Search} from '../../common/Search/Search'
+import {Search, BackToPackList, PaginationBar} from 'common'
 import {CardsMenu} from './Cards-menu/Cards-menu'
-import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
-import {useDebounce} from '../../utils/Use-debounce'
-import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
+
+
 import {
     selectAppStatus,
-    selectCards, selectCardsCardQuestion, selectCardsPackDeckCover, selectCardsPackName, selectCardsPackUserId,
+    selectCards,
+    selectCardsCardQuestion,
+    selectCardsPackDeckCover,
+    selectCardsPackName,
+    selectCardsPackUserId,
     selectCardsPage,
     selectCardsPageCount,
-    selectCardsTotalCount, selectProfileMyID
-} from '../../utils/Selectors'
+    selectCardsTotalCount,
+    selectProfileMyID
+} from '../../redux/Selectors'
 
 
 export const Cards = React.memo(() => {

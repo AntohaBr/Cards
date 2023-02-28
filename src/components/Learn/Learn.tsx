@@ -1,13 +1,12 @@
 import React, {useEffect, useState} from 'react'
 import {Button, FormControlLabel, Radio} from '@mui/material'
 import style from './Learn.module.css'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector, getCard} from 'utils'
 import {CardType} from '../../api/Cards-api'
-import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
-import {getCard} from '../../features/Smart-random'
+import {BackToPackList} from 'common'
 import {updateGradeCardTC} from '../../redux/Cards-reducer'
 import {useParams} from 'react-router-dom'
-import {selectCards, selectCardsPackName} from '../../utils/Selectors'
+import {selectCards, selectCardsPackName} from '../../redux/Selectors'
 
 
 const grades = ['I did not know', 'I forgot', 'I thought for a long time', 'I got confused', 'I knew the answer']

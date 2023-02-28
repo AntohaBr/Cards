@@ -1,0 +1,6 @@
+export {Search} from './Search/Search'
+export {ModalAddPack} from './Modals/Modal-pack/Modal-add-pack'
+export {PaginationBar} from './Pagination-bar/Pagination-bar'
+export {BackToPackList} from './Back-to-pack-list/Back-to-pack-list'
+export {ModalDeletePack} from './Modals/Modal-pack/Modal-delete-pack'
+export {ModalEditPack} from './Modals/Modal-pack/Modal-edit-pack'

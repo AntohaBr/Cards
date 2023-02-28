@@ -3,10 +3,10 @@ import style from './Check-email.module.css'
 import {Button} from '@mui/material'
 import envelope from '../../assets/Icon/envelope.jpg'
 import {useNavigate} from 'react-router-dom'
-import {useAppSelector} from '../../utils/Hooks'
+import {useAppSelector} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
-import {selectAuthRecoveryPassword} from '../../utils/Selectors'
+import {selectAuthRecoveryPassword} from '../../redux/Selectors'
 
 
 export const CheckEmail = () => {

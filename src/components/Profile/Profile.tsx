@@ -6,13 +6,12 @@ import {updateProfileTC} from '../../redux/Profile-reducer'
 import {Navigate} from 'react-router-dom'
 import {logOutTC} from '../../redux/Auth-reducer'
 import {setAppErrorAC} from '../../redux/App-reducer'
-import {convertFileToBase64} from '../../features/Convert-fаile-to-base64'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector, convertFileToBase64} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
-import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
+import {BackToPackList} from 'common'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import defaultAvatar from '../../assets/Icon/defaultAvatar.jpg'
-import {selectAuthIsLoggedIn, selectProfileAvatar, selectProfileEmail, selectProfileName} from '../../utils/Selectors'
+import {selectAuthIsLoggedIn, selectProfileAvatar, selectProfileEmail, selectProfileName} from '../../redux/Selectors'
 
 
 export const Profile = React.memo(() => {

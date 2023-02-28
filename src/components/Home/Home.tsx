@@ -1,8 +1,8 @@
 import React from 'react'
-import {useAppSelector} from '../../utils/Hooks'
+import {useAppSelector} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import {Navigate} from 'react-router-dom'
-import {selectAuthIsLoggedIn} from '../../utils/Selectors'
+import {selectAuthIsLoggedIn} from '../../redux/Selectors'
 
 
 export const Home = () => {

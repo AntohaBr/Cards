@@ -13,13 +13,12 @@ import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
 import {VisibilityOff} from '@mui/icons-material'
 import {loginTC} from '../../redux/Auth-reducer'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector, validateUtil} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import style from './Login.module.css'
 import {LoginType} from '../../api/Auth-api'
-import {validateUtil} from '../../utils/Validate-util'
-import {selectAppStatus, selectAuthIsLoggedIn} from '../../utils/Selectors'
+import {selectAppStatus, selectAuthIsLoggedIn} from '../../redux/Selectors'
 
 
 interface State {

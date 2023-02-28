@@ -11,9 +11,9 @@ import {Navigate} from 'react-router-dom'
 import {Pack} from './Pack'
 import {PATH} from '../../app/Routes/Routes'
 import style from './PacksTable.module.css'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector} from 'utils'
 import {setParamsSortPack} from '../../redux/Packs-reducer'
-import {selectPacks, selectPacksSort} from '../../utils/Selectors'
+import {selectPacks, selectPacksSort} from '../../redux/Selectors'
 
 
 export const PacksTable = () => {

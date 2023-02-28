@@ -6,11 +6,11 @@ import TableRow from '@mui/material/TableRow'
 import Button from '@mui/material/Button'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
+import {useAppDispatch, useAppSelector} from 'utils'
 import {ModalDeleteCard} from '../../common/Modals/Modal-card/Modal-delete-card'
 import {deleteCardsTC, updateCardsTC} from '../../redux/Cards-reducer'
 import {ModalEditCard} from '../../common/Modals/Modal-card/Modal-edit-card'
-import {selectAppStatus, selectProfileMyID} from '../../utils/Selectors'
+import {selectAppStatus, selectProfileMyID} from '../../redux/Selectors'
 
 
 type CardPropsType = {
