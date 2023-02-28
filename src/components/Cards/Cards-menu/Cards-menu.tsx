@@ -7,7 +7,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import {ModalEditPack} from '../../../common/Modals/Modal-pack/Modal-edit-pack'
 import {ModalDeletePack} from '../../../common/Modals/Modal-pack/Modal-delete-pack'
-import {NavLink, useNavigate, useParams} from 'react-router-dom'
+import {useNavigate, useParams} from 'react-router-dom'
 import {cardsApi} from '../../../api/Cards-api'
 import {PATH} from '../../../app/Routes/Routes'
 import {setCardsTC} from '../../../redux/Cards-reducer'
@@ -61,7 +61,8 @@ export const CardsMenu = () => {
     }
 
     const learnButtonCloseHandler = () => {
-        setAnchorEl(null)
+        // setAnchorEl(null)
+        navigate(`${PATH.LEARN}/${packId}`)
     }
 
     return (
@@ -79,13 +80,13 @@ export const CardsMenu = () => {
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     >
                         <div className={style.menu}>
-                            <NavLink to={PATH.LEARN} style={{textDecoration: 'none'}}>
+                            {/*<NavLink to={PATH.LEARN} style={{textDecoration: 'none'}}>*/}
                                 <Button onClick={learnButtonCloseHandler}>
                                     <div className={style.icon}>
                                         <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                                     </div>
                                 </Button>
-                            </NavLink>
+                            {/*</NavLink>*/}
                             <Button onClick={editCardButtonClickHandler}>
                                 <div className={style.icon}>
                                     <EditIcon sx={{marginRight: '5px'}}/> Edit

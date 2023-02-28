@@ -48,6 +48,7 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
         case 'PACKS/SET-CARD-PACKS-TOTAL-COUNT':
             return {...state, cardPacksTotalCount: action.value}
         case 'PACKS/SET-MIN-MAX-SEARCH-CARD':
+            console.log(action)
             return {...state, params: {...state.params, min: action.min, max: action.max}}
         case 'PACKS/FETCH-MIN-MAX-CARDS-COUNT':
             return {...state, minCardsCount: action.minCardsCount, maxCardsCount: action.maxCardsCount}

@@ -10,6 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {ModalDeleteCard} from '../../common/Modals/Modal-card/Modal-delete-card'
 import {deleteCardsTC, updateCardsTC} from '../../redux/Cards-reducer'
 import {ModalEditCard} from '../../common/Modals/Modal-card/Modal-edit-card'
+import {selectAppStatus, selectProfileMyID} from '../../utils/Selectors'
 
 
 type CardPropsType = {
@@ -18,8 +19,8 @@ type CardPropsType = {
 
 
 export const Card = (props: CardPropsType) => {
-    const status = useAppSelector(state => state.app.status)
-    const myID = useAppSelector(state => state.profile._id)
+    const status = useAppSelector(selectAppStatus)
+    const myID = useAppSelector(selectProfileMyID)
 
     const [openModalEditCard, setOpenModalEditCard] = useState(false)
     const [openModalDeleteCard, setOpenModalDeleteCard] = useState(false)
@@ -29,7 +30,7 @@ export const Card = (props: CardPropsType) => {
     const question = () => {
         return props.card.question.length > 100
             ?
-            <img style={{maxWidth: '100px'}} src={props.card.question} alt={'answer'}/>
+            <img style={{maxWidth: '100px'}} src={props.card.question} alt={'question'}/>
             :
             props.card.question
     }

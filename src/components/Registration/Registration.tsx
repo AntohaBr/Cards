@@ -18,6 +18,7 @@ import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import {RegistrationType} from '../../api/Auth-api'
 import {validateUtil} from '../../utils/Validate-util'
+import {selectAppStatus, selectAuthIsRegistered} from '../../utils/Selectors'
 
 
 interface State {
@@ -29,8 +30,8 @@ interface State {
 
 
 export const Registration = () => {
-    const status = useAppSelector((state) => state.app.status)
-    const isRegistered = useAppSelector((state) => state.auth.isRegistered)
+    const status = useAppSelector(selectAppStatus)
+    const isRegistered = useAppSelector(selectAuthIsRegistered)
 
     const dispatch = useAppDispatch()
 

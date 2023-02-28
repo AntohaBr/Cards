@@ -7,12 +7,13 @@ import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import {validateUtil} from '../../utils/Validate-util'
+import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from '../../utils/Selectors'
 
 
 export const RecoveryPassword = () => {
-    const recoveryPassword = useAppSelector((state) => state.auth.recoveryPassword)
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const status = useAppSelector((state) => state.app.status)
+    const recoveryPassword = useAppSelector(selectAuthRecoveryPassword)
+    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
+    const status = useAppSelector(selectAppStatus)
 
     const dispatch = useAppDispatch()
 

@@ -13,11 +13,12 @@ import {PATH} from '../../app/Routes/Routes'
 import style from './PacksTable.module.css'
 import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
 import {setParamsSortPack} from '../../redux/Packs-reducer'
+import {selectPacks, selectPacksSort} from '../../utils/Selectors'
 
 
 export const PacksTable = () => {
-    const packs = useAppSelector(state => state.packs.cardPacks)
-    const sort = useAppSelector(state => state.packs.params.sortPacks)
+    const packs = useAppSelector(selectPacks)
+    const sort = useAppSelector(selectPacksSort)
 
     const dispatch = useAppDispatch()
 

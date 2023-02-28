@@ -1,19 +1,28 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
 import Slider from '@mui/material/Slider'
 import Box from '@mui/material/Box'
-import {useAppDispatch, useAppSelector} from '../../utils/Hooks'
-import {setMinMaxSearchCardAC} from '../../redux/Packs-reducer'
+import {useAppDispatch, useAppSelector} from 'utils/Hooks'
+import {setMinMaxSearchCardAC} from 'redux/Packs-reducer'
+import {
+    selectAppStatus,
+    selectPacksMax,
+    selectPacksMaxCardsCount,
+    selectPacksMin,
+    selectPacksMinCardsCount
+} from '../../utils/Selectors'
 
 
 
 export const RangeSlider =  () => {
-    const min = useAppSelector(state => state.packs.params.min)
-    const max = useAppSelector(state => state.packs.params.max)
-    const minCardsCount = useAppSelector(state => state.packs.minCardsCount)
-    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-    const status = useAppSelector(state => state.app.status)
+    const minCardsCount = useAppSelector(selectPacksMinCardsCount)
+    const maxCardsCount = useAppSelector(selectPacksMaxCardsCount)
+    const min = useAppSelector(selectPacksMin)
+    const max = useAppSelector(selectPacksMax)
+    const status = useAppSelector(selectAppStatus)
 
     const [value, setValue] = React.useState<number[]>([min, max])
+
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         setValue([min, max])
@@ -21,21 +30,21 @@ export const RangeSlider =  () => {
 
     const minDistance = 1
 
-    const dispatch = useAppDispatch()
-
     const handleChange = (event: Event, newValue: number | number[], activeThumb: number) => {
         if (!Array.isArray(newValue)) {
             return
         }
         if (activeThumb === 0) {
             setValue([Math.min(newValue[0], value[1] - minDistance), value[1]])
+            dispatch(setMinMaxSearchCardAC(Math.min(newValue[0], value[1] - minDistance), value[1]))
         } else {
             setValue([value[0], Math.max(newValue[1], value[0] + minDistance)])
+            dispatch(setMinMaxSearchCardAC(value[0], Math.max(newValue[1], value[0] + minDistance)))
         }
     }
 
     const setMinMaxHandler = () => {
-        dispatch(setMinMaxSearchCardAC(value[0], value[1]))
+        // dispatch(setMinMaxSearchCardAC(value[0], value[1]))
     }
 
     return (

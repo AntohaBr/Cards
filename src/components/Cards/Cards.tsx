@@ -17,19 +17,26 @@ import {CardsMenu} from './Cards-menu/Cards-menu'
 import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
 import {useDebounce} from '../../utils/Use-debounce'
 import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
+import {
+    selectAppStatus,
+    selectCards, selectCardsCardQuestion, selectCardsPackDeckCover, selectCardsPackName, selectCardsPackUserId,
+    selectCardsPage,
+    selectCardsPageCount,
+    selectCardsTotalCount, selectProfileMyID
+} from '../../utils/Selectors'
 
 
 export const Cards = React.memo(() => {
-        const page = useAppSelector(state => state.cards.page)
-        const pageCount = useAppSelector(state => state.cards.pageCount)
-        const cardsTotalCount = useAppSelector(state => state.cards.cardsTotalCount)
-        const status = useAppSelector(state => state.app.status)
-        const userId = useAppSelector(state => state.profile._id)
-        const packUserId = useAppSelector(state => state.cards.packUserId)
-        const cards = useAppSelector(state => state.cards.cards)
-        const packDeckCover = useAppSelector(state => state.cards.packDeckCover)
-        const packName = useAppSelector(state => state.cards.packName)
-        const cardQuestion = useAppSelector(state => state.cards.cardQuestion)
+        const page = useAppSelector(selectCardsPage)
+        const pageCount = useAppSelector(selectCardsPageCount)
+        const cardsTotalCount = useAppSelector(selectCardsTotalCount)
+        const status = useAppSelector(selectAppStatus)
+        const userId = useAppSelector(selectProfileMyID)
+        const packUserId = useAppSelector(selectCardsPackUserId)
+        const cards = useAppSelector(selectCards)
+        const packDeckCover = useAppSelector(selectCardsPackDeckCover)
+        const packName = useAppSelector(selectCardsPackName)
+        const cardQuestion = useAppSelector(selectCardsCardQuestion)
 
         const [openAddCardModal, setOpenAddCardModal] = useState(false)
 

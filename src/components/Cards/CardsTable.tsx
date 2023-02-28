@@ -8,10 +8,11 @@ import TableBody from '@mui/material/TableBody'
 import Table from '@mui/material/Table'
 import {useAppSelector} from '../../utils/Hooks'
 import {Card} from './Card'
+import {selectCards} from '../../utils/Selectors'
 
 
 export const CardsTable = () => {
-    const cards = useAppSelector(state => state.cards.cards)
+    const cards = useAppSelector(selectCards)
 
     return (
         <div>

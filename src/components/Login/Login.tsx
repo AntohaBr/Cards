@@ -19,6 +19,7 @@ import styleForms from '../../assets/Styles/Style-forms.module.css'
 import style from './Login.module.css'
 import {LoginType} from '../../api/Auth-api'
 import {validateUtil} from '../../utils/Validate-util'
+import {selectAppStatus, selectAuthIsLoggedIn} from '../../utils/Selectors'
 
 
 interface State {
@@ -28,8 +29,8 @@ interface State {
 
 
 export const Login = () => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const status = useAppSelector((state) => state.app.status)
+    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
+    const status = useAppSelector(selectAppStatus)
 
     const dispatch = useAppDispatch()
 

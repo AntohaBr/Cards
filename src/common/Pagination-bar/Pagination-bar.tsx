@@ -1,6 +1,7 @@
 import React, {ChangeEvent} from 'react'
 import {NativeSelect, Pagination} from '@mui/material'
 import {useAppSelector} from '../../utils/Hooks'
+import {selectAppStatus} from '../../utils/Selectors'
 
 
 type PaginatorPropsType = {
@@ -13,7 +14,7 @@ type PaginatorPropsType = {
 
 
 export const PaginationBar = React.memo((props: PaginatorPropsType) => {
-        const status = useAppSelector(state => state.app.status)
+        const status = useAppSelector(selectAppStatus)
 
         const optionSelect = [10, 25, 50, 100]
 

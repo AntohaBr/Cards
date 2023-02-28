@@ -12,6 +12,7 @@ import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import {NewPasswordType} from '../../api/Auth-api'
 import {validateUtil} from '../../utils/Validate-util'
+import {selectAppStatus} from '../../utils/Selectors'
 
 
 interface State {
@@ -21,7 +22,7 @@ interface State {
 
 
 export const NewPassword = () => {
-    const status = useAppSelector((state) => state.app.status)
+    const status = useAppSelector(selectAppStatus)
 
     const {token} = useParams<{ token: string }>()
 

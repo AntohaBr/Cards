@@ -15,6 +15,7 @@ import {ModalEditPack} from '../../common/Modals/Modal-pack/Modal-edit-pack'
 import {PATH} from '../../app/Routes/Routes'
 import defaultCover from '../../assets/Icon/defaultCover.jpg'
 import {setCardsTC} from '../../redux/Cards-reducer'
+import {selectAppStatus, selectCardsPage, selectProfileMyID} from '../../utils/Selectors'
 
 
 type PackPropsType = {
@@ -23,9 +24,9 @@ type PackPropsType = {
 
 
 export const Pack = (props: PackPropsType) => {
-    const myID = useAppSelector(state => state.profile._id)
-    const status = useAppSelector(state => state.app.status)
-    const page = useAppSelector(state => state.cards.page)
+    const myID = useAppSelector(selectProfileMyID)
+    const status = useAppSelector(selectAppStatus)
+    const page = useAppSelector(selectCardsPage)
 
     const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
     const [openEditModalPack, setOpenEditModalPack] = useState(false)

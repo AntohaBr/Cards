@@ -13,23 +13,29 @@ import {
     searchPacksAC, setCardPacksPageAC, setCardPacksPageCountAC, setMinMaxSearchCardAC,
     setTypePackCardsAC,
 } from '../../redux/Packs-reducer'
-import {useDebounce} from '../../utils/Use-debounce'
+import {useDebounce, saveState} from 'utils'
 import {RangeSlider} from '../Renge-slider/Renge-slider'
 import {PaginationBar} from '../../common/Pagination-bar/Pagination-bar'
-import {saveState} from '../../utils/Local-storage'
+import {
+    selectAppStatus,
+    selectAuthIsLoggedIn, selectPacksCardPacksTotalCount,
+    selectPacksMax, selectPacksMaxCardsCount,
+    selectPacksMin, selectPacksPackName,
+    selectPacksPage, selectPacksPageCount, selectPacksStatusPackCards
+} from '../../utils/Selectors'
 
 
 export const Packs = React.memo(() => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const page = useAppSelector(state => state.packs.params.page)
-    const pageCount = useAppSelector(state => state.packs.params.pageCount)
-    const cardPacksTotalCount = useAppSelector(state => state.packs.cardPacksTotalCount)
-    const status = useAppSelector(state => state.app.status)
-    const statusPackCards = useAppSelector(state => state.packs.statusPackCards)
-    const maxCardsCount = useAppSelector(state => state.packs.maxCardsCount)
-    const packName = useAppSelector(state => state.packs.params.packName)
-    const min = useAppSelector(state => state.packs.params.min)
-    const max = useAppSelector(state => state.packs.params.max)
+    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
+    const page = useAppSelector(selectPacksPage)
+    const pageCount = useAppSelector(selectPacksPageCount)
+    const cardPacksTotalCount = useAppSelector(selectPacksCardPacksTotalCount)
+    const status = useAppSelector(selectAppStatus)
+    const statusPackCards = useAppSelector(selectPacksStatusPackCards)
+    const maxCardsCount = useAppSelector(selectPacksMaxCardsCount)
+    const packName = useAppSelector(selectPacksPackName)
+    const min = useAppSelector(selectPacksMin)
+    const max = useAppSelector(selectPacksMax)
 
     const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
 

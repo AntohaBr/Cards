@@ -7,14 +7,15 @@ import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
 import {getCard} from '../../features/Smart-random'
 import {updateGradeCardTC} from '../../redux/Cards-reducer'
 import {useParams} from 'react-router-dom'
+import {selectCards, selectCardsPackName} from '../../utils/Selectors'
 
 
 const grades = ['I did not know', 'I forgot', 'I thought for a long time', 'I got confused', 'I knew the answer']
 
 
 export const Learn = () => {
-    const packName = useAppSelector(state => state.cards.packName)
-    const cards = useAppSelector(state => state.cards.cards)
+    const packName = useAppSelector(selectCardsPackName)
+    const cards = useAppSelector(selectCards)
 
     const dispatch = useAppDispatch()
     const {cardId} = useParams<'cardId'>()

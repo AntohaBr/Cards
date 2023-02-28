@@ -12,13 +12,14 @@ import {PATH} from '../../app/Routes/Routes'
 import {BackToPackList} from '../../common/Back-to-pack-list/Back-to-pack-list'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
 import defaultAvatar from '../../assets/Icon/defaultAvatar.jpg'
+import {selectAuthIsLoggedIn, selectProfileAvatar, selectProfileEmail, selectProfileName} from '../../utils/Selectors'
 
 
 export const Profile = React.memo(() => {
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
-    const email = useAppSelector(state => state.profile.email)
-    const avatar = useAppSelector(state => state.profile.avatar)
-    const name = useAppSelector(state => state.profile.name)
+    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
+    const email = useAppSelector(selectProfileEmail)
+    const avatar = useAppSelector(selectProfileAvatar)
+    const name = useAppSelector(selectProfileName)
 
     const [userName, setUserName] = useState<string>(name)
     const [userAvatar, setUserAvatar] = useState<string>(avatar);

@@ -10,11 +10,12 @@ import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import LogoutIcon from '@mui/icons-material/Logout'
 import {logOutTC} from '../../redux/Auth-reducer'
+import {selectProfileAvatar, selectProfileName} from '../../utils/Selectors'
 
 
 export const Header = () => {
-    const avatar = useAppSelector(state => state.profile.avatar)
-    const name = useAppSelector(state => state.profile.name)
+    const avatar = useAppSelector(selectProfileAvatar)
+    const name = useAppSelector(selectProfileName)
 
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
