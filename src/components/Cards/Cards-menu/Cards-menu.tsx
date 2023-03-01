@@ -9,15 +9,21 @@ import {ModalEditPack, ModalDeletePack} from 'common'
 import {useNavigate, useParams} from 'react-router-dom'
 import {cardsApi} from '../../../api/Cards-api'
 import {PATH} from '../../../app/Routes/Routes'
-import {setCardsTC} from '../../../redux/Cards-reducer'
+import {setCards} from '../../../redux/Cards-reducer'
 import SchoolIcon from '@mui/icons-material/School'
+import {
+    selectCardsPackDeckCover,
+    selectCardsPackName,
+    selectCardsPackUserId,
+    selectProfileMyID
+} from '../../../redux/Selectors'
 
 
 export const CardsMenu = () => {
-    const myID = useAppSelector(state => state.profile._id)
-    const userID = useAppSelector(state => state.cards.packUserId)
-    const packName = useAppSelector(state => state.cards.packName)
-    const packDeckCover = useAppSelector(state => state.cards.packDeckCover)
+    const myID = useAppSelector(selectProfileMyID)
+    const userID = useAppSelector(selectCardsPackUserId)
+    const packName = useAppSelector(selectCardsPackName)
+    const packDeckCover = useAppSelector(selectCardsPackDeckCover)
 
     const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
     const [openModalEditPack, setOpenModalEditPack] = useState(false)
@@ -55,12 +61,11 @@ export const CardsMenu = () => {
     const editPack = async (name: string, deckCover: string) => {
         if (packId) {
             await cardsApi.updatePacks({cardsPack: {_id: packId, name, deckCover}})
-            dispatch(setCardsTC({cardsPack_id: packId}))
+            dispatch(setCards({cardsPack_id: packId}))
         }
     }
 
     const learnButtonCloseHandler = () => {
-        // setAnchorEl(null)
         navigate(`${PATH.LEARN}/${packId}`)
     }
 
@@ -79,13 +84,11 @@ export const CardsMenu = () => {
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     >
                         <div className={style.menu}>
-                            {/*<NavLink to={PATH.LEARN} style={{textDecoration: 'none'}}>*/}
                                 <Button onClick={learnButtonCloseHandler}>
                                     <div className={style.icon}>
                                         <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                                     </div>
                                 </Button>
-                            {/*</NavLink>*/}
                             <Button onClick={editCardButtonClickHandler}>
                                 <div className={style.icon}>
                                     <EditIcon sx={{marginRight: '5px'}}/> Edit

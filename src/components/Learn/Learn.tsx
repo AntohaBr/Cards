@@ -4,7 +4,7 @@ import style from './Learn.module.css'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
 import {CardType} from '../../api/Cards-api'
 import {BackToPackList} from 'common'
-import {updateGradeCardTC} from '../../redux/Cards-reducer'
+import {updateGradeCard} from '../../redux/Cards-reducer'
 import {useParams} from 'react-router-dom'
 import {selectCards, selectCardsPackName} from '../../redux/Selectors'
 
@@ -50,7 +50,7 @@ export const Learn = () => {
         setFirst(true)
         if (cards.length > 0) {
             dispatch(
-                updateGradeCardTC({card_id: card._id, grade:value, shots: card.shots})
+                updateGradeCard({card_id: card._id, grade:value, shots: card.shots})
             )
             setCard(getCard(cards))
         }

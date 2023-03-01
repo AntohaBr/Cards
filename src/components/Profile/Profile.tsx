@@ -4,8 +4,8 @@ import style from './Profile.module.css'
 import {AddAPhoto, BorderColor, Logout} from '@mui/icons-material'
 import {updateProfileTC} from '../../redux/Profile-reducer'
 import {Navigate} from 'react-router-dom'
-import {logOutTC} from '../../redux/Auth-reducer'
-import {setAppErrorAC} from '../../redux/App-reducer'
+import {logOut} from '../../redux/Auth-reducer'
+import {appActions} from '../../redux/App-reducer'
 import {useAppDispatch, useAppSelector, convertFileToBase64} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import {BackToPackList} from 'common'
@@ -27,7 +27,7 @@ export const Profile = React.memo(() => {
     const dispatch = useAppDispatch()
 
     const logOutHandler = () => {
-        dispatch(logOutTC())
+        dispatch(logOut())
     }
 
     const updateUserHandler = () => {
@@ -47,7 +47,7 @@ export const Profile = React.memo(() => {
                     setUserAvatar(file64)
                 })
             } else {
-                dispatch(setAppErrorAC('File too large'))
+                dispatch(appActions.setAppErrorAC('File too large'))
             }
         }
     }

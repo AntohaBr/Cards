@@ -2,19 +2,13 @@ import React, {ChangeEvent, useCallback, useEffect, useState} from 'react'
 import Button from '@mui/material/Button'
 import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './CardsTable'
-import {
-    addNewCardsTC,
-    setCardsTC,
-    searchCardsAC, setCardsPageAC, setCardsPageCountAC} from '../../redux/Cards-reducer'
 import {useAppDispatch, useAppSelector, getCard, useDebounce} from 'utils'
-import {ModalAddNewCard} from '../../common/Modals/Modal-card/Modal-add-new-card'
 import {PostCardType} from '../../api/Cards-api'
 import {PATH} from '../../app/Routes/Routes'
 import defaultCover from '../../assets/Icon/defaultCover.jpg'
-import {Search, BackToPackList, PaginationBar} from 'common'
+import {Search, BackToPackList, PaginationBar, ModalAddNewCard} from 'common'
 import {CardsMenu} from './Cards-menu/Cards-menu'
-
-
+import {addNewCards, cardsActions, setCards} from '../../redux/Cards-reducer'
 import {
     selectAppStatus,
     selectCards,
@@ -27,6 +21,7 @@ import {
     selectCardsTotalCount,
     selectProfileMyID
 } from '../../redux/Selectors'
+
 
 
 export const Cards = React.memo(() => {
@@ -52,7 +47,7 @@ export const Cards = React.memo(() => {
         const cardsPaginationPages = Math.ceil(cardsTotalCount / pageCount)
 
         useEffect(() => {
-            dispatch(setCardsTC({cardsPack_id: packId ? packId : '', page, pageCount, cardQuestion}))
+            dispatch(setCards({cardsPack_id: packId ? packId : '', page, pageCount, cardQuestion}))
         }, [dispatch, packId, page, pageCount, debouncedValue])
 
         const setUtilsHandler = () => {
@@ -65,19 +60,19 @@ export const Cards = React.memo(() => {
         }
 
         const addCard = (postModel: PostCardType) => {
-            dispatch(addNewCardsTC(postModel))
+            dispatch(addNewCards(postModel))
         }
 
         const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            dispatch(searchCardsAC(e.currentTarget.value))
+            dispatch(cardsActions.searchCards(e.currentTarget.value))
         }
 
         const cardsPageCountHandler = useCallback((value: string) => {
-            dispatch(setCardsPageCountAC(+value))
+            dispatch(cardsActions.setCardsPageCount(+value))
         }, [])
 
         const cardsHandleChangePage = useCallback((page: number) => {
-            dispatch(setCardsPageAC(page))
+            dispatch(cardsActions.setCardsPage(page))
         }, [])
 
         return (

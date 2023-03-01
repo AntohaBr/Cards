@@ -1,10 +1,10 @@
 import React from 'react'
 import {ChangeEvent} from 'react'
 import {convertFileToBase64} from '../Convert-fаile-to-base64'
-import {setAppErrorAC} from '../../redux/App-reducer'
 import {useAppDispatch} from '../Hooks'
 import Button from '@mui/material/Button'
 import style from './Input-file.module.css'
+import {appActions} from '../../redux/App-reducer'
 
 
 type InputFilePropsType = {
@@ -26,7 +26,7 @@ export const InputFile = (props: InputFilePropsType) => {
                     props.saveImg(img64)
                 })
             } else {
-                dispatch(setAppErrorAC('File too large'))
+                dispatch(appActions.setAppErrorAC('File too large'))
             }
         }
     }

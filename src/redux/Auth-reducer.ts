@@ -1,12 +1,9 @@
-import {
-    SetAppErrorActionType,
-    setAppStatusAC, SetAppStatusActionType,
-} from './App-reducer'
+import {appActions} from './App-reducer'
 import {errorUtil} from 'utils'
 import {AxiosError} from 'axios'
 import {authApi, ForgotType, LoginType, NewPasswordType, RegistrationType} from '../api/Auth-api'
-import {setInfoUserAC, SetInfoUserActionType} from './Profile-reducer'
-import {AppThunkType} from './Store/Store'
+import {profileActions} from './Profile-reducer'
+import {AppThunkType, InferActionsTypes} from './Store/Store'
 
 
 const initialState = {
@@ -35,44 +32,46 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 
 
 // actions
-export const addLoginAC = (value: boolean) => ({type: 'AUTH/SET-LOGIN', value} as const)
-export const registrationAC = (value: boolean) => ({type: 'AUTH/DATA-REGISTRATION', value} as const)
-export const recoveryPasswordAC = (email: string) => ({type: 'AUTH/RECOVERY-PASSWORD', email} as const)
-export const setNewPasswordAC = (newPassport: string) => ({type: 'AUTH/SET-NEW-PASSWORD', newPassport} as const)
+export const authActions = {
+    addLogin: (value: boolean) => ({type: 'AUTH/SET-LOGIN', value} as const),
+    registration: (value: boolean) => ({type: 'AUTH/DATA-REGISTRATION', value} as const),
+    recoveryPassword: (email: string) => ({type: 'AUTH/RECOVERY-PASSWORD', email} as const),
+    setNewPassword: (newPassport: string) => ({type: 'AUTH/SET-NEW-PASSWORD', newPassport} as const)
+}
 
 
 //thunks
-export const loginTC = (data: LoginType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+export const login = (data: LoginType): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatusAC('loading'))
     try {
         const res = await authApi.login(data)
-        dispatch(addLoginAC(true))
-        dispatch(setInfoUserAC(res.data))
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(authActions.addLogin(true))
+        dispatch(profileActions.setInfoUser(res.data))
+        dispatch(appActions.setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     }
 }
 
-export const logOutTC = (): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+export const logOut = (): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatusAC('loading'))
     try {
         await authApi.logOut()
-        dispatch(addLoginAC(false))
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(authActions.addLogin(false))
+        dispatch(appActions.setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     }
 }
 
-export const registrationTC = (value: RegistrationType): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+export const registration = (value: RegistrationType): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatusAC('loading'))
     try {
         await authApi.registration(value)
-        dispatch(registrationAC(true))
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(authActions.registration(true))
+        dispatch(appActions.setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
@@ -80,7 +79,7 @@ export const registrationTC = (value: RegistrationType): AppThunkType => async (
 }
 
 export const recoveryPasswordTC = (email: string): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatusAC('loading'))
     try {
         const data: ForgotType = {
             email: email, message: `<div style="background-color: lime; padding: 15px">
@@ -89,20 +88,20 @@ password recovery link:
 </div>`
         }
         await authApi.recoveryPassword(data)
-        dispatch(recoveryPasswordAC(email))
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(authActions.recoveryPassword(email))
+        dispatch(appActions.setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     }
 }
 
-export const setNewPasswordTC = (password: string, token: string): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+export const setNewPassword = (password: string, token: string): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatusAC('loading'))
     try {
         const data: NewPasswordType = {password: password, resetPasswordToken: token}
         await authApi.setNewPassword(data)
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatusAC('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
@@ -112,12 +111,4 @@ export const setNewPasswordTC = (password: string, token: string): AppThunkType 
 
 //types
 type InitialStateType = typeof initialState
-export type AuthActionType = ReturnType<typeof addLoginAC>
-    | ReturnType<typeof registrationAC>
-    | ReturnType<typeof recoveryPasswordAC>
-    | ReturnType<typeof setNewPasswordAC>
-    | SetAppErrorActionType
-    | SetAppStatusActionType
-    | SetInfoUserActionType
-
-
+export type AuthActionType = InferActionsTypes<typeof authActions>

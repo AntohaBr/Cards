@@ -6,7 +6,7 @@ import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {useNavigate, useParams} from 'react-router-dom'
-import {setNewPasswordTC} from '../../redux/Auth-reducer'
+import {setNewPassword} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector, validateUtil} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
@@ -48,7 +48,7 @@ export const NewPassword = () => {
         },
         validate: validateUtil,
         onSubmit: (values: NewPasswordType) => {
-            dispatch(setNewPasswordTC(values.password, token || ''))
+            dispatch(setNewPassword(values.password, token || ''))
             navigate(PATH.LOGIN)
         },
     })

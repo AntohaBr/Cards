@@ -13,7 +13,7 @@ import {useAppDispatch, useAppSelector} from 'utils'
 import {deletePackTC, updatePackTC} from '../../redux/Packs-reducer'
 import {PATH} from '../../app/Routes/Routes'
 import defaultCover from '../../assets/Icon/defaultCover.jpg'
-import {setCardsTC} from '../../redux/Cards-reducer'
+import {setCards} from '../../redux/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileMyID} from '../../redux/Selectors'
 
 
@@ -34,7 +34,7 @@ export const Pack = (props: PackPropsType) => {
     const dispatch = useAppDispatch()
 
     const onClickLearnHandler = () => {
-        dispatch(setCardsTC({packName: props.pack.name, cardsPack_id:props.pack._id, page}))
+        dispatch(setCards({packName: props.pack.name, cardsPack_id:props.pack._id, page}))
         navigate(`${PATH.LEARN}/${props.pack._id}`)
     }
 

@@ -1,9 +1,9 @@
 import {authApi} from '../api/Auth-api'
-import {addLoginAC} from './Auth-reducer'
+import {authActions} from './Auth-reducer'
 import {AxiosError} from 'axios'
 import {errorUtil} from 'utils'
-import {setInfoUserAC, SetInfoUserActionType} from './Profile-reducer'
-import {AppThunkType} from './Store/Store'
+import {profileActions} from './Profile-reducer'
+import {AppThunkType, InferActionsTypes} from './Store/Store'
 
 
 const initialState = {
@@ -34,27 +34,28 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 
 
 //actions
-export const isInitializedAC = (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const)
-export const setAppErrorAC = (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const)
-export const setAppStatusAC = (status: AppStatusType) =>
-    ({type: 'APP/SET-APP-STATUS', status} as const)
+export const appActions = {
+    isInitializedAC: (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const),
+    setAppErrorAC: (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const),
+    setAppStatusAC: (status: AppStatusType) => ({type: 'APP/SET-APP-STATUS', status} as const)
+}
 
 
 //thunks
 export const isInitializedTC = (): AppThunkType => async (dispatch) => {
-    dispatch(setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatusAC('loading'))
     try {
         const res = await authApi.me()
-        dispatch(addLoginAC(true))
-        dispatch(isInitializedAC(true))
-        dispatch(setInfoUserAC(res.data))
-        dispatch(setAppStatusAC('succeeded'))
+        dispatch(authActions.addLogin(true))
+        dispatch(appActions.isInitializedAC(true))
+        dispatch(profileActions.setInfoUser(res.data))
+        dispatch(appActions.setAppStatusAC('succeeded'))
     } catch (e) {
-        dispatch(isInitializedAC(true))
+        dispatch(appActions.isInitializedAC(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
         errorUtil(err, dispatch)
     } finally {
-        dispatch(setAppStatusAC('idle'))
+        dispatch(appActions.setAppStatusAC('idle'))
     }
 }
 
@@ -62,10 +63,6 @@ export const isInitializedTC = (): AppThunkType => async (dispatch) => {
 //types
 type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed' | 'none'
 type AppStateType = typeof initialState
-export type AppActionType = ReturnType<typeof isInitializedAC>
-    | ReturnType<typeof addLoginAC>
-    | SetAppStatusActionType
-    | SetAppErrorActionType
-    | SetInfoUserActionType
-export type SetAppErrorActionType = ReturnType<typeof setAppErrorAC>
-export type SetAppStatusActionType = ReturnType<typeof setAppStatusAC>
+export type AppActionType = InferActionsTypes<typeof appActions>
+export type SetAppErrorActionType = ReturnType<typeof appActions.setAppErrorAC>
+export type SetAppStatusActionType = ReturnType<typeof appActions.setAppStatusAC>

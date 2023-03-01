@@ -12,7 +12,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
 import {VisibilityOff} from '@mui/icons-material'
-import {loginTC} from '../../redux/Auth-reducer'
+import {login} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector, validateUtil} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
@@ -53,7 +53,7 @@ export const Login = () => {
         },
         validate: validateUtil,
         onSubmit: (values: LoginType) => {
-            dispatch(loginTC(values))
+            dispatch(login(values))
         },
     })
 

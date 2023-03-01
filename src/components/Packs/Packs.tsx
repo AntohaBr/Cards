@@ -3,16 +3,11 @@ import {Navigate} from 'react-router-dom'
 import {PacksTable} from './PacksTable'
 import {Button, Container, Grid} from '@mui/material'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
-import {useDebounce, saveState,useAppDispatch, useAppSelector} from 'utils'
-import {Search,PaginationBar, ModalAddPack} from 'common'
+import {useDebounce, saveState, useAppDispatch, useAppSelector} from 'utils'
+import {Search, PaginationBar, ModalAddPack} from 'common'
 import {RangeSlider} from '../Renge-slider/Renge-slider'
 import {PATH} from '../../app/Routes/Routes'
-import {
-    addNewPackTC, clearFiltersAC,
-    getPacksTC,
-    searchPacksAC, setCardPacksPageAC, setCardPacksPageCountAC, setMinMaxSearchCardAC,
-    setTypePackCardsAC,
-} from '../../redux/Packs-reducer'
+import {addNewPackTC, getPacksTC, packsActions} from '../../redux/Packs-reducer'
 import {
     selectAppStatus,
     selectAuthIsLoggedIn,
@@ -48,12 +43,12 @@ export const Packs = React.memo(() => {
     }, [dispatch, debouncedValue, statusPackCards, min, max, pageCount, page])
 
     const allPackCardsHandler = () => {
-        dispatch(setTypePackCardsAC('all'))
+        dispatch(packsActions.setTypePackCardsAC('all'))
         saveState('all')
     }
 
     const myPackCardsHandler = () => {
-        dispatch(setTypePackCardsAC('my'))
+        dispatch(packsActions.setTypePackCardsAC('my'))
         saveState('my')
     }
 
@@ -62,7 +57,7 @@ export const Packs = React.memo(() => {
     }
 
     const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        dispatch(searchPacksAC(e.currentTarget.value))
+        dispatch(packsActions.searchPacksAC(e.currentTarget.value))
     }
 
     const addButtonClickHandler = () => {
@@ -70,16 +65,16 @@ export const Packs = React.memo(() => {
     }
 
     const packsPageCountHandler = useCallback((value: string) => {
-        dispatch(setCardPacksPageCountAC(+value))
+        dispatch(packsActions.setCardPacksPageCountAC(+value))
     }, [])
 
     const packsHandleChangePage = useCallback((page: number) => {
-        dispatch(setCardPacksPageAC(page))
+        dispatch(packsActions.setCardPacksPageAC(page))
     }, [])
 
     const resetFilterHandler = () => {
-        dispatch(clearFiltersAC())
-        dispatch(setMinMaxSearchCardAC(0, maxCardsCount))
+        dispatch(packsActions.clearFiltersAC())
+        dispatch(packsActions.setMinMaxSearchCardAC(0, maxCardsCount))
     }
 
     if (!isLoggedIn) {

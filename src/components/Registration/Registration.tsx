@@ -12,7 +12,7 @@ import IconButton from '@mui/material/IconButton'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
 import {Navigate, NavLink} from 'react-router-dom'
-import {registrationTC} from '../../redux/Auth-reducer'
+import {registration} from '../../redux/Auth-reducer'
 import {useAppDispatch, useAppSelector, validateUtil} from 'utils'
 import {PATH} from '../../app/Routes/Routes'
 import styleForms from '../../assets/Styles/Style-forms.module.css'
@@ -60,7 +60,7 @@ export const Registration = () => {
         },
         validate: validateUtil,
         onSubmit: (values: RegistrationType) => {
-            dispatch(registrationTC(values))
+            dispatch(registration(values))
             formik.resetForm()
         },
     })

@@ -9,7 +9,7 @@ import styleIcon from '../Cards/Cards-menu/Cards-menu.module.css'
 import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import LogoutIcon from '@mui/icons-material/Logout'
-import {logOutTC} from '../../redux/Auth-reducer'
+import {logOut} from '../../redux/Auth-reducer'
 import {selectProfileAvatar, selectProfileName} from '../../redux/Selectors'
 
 
@@ -32,7 +32,7 @@ export const Header = () => {
     }
 
     const logOutHandler = () => {
-        dispatch(logOutTC())
+        dispatch(logOut())
     }
 
     return (

@@ -8,7 +8,7 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {ModalDeleteCard} from '../../common/Modals/Modal-card/Modal-delete-card'
-import {deleteCardsTC, updateCardsTC} from '../../redux/Cards-reducer'
+import {deleteCards, updateCards} from '../../redux/Cards-reducer'
 import {ModalEditCard} from '../../common/Modals/Modal-card/Modal-edit-card'
 import {selectAppStatus, selectProfileMyID} from '../../redux/Selectors'
 
@@ -52,11 +52,11 @@ export const Card = (props: CardPropsType) => {
     }
 
     const deleteCard = () => {
-        dispatch(deleteCardsTC(props.card._id))
+        dispatch(deleteCards(props.card._id))
     }
 
     const editCard = (question: string, answer: string, questionImg: string, answerImg: string) => {
-        dispatch(updateCardsTC({card:{_id: props.card._id,question, answer, questionImg, answerImg}}))
+        dispatch(updateCards({card:{_id: props.card._id,question, answer, questionImg, answerImg}}))
     }
 
     return <TableRow key={props.card._id}>

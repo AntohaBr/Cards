@@ -27,6 +27,7 @@ export type AppActionsType = AppActionType
     | ProfileActionType
 export type AppDispatchType = ThunkDispatch<RootReducerType, unknown, AppActionsType>
 export type AppThunkType<ReturnType = void> = ThunkAction<ReturnType, RootReducerType, unknown, AppActionsType>
+export type InferActionsTypes<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 
 
 // @ts-ignore

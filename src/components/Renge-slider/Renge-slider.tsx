@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import Slider from '@mui/material/Slider'
 import Box from '@mui/material/Box'
 import {useAppDispatch, useAppSelector} from 'utils/Hooks'
-import {setMinMaxSearchCardAC} from 'redux/Packs-reducer'
+import {packsActions} from 'redux/Packs-reducer'
 import {
     selectAppStatus,
     selectPacksMax,
@@ -35,10 +35,10 @@ export const RangeSlider =  () => {
         }
         if (activeThumb === 0) {
             setValue([Math.min(newValue[0], value[1] - minDistance), value[1]])
-            dispatch(setMinMaxSearchCardAC(Math.min(newValue[0], value[1] - minDistance), value[1]))
+            dispatch(packsActions.setMinMaxSearchCardAC(Math.min(newValue[0], value[1] - minDistance), value[1]))
         } else {
             setValue([value[0], Math.max(newValue[1], value[0] + minDistance)])
-            dispatch(setMinMaxSearchCardAC(value[0], Math.max(newValue[1], value[0] + minDistance)))
+            dispatch(packsActions.setMinMaxSearchCardAC(value[0], Math.max(newValue[1], value[0] + minDistance)))
         }
     }
 
