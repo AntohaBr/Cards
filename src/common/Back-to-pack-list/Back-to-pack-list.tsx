@@ -1,13 +1,13 @@
 import {NavLink} from 'react-router-dom'
-import {PATH} from '../../app/Routes/Routes'
-import style from './Back-to-pack-list.module.css'
+import s from './Back-to-pack-list.module.css'
 import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import {PATH} from '../../constants/Routing/Rout-constants'
 
 
 export const BackToPackList = () => {
     return (
-        <div className={style.backToPackList}>
-            <NavLink to={PATH.PACKS} className={style.navLink}>
+        <div className={s.backToPackList}>
+            <NavLink to={PATH.PACKS} className={s.navLink}>
                 <ArrowBackIcon fontSize={'small'}/> Back to Packs List
             </NavLink>
         </div>

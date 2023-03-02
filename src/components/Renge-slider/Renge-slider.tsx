@@ -9,7 +9,7 @@ import {
     selectPacksMaxCardsCount,
     selectPacksMin,
     selectPacksMinCardsCount
-} from '../../redux/Selectors'
+} from '../../Store/Selectors'
 
 
 export const RangeSlider =  () => {

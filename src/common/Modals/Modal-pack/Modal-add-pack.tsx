@@ -2,7 +2,7 @@ import React, {ChangeEvent, useState} from 'react'
 import TextField from '@mui/material/TextField'
 import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
 import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
-import {InputFile} from '../../../utils/Input-file/Input-file'
+import {InputFile} from '../../Input-file/Input-file'
 
 
 type ModalAddPackPropsType = {

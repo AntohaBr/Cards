@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react'
 import {NativeSelect, Pagination} from '@mui/material'
 import {useAppSelector} from 'utils'
-import {selectAppStatus} from '../../redux/Selectors'
+import {selectAppStatus} from '../../Store/Selectors'
 
 
 type PaginatorPropsType = {

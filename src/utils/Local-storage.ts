@@ -1,6 +1,5 @@
-export enum KEY {
-    statusPacks = 'statusPackCards:'
-}
+import {KEY} from '../constants/Local-storage-key/Loc-stor-key-constant'
+
 
 export const loadState = () => {
     try {

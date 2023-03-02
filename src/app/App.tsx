@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react'
 import './App.css'
-import {isInitializedTC} from '../redux/App-reducer'
+import {isInitializedTC} from '../reducers/App-reducer'
 import {CircularProgress, LinearProgress} from '@mui/material'
 import {useAppDispatch, useAppSelector, loadState} from 'utils'
 import {PagesRoutes} from './Routes/Routes'
 import {ErrorSnackbar} from '../components/Error-snackbar/Error-snackbar'
-import {Header} from '../components/Header/Header'
-import {packsActions} from '../redux/Packs-reducer'
+import {Header} from '../feautures/Header/Header'
+import {packsActions} from '../reducers/Packs-reducer'
 
 
 export const App = () => {

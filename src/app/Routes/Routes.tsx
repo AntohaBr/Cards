@@ -1,31 +1,17 @@
 import {Navigate, Route, Routes} from 'react-router-dom'
-import {Login} from '../../components/Login/Login'
-import {Registration} from '../../components/Registration/Registration'
-import {Profile} from '../../components/Profile/Profile'
-import {CheckEmail} from '../../components/Check-email/Check-email'
-import {RecoveryPassword} from '../../components/Recovery-password/Recovery-password'
-import {NewPassword} from '../../components/New-password/New-password'
-import {Error404} from '../../components/Error-404/Error-404'
-import {Packs} from '../../components/Packs/Packs'
-import {Cards} from '../../components/Cards/Cards'
-import {Learn} from '../../components/Learn/Learn'
+import {Login} from '../../feautures/Auth/Login/Login'
+import {Registration} from '../../feautures/Auth/Registration/Registration'
+import {Profile} from '../../feautures/Profile/Profile'
+import {CheckEmail} from '../../feautures/Auth/Check-email/Check-email'
+import {RecoveryPassword} from '../../feautures/Auth/Recovery-password/Recovery-password'
+import {NewPassword} from '../../feautures/Auth/New-password/New-password'
+import {Error404} from '../../feautures/Error-404/Error-404'
+import {Packs} from '../../feautures/Packs/Packs'
+import {Cards} from '../../feautures/Cards/Cards'
+import {Learn} from '../../feautures/Learn/Learn'
 import React from 'react'
-import {Home} from '../../components/Home/Home'
-
-
-export const PATH = {
-    HOME: '/',
-    LOGIN: '/login',
-    REGISTRATION: '/registration',
-    PROFILE: '/profile',
-    RECOVERY_PASSWORD: '/recovery-password',
-    CHECK_EMAIL: '/check-email',
-    NEW_PASSWORD: '/new-password',
-    PACKS: '/packs',
-    CARDS: '/card',
-    ERROR404: '/error404',
-    LEARN: '/learn',
-}
+import {Home} from '../../feautures/Home/Home'
+import { PATH } from 'constants/Routing/Rout-constants'
 
 
 export const PagesRoutes = () => {
