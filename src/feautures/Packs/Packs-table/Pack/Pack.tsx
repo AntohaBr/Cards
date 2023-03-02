@@ -13,7 +13,7 @@ import {useAppDispatch, useAppSelector} from 'utils'
 import {deletePackTC, updatePackTC} from '../../../../reducers/Packs-reducer'
 import defaultCover from '../../../../assets/Icon/default-cover.jpg'
 import {setCards} from '../../../../reducers/Cards-reducer'
-import {selectAppStatus, selectCardsPage, selectProfileMyID} from '../../../../Store/Selectors'
+import {selectAppStatus, selectCardsPage, selectProfileMyID} from '../../../../store/Selectors'
 import {PATH} from '../../../../constants/Routing/Rout-constants'
 
 

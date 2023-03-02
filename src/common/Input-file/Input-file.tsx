@@ -1,10 +1,9 @@
 import React from 'react'
 import {ChangeEvent} from 'react'
-import {convertFileToBase64} from '../../utils/Convert-fаile-to-base64'
-import {useAppDispatch} from '../../utils/Hooks'
+import {useAppDispatch, convertFileToBase64} from 'utils'
 import Button from '@mui/material/Button'
 import s from './Input-file.module.css'
-import {appActions} from '../../reducers/App-reducer'
+import {appActions} from 'reducers/App-reducer'
 
 
 type InputFilePropsType = {

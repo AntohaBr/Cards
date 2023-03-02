@@ -1,7 +1,7 @@
 import {AxiosError} from 'axios'
 import {error} from 'utils'
-import {authApi, ResponseType} from '../api/Auth-api'
-import {AppThunkType, InferActionsTypes} from '../Store/Store'
+import {authApi, ResponseType} from 'api/Auth-api'
+import {AppThunkType, InferActionsTypes} from 'store/Store'
 import {appActions} from './App-reducer'
 
 

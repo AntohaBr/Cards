@@ -16,7 +16,7 @@ import {registration} from '../../../reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from '../../../common/Styles/Forms.module.css'
 import {RegistrationType} from '../../../api/Auth-api'
-import {selectAppStatus, selectAuthIsRegistered} from '../../../Store/Selectors'
+import {selectAppStatus, selectAuthIsRegistered} from '../../../store/Selectors'
 import {PATH} from '../../../constants/Routing/Rout-constants'
 
 

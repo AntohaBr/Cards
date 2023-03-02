@@ -19,7 +19,7 @@ import {
     selectCardsPageCount,
     selectCardsTotalCount,
     selectProfileMyID
-} from '../../Store/Selectors'
+} from '../../store/Selectors'
 import {PATH} from '../../constants/Routing/Rout-constants'
 
 

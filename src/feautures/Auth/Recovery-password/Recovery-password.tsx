@@ -5,7 +5,7 @@ import {Navigate, NavLink} from 'react-router-dom'
 import {recoveryPasswordTC} from '../../../reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from '../../../common/Styles/Forms.module.css'
-import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from '../../../Store/Selectors'
+import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from '../../../store/Selectors'
 import {PATH} from '../../../constants/Routing/Rout-constants'
 
 

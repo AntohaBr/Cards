@@ -9,7 +9,7 @@ import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import LogoutIcon from '@mui/icons-material/Logout'
 import {logOut} from '../../reducers/Auth-reducer'
-import {selectProfileAvatar, selectProfileName} from '../../Store/Selectors'
+import {selectProfileAvatar, selectProfileName} from '../../store/Selectors'
 import {PATH} from '../../constants/Routing/Rout-constants'
 
 

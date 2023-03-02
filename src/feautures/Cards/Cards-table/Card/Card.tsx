@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from 'utils'
 import {ModalDeleteCard} from '../../../../common/Modals/Modal-card/Modal-delete-card'
 import {deleteCards, updateCards} from '../../../../reducers/Cards-reducer'
 import {ModalEditCard} from '../../../../common/Modals/Modal-card/Modal-edit-card'
-import {selectAppStatus, selectProfileMyID} from '../../../../Store/Selectors'
+import {selectAppStatus, selectProfileMyID} from '../../../../store/Selectors'
 
 
 type CardPropsType = {

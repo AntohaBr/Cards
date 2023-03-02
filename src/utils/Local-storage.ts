@@ -1,4 +1,4 @@
-import {KEY} from '../constants/Local-storage-key/Loc-stor-key-constant'
+import {KEY} from 'constants/Local-storage-key/Loc-stor-key-constant'
 
 
 export const loadState = () => {

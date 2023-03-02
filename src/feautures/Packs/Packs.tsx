@@ -13,7 +13,7 @@ import {
     selectPacksCardPacksTotalCount, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksPackName,
     selectPacksPage,
     selectPacksPageCount, selectPacksStatusPackCards
-} from '../../Store/Selectors'
+} from '../../store/Selectors'
 import {PATH} from '../../constants/Routing/Rout-constants'
 // import * as selectors from '../../utils/Selectors'
 

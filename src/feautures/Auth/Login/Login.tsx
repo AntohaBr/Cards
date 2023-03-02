@@ -17,7 +17,7 @@ import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from '../../../common/Styles/Forms.module.css'
 import s from './Login.module.css'
 import {LoginType} from '../../../api/Auth-api'
-import {selectAppStatus, selectAuthIsLoggedIn} from '../../../Store/Selectors'
+import {selectAppStatus, selectAuthIsLoggedIn} from '../../../store/Selectors'
 import {PATH} from '../../../constants/Routing/Rout-constants'
 
 

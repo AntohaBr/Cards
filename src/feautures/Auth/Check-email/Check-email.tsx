@@ -5,7 +5,7 @@ import envelope from '../../../assets/Icon/envelope.jpg'
 import {useNavigate} from 'react-router-dom'
 import {useAppSelector} from 'utils'
 import styleForms from '../../../common/Styles/Forms.module.css'
-import {selectAuthRecoveryPassword} from '../../../Store/Selectors'
+import {selectAuthRecoveryPassword} from '../../../store/Selectors'
 import {PATH} from '../../../constants/Routing/Rout-constants'
 
 

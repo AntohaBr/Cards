@@ -1,4 +1,4 @@
-import {CardType} from '../api/Packs-cards-api'
+import {CardType} from 'api/Packs-cards-api'
 
 
 export const getCard = (cards: CardType[]) => {

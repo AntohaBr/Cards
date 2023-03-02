@@ -1,10 +1,10 @@
 import {combineReducers, legacy_createStore, applyMiddleware} from 'redux'
 import thunk, {ThunkAction, ThunkDispatch} from 'redux-thunk'
-import {CardsActionType, cardsReducer} from '../reducers/Cards-reducer'
-import {AuthActionType, authReducer} from '../reducers/Auth-reducer'
-import {ProfileActionType, profileReducer} from '../reducers/Profile-reducer'
-import {PacksActionType, packsReducer} from '../reducers/Packs-reducer'
-import {AppActionType, appReducer} from '../reducers/App-reducer'
+import {CardsActionType, cardsReducer} from 'reducers/Cards-reducer'
+import {AuthActionType, authReducer} from 'reducers/Auth-reducer'
+import {ProfileActionType, profileReducer} from 'reducers/Profile-reducer'
+import {PacksActionType, packsReducer} from 'reducers/Packs-reducer'
+import {AppActionType, appReducer} from 'reducers/App-reducer'
 
 
 const rootReducer = combineReducers({

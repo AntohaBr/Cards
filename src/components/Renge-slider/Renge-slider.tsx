@@ -2,14 +2,14 @@ import React, {useEffect} from 'react'
 import Slider from '@mui/material/Slider'
 import Box from '@mui/material/Box'
 import {useAppDispatch, useAppSelector} from 'utils/Hooks'
-import {packsActions} from 'redux/Packs-reducer'
 import {
     selectAppStatus,
     selectPacksMax,
     selectPacksMaxCardsCount,
     selectPacksMin,
     selectPacksMinCardsCount
-} from '../../Store/Selectors'
+} from 'store/Selectors'
+import {packsActions} from 'reducers/Packs-reducer'
 
 
 export const RangeSlider =  () => {

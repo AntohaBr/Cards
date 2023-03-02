@@ -10,7 +10,7 @@ import {setNewPassword} from '../../../reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from '../../../common/Styles/Forms.module.css'
 import {NewPasswordType} from '../../../api/Auth-api'
-import {selectAppStatus} from '../../../Store/Selectors'
+import {selectAppStatus} from '../../../store/Selectors'
 import {PATH} from '../../../constants/Routing/Rout-constants'
 
 

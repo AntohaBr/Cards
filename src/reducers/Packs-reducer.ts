@@ -1,13 +1,13 @@
 import {AxiosError} from 'axios'
 import {error} from 'utils'
-import {AppThunkType, InferActionsTypes} from '../Store/Store'
+import {AppThunkType, InferActionsTypes} from 'store/Store'
 import {
     packsCardsApi,
     PackType,
     PostPacksType,
     UpdatePacksType
-} from '../api/Packs-cards-api'
-import {appActions} from "./App-reducer";
+} from 'api/Packs-cards-api'
+import {appActions} from './App-reducer'
 
 
 const initialState = {

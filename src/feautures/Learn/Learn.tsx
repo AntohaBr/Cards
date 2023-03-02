@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react'
 import {Button, FormControlLabel, Radio} from '@mui/material'
 import s from './Learn.module.css'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
-import {CardType} from '../../api/Packs-cards-api'
+import {CardType} from 'api/Packs-cards-api'
 import {BackToPackList} from 'common'
-import {updateGradeCard} from '../../reducers/Cards-reducer'
+import {updateGradeCard} from 'reducers/Cards-reducer'
 import {useParams} from 'react-router-dom'
-import {selectCards, selectCardsPackName} from '../../Store/Selectors'
+import {selectCards, selectCardsPackName} from 'store/Selectors'
 
 
 const grades = ['I did not know', 'I forgot', 'I thought for a long time', 'I got confused', 'I knew the answer']

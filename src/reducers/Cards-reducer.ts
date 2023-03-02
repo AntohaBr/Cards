@@ -1,5 +1,5 @@
 import {appActions} from './App-reducer'
-import {AppThunkType, InferActionsTypes} from '../Store/Store'
+import {AppThunkType, InferActionsTypes} from 'store/Store'
 import {
     CardLearnType,
     packsCardsApi,
@@ -8,7 +8,7 @@ import {
     GetCardsResponseType,
     PostCardType,
     UpdateCardType, UpdatedGradeCartType
-} from '../api/Packs-cards-api'
+} from 'api/Packs-cards-api'
 import {AxiosError} from 'axios'
 import {error} from 'utils'
 

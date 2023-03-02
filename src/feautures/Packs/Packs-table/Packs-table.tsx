@@ -12,7 +12,7 @@ import {Pack} from './Pack/Pack'
 import style from '../Packs-table.module.css'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {setParamsSortPack} from '../../../reducers/Packs-reducer'
-import {selectPacks, selectPacksSort} from '../../../Store/Selectors'
+import {selectPacks, selectPacksSort} from '../../../store/Selectors'
 import {PATH} from '../../../constants/Routing/Rout-constants'
 
 

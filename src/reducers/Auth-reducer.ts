@@ -1,9 +1,9 @@
 import {appActions} from './App-reducer'
 import {error} from 'utils'
 import {AxiosError} from 'axios'
-import {authApi, ForgotType, LoginType, NewPasswordType, RegistrationType} from '../api/Auth-api'
+import {authApi, ForgotType, LoginType, NewPasswordType, RegistrationType} from 'api/Auth-api'
 import {profileActions} from './Profile-reducer'
-import {AppThunkType, InferActionsTypes} from '../Store/Store'
+import {AppThunkType, InferActionsTypes} from 'store/Store'
 
 
 const initialState = {

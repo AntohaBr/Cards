@@ -1,8 +1,8 @@
 import React from 'react'
 import {useAppSelector} from 'utils'
 import {Navigate} from 'react-router-dom'
-import {selectAuthIsLoggedIn} from '../../Store/Selectors'
-import {PATH} from '../../constants/Routing/Rout-constants'
+import {selectAuthIsLoggedIn} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const Home = () => {
