@@ -5,17 +5,16 @@ import {Button, Container, Grid} from '@mui/material'
 import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
 import {useDebounce, saveState, useAppDispatch, useAppSelector} from 'utils'
 import {Search, PaginationBar, ModalAddPack} from 'common'
-import {RangeSlider} from '../../components/Renge-slider/Renge-slider'
-import {addNewPackTC, getPacksTC, packsActions} from '../../reducers/Packs-reducer'
+import {RangeSlider} from 'components/Renge-slider/Renge-slider'
+import {addNewPackTC, getPacksTC, packsActions} from 'reducers/Packs-reducer'
 import {
     selectAppStatus,
     selectAuthIsLoggedIn,
     selectPacksCardPacksTotalCount, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksPackName,
     selectPacksPage,
     selectPacksPageCount, selectPacksStatusPackCards
-} from '../../store/Selectors'
-import {PATH} from '../../constants/Routing/Rout-constants'
-// import * as selectors from '../../utils/Selectors'
+} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const Packs = React.memo(() => {

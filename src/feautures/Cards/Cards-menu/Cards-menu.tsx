@@ -7,16 +7,16 @@ import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import {ModalEditPack, ModalDeletePack} from 'common'
 import {useNavigate, useParams} from 'react-router-dom'
-import {packsCardsApi} from '../../../api/Packs-cards-api'
-import {setCards} from '../../../reducers/Cards-reducer'
+import {packsCardsApi} from 'api/Packs-cards-api'
+import {setCards} from 'reducers/Cards-reducer'
 import SchoolIcon from '@mui/icons-material/School'
 import {
     selectCardsPackDeckCover,
     selectCardsPackName,
     selectCardsPackUserId,
     selectProfileMyID
-} from '../../../store/Selectors'
-import {PATH} from '../../../constants/Routing/Rout-constants'
+} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const CardsMenu = () => {

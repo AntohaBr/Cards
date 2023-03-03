@@ -1,5 +1,5 @@
 import React, {useState} from 'react'
-import {CardType} from '../../../../api/Packs-cards-api'
+import {CardType} from 'api/Packs-cards-api'
 import TableCell from '@mui/material/TableCell'
 import Rating from '@mui/material/Rating'
 import TableRow from '@mui/material/TableRow'
@@ -7,10 +7,10 @@ import Button from '@mui/material/Button'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
 import {useAppDispatch, useAppSelector} from 'utils'
-import {ModalDeleteCard} from '../../../../common/Modals/Modal-card/Modal-delete-card'
-import {deleteCards, updateCards} from '../../../../reducers/Cards-reducer'
-import {ModalEditCard} from '../../../../common/Modals/Modal-card/Modal-edit-card'
-import {selectAppStatus, selectProfileMyID} from '../../../../store/Selectors'
+import {ModalDeleteCard} from 'common/Modals/Modal-card/Modal-delete-card'
+import {deleteCards, updateCards} from 'reducers/Cards-reducer'
+import {ModalEditCard} from 'common/Modals/Modal-card/Modal-edit-card'
+import {selectAppStatus, selectProfileMyID} from 'store/Selectors'
 
 
 type CardPropsType = {

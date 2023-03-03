@@ -3,11 +3,11 @@ import Button from '@mui/material/Button'
 import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
 import {useAppDispatch, useAppSelector, getCard, useDebounce} from 'utils'
-import {PostCardType} from '../../api/Packs-cards-api'
-import defaultCover from '../../assets/Icon/default-cover.jpg'
+import {PostCardType} from 'api/Packs-cards-api'
+import defaultCover from 'assets/Icon/default-cover.jpg'
 import {Search, BackToPackList, PaginationBar, ModalAddNewCard} from 'common'
 import {CardsMenu} from './Cards-menu/Cards-menu'
-import {addNewCards, cardsActions, setCards} from '../../reducers/Cards-reducer'
+import {addNewCards, cardsActions, setCards} from 'reducers/Cards-reducer'
 import {
     selectAppStatus,
     selectCards,
@@ -19,8 +19,8 @@ import {
     selectCardsPageCount,
     selectCardsTotalCount,
     selectProfileMyID
-} from '../../store/Selectors'
-import {PATH} from '../../constants/Routing/Rout-constants'
+} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 

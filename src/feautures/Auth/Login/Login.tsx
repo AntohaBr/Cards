@@ -12,13 +12,13 @@ import InputAdornment from '@mui/material/InputAdornment'
 import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
 import {VisibilityOff} from '@mui/icons-material'
-import {login} from '../../../reducers/Auth-reducer'
+import {login} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
-import styleForms from '../../../common/Styles/Forms.module.css'
+import styleForms from 'common/Styles/Forms.module.css'
 import s from './Login.module.css'
-import {LoginType} from '../../../api/Auth-api'
-import {selectAppStatus, selectAuthIsLoggedIn} from '../../../store/Selectors'
-import {PATH} from '../../../constants/Routing/Rout-constants'
+import {LoginType} from 'api/Auth-api'
+import {selectAppStatus, selectAuthIsLoggedIn} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 interface State {

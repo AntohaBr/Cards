@@ -12,12 +12,12 @@ import IconButton from '@mui/material/IconButton'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import Visibility from '@mui/icons-material/Visibility'
 import {Navigate, NavLink} from 'react-router-dom'
-import {registration} from '../../../reducers/Auth-reducer'
+import {registration} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
-import styleForms from '../../../common/Styles/Forms.module.css'
-import {RegistrationType} from '../../../api/Auth-api'
-import {selectAppStatus, selectAuthIsRegistered} from '../../../store/Selectors'
-import {PATH} from '../../../constants/Routing/Rout-constants'
+import styleForms from 'common/Styles/Forms.module.css'
+import {RegistrationType} from 'api/Auth-api'
+import {selectAppStatus, selectAuthIsRegistered} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 

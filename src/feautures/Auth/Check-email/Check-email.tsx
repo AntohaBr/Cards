@@ -1,12 +1,12 @@
 import React from 'react'
 import s from './Check-email.module.css'
 import {Button} from '@mui/material'
-import envelope from '../../../assets/Icon/envelope.jpg'
+import envelope from 'assets/Icon/envelope.jpg'
 import {useNavigate} from 'react-router-dom'
 import {useAppSelector} from 'utils'
-import styleForms from '../../../common/Styles/Forms.module.css'
-import {selectAuthRecoveryPassword} from '../../../store/Selectors'
-import {PATH} from '../../../constants/Routing/Rout-constants'
+import styleForms from 'common/Styles/Forms.module.css'
+import {selectAuthRecoveryPassword} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const CheckEmail = () => {

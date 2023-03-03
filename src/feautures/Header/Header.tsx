@@ -3,14 +3,14 @@ import {NavLink} from 'react-router-dom'
 import style from "./Header.module.css"
 import {useAppDispatch, useAppSelector} from 'utils'
 import {Avatar, Button, Popover} from '@mui/material'
-import defaultAvatar from '../../assets/Icon/default-avatar.jpg'
+import defaultAvatar from 'assets/Icon/default-avatar.jpg'
 import styleIcon from '../Cards/Cards-menu/Cards-menu.module.css'
 import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
 import AccountBoxIcon from '@mui/icons-material/AccountBox'
 import LogoutIcon from '@mui/icons-material/Logout'
-import {logOut} from '../../reducers/Auth-reducer'
-import {selectProfileAvatar, selectProfileName} from '../../store/Selectors'
-import {PATH} from '../../constants/Routing/Rout-constants'
+import {logOut} from 'reducers/Auth-reducer'
+import {selectProfileAvatar, selectProfileName} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const Header = () => {

@@ -8,7 +8,7 @@ import TableBody from '@mui/material/TableBody'
 import Table from '@mui/material/Table'
 import {useAppSelector} from 'utils'
 import {Card} from './Card/Card'
-import {selectCards} from '../../../store/Selectors'
+import {selectCards} from 'store/Selectors'
 
 
 export const CardsTable = () => {

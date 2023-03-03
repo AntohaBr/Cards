@@ -6,12 +6,12 @@ import IconButton from '@mui/material/IconButton'
 import Visibility from '@mui/icons-material/Visibility'
 import VisibilityOff from '@mui/icons-material/VisibilityOff'
 import {useNavigate, useParams} from 'react-router-dom'
-import {setNewPassword} from '../../../reducers/Auth-reducer'
+import {setNewPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
-import styleForms from '../../../common/Styles/Forms.module.css'
-import {NewPasswordType} from '../../../api/Auth-api'
-import {selectAppStatus} from '../../../store/Selectors'
-import {PATH} from '../../../constants/Routing/Rout-constants'
+import styleForms from 'common/Styles/Forms.module.css'
+import {NewPasswordType} from 'api/Auth-api'
+import {selectAppStatus} from 'store/Selectors'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 interface State {
