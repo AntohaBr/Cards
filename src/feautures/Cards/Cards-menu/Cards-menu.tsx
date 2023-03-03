@@ -1,21 +1,12 @@
-import React, {useState} from 'react'
+import {useState, MouseEvent} from 'react'
 import {useAppDispatch, useAppSelector} from 'utils'
-import MoreVertIcon from '@mui/icons-material/MoreVert'
-import style from './Cards-menu.module.css'
-import {Button, Popover} from '@mui/material'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import s from './Cards-menu.module.css'
+import {Button, Popover, EditIcon, SchoolIcon, DeleteOutlineIcon, MoreVertIcon} from 'collections'
 import {ModalEditPack, ModalDeletePack} from 'common'
 import {useNavigate, useParams} from 'react-router-dom'
 import {packsCardsApi} from 'api/Packs-cards-api'
 import {setCards} from 'reducers/Cards-reducer'
-import SchoolIcon from '@mui/icons-material/School'
-import {
-    selectCardsPackDeckCover,
-    selectCardsPackName,
-    selectCardsPackUserId,
-    selectProfileMyID
-} from 'store/Selectors'
+import {selectCardsPackDeckCover, selectCardsPackName, selectCardsPackUserId, selectProfileMyID} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 
 
@@ -35,7 +26,7 @@ export const CardsMenu = () => {
     const {packId} = useParams()
     const navigate = useNavigate()
 
-    const buttonClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const buttonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget)
     }
 
@@ -73,8 +64,8 @@ export const CardsMenu = () => {
         <div>
             {myID === userID && (
                 <div>
-                    <button className={style.menuButton} onClick={buttonClickHandler}>
-                        <MoreVertIcon className={style.moreVertIcon}/>
+                    <button className={s.menuButton} onClick={buttonClickHandler}>
+                        <MoreVertIcon className={s.moreVertIcon}/>
                     </button>
                     <Popover
                         id={id}
@@ -83,19 +74,19 @@ export const CardsMenu = () => {
                         onClose={popoverCloseHandler}
                         anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                     >
-                        <div className={style.menu}>
+                        <div className={s.menu}>
                                 <Button onClick={learnButtonCloseHandler}>
-                                    <div className={style.icon}>
+                                    <div className={s.icon}>
                                         <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                                     </div>
                                 </Button>
                             <Button onClick={editCardButtonClickHandler}>
-                                <div className={style.icon}>
+                                <div className={s.icon}>
                                     <EditIcon sx={{marginRight: '5px'}}/> Edit
                                 </div>
                             </Button>
                             <Button onClick={deleteCardButtonClickHandler}>
-                                <div className={style.icon}>
+                                <div className={s.icon}>
                                     <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
                                 </div>
                             </Button>

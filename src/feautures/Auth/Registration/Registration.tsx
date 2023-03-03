@@ -1,16 +1,7 @@
-import React from 'react'
-import {
-    Button,
-    FormControl,
-    FormGroup,
-    FormLabel,
-    Input, InputLabel,
-} from '@mui/material'
+import {useState, MouseEvent} from 'react'
+import {Button, FormControl, FormGroup, FormLabel, Input, InputLabel, InputAdornment, IconButton, Visibility,
+    VisibilityOff} from 'collections'
 import {useFormik} from 'formik'
-import InputAdornment from '@mui/material/InputAdornment'
-import IconButton from '@mui/material/IconButton'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
-import Visibility from '@mui/icons-material/Visibility'
 import {Navigate, NavLink} from 'react-router-dom'
 import {registration} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
@@ -18,7 +9,6 @@ import styleForms from 'common/Styles/Forms.module.css'
 import {RegistrationType} from 'api/Auth-api'
 import {selectAppStatus, selectAuthIsRegistered} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
-
 
 
 interface State {
@@ -35,7 +25,7 @@ export const Registration = () => {
 
     const dispatch = useAppDispatch()
 
-    const [values, setValues] = React.useState<State>({
+    const [values, setValues] = useState<State>({
         password: '',
         showPassword: false,
         showConfirmPassword: false,
@@ -48,7 +38,7 @@ export const Registration = () => {
     const handleClickShowConfirmPassword = () => {
         setValues({...values, showConfirmPassword: !values.showConfirmPassword});
     }
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
     }
 

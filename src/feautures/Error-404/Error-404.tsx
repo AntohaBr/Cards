@@ -1,4 +1,3 @@
-import React from 'react'
 import error404 from 'assets/Icon/error-404.png'
 import s from './Error-404.module.css'
 

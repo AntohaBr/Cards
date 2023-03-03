@@ -1,14 +1,8 @@
-import React, {useEffect} from 'react'
-import Slider from '@mui/material/Slider'
-import Box from '@mui/material/Box'
+import {useEffect, useState} from 'react'
+import {Slider, Box} from 'collections'
 import {useAppDispatch, useAppSelector} from 'utils/Hooks'
-import {
-    selectAppStatus,
-    selectPacksMax,
-    selectPacksMaxCardsCount,
-    selectPacksMin,
-    selectPacksMinCardsCount
-} from 'store/Selectors'
+import {selectAppStatus, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksMinCardsCount}
+    from 'store/Selectors'
 import {packsActions} from 'reducers/Packs-reducer'
 
 
@@ -19,7 +13,7 @@ export const RangeSlider =  () => {
     const max = useAppSelector(selectPacksMax)
     const status = useAppSelector(selectAppStatus)
 
-    const [value, setValue] = React.useState<number[]>([min, max])
+    const [value, setValue] = useState<number[]>([min, max])
 
     const dispatch = useAppDispatch()
 

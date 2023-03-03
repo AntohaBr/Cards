@@ -1,6 +1,5 @@
-import React from 'react'
 import s from './Check-email.module.css'
-import {Button} from '@mui/material'
+import {Button} from 'collections'
 import envelope from 'assets/Icon/envelope.jpg'
 import {useNavigate} from 'react-router-dom'
 import {useAppSelector} from 'utils'

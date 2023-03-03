@@ -1,10 +1,7 @@
-import React from 'react'
+import {useState, MouseEvent} from 'react'
 import {useFormik} from 'formik'
-import {Button, FormControl, FormGroup, Input, InputLabel} from '@mui/material'
-import InputAdornment from '@mui/material/InputAdornment'
-import IconButton from '@mui/material/IconButton'
-import Visibility from '@mui/icons-material/Visibility'
-import VisibilityOff from '@mui/icons-material/VisibilityOff'
+import {Button, FormControl, FormGroup, Input, InputLabel, InputAdornment, IconButton, Visibility, VisibilityOff}
+    from 'collections'
 import {useNavigate, useParams} from 'react-router-dom'
 import {setNewPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
@@ -28,7 +25,7 @@ export const NewPassword = () => {
     const dispatch = useAppDispatch()
     const navigate = useNavigate()
 
-    const [values, setValues] = React.useState<State>({
+    const [values, setValues] = useState<State>({
         password: '',
         showPassword: false
     })
@@ -37,7 +34,7 @@ export const NewPassword = () => {
         setValues({...values, showPassword: !values.showPassword})
     }
 
-    const handleMouseDownNewPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDownNewPassword = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
     }
 
@@ -60,35 +57,35 @@ export const NewPassword = () => {
                     <h2 className={styleForms.title}>Create new password</h2>
                     <form onSubmit={formik.handleSubmit}>
                         <FormGroup>
-                        <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
-                            <InputLabel style={{paddingLeft: '6px'}}>Password</InputLabel>
-                            <Input
-                                type={values.showPassword ? 'text' : 'password'}
-                                {...formik.getFieldProps('password')}
-                                endAdornment={
-                                    <InputAdornment position='end'>
-                                        <IconButton
-                                            onClick={handleClickShowNewPassword}
-                                            onMouseDown={handleMouseDownNewPassword}
-                                        >
-                                            {values.showPassword ? <Visibility/> : <VisibilityOff/>}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                            {formik.touched.password && formik.errors.password ?
-                                <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                        </FormControl>
-                        <div className={styleForms.text}>Create new password and we will
-                            send you further instructions to email
-                        </div>
-                        <div className={styleForms.buttonBlock}>
-                            <Button type={'submit'} variant={'contained'} color={'primary'}
-                                    style={{width: '100%', borderRadius: '90px'}}
-                                    disabled={status === 'loading'}>
-                                Create new password
-                            </Button>
-                        </div>
+                            <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
+                                <InputLabel style={{paddingLeft: '6px'}}>Password</InputLabel>
+                                <Input
+                                    type={values.showPassword ? 'text' : 'password'}
+                                    {...formik.getFieldProps('password')}
+                                    endAdornment={
+                                        <InputAdornment position='end'>
+                                            <IconButton
+                                                onClick={handleClickShowNewPassword}
+                                                onMouseDown={handleMouseDownNewPassword}
+                                            >
+                                                {values.showPassword ? <Visibility/> : <VisibilityOff/>}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                                {formik.touched.password && formik.errors.password ?
+                                    <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                            </FormControl>
+                            <div className={styleForms.text}>Create new password and we will
+                                send you further instructions to email
+                            </div>
+                            <div className={styleForms.buttonBlock}>
+                                <Button type={'submit'} variant={'contained'} color={'primary'}
+                                        style={{width: '100%', borderRadius: '90px'}}
+                                        disabled={status === 'loading'}>
+                                    Create new password
+                                </Button>
+                            </div>
                         </FormGroup>
                     </form>
                 </div>

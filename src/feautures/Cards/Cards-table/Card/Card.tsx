@@ -1,15 +1,9 @@
-import React, {useState} from 'react'
+import {useState} from 'react'
 import {CardType} from 'api/Packs-cards-api'
-import TableCell from '@mui/material/TableCell'
-import Rating from '@mui/material/Rating'
-import TableRow from '@mui/material/TableRow'
-import Button from '@mui/material/Button'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import {Button, EditIcon, DeleteOutlineIcon, TableRow, TableCell, Rating} from 'collections'
 import {useAppDispatch, useAppSelector} from 'utils'
-import {ModalDeleteCard} from 'common/Modals/Modal-card/Modal-delete-card'
+import {ModalDeleteCard, ModalEditCard} from 'common'
 import {deleteCards, updateCards} from 'reducers/Cards-reducer'
-import {ModalEditCard} from 'common/Modals/Modal-card/Modal-edit-card'
 import {selectAppStatus, selectProfileMyID} from 'store/Selectors'
 
 
@@ -47,7 +41,7 @@ export const Card = (props: CardPropsType) => {
         setOpenModalEditCard(true)
     }
 
-     const deleteCardButtonClickHandler = () => {
+    const deleteCardButtonClickHandler = () => {
         setOpenModalDeleteCard(true)
     }
 
@@ -56,7 +50,7 @@ export const Card = (props: CardPropsType) => {
     }
 
     const editCard = (question: string, answer: string, questionImg: string, answerImg: string) => {
-        dispatch(updateCards({card:{_id: props.card._id,question, answer, questionImg, answerImg}}))
+        dispatch(updateCards({card: {_id: props.card._id, question, answer, questionImg, answerImg}}))
     }
 
     return <TableRow key={props.card._id}>

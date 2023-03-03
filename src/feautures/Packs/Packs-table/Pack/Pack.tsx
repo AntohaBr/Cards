@@ -1,11 +1,5 @@
-import React from 'react'
 import {useState} from 'react'
-import TableRow from '@mui/material/TableRow'
-import TableCell from '@mui/material/TableCell'
-import Button from '@mui/material/Button'
-import SchoolIcon from '@mui/icons-material/School'
-import EditIcon from '@mui/icons-material/Edit'
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline'
+import {TableCell, Button, SchoolIcon, EditIcon, DeleteOutlineIcon, TableRow} from 'collections'
 import {NavLink, useNavigate} from 'react-router-dom'
 import {ModalDeletePack, ModalEditPack} from 'common'
 import {PackType} from 'api/Packs-cards-api'
@@ -27,8 +21,8 @@ export const Pack = (props: PackPropsType) => {
     const status = useAppSelector(selectAppStatus)
     const page = useAppSelector(selectCardsPage)
 
-    const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
-    const [openEditModalPack, setOpenEditModalPack] = useState(false)
+    const [openModalDeletePack, setOpenModalDeletePack] = useState<boolean>(false)
+    const [openEditModalPack, setOpenEditModalPack] = useState<boolean>(false)
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch()

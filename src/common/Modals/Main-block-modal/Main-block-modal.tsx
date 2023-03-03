@@ -1,7 +1,6 @@
-import React, {ReactNode} from 'react'
-import style from './Main-block-modal.module.css'
-import CloseIcon from '@mui/icons-material/Close'
-import Modal from '@mui/material/Modal'
+import {ReactNode} from 'react'
+import s from './Main-block-modal.module.css'
+import {CloseIcon, Modal} from 'collections'
 
 
 type MainBlockModalType = {
@@ -17,12 +16,12 @@ export const MainBlockModal = (props: MainBlockModalType) => {
     return (
         <div>
             <Modal open={props.open} onClose={props.onCloseModal}>
-                <div className={style.modalBlock}>
-                    <div className={style.modalContainer}>
-                        <div className={style.modalTitle}>{props.title}</div>
+                <div className={s.modalBlock}>
+                    <div className={s.modalContainer}>
+                        <div className={s.modalTitle}>{props.title}</div>
                         <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={props.onCloseModal}/>
                     </div>
-                    <div className={style.children}>
+                    <div className={s.children}>
                         {props.children}
                     </div>
                 </div>

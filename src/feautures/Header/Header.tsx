@@ -1,13 +1,11 @@
-import React, {useState} from 'react'
+import {useState, MouseEvent} from 'react'
 import {NavLink} from 'react-router-dom'
-import style from "./Header.module.css"
+import s from "./Header.module.css"
 import {useAppDispatch, useAppSelector} from 'utils'
-import {Avatar, Button, Popover} from '@mui/material'
+import {Avatar, Button, Popover, AccountBoxIcon, LogoutIcon} from 'collections'
 import defaultAvatar from 'assets/Icon/default-avatar.jpg'
 import styleIcon from '../Cards/Cards-menu/Cards-menu.module.css'
 import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
-import AccountBoxIcon from '@mui/icons-material/AccountBox'
-import LogoutIcon from '@mui/icons-material/Logout'
 import {logOut} from 'reducers/Auth-reducer'
 import {selectProfileAvatar, selectProfileName} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
@@ -23,7 +21,7 @@ export const Header = () => {
     const open = Boolean(anchorEl)
     const id = open ? 'simple-popover' : undefined
 
-    const buttonClickHandler = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const buttonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget)
     }
 
@@ -36,11 +34,11 @@ export const Header = () => {
     }
 
     return (
-        <div className={style.header}>
+        <div className={s.header}>
             <div className={'container'}>
-                <header className={style.headerWrapper}>
-                    <div className={style.userInfo}>
-                        <a className={style.userName}>{name}</a>
+                <header className={s.headerWrapper}>
+                    <div className={s.userInfo}>
+                        <a className={s.userName}>{name}</a>
                         <Popover
                             id={id}
                             anchorEl={anchorEl}

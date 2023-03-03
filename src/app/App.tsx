@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
+import {useEffect} from 'react'
 import './App.css'
 import {isInitializedTC} from 'reducers/App-reducer'
-import {CircularProgress, LinearProgress} from '@mui/material'
+import {CircularProgress, LinearProgress} from 'collections'
 import {useAppDispatch, useAppSelector, loadState} from 'utils'
 import {PagesRoutes} from './Routes/Routes'
-import {ErrorSnackbar} from 'components/Error-snackbar/Error-snackbar'
+import {ErrorSnackbar} from 'components'
 import {Header} from 'feautures/Header/Header'
 import {packsActions} from 'reducers/Packs-reducer'
 

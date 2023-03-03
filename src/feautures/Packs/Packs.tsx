@@ -1,23 +1,18 @@
-import React, {ChangeEvent, useCallback, useEffect} from 'react'
+import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './Packs-table/Packs-table'
-import {Button, Container, Grid} from '@mui/material'
-import FilterAltOffIcon from '@mui/icons-material/FilterAltOff'
+import {Container, Grid, FilterAltOffIcon, Button} from 'collections'
 import {useDebounce, saveState, useAppDispatch, useAppSelector} from 'utils'
 import {Search, PaginationBar, ModalAddPack} from 'common'
-import {RangeSlider} from 'components/Renge-slider/Renge-slider'
+import {RangeSlider} from 'components'
 import {addNewPackTC, getPacksTC, packsActions} from 'reducers/Packs-reducer'
-import {
-    selectAppStatus,
-    selectAuthIsLoggedIn,
-    selectPacksCardPacksTotalCount, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksPackName,
-    selectPacksPage,
-    selectPacksPageCount, selectPacksStatusPackCards
-} from 'store/Selectors'
+import {selectAppStatus, selectAuthIsLoggedIn, selectPacksCardPacksTotalCount, selectPacksMax, selectPacksMaxCardsCount,
+    selectPacksMin, selectPacksPackName, selectPacksPage, selectPacksPageCount, selectPacksStatusPackCards}
+    from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 
 
-export const Packs = React.memo(() => {
+export const Packs = memo(() => {
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const page = useAppSelector(selectPacksPage)
     const pageCount = useAppSelector(selectPacksPageCount)
@@ -29,7 +24,7 @@ export const Packs = React.memo(() => {
     const min = useAppSelector(selectPacksMin)
     const max = useAppSelector(selectPacksMax)
 
-    const [openModalAddPack, setOpenModalAddPack] = React.useState(false)
+    const [openModalAddPack, setOpenModalAddPack] = useState(false)
 
     const debouncedValue = useDebounce<string>(packName, 700)
 

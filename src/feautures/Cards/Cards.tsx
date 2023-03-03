@@ -1,5 +1,5 @@
-import React, {ChangeEvent, useCallback, useEffect, useState} from 'react'
-import Button from '@mui/material/Button'
+import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
+import {Button} from 'collections'
 import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
 import {useAppDispatch, useAppSelector, getCard, useDebounce} from 'utils'
@@ -23,8 +23,7 @@ import {
 import {PATH} from 'constants/Routing/Rout-constants'
 
 
-
-export const Cards = React.memo(() => {
+export const Cards = memo(() => {
         const page = useAppSelector(selectCardsPage)
         const pageCount = useAppSelector(selectCardsPageCount)
         const cardsTotalCount = useAppSelector(selectCardsTotalCount)

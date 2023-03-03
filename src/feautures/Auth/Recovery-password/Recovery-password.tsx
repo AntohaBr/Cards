@@ -1,5 +1,4 @@
-import React from 'react'
-import {Button, FormControl, FormGroup, FormLabel, Input, InputLabel} from '@mui/material'
+import {Button, FormControl, FormGroup, FormLabel, Input, InputLabel} from 'collections'
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
 import {recoveryPasswordTC} from 'reducers/Auth-reducer'

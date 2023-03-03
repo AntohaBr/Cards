@@ -1,17 +1,8 @@
-import React from 'react'
-import {
-    Button,
-    Checkbox,
-    FormControl,
-    FormControlLabel,
-    FormGroup, FormLabel, Input, InputLabel,
-} from '@mui/material'
+import {useState, MouseEvent} from 'react'
+import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Input, InputLabel, InputAdornment,
+    IconButton, Visibility, VisibilityOff} from 'collections'
 import {Navigate, NavLink} from 'react-router-dom'
 import {useFormik} from 'formik'
-import InputAdornment from '@mui/material/InputAdornment'
-import IconButton from '@mui/material/IconButton'
-import Visibility from '@mui/icons-material/Visibility'
-import {VisibilityOff} from '@mui/icons-material'
 import {login} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from 'common/Styles/Forms.module.css'
@@ -33,7 +24,7 @@ export const Login = () => {
 
     const dispatch = useAppDispatch()
 
-    const [values, setValues] = React.useState<State>({
+    const [values, setValues] = useState<State>({
         password: '',
         showPassword: false,
     })
@@ -41,7 +32,7 @@ export const Login = () => {
     const handleClickShowConfirmPassword = () => {
         setValues({...values, showPassword: !values.showPassword})
     }
-    const handleMouseDownPassword = (event: React.MouseEvent<HTMLButtonElement>) => {
+    const handleMouseDownPassword = (event: MouseEvent<HTMLButtonElement>) => {
         event.preventDefault()
     }
 
@@ -65,62 +56,62 @@ export const Login = () => {
         <div className={styleForms.block}>
             <div className={styleForms.container}>
                 <div className={styleForms.form}>
-                <h2 className={styleForms.title}>Sign in</h2>
-                <form onSubmit={formik.handleSubmit}>
-                    <FormGroup>
-                        <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
-                            <InputLabel style={{paddingLeft: '6px'}}>Email</InputLabel>
-                            <Input
-                                {...formik.getFieldProps('email')}
+                    <h2 className={styleForms.title}>Sign in</h2>
+                    <form onSubmit={formik.handleSubmit}>
+                        <FormGroup>
+                            <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
+                                <InputLabel style={{paddingLeft: '6px'}}>Email</InputLabel>
+                                <Input
+                                    {...formik.getFieldProps('email')}
+                                />
+                                {formik.touched.email && formik.errors.email ?
+                                    <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
+                            </FormControl>
+                            <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
+                                <InputLabel style={{paddingLeft: '6px'}}>Password</InputLabel>
+                                <Input
+                                    type={values.showPassword ? 'text' : 'password'}
+                                    {...formik.getFieldProps('password')}
+                                    endAdornment={
+                                        <InputAdornment position='end'>
+                                            <IconButton
+                                                onClick={handleClickShowConfirmPassword}
+                                                onMouseDown={handleMouseDownPassword}
+                                            >
+                                                {values.showPassword ? <Visibility/> : <VisibilityOff/>}
+                                            </IconButton>
+                                        </InputAdornment>
+                                    }
+                                />
+                                {formik.touched.password && formik.errors.password ?
+                                    <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
+                            </FormControl>
+                            <FormControlLabel
+                                className={s.formControlLabel}
+                                label={'Remember me'}
+                                control={<Checkbox
+                                    {...formik.getFieldProps('rememberMe')}
+                                    checked={formik.values.rememberMe}
+                                />}
                             />
-                            {formik.touched.email && formik.errors.email ?
-                                <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
-                        </FormControl>
-                        <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
-                            <InputLabel style={{paddingLeft: '6px'}}>Password</InputLabel>
-                            <Input
-                                type={values.showPassword ? 'text' : 'password'}
-                                {...formik.getFieldProps('password')}
-                                endAdornment={
-                                    <InputAdornment position='end'>
-                                        <IconButton
-                                            onClick={handleClickShowConfirmPassword}
-                                            onMouseDown={handleMouseDownPassword}
-                                        >
-                                            {values.showPassword ? <Visibility/> : <VisibilityOff/>}
-                                        </IconButton>
-                                    </InputAdornment>
-                                }
-                            />
-                            {formik.touched.password && formik.errors.password ?
-                                <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
-                        </FormControl>
-                        <FormControlLabel
-                            className={s.formControlLabel}
-                            label={'Remember me'}
-                            control={<Checkbox
-                                {...formik.getFieldProps('rememberMe')}
-                                checked={formik.values.rememberMe}
-                            />}
-                        />
-                        <div className={s.forgotBlock}>
-                            <NavLink className={s.textForgot} to={PATH.RECOVERY_PASSWORD}>Forgot Password?</NavLink>
-                        </div>
-                        <div className={styleForms.buttonBlock}>
-                            <Button type={'submit'} variant={'contained'} color={'primary'}
-                                    style={{width: '100%', borderRadius: '90px'}}
-                                    disabled={status === 'loading'}>
-                                Sing In
-                            </Button>
-                        </div>
-                        <FormLabel>
-                            <p className={styleForms.text}>Already have an account?</p>
-                            <div className={styleForms.navLinkBlock}>
-                                <NavLink className={styleForms.navLink} to={PATH.REGISTRATION}>Sign up</NavLink>
+                            <div className={s.forgotBlock}>
+                                <NavLink className={s.textForgot} to={PATH.RECOVERY_PASSWORD}>Forgot Password?</NavLink>
                             </div>
-                        </FormLabel>
-                    </FormGroup>
-                </form>
+                            <div className={styleForms.buttonBlock}>
+                                <Button type={'submit'} variant={'contained'} color={'primary'}
+                                        style={{width: '100%', borderRadius: '90px'}}
+                                        disabled={status === 'loading'}>
+                                    Sing In
+                                </Button>
+                            </div>
+                            <FormLabel>
+                                <p className={styleForms.text}>Already have an account?</p>
+                                <div className={styleForms.navLinkBlock}>
+                                    <NavLink className={styleForms.navLink} to={PATH.REGISTRATION}>Sign up</NavLink>
+                                </div>
+                            </FormLabel>
+                        </FormGroup>
+                    </form>
                 </div>
             </div>
         </div>

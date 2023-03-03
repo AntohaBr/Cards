@@ -1,6 +1,6 @@
 import {NavLink} from 'react-router-dom'
 import s from './Back-to-pack-list.module.css'
-import ArrowBackIcon from '@mui/icons-material/ArrowBack'
+import {ArrowBackIcon} from 'collections'
 import {PATH} from 'constants/Routing/Rout-constants'
 
 

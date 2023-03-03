@@ -1,15 +1,8 @@
-import * as React from 'react'
-import Table from '@mui/material/Table'
-import TableBody from '@mui/material/TableBody'
-import TableCell from '@mui/material/TableCell'
-import TableContainer from '@mui/material/TableContainer'
-import TableHead from '@mui/material/TableHead'
-import TableRow from '@mui/material/TableRow'
-import Paper from '@mui/material/Paper'
-import {Container, Grid} from '@mui/material'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from 'collections'
+import {Container, Grid} from 'collections'
 import {Navigate} from 'react-router-dom'
 import {Pack} from './Pack/Pack'
-import style from '../Packs-table.module.css'
+import s from '../Packs-table.module.css'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {setParamsSortPack} from 'reducers/Packs-reducer'
 import {selectPacks, selectPacksSort} from 'store/Selectors'
@@ -42,29 +35,29 @@ export const PacksTable = () => {
                                     <TableCell align='right'>Cover</TableCell>
                                     <TableCell
                                         align='right'
-                                        className={!sort.includes('0name') ? style.withoutSort :
-                                        sort === '0name' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('0name') ? s.withoutSort :
+                                        sort === '0name' ? s.sortUp : s.sortDown}
                                         onClick={() => sortUpdate('name')}
                                     >Name
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={!sort.includes('0cardsCount') ? style.withoutSort :
-                                            sort === '0cardsCount' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('0cardsCount') ? s.withoutSort :
+                                            sort === '0cardsCount' ? s.sortUp : s.sortDown}
                                         onClick={() => sortUpdate('cardsCount')}
                                     >Cards
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={!sort.includes('updated') ? style.withoutSort :
-                                             sort === '0updated' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('updated') ? s.withoutSort :
+                                             sort === '0updated' ? s.sortUp : s.sortDown}
                                         onClick={() => sortUpdate('updated')}
                                     >Last updated(g)
                                     </TableCell>
                                     <TableCell
                                         align='right'
-                                        className={!sort.includes('0user_name') ? style.withoutSort :
-                                            sort === '0user_name' ? style.sortUp : style.sortDown}
+                                        className={!sort.includes('0user_name') ? s.withoutSort :
+                                            sort === '0user_name' ? s.sortUp : s.sortDown}
                                         onClick={() => sortUpdate('user_name')}
                                     >Created by
                                     </TableCell>

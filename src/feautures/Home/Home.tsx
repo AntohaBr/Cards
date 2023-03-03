@@ -1,4 +1,3 @@
-import React from 'react'
 import {useAppSelector} from 'utils'
 import {Navigate} from 'react-router-dom'
 import {selectAuthIsLoggedIn} from 'store/Selectors'

@@ -1,7 +1,6 @@
-import React from 'react'
 import {ChangeEvent} from 'react'
 import {useAppDispatch, convertFileToBase64} from 'utils'
-import Button from '@mui/material/Button'
+import {Button} from 'collections'
 import s from './Input-file.module.css'
 import {appActions} from 'reducers/App-reducer'
 

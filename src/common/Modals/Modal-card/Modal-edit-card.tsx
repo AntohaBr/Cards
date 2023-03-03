@@ -1,12 +1,7 @@
-import React, {ChangeEvent, useEffect, useState} from 'react'
-import FormControl from '@mui/material/FormControl'
-import InputLabel from '@mui/material/InputLabel'
-import MenuItem from '@mui/material/MenuItem'
-import Select, {SelectChangeEvent} from '@mui/material/Select'
-import TextField from '@mui/material/TextField'
-import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
-import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
-import {InputFile} from '../../Input-file/Input-file'
+import {ChangeEvent, useEffect, useState} from 'react'
+import {FormControl, InputLabel, MenuItem, Select, TextField} from 'collections'
+import {SelectChangeEvent} from '@mui/material/Select'
+import {MainBlockModal, ButtonBlockModal, InputFile} from 'common'
 
 
 type ModalEditCardPropsType = {

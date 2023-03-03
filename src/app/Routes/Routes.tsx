@@ -9,9 +9,8 @@ import {Error404} from 'feautures/Error-404/Error-404'
 import {Packs} from 'feautures/Packs/Packs'
 import {Cards} from 'feautures/Cards/Cards'
 import {Learn} from 'feautures/Learn/Learn'
-import React from 'react'
 import {Home} from 'feautures/Home/Home'
-import { PATH } from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const PagesRoutes = () => {

@@ -1,7 +1,6 @@
-import React, {ChangeEvent, useState} from 'react'
-import {Avatar, Badge, Button, Icon, IconButton, TextField} from '@mui/material'
+import {ChangeEvent, memo, useState} from 'react'
 import s from './Profile.module.css'
-import {AddAPhoto, BorderColor, Logout} from '@mui/icons-material'
+import {AddAPhoto, Logout, BorderColor, Button, Icon, IconButton, Avatar, Badge, TextField} from 'collections'
 import {updateProfileTC} from 'reducers/Profile-reducer'
 import {Navigate} from 'react-router-dom'
 import {logOut} from 'reducers/Auth-reducer'
@@ -14,7 +13,7 @@ import {selectAuthIsLoggedIn, selectProfileAvatar, selectProfileEmail, selectPro
 import {PATH} from 'constants/Routing/Rout-constants'
 
 
-export const Profile = React.memo(() => {
+export const Profile = memo(() => {
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const email = useAppSelector(selectProfileEmail)
     const avatar = useAppSelector(selectProfileAvatar)

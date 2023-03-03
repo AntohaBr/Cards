@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {Button, FormControlLabel, Radio} from '@mui/material'
+import {useEffect, useState} from 'react'
+import {Button, FormControlLabel, Radio} from 'collections'
 import s from './Learn.module.css'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
 import {CardType} from 'api/Packs-cards-api'
@@ -20,7 +20,7 @@ export const Learn = () => {
     const {cardId} = useParams<'cardId'>()
 
     const [answer, setAnswer] = useState<boolean>(false)
-    const [value, setValue] = React.useState<number>(0)
+    const [value, setValue] = useState<number>(0)
     const [first, setFirst] = useState<boolean>(true)
     const [card, setCard] = useState<CardType>({
         _id: '',
@@ -93,7 +93,6 @@ export const Learn = () => {
                     </div>
 
                     <div>Number of attempts to answer the question: {card.shots}</div>
-
                     <div>
                         <Button
                             variant={'contained'}

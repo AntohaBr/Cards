@@ -1,6 +1,5 @@
-import React, {ChangeEvent} from 'react'
-import SearchIcon from '@mui/icons-material/Search'
-import {alpha, InputBase, styled} from '@mui/material'
+import {ChangeEvent, memo} from 'react'
+import {SearchIcon, alpha, InputBase, styled} from 'collections'
 
 
 const SearchContainer = styled('div')(({theme}) => ({
@@ -43,7 +42,7 @@ type SearchPropsType = {
 }
 
 
-export const Search = React.memo((props: SearchPropsType) => {
+export const Search = memo((props: SearchPropsType) => {
 
     return (
         <div>

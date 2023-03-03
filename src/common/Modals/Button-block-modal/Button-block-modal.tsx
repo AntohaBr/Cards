@@ -1,6 +1,5 @@
-import React from 'react'
-import {Button} from '@mui/material'
-import style from './Button-block-modal.module.css'
+import {Button} from 'collections'
+import s from './Button-block-modal.module.css'
 
 
 type ButtonBlockModalPropsType = {
@@ -12,7 +11,7 @@ type ButtonBlockModalPropsType = {
 
 export const ButtonBlockModal = (props:ButtonBlockModalPropsType) => {
     return (
-        <div className={style.buttonModalBlock}>
+        <div className={s.buttonModalBlock}>
             <Button
                 onClick={props.onCloseModalHandler}
                 variant={'outlined'}

@@ -1,6 +1,4 @@
-import React from 'react'
-import {MainBlockModal} from '../Main-block-modal/Main-block-modal'
-import {ButtonBlockModal} from '../Button-block-modal/Button-block-modal'
+import {MainBlockModal, ButtonBlockModal} from 'common'
 
 
 type ModalDeletePackPropsType = {
