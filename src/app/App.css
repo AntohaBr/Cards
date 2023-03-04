@@ -1,7 +1,5 @@
 .app-wrapper {
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    min-height: 100vh;
+    max-height: 100%;
 }
 

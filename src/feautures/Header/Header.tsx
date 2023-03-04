@@ -9,6 +9,7 @@ import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
 import {logOut} from 'reducers/Auth-reducer'
 import {selectProfileAvatar, selectProfileName} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
+import styleForms from 'common/Styles/Forms.module.css'
 
 
 export const Header = () => {
@@ -35,40 +36,40 @@ export const Header = () => {
 
     return (
         <div className={s.header}>
-            <div className={'container'}>
+            <div className={`${styleForms.container} ${s.container}`}>
                 <header className={s.headerWrapper}>
-                    <div className={s.userInfo}>
-                        <a className={s.userName}>{name}</a>
-                        <Popover
-                            id={id}
-                            anchorEl={anchorEl}
-                            open={open}
-                            onClose={popoverCloseHandler}
-                            anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                        >
-                            <div className={styleMenu.menu}>
-                                <NavLink to={PATH.PROFILE} style={{textDecoration: 'none'}}>
-                                    <Button>
-                                        <div className={styleIcon.icon}>
-                                            <AccountBoxIcon sx={{marginRight: '5px'}}/> Profile
-                                        </div>
-                                    </Button>
-                                </NavLink>
-                                <Button onClick={logOutHandler}>
+                <div className={s.userInfo}>
+                    <a className={s.userName}>{name}</a>
+                    <Popover
+                        id={id}
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={popoverCloseHandler}
+                        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                    >
+                        <div className={styleMenu.menu}>
+                            <NavLink to={PATH.PROFILE} style={{textDecoration: 'none'}}>
+                                <Button>
                                     <div className={styleIcon.icon}>
-                                        <LogoutIcon sx={{marginRight: '5px'}}/> log Out
+                                        <AccountBoxIcon sx={{marginRight: '5px'}}/> Profile
                                     </div>
                                 </Button>
-                            </div>
-                        </Popover>
-                        <Button onClick={buttonClickHandler}>
-                            <Avatar
-                                src={avatar ? avatar : defaultAvatar}
-                                alt={'User Name'}
-                                sx={{width: 50, height: 50}}
-                            />
-                        </Button>
-                    </div>
+                            </NavLink>
+                            <Button onClick={logOutHandler}>
+                                <div className={styleIcon.icon}>
+                                    <LogoutIcon sx={{marginRight: '5px'}}/> log Out
+                                </div>
+                            </Button>
+                        </div>
+                    </Popover>
+                    <Button onClick={buttonClickHandler}>
+                        <Avatar
+                            src={avatar ? avatar : defaultAvatar}
+                            alt={'User Name'}
+                            sx={{width: 50, height: 50}}
+                        />
+                    </Button>
+                </div>
                 </header>
             </div>
         </div>

@@ -57,7 +57,7 @@ export const Profile = memo(() => {
 
         return (
             <div className={styleForms.block}>
-                <div className={styleForms.container}>
+                <div className={`${styleForms.container} ${s.container}`}>
                     <BackToPackList/>
                     <div className={`${styleForms.form} ${s.form}`}>
                         <h2 className={styleForms.title}>Personal information</h2>

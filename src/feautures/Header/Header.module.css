@@ -2,12 +2,27 @@
     box-shadow: 0 2px 10px rgba(109, 109, 109, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
+.container {
+    justify-content: flex-end;
+}
+
 .headerWrapper {
     display: flex;
-    flex-direction: row;
-    justify-content: flex-end;
-    align-items: center;
-    padding: 10px 0px;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+}
+
+@media only screen and (max-width: 548px) {
+    .headerWrapper {
+        width: 350px;
+    }
+}
+
+@media only screen and (max-width: 457px) {
+    .headerWrapper {
+        width: 295px;
+    }
 }
 
 .userInfo {
@@ -15,6 +30,7 @@
     align-items: center;
     justify-content: center;
     min-width: 100px;
+    padding: 5px 5px;
 }
 
 .userName {
@@ -24,3 +40,4 @@
     font-weight: 600;
     font-size: 20px;
 }
+

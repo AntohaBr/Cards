@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    padding-left: 22%;
+    margin: 10px 0;
 }
 
 .navLink {

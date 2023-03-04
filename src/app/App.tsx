@@ -29,13 +29,11 @@ export const App = () => {
         )
     }
     return (
-        <div>
-            {isLoggedIn ? <Header/> : ''}
             <div className='app-wrapper'>
+                {isLoggedIn ? <Header/> : ''}
                 <ErrorSnackbar/>
                 {status === 'loading' ? <LinearProgress color={'primary'}/> : <div style={{height: '5px'}}/>}
                <PagesRoutes/>
             </div>
-        </div>
     )
 }
