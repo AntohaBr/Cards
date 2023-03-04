@@ -24,7 +24,7 @@ export const InputFile = (props: InputFilePropsType) => {
                     props.saveImg(img64)
                 })
             } else {
-                dispatch(appActions.setAppErrorAC('File too large'))
+                dispatch(appActions.setAppError('File too large'))
             }
         }
     }

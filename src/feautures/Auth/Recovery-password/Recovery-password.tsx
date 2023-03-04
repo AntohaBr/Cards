@@ -1,7 +1,7 @@
 import {Button, FormControl, FormGroup, FormLabel, Input, InputLabel} from 'collections'
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
-import {recoveryPasswordTC} from 'reducers/Auth-reducer'
+import {recoveryPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from 'common/Styles/Forms.module.css'
 import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from 'store/Selectors'
@@ -9,7 +9,7 @@ import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const RecoveryPassword = () => {
-    const recoveryPassword = useAppSelector(selectAuthRecoveryPassword)
+    const recoveryPasswordAuth = useAppSelector(selectAuthRecoveryPassword)
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const status = useAppSelector(selectAppStatus)
 
@@ -22,12 +22,12 @@ export const RecoveryPassword = () => {
         validate: validate,
         onSubmit: values => {
             if (values.email) {
-                dispatch(recoveryPasswordTC(values.email))
+                dispatch(recoveryPassword(values.email))
             }
         },
     })
 
-    if (recoveryPassword) {
+    if (recoveryPasswordAuth) {
         return <Navigate to={PATH.CHECK_EMAIL}/>
     }
 

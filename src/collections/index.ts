@@ -23,7 +23,7 @@ export {default as Avatar} from '@mui/material/Avatar'
 export {default as IconButton} from '@mui/material/IconButton'
 export {default as Icon} from '@mui/material/Icon'
 export {default as Button} from '@mui/material/Button'
-export {default as SchoolIcon}  from '@mui/icons-material/School'
+export {default as SchoolIcon} from '@mui/icons-material/School'
 export {default as EditIcon} from '@mui/icons-material/Edit'
 export {default as DeleteOutlineIcon} from '@mui/icons-material/DeleteOutline'
 export {default as TableCell} from '@mui/material/TableCell/'
@@ -53,5 +53,6 @@ export {default as Visibility} from '@mui/icons-material/Visibility'
 export {default as VisibilityOff} from '@mui/icons-material/VisibilityOff'
 export {default as MoreVertIcon} from '@mui/icons-material/MoreVert'
 export {default as Rating} from '@mui/material/Rating'
+
 
 

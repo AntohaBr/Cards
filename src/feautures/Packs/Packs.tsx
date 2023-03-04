@@ -5,11 +5,11 @@ import {Container, Grid, FilterAltOffIcon, Button} from 'collections'
 import {useDebounce, saveState, useAppDispatch, useAppSelector} from 'utils'
 import {Search, PaginationBar, ModalAddPack} from 'common'
 import {RangeSlider} from 'components'
-import {addNewPackTC, getPacksTC, packsActions} from 'reducers/Packs-reducer'
-import {selectAppStatus, selectAuthIsLoggedIn, selectPacksCardPacksTotalCount, selectPacksMax, selectPacksMaxCardsCount,
-    selectPacksMin, selectPacksPackName, selectPacksPage, selectPacksPageCount, selectPacksStatusPackCards}
-    from 'store/Selectors'
+import {addNewPack, getPacks, packsActions} from 'reducers/Packs-reducer'
 import {PATH} from 'constants/Routing/Rout-constants'
+import {selectAppStatus, selectAuthIsLoggedIn, selectPacksCardPacksTotalCount, selectPacksMax,
+    selectPacksMaxCardsCount, selectPacksMin, selectPacksPackName, selectPacksPage, selectPacksPageCount,
+    selectPacksStatusPackCards} from 'store/Selectors'
 
 
 export const Packs = memo(() => {
@@ -33,25 +33,25 @@ export const Packs = memo(() => {
     const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
-        dispatch(getPacksTC())
+        dispatch(getPacks())
     }, [dispatch, debouncedValue, statusPackCards, min, max, pageCount, page])
 
     const allPackCardsHandler = () => {
-        dispatch(packsActions.setTypePackCardsAC('all'))
+        dispatch(packsActions.setTypePackCards('all'))
         saveState('all')
     }
 
     const myPackCardsHandler = () => {
-        dispatch(packsActions.setTypePackCardsAC('my'))
+        dispatch(packsActions.setTypePackCards('my'))
         saveState('my')
     }
 
-    const addNewPack = (name: string, deckCover: string) => {
-        dispatch(addNewPackTC({name, deckCover}))
+    const addNewPackCard = (name: string, deckCover: string) => {
+        dispatch(addNewPack({name, deckCover}))
     }
 
     const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        dispatch(packsActions.searchPacksAC(e.currentTarget.value))
+        dispatch(packsActions.searchPacks(e.currentTarget.value))
     }
 
     const addButtonClickHandler = () => {
@@ -59,16 +59,16 @@ export const Packs = memo(() => {
     }
 
     const packsPageCountHandler = useCallback((value: string) => {
-        dispatch(packsActions.setCardPacksPageCountAC(+value))
+        dispatch(packsActions.setCardPacksPageCount(+value))
     }, [])
 
     const packsHandleChangePage = useCallback((page: number) => {
-        dispatch(packsActions.setCardPacksPageAC(page))
+        dispatch(packsActions.setCardPacksPage(page))
     }, [])
 
     const resetFilterHandler = () => {
-        dispatch(packsActions.clearFiltersAC())
-        dispatch(packsActions.setMinMaxSearchCardAC(0, maxCardsCount))
+        dispatch(packsActions.clearFilters())
+        dispatch(packsActions.setMinMaxSearchCard(0, maxCardsCount))
     }
 
     if (!isLoggedIn) {
@@ -92,7 +92,7 @@ export const Packs = memo(() => {
                         title={'Add new pack'}
                         open={openModalAddPack}
                         toggleOpenMode={setOpenModalAddPack}
-                        addItem={addNewPack}
+                        addItem={addNewPackCard}
                     />
                     <div style={{
                         display: 'flex',

@@ -35,16 +35,16 @@ export const profileActions = {
 
 //thunks
 export const updateProfileTC = (name: string, avatar?: string): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatus('loading'))
     try {
         const res = await authApi.updateProfile(name, avatar)
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatus('succeeded'))
         dispatch(profileActions.updateProfile(res.data.updatedProfile))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
     } finally {
-        dispatch(appActions.setAppStatusAC('idle'))
+        dispatch(appActions.setAppStatus('idle'))
     }
 }
 

@@ -1,6 +1,6 @@
 import {forwardRef, SyntheticEvent} from 'react'
-import {Snackbar,MuiAlert} from 'collections'
-import  {AlertProps} from '@mui/material/Alert'
+import {Snackbar,MuiAlert,} from 'collections'
+import {AlertProps} from '@mui/material/Alert'
 import {appActions} from 'reducers/App-reducer'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {selectAppError} from 'store/Selectors'
@@ -23,7 +23,7 @@ export const ErrorSnackbar = () => {
         if (reason === 'clickAway') {
             return
         }
-        dispatch(appActions.setAppErrorAC(null))
+        dispatch(appActions.setAppError(null))
     }
 
     return (

@@ -4,7 +4,7 @@ import {NavLink, useNavigate} from 'react-router-dom'
 import {ModalDeletePack, ModalEditPack} from 'common'
 import {PackType} from 'api/Packs-cards-api'
 import {useAppDispatch, useAppSelector} from 'utils'
-import {deletePackTC, updatePackTC} from 'reducers/Packs-reducer'
+import {deletePack, updatePack} from 'reducers/Packs-reducer'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {setCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileMyID} from 'store/Selectors'
@@ -32,11 +32,11 @@ export const Pack = (props: PackPropsType) => {
         navigate(`${PATH.LEARN}/${props.pack._id}`)
     }
 
-    const deletePack = () => {
-        dispatch(deletePackTC(props.pack._id))
+    const deletePackCards = () => {
+        dispatch(deletePack(props.pack._id))
     }
-    const editPack = (name: string, deckCover: string) => {
-        dispatch(updatePackTC({cardsPack: {_id: props.pack._id, name, deckCover}}))
+    const editPackCards = (name: string, deckCover: string) => {
+        dispatch(updatePack({cardsPack: {_id: props.pack._id, name, deckCover}}))
     }
 
     const deleteButtonClickHandler = () => {
@@ -98,14 +98,14 @@ export const Pack = (props: PackPropsType) => {
                 open={openModalDeletePack}
                 name={props.pack.name}
                 toggleOpenMode={setOpenModalDeletePack}
-                deleteItem={deletePack}
+                deleteItem={deletePackCards}
             />
             <ModalEditPack
                 title={'Edit Pack'}
                 itemTitle={props.pack.name}
                 open={openEditModalPack}
                 toggleOpenMode={setOpenEditModalPack}
-                editItem={editPack}
+                editItem={editPackCards}
                 img={props.pack.deckCover}
             />
         </TableRow>

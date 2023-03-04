@@ -29,10 +29,10 @@ export const RangeSlider =  () => {
         }
         if (activeThumb === 0) {
             setValue([Math.min(newValue[0], value[1] - minDistance), value[1]])
-            dispatch(packsActions.setMinMaxSearchCardAC(Math.min(newValue[0], value[1] - minDistance), value[1]))
+            dispatch(packsActions.setMinMaxSearchCard(Math.min(newValue[0], value[1] - minDistance), value[1]))
         } else {
             setValue([value[0], Math.max(newValue[1], value[0] + minDistance)])
-            dispatch(packsActions.setMinMaxSearchCardAC(value[0], Math.max(newValue[1], value[0] + minDistance)))
+            dispatch(packsActions.setMinMaxSearchCard(value[0], Math.max(newValue[1], value[0] + minDistance)))
         }
     }
 

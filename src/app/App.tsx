@@ -1,6 +1,6 @@
 import {useEffect} from 'react'
 import './App.css'
-import {isInitializedTC} from 'reducers/App-reducer'
+import {isInitialized} from 'reducers/App-reducer'
 import {CircularProgress, LinearProgress} from 'collections'
 import {useAppDispatch, useAppSelector, loadState} from 'utils'
 import {PagesRoutes} from './Routes/Routes'
@@ -11,17 +11,17 @@ import {packsActions} from 'reducers/Packs-reducer'
 
 export const App = () => {
     const status = useAppSelector(state => state.app.status)
-    const isInitialized = useAppSelector(state => state.app.isInitialized)
+    const isInitializedApp = useAppSelector(state => state.app.isInitialized)
     const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(isInitializedTC())
-        dispatch(packsActions.setTypePackCardsAC(loadState() as 'all' | 'my'))
+        dispatch(isInitialized())
+        dispatch(packsActions.setTypePackCards(loadState() as 'all' | 'my'))
     }, [])
 
-    if (!isInitialized) {
+    if (!isInitializedApp) {
         return (
             <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
                 <CircularProgress/>

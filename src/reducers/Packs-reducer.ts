@@ -1,12 +1,7 @@
 import {AxiosError} from 'axios'
 import {error} from 'utils'
 import {AppThunkType, InferActionsTypes} from 'store/Store'
-import {
-    packsCardsApi,
-    PackType,
-    PostPacksType,
-    UpdatePacksType
-} from 'api/Packs-cards-api'
+import {packsCardsApi, PackType, PostPacksType, UpdatePacksType} from 'api/Packs-cards-api'
 import {appActions} from './App-reducer'
 
 
@@ -74,92 +69,92 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
 
 //actions
 export const packsActions = {
-    setPacksAC: (packs: PackType[]) => ({type: 'PACKS/SET-PACKS', packs}) as const,
+    setPacks: (packs: PackType[]) => ({type: 'PACKS/SET-PACKS', packs}) as const,
     addNewPackAC: (newPack: PackType) => ({type: 'PACKS/ADD-NEW-PACK', newPack}) as const,
     updatePackAC: (updatedPack: PackType) => ({type: 'PACKS/UPDATE-PACK', updatedPack}) as const,
     deletePackAC: (packID: string) => ({type: 'PACKS/DELETE-PACK', packID}) as const,
-    setCardPacksTotalCountAC: (value: number) => ({type: 'PACKS/SET-CARD-PACKS-TOTAL-COUNT', value}) as const,
-    setMinMaxSearchCardAC: (min: number, max: number) => ({type: 'PACKS/SET-MIN-MAX-SEARCH-CARD', min, max} as const),
-    fetchMinMaxCardCountAC: (minCardsCount: number, maxCardsCount: number) =>
+    setCardPacksTotalCount: (value: number) => ({type: 'PACKS/SET-CARD-PACKS-TOTAL-COUNT', value}) as const,
+    setMinMaxSearchCard: (min: number, max: number) => ({type: 'PACKS/SET-MIN-MAX-SEARCH-CARD', min, max} as const),
+    fetchMinMaxCardCount: (minCardsCount: number, maxCardsCount: number) =>
         ({type: 'PACKS/FETCH-MIN-MAX-CARDS-COUNT', minCardsCount, maxCardsCount} as const),
-    setCardPacksPageAC: (page: number) => ({type: 'PACKS/SET-CARD-PACKS-PAGE', page} as const),
-    setCardPacksPageCountAC: (pageCount: number) => ({
+    setCardPacksPage: (page: number) => ({type: 'PACKS/SET-CARD-PACKS-PAGE', page} as const),
+    setCardPacksPageCount: (pageCount: number) => ({
         type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT', pageCount
     } as const),
-    sortPacksAC: (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const),
-    searchPacksAC: (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const),
-    setTypePackCardsAC: (statusPackCards: 'my' | 'all') => ({
+    sortPacks: (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', sortPacks} as const),
+    searchPacks: (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', packName} as const),
+    setTypePackCards: (statusPackCards: 'my' | 'all') => ({
         type: 'PACKS/SET-TYPE-PACK-CARDS', statusPackCards
     } as const),
-    clearFiltersAC: () => ({type: 'PACKS/CLEAR-FILTERS'} as const)
+    clearFilters: () => ({type: 'PACKS/CLEAR-FILTERS'} as const)
 }
 
 
 //thunks
-export const getPacksTC = (): AppThunkType => async (dispatch, getState) => {
+export const getPacks = (): AppThunkType => async (dispatch, getState) => {
     const {statusPackCards, params} = getState().packs
     const userId = getState().profile._id
     const user_id = statusPackCards === 'my' ? userId : ''
-    dispatch(appActions.setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatus('loading'))
     try {
         const res = await packsCardsApi.getCardsPack({user_id, ...params})
-        dispatch(packsActions.setPacksAC(res.data.cardPacks))
-        dispatch(packsActions.setCardPacksTotalCountAC(res.data.cardPacksTotalCount))
-        dispatch(packsActions.fetchMinMaxCardCountAC(res.data.minCardsCount, res.data.maxCardsCount))
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(packsActions.setPacks(res.data.cardPacks))
+        dispatch(packsActions.setCardPacksTotalCount(res.data.cardPacksTotalCount))
+        dispatch(packsActions.fetchMinMaxCardCount(res.data.minCardsCount, res.data.maxCardsCount))
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
     } finally {
-        dispatch(appActions.setAppStatusAC('idle'))
+        dispatch(appActions.setAppStatus('idle'))
     }
 }
 
-export const deletePackTC = (packID: string): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+export const deletePack = (packID: string): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatus('loading'))
     try {
         await packsCardsApi.deletePacks(packID)
-        dispatch(getPacksTC())
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(getPacks())
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
     } finally {
-        dispatch(appActions.setAppStatusAC('idle'))
+        dispatch(appActions.setAppStatus('idle'))
     }
 }
 
-export const addNewPackTC = (data: PostPacksType): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+export const addNewPack = (data: PostPacksType): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatus('loading'))
     try {
         await packsCardsApi.addNewPacks({...data})
-        dispatch(getPacksTC())
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(getPacks())
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
     } finally {
-        dispatch(appActions.setAppStatusAC('idle'))
+        dispatch(appActions.setAppStatus('idle'))
     }
 }
 
-export const updatePackTC = (params: UpdatePacksType): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+export const updatePack = (params: UpdatePacksType): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatus('loading'))
     try {
         await packsCardsApi.updatePacks({...params})
-        dispatch(getPacksTC())
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(getPacks())
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
     } finally {
-        dispatch(appActions.setAppStatusAC('idle'))
+        dispatch(appActions.setAppStatus('idle'))
     }
 }
 
 export const setParamsSortPack = (sortParams: string): AppThunkType => dispatch => {
-    dispatch(packsActions.sortPacksAC(sortParams))
-    dispatch(getPacksTC())
+    dispatch(packsActions.sortPacks(sortParams))
+    dispatch(getPacks())
 }
 
 

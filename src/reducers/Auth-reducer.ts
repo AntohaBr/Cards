@@ -42,12 +42,12 @@ export const authActions = {
 
 //thunks
 export const login = (data: LoginType): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatus('loading'))
     try {
         const res = await authApi.login(data)
         dispatch(authActions.addLogin(true))
         dispatch(profileActions.setInfoUser(res.data))
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
@@ -55,11 +55,11 @@ export const login = (data: LoginType): AppThunkType => async (dispatch) => {
 }
 
 export const logOut = (): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatus('loading'))
     try {
         await authApi.logOut()
         dispatch(authActions.addLogin(false))
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
@@ -67,19 +67,19 @@ export const logOut = (): AppThunkType => async (dispatch) => {
 }
 
 export const registration = (value: RegistrationType): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatus('loading'))
     try {
         await authApi.registration(value)
         dispatch(authActions.registration(true))
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
     }
 }
 
-export const recoveryPasswordTC = (email: string): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+export const recoveryPassword = (email: string): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatus('loading'))
     try {
         const data: ForgotType = {
             email: email, message: `<div style="background-color: lime; padding: 15px">
@@ -89,7 +89,7 @@ password recovery link:
         }
         await authApi.recoveryPassword(data)
         dispatch(authActions.recoveryPassword(email))
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
@@ -97,11 +97,11 @@ password recovery link:
 }
 
 export const setNewPassword = (password: string, token: string): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+    dispatch(appActions.setAppStatus('loading'))
     try {
         const data: NewPasswordType = {password: password, resetPasswordToken: token}
         await authApi.setNewPassword(data)
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)

@@ -35,27 +35,27 @@ export const appReducer = (state: AppStateType = initialState, action: AppAction
 
 //actions
 export const appActions = {
-    isInitializedAC: (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const),
-    setAppErrorAC: (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const),
-    setAppStatusAC: (status: AppStatusType) => ({type: 'APP/SET-APP-STATUS', status} as const)
+    isInitialized: (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const),
+    setAppError: (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const),
+    setAppStatus: (status: AppStatusType) => ({type: 'APP/SET-APP-STATUS', status} as const)
 }
 
 
 //thunks
-export const isInitializedTC = (): AppThunkType => async (dispatch) => {
-    dispatch(appActions.setAppStatusAC('loading'))
+export const isInitialized = (): AppThunkType => async (dispatch) => {
+    dispatch(appActions.setAppStatus('loading'))
     try {
         const res = await authApi.me()
         dispatch(authActions.addLogin(true))
-        dispatch(appActions.isInitializedAC(true))
+        dispatch(appActions.isInitialized(true))
         dispatch(profileActions.setInfoUser(res.data))
-        dispatch(appActions.setAppStatusAC('succeeded'))
+        dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
-        dispatch(appActions.isInitializedAC(true))
+        dispatch(appActions.isInitialized(true))
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
     } finally {
-        dispatch(appActions.setAppStatusAC('idle'))
+        dispatch(appActions.setAppStatus('idle'))
     }
 }
 
@@ -64,5 +64,5 @@ export const isInitializedTC = (): AppThunkType => async (dispatch) => {
 type AppStatusType = | 'idle' | 'loading' | 'succeeded' | 'failed' | 'none'
 type AppStateType = typeof initialState
 export type AppActionType = InferActionsTypes<typeof appActions>
-export type SetAppErrorActionType = ReturnType<typeof appActions.setAppErrorAC>
-export type SetAppStatusActionType = ReturnType<typeof appActions.setAppStatusAC>
+export type SetAppErrorActionType = ReturnType<typeof appActions.setAppError>
+export type SetAppStatusActionType = ReturnType<typeof appActions.setAppStatus>

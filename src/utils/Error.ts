@@ -8,10 +8,10 @@ export const error = (err: Error | AxiosError<{ successError: null | string }>, 
 
     if (axios.isAxiosError(err)) {
         const error = err.response?.data ? err.response.data.error : err.message
-        dispatch(appActions.setAppErrorAC(error))
+        dispatch(appActions.setAppError(error))
     } else {
-        dispatch(appActions.setAppErrorAC(`Native error ${err.message}`))
+        dispatch(appActions.setAppError(`Native error ${err.message}`))
     }
-    dispatch(appActions.setAppStatusAC('failed'))
+    dispatch(appActions.setAppStatus('failed'))
 }
 
