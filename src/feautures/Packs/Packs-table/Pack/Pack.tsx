@@ -9,6 +9,7 @@ import defaultCover from 'assets/Icon/default-cover.jpg'
 import {setCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileMyID} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
+import s from './Pack.module.css'
 
 
 type PackPropsType = {
@@ -48,26 +49,24 @@ export const Pack = (props: PackPropsType) => {
     }
 
     return (
-        <TableRow
-            key={props.pack._id}
-            sx={{'&:last-child td, &:last-child th': {border: 0}}}>
-            <TableCell align='right'>
+        <TableRow key={props.pack._id}
+                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+            <TableCell align='center' className={s.deckCover}>
                 <img
                     style={{width: '60px', height: '40px'}}
                     src={props.pack.deckCover ? props.pack.deckCover : defaultCover}
                     alt='img'
                 />
             </TableCell>
-            <TableCell component='th' scope='row' align='right'>
-                <NavLink to={`${PATH.CARDS}/${props.pack._id}`} style={{textDecoration: 'none'}}>
+            <TableCell align='center'>
+                <NavLink to={`${PATH.CARDS}/${props.pack._id}`} style={{textDecoration: 'none', color: 'black'}}>
                     {props.pack.name}
                 </NavLink>
             </TableCell>
-            <TableCell align='right'>{props.pack.cardsCount}</TableCell>
-            <TableCell align='right'>{props.pack.updated?.split('').splice(0, 10)}</TableCell>
-            <TableCell align='right'>{props.pack.user_name}</TableCell>
-            <TableCell align={'right'}>
-                <div>
+            <TableCell align='center'>{props.pack.cardsCount}</TableCell>
+            <TableCell align='center'>{props.pack.updated?.split('').splice(0, 10)}</TableCell>
+            <TableCell align='center'>{props.pack.user_name}</TableCell>
+            <TableCell align='center'>
                     {myID === props.pack.user_id
                         ?
                         <span>
@@ -91,7 +90,6 @@ export const Pack = (props: PackPropsType) => {
                                 </Button>
                         </span>
                     }
-                </div>
             </TableCell>
             <ModalDeletePack
                 title={'Delete Pack'}

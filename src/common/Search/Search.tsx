@@ -1,5 +1,6 @@
 import {ChangeEvent, memo} from 'react'
 import {SearchIcon, alpha, InputBase, styled} from 'collections'
+import styleForms from 'common/Styles/Forms.module.css'
 
 
 const SearchContainer = styled('div')(({theme}) => ({
@@ -46,7 +47,7 @@ export const Search = memo((props: SearchPropsType) => {
 
     return (
         <div>
-            <h3>Search</h3>
+            <div className={styleForms.filterTitle}>Search</div>
             <div>
                 <SearchContainer>
                     <SearchIconWrapper>

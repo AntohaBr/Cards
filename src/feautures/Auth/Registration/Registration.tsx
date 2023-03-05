@@ -1,5 +1,5 @@
 import {useState, MouseEvent} from 'react'
-import {Button, FormControl, FormGroup, FormLabel, Input, InputLabel, InputAdornment, IconButton, Visibility,
+import {FormControl, FormGroup, FormLabel, Input, InputLabel, InputAdornment, IconButton, Visibility,
     VisibilityOff} from 'collections'
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
@@ -7,8 +7,9 @@ import {registration} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from 'common/Styles/Forms.module.css'
 import {RegistrationType} from 'api/Auth-api'
-import {selectAppStatus, selectAuthIsRegistered} from 'store/Selectors'
+import {selectAuthIsRegistered} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
+import {ButtonMui} from 'components'
 
 
 interface State {
@@ -20,7 +21,6 @@ interface State {
 
 
 export const Registration = () => {
-    const status = useAppSelector(selectAppStatus)
     const isRegistered = useAppSelector(selectAuthIsRegistered)
 
     const dispatch = useAppDispatch()
@@ -112,13 +112,7 @@ export const Registration = () => {
                                 {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                                     <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                             </FormControl>
-                            <div className={styleForms.buttonBlock}>
-                                <Button type={'submit'} variant={'contained'} color={'primary'}
-                                        style={{width: '100%', borderRadius: '90px'}}
-                                        disabled={status === 'loading'}>
-                                    Sing Up
-                                </Button>
-                            </div>
+                            <ButtonMui buttonTitle={'Sing Up'}/>
                             <FormLabel>
                                 <p className={styleForms.text}>Already have an account?</p>
                                 <div className={styleForms.navLinkBlock}>

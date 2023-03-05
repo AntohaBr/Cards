@@ -1,7 +1,9 @@
-import {ChangeEvent, memo} from 'react'
-import {NativeSelect, Pagination} from 'collections'
+import {memo} from 'react'
+import {MenuItem, Pagination, Select} from 'collections'
 import {useAppSelector} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
+import {SelectChangeEvent} from '@mui/material/Select'
+import s from './Pagination-bar.module.css'
 
 
 type PaginatorPropsType = {
@@ -16,10 +18,10 @@ type PaginatorPropsType = {
 export const PaginationBar = memo((props: PaginatorPropsType) => {
         const status = useAppSelector(selectAppStatus)
 
-        const optionSelect = [10, 25, 50, 100]
+        const optionSelect = [5, 10, 25]
 
-        const pageCountHandler = (e: ChangeEvent<HTMLSelectElement>) => {
-            props.pageCountHandler(e.currentTarget.value)
+        const pageCountHandler = (e: SelectChangeEvent) => {
+            props.pageCountHandler(e.target.value as string)
         }
 
         const handleChangePage = (event: unknown, page: number) => {
@@ -27,7 +29,7 @@ export const PaginationBar = memo((props: PaginatorPropsType) => {
         }
 
         return (
-            <div>
+            <div className={s.paginationBar}>
                 <Pagination
                     color='primary'
                     shape='rounded'
@@ -36,18 +38,22 @@ export const PaginationBar = memo((props: PaginatorPropsType) => {
                     count={props.paginationPages}
                     disabled={status === 'loading'}
                 />
-                <span>Show</span>
-                <NativeSelect
-                    value={props.pageCount}
-                    onChange={pageCountHandler}
-                >
-                    {optionSelect.map((option, index) => (
-                        <option key={index} value={option}>
-                            {option}
-                        </option>
-                    ))}
-                </NativeSelect>
-                <span>Cards per page</span>
+                <div className={s.select}>
+                    <span>Show</span>
+                    <Select
+                        size={'small'}
+                        disabled={status === 'loading'}
+                        value={props.pageCount.toString()}
+                        onChange={pageCountHandler}
+                    >
+                        {optionSelect.map((option, index) => (
+                            <MenuItem key={index} value={option}>
+                                {option}
+                            </MenuItem>
+                        ))}
+                    </Select>
+                    <span>Cards per page</span>
+                </div>
             </div>
         )
     }

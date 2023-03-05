@@ -20,7 +20,6 @@ export const Profile = memo(() => {
         const name = useAppSelector(selectProfileName)
 
         const [userName, setUserName] = useState<string>(name)
-        const [userAvatar, setUserAvatar] = useState<string>(avatar);
         const [editNameMod, setEditNameMod] = useState<boolean>(false)
 
         const dispatch = useAppDispatch()
@@ -30,7 +29,7 @@ export const Profile = memo(() => {
         }
 
         const updateUserHandler = () => {
-            dispatch(updateProfileTC(userName, userAvatar))
+            dispatch(updateProfileTC(userName, avatar))
             setEditNameMod(false)
         }
 
@@ -43,7 +42,7 @@ export const Profile = memo(() => {
                 const file = e.target.files[0]
                 if (file.size < 102400) {
                     convertFileToBase64(file, (file64: string) => {
-                        setUserAvatar(file64)
+                        dispatch(updateProfileTC(userName, file64))
                     })
                 } else {
                     dispatch(appActions.setAppError('File too large'))
@@ -82,7 +81,7 @@ export const Profile = memo(() => {
                                    </label>
                                }
                         >
-                            <Avatar alt={'avatar'} src={userAvatar === '' ? defaultAvatar : avatar}/>
+                            <Avatar alt={'avatar'} src={avatar === '' ? defaultAvatar : avatar}/>
                         </Badge>
                         {editNameMod
                             ?

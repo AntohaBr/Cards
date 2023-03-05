@@ -4,6 +4,8 @@ import {useAppDispatch, useAppSelector} from 'utils/Hooks'
 import {selectAppStatus, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksMinCardsCount}
     from 'store/Selectors'
 import {packsActions} from 'reducers/Packs-reducer'
+import s from './Renge-slider.module.css'
+import styleForms from 'common/Styles/Forms.module.css'
 
 
 export const RangeSlider =  () => {
@@ -41,18 +43,22 @@ export const RangeSlider =  () => {
     }
 
     return (
-        <Box sx={{width: 130}}>
-            <Slider
-                color={'primary'}
-                value={value}
-                valueLabelDisplay='on'
-                disabled={status === 'loading'}
-                disableSwap
-                min={minCardsCount}
-                max={maxCardsCount}
-                onChange={handleChange}
-                onMouseUp={setMinMaxHandler}
-            />
-        </Box>
+        <div>
+            <div   className={`${styleForms.filterTitle} ${s.filterTitle}`}>Number of cards</div>
+            <Box sx={{width: 130}}>
+                <Slider
+                    color={'primary'}
+                    value={value}
+                    valueLabelDisplay='on'
+                    disabled={status === 'loading'}
+                    disableSwap
+                    min={minCardsCount}
+                    max={maxCardsCount}
+                    onChange={handleChange}
+                    onMouseUp={setMinMaxHandler}
+                />
+            </Box>
+        </div>
+
     )
 }

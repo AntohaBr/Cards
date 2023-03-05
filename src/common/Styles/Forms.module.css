@@ -21,7 +21,7 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    justify-content:space-around;
+    justify-content: space-around;
     flex-wrap: wrap;
 }
 
@@ -59,4 +59,10 @@
     line-height: 24px;
     color: #366EFF;
     cursor: pointer;
+}
+
+.filterTitle {
+    padding-bottom: 3px;
+    font-weight: 640;
+    font-size: 17px;
 }

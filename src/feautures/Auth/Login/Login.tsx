@@ -1,5 +1,5 @@
 import {useState, MouseEvent} from 'react'
-import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Input, InputLabel, InputAdornment,
+import {Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Input, InputLabel, InputAdornment,
     IconButton, Visibility, VisibilityOff} from 'collections'
 import {Navigate, NavLink} from 'react-router-dom'
 import {useFormik} from 'formik'
@@ -8,8 +8,9 @@ import {useAppDispatch, useAppSelector, validate} from 'utils'
 import styleForms from 'common/Styles/Forms.module.css'
 import s from './Login.module.css'
 import {LoginType} from 'api/Auth-api'
-import {selectAppStatus, selectAuthIsLoggedIn} from 'store/Selectors'
+import {selectAuthIsLoggedIn} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
+import {ButtonMui} from 'components'
 
 
 interface State {
@@ -20,7 +21,6 @@ interface State {
 
 export const Login = () => {
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
-    const status = useAppSelector(selectAppStatus)
 
     const dispatch = useAppDispatch()
 
@@ -97,13 +97,7 @@ export const Login = () => {
                             <div className={s.forgotBlock}>
                                 <NavLink className={s.textForgot} to={PATH.RECOVERY_PASSWORD}>Forgot Password?</NavLink>
                             </div>
-                            <div className={styleForms.buttonBlock}>
-                                <Button type={'submit'} variant={'contained'} color={'primary'}
-                                        style={{width: '100%', borderRadius: '90px'}}
-                                        disabled={status === 'loading'}>
-                                    Sing In
-                                </Button>
-                            </div>
+                           <ButtonMui buttonTitle={'Sing In'}/>
                             <FormLabel>
                                 <p className={styleForms.text}>Already have an account?</p>
                                 <div className={styleForms.navLinkBlock}>

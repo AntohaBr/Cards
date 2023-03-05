@@ -13,7 +13,7 @@ const initialState = {
     maxCardsCount: 110,
     params: {
         page: 1,
-        pageCount: 7,
+        pageCount: 5,
         min: 0,
         max: 110,
         packName: '',

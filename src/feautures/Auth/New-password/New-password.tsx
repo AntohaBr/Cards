@@ -1,14 +1,14 @@
 import {useState, MouseEvent} from 'react'
 import {useFormik} from 'formik'
-import {Button, FormControl, FormGroup, Input, InputLabel, InputAdornment, IconButton, Visibility, VisibilityOff}
+import {FormControl, FormGroup, Input, InputLabel, InputAdornment, IconButton, Visibility, VisibilityOff}
     from 'collections'
 import {useNavigate, useParams} from 'react-router-dom'
 import {setNewPassword} from 'reducers/Auth-reducer'
-import {useAppDispatch, useAppSelector, validate} from 'utils'
+import {useAppDispatch, validate} from 'utils'
 import styleForms from 'common/Styles/Forms.module.css'
 import {NewPasswordType} from 'api/Auth-api'
-import {selectAppStatus} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
+import {ButtonMui} from 'components'
 
 
 interface State {
@@ -18,8 +18,6 @@ interface State {
 
 
 export const NewPassword = () => {
-    const status = useAppSelector(selectAppStatus)
-
     const {token} = useParams<{ token: string }>()
 
     const dispatch = useAppDispatch()
@@ -79,13 +77,7 @@ export const NewPassword = () => {
                             <div className={styleForms.text}>Create new password and we will
                                 send you further instructions to email
                             </div>
-                            <div className={styleForms.buttonBlock}>
-                                <Button type={'submit'} variant={'contained'} color={'primary'}
-                                        style={{width: '100%', borderRadius: '90px'}}
-                                        disabled={status === 'loading'}>
-                                    Create new password
-                                </Button>
-                            </div>
+                            <ButtonMui buttonTitle={'Create new password'}/>
                         </FormGroup>
                     </form>
                 </div>
