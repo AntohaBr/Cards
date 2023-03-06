@@ -1,5 +1,5 @@
 import {useState} from 'react'
-import {TableCell, Button, SchoolIcon, EditIcon, DeleteOutlineIcon, TableRow} from 'collections'
+import {TableCell, Button, SchoolIcon, EditIcon, DeleteOutlineIcon, TableRow} from 'collections-mui'
 import {NavLink, useNavigate} from 'react-router-dom'
 import {ModalDeletePack, ModalEditPack} from 'common'
 import {PackType} from 'api/Packs-cards-api'

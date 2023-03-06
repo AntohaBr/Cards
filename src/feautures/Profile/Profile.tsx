@@ -1,13 +1,13 @@
 import {ChangeEvent, memo, useState} from 'react'
 import s from './Profile.module.css'
-import {AddAPhoto, Logout, BorderColor, Button, Icon, IconButton, Avatar, Badge, TextField} from 'collections'
+import {AddAPhoto, Logout, BorderColor, Button, Icon, IconButton, Avatar, Badge, TextField} from 'collections-mui'
 import {updateProfileTC} from 'reducers/Profile-reducer'
 import {Navigate} from 'react-router-dom'
 import {logOut} from 'reducers/Auth-reducer'
 import {appActions} from 'reducers/App-reducer'
 import {useAppDispatch, useAppSelector, convertFileToBase64} from 'utils'
-import {BackToPackList,} from 'common'
-import styleForms from 'common/Styles/Forms.module.css'
+import {BackToPackList} from 'common'
+import f from 'common/Styles/Forms.module.css'
 import defaultAvatar from 'assets/Icon/default-avatar.jpg'
 import {selectAuthIsLoggedIn, selectProfileAvatar, selectProfileEmail, selectProfileName} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
@@ -55,11 +55,11 @@ export const Profile = memo(() => {
         }
 
         return (
-            <div className={styleForms.block}>
-                <div className={`${styleForms.container} ${s.container}`}>
+            <div className={f.block}>
+                <div className={`${f.container} ${s.container}`}>
                     <BackToPackList/>
-                    <div className={`${styleForms.form} ${s.form}`}>
-                        <h2 className={styleForms.title}>Personal information</h2>
+                    <div className={`${f.form} ${s.form}`}>
+                        <h2 className={f.title}>Personal information</h2>
                         <Badge className={s.profileBadge}
                                overlap='circular'
                                anchorOrigin={{vertical: 'bottom', horizontal: 'right'}}
@@ -102,8 +102,8 @@ export const Profile = memo(() => {
                                 <BorderColor className={s.borderColor}/>
                             </div>
                         }
-                        <div className={`${styleForms.text} ${s.text}`}>{email}</div>
-                        <div className={styleForms.buttonBlock}>
+                        <div className={`${f.text} ${s.text}`}>{email}</div>
+                        <div className={f.buttonBlock}>
                             <Button onClick={logOutHandler} variant='outlined' style={{width: '100%', borderRadius: 20}}
                                     startIcon={<Logout/>}>Log out</Button>
                         </div>

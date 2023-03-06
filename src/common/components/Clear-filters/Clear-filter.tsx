@@ -1,4 +1,4 @@
-import {Button, FilterAltOffIcon} from 'collections'
+import {Button, FilterAltOffIcon} from 'collections-mui'
 import {packsActions} from 'reducers/Packs-reducer'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {selectAppStatus, selectPacksMaxCardsCount} from 'store/Selectors'

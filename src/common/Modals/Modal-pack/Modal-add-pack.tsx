@@ -1,5 +1,5 @@
 import {ChangeEvent, useState} from 'react'
-import {TextField} from 'collections'
+import {TextField} from 'collections-mui'
 import {MainBlockModal, ButtonBlockModal, InputFile} from 'common'
 
 

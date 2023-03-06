@@ -1,6 +1,6 @@
 import {ReactNode} from 'react'
 import s from './Main-block-modal.module.css'
-import {CloseIcon, Modal} from 'collections'
+import {CloseIcon, Modal} from 'collections-mui'
 
 
 type MainBlockModalType = {

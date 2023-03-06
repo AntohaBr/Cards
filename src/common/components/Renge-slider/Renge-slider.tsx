@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Slider, Box} from 'collections'
+import {Slider, Box} from 'collections-mui'
 import {useAppDispatch, useAppSelector} from 'utils/Hooks'
 import {selectAppStatus, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksMinCardsCount}
     from 'store/Selectors'

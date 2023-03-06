@@ -1,4 +1,4 @@
-import {Button} from 'collections'
+import {Button} from 'collections-mui'
 import s from './Button-block-modal.module.css'
 
 

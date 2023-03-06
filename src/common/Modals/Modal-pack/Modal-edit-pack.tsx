@@ -1,6 +1,6 @@
 import {ChangeEvent, useState} from 'react'
 import {ButtonBlockModal, MainBlockModal, InputFile} from 'common'
-import {TextField} from 'collections'
+import {TextField} from 'collections-mui'
 
 
 type ModalEditPackPropsType = {

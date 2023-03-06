@@ -2,14 +2,14 @@ import {useState, MouseEvent} from 'react'
 import {NavLink} from 'react-router-dom'
 import s from "./Header.module.css"
 import {useAppDispatch, useAppSelector} from 'utils'
-import {Avatar, Button, Popover, AccountBoxIcon, LogoutIcon} from 'collections'
+import {Avatar, Button, Popover, AccountBoxIcon, LogoutIcon} from 'collections-mui'
 import defaultAvatar from 'assets/Icon/default-avatar.jpg'
-import styleIcon from '../Cards/Cards-menu/Cards-menu.module.css'
-import styleMenu from '../Cards/Cards-menu/Cards-menu.module.css'
+import styleIcon from 'common/components/Cards-menu/Cards-menu.module.css'
+import styleMenu from 'common/components/Cards-menu/Cards-menu.module.css'
 import {logOut} from 'reducers/Auth-reducer'
 import {selectProfileAvatar, selectProfileName} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
-import styleForms from 'common/Styles/Forms.module.css'
+import f from 'common/Styles/Forms.module.css'
 
 
 export const Header = () => {
@@ -36,7 +36,7 @@ export const Header = () => {
 
     return (
         <div className={s.header}>
-            <div className={`${styleForms.container} ${s.container}`}>
+            <div className={`${f.container} ${s.container}`}>
                 <header className={s.headerWrapper}>
                 <div className={s.userInfo}>
                     <a className={s.userName}>{name}</a>

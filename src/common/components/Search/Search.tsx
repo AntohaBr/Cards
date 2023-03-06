@@ -1,5 +1,5 @@
 import {ChangeEvent, memo} from 'react'
-import {SearchIcon, alpha, InputBase, styled} from 'collections'
+import {SearchIcon, alpha, InputBase, styled} from 'collections-mui'
 import styleForms from 'common/Styles/Forms.module.css'
 
 

@@ -1,5 +1,5 @@
 import {memo} from 'react'
-import {MenuItem, Pagination, Select} from 'collections'
+import {MenuItem, Pagination, Select} from 'collections-mui'
 import {useAppSelector} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
 import {SelectChangeEvent} from '@mui/material/Select'

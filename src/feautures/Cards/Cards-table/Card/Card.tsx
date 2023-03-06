@@ -1,6 +1,6 @@
 import {useState} from 'react'
 import {CardType} from 'api/Packs-cards-api'
-import {Button, EditIcon, DeleteOutlineIcon, TableRow, TableCell, Rating} from 'collections'
+import {Button, EditIcon, DeleteOutlineIcon, TableRow, TableCell, Rating} from 'collections-mui'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {ModalDeleteCard, ModalEditCard} from 'common'
 import {deleteCards, updateCards} from 'reducers/Cards-reducer'
@@ -54,7 +54,7 @@ export const Card = (props: CardPropsType) => {
     }
 
     return <TableRow key={props.card._id}>
-        <TableCell component='th' scope='row' align={'right'}>
+        <TableCell component='th' scope='row' align={'center'}>
             {props.card.questionImg
                 ?
                 <img style={{maxWidth: '100px'}} src={props.card.questionImg} alt={'question image'}/>
@@ -62,7 +62,7 @@ export const Card = (props: CardPropsType) => {
                 question()
             }
         </TableCell>
-        <TableCell align='right'>
+        <TableCell align='center'>
             {props.card.answerImg
                 ?
                 <img style={{maxWidth: '100px'}} src={props.card.answerImg} alt={'answer image'}/>
@@ -70,8 +70,8 @@ export const Card = (props: CardPropsType) => {
                 answer()
             }
         </TableCell>
-        <TableCell align='right'> {props.card.updated?.split('').splice(0, 10)}</TableCell>
-        <TableCell align='right'>
+        <TableCell align='center'> {props.card.updated?.split('').splice(0, 10)}</TableCell>
+        <TableCell align='center'>
                 <span>
                            <Rating
                                name='only'

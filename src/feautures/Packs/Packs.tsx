@@ -2,8 +2,7 @@ import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './Packs-table/Packs-table'
 import {useDebounce, useAppDispatch, useAppSelector} from 'utils'
-import {Search, PaginationBar, ModalAddPack} from 'common'
-import {RangeSlider, MyAllPanel, ClearFilters} from 'components'
+import {Search, PaginationBar, ModalAddPack, RangeSlider, MyAllPanel, ClearFilters} from 'common'
 import {addNewPack, getPacks, packsActions} from 'reducers/Packs-reducer'
 import {PATH} from 'constants/Routing/Rout-constants'
 import {
@@ -17,9 +16,9 @@ import {
     selectPacksPageCount,
     selectPacksStatusPackCards
 } from 'store/Selectors'
-import styleForms from 'common/Styles/Forms.module.css'
-import s from './Packs.module.css'
-import {Button} from 'collections'
+import f from 'common/Styles/Forms.module.css'
+import t from 'common/Styles/Table.module.css'
+import {Button} from 'collections-mui'
 
 
 export const Packs = memo(() => {
@@ -70,10 +69,10 @@ export const Packs = memo(() => {
     }
 
     return (
-        <div className={styleForms.block}>
-            <div className={`${styleForms.container} ${s.container}`}>
-                <div className={s.titleContainer}>
-                    <div className={styleForms.title}>Pack list</div>
+        <div className={t.block}>
+            <div className={t.container}>
+                <div className={t.titleContainer}>
+                    <div className={f.title}>Pack list</div>
                     <Button
                         variant={'contained'}
                         style={{width: '15%', borderRadius: '90px'}}
@@ -88,7 +87,7 @@ export const Packs = memo(() => {
                     toggleOpenMode={setOpenModalAddPack}
                     addItem={addNewPackCard}
                 />
-                <div className={s.filterContainer}>
+                <div className={t.filterContainer}>
                     <Search onChange={searchValueHandler}
                             valueSearch={packName}/>
                     <MyAllPanel/>

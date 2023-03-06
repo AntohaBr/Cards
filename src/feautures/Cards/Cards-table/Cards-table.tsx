@@ -1,22 +1,22 @@
-import {TableContainer, Paper, TableHead, TableRow, TableCell, TableBody, Table} from 'collections'
+import {TableContainer, Paper, TableHead, TableRow, TableCell, TableBody, Table} from 'collections-mui'
 import {useAppSelector} from 'utils'
 import {Card} from './Card/Card'
 import {selectCards} from 'store/Selectors'
+import t from 'common/Styles/Table.module.css'
 
 
 export const CardsTable = () => {
     const cards = useAppSelector(selectCards)
 
     return (
-        <div>
-            <TableContainer component={Paper}>
-                <Table sx={{minWidth: 650}} aria-label='simple table'>
+            <TableContainer className={t.tableContainer} component={Paper}>
+                <Table aria-label='simple table'>
                     <TableHead>
                         <TableRow>
-                            <TableCell align='right'>Question</TableCell>
-                            <TableCell align='right'>Answer</TableCell>
-                            <TableCell align='right'>Last updated</TableCell>
-                            <TableCell align='right'>Grade</TableCell>
+                            <TableCell align='center'>Question</TableCell>
+                            <TableCell align='center'>Answer</TableCell>
+                            <TableCell align='center'>Last updated</TableCell>
+                            <TableCell align='center'>Grade</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -29,7 +29,6 @@ export const CardsTable = () => {
                     </TableBody>
                 </Table>
             </TableContainer>
-        </div>
     )
 }
 

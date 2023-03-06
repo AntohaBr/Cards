@@ -1,5 +1,5 @@
 import styleForms from 'common/Styles/Forms.module.css'
-import {Button} from 'collections'
+import {Button} from 'collections-mui'
 import {useAppSelector} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
 

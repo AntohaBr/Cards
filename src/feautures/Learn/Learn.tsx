@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import {Button, FormControlLabel, Radio} from 'collections'
+import {Button, FormControlLabel, Radio} from 'collections-mui'
 import s from './Learn.module.css'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
 import {CardType} from 'api/Packs-cards-api'

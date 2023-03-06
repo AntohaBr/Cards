@@ -1,12 +1,12 @@
-import {FormControl, FormGroup, FormLabel, Input, InputLabel} from 'collections'
+import {FormControl, FormGroup, FormLabel, Input, InputLabel} from 'collections-mui'
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
 import {recoveryPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
-import styleForms from 'common/Styles/Forms.module.css'
+import f from 'common/Styles/Forms.module.css'
 import {selectAuthIsLoggedIn, selectAuthRecoveryPassword} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
-import {ButtonMui} from 'components'
+import {ButtonMui} from 'common'
 
 
 export const RecoveryPassword = () => {
@@ -36,10 +36,10 @@ export const RecoveryPassword = () => {
     }
 
     return (
-        <div className={styleForms.block}>
-            <div className={styleForms.container}>
-                <div className={styleForms.form}>
-                    <h2 className={styleForms.title}>Forgot your password?</h2>
+        <div className={f.block}>
+            <div className={f.container}>
+                <div className={f.form}>
+                    <h2 className={f.title}>Forgot your password?</h2>
                     <form onSubmit={formik.handleSubmit}>
                         <FormGroup>
                             <FormControl sx={{padding: '0% 5% 5% 5%'}} variant='outlined'>
@@ -51,14 +51,14 @@ export const RecoveryPassword = () => {
                                     <div style={{color: 'red'}}>{formik.errors.email}</div> : null}
                             </FormControl>
                             <FormLabel>
-                                <p className={styleForms.text}>Enter your email address and we will send
+                                <p className={f.text}>Enter your email address and we will send
                                     you further instructions </p>
                             </FormLabel>
                             <ButtonMui buttonTitle={'Send Instructions'}/>
                             <FormLabel>
-                                <p className={styleForms.text}>Did you remember your password?</p>
-                                <div className={styleForms.navLinkBlock}>
-                                    <NavLink className={styleForms.navLink} to={PATH.LOGIN}>Try logging in</NavLink>
+                                <p className={f.text}>Did you remember your password?</p>
+                                <div className={f.navLinkBlock}>
+                                    <NavLink className={f.navLink} to={PATH.LOGIN}>Try logging in</NavLink>
                                 </div>
                             </FormLabel>
                         </FormGroup>

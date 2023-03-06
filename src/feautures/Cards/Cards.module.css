@@ -1,5 +1,12 @@
-.firstBlock{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.filterContainer {
+    border: 3px solid #34e7e7;
+}
+
+.div {
+    margin: 40px auto;
+    text-align: center;
+}
+
+.info {
+    opacity: 50%;
 }

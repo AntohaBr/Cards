@@ -1,15 +1,15 @@
 import {useState, MouseEvent} from 'react'
 import {FormControl, FormGroup, FormLabel, Input, InputLabel, InputAdornment, IconButton, Visibility,
-    VisibilityOff} from 'collections'
+    VisibilityOff} from 'collections-mui'
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
 import {registration} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
-import styleForms from 'common/Styles/Forms.module.css'
+import f from 'common/Styles/Forms.module.css'
 import {RegistrationType} from 'api/Auth-api'
 import {selectAuthIsRegistered} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
-import {ButtonMui} from 'components'
+import {ButtonMui} from 'common'
 
 
 interface State {
@@ -60,10 +60,10 @@ export const Registration = () => {
     }
 
     return (
-        <div className={styleForms.block}>
-            <div className={styleForms.container}>
-                <div className={styleForms.form}>
-                    <h2 className={styleForms.title}>Sign Up</h2>
+        <div className={f.block}>
+            <div className={f.container}>
+                <div className={f.form}>
+                    <h2 className={f.title}>Sign Up</h2>
                     <form onSubmit={formik.handleSubmit}>
                         <FormGroup>
                             <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
@@ -114,9 +114,9 @@ export const Registration = () => {
                             </FormControl>
                             <ButtonMui buttonTitle={'Sing Up'}/>
                             <FormLabel>
-                                <p className={styleForms.text}>Already have an account?</p>
-                                <div className={styleForms.navLinkBlock}>
-                                    <NavLink className={styleForms.navLink} to={PATH.LOGIN}>Sign In</NavLink>
+                                <p className={f.text}>Already have an account?</p>
+                                <div className={f.navLinkBlock}>
+                                    <NavLink className={f.navLink} to={PATH.LOGIN}>Sign In</NavLink>
                                 </div>
                             </FormLabel>
                         </FormGroup>

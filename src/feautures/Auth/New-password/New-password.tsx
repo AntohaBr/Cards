@@ -1,14 +1,14 @@
 import {useState, MouseEvent} from 'react'
 import {useFormik} from 'formik'
 import {FormControl, FormGroup, Input, InputLabel, InputAdornment, IconButton, Visibility, VisibilityOff}
-    from 'collections'
+    from 'collections-mui'
 import {useNavigate, useParams} from 'react-router-dom'
 import {setNewPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, validate} from 'utils'
-import styleForms from 'common/Styles/Forms.module.css'
+import f from 'common/Styles/Forms.module.css'
 import {NewPasswordType} from 'api/Auth-api'
 import {PATH} from 'constants/Routing/Rout-constants'
-import {ButtonMui} from 'components'
+import {ButtonMui} from 'common'
 
 
 interface State {
@@ -49,10 +49,10 @@ export const NewPassword = () => {
     })
 
     return (
-        <div className={styleForms.block}>
-            <div className={styleForms.container}>
-                <div className={styleForms.form}>
-                    <h2 className={styleForms.title}>Create new password</h2>
+        <div className={f.block}>
+            <div className={f.container}>
+                <div className={f.form}>
+                    <h2 className={f.title}>Create new password</h2>
                     <form onSubmit={formik.handleSubmit}>
                         <FormGroup>
                             <FormControl style={{padding: '0% 5% 5% 5%'}} variant='outlined'>
@@ -74,7 +74,7 @@ export const NewPassword = () => {
                                 {formik.touched.password && formik.errors.password ?
                                     <div style={{color: 'red'}}>{formik.errors.password}</div> : null}
                             </FormControl>
-                            <div className={styleForms.text}>Create new password and we will
+                            <div className={f.text}>Create new password and we will
                                 send you further instructions to email
                             </div>
                             <ButtonMui buttonTitle={'Create new password'}/>

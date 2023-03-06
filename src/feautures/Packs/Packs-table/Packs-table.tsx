@@ -1,10 +1,11 @@
-import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from 'collections'
+import {Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper} from 'collections-mui'
 import {Navigate} from 'react-router-dom'
 import {Pack} from './Pack/Pack'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {setParamsSortPack} from 'reducers/Packs-reducer'
 import {selectPacks, selectPacksSort} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
+import t from 'common/Styles/Table.module.css'
 import s from './Packs-table.module.css'
 
 
@@ -24,7 +25,7 @@ export const PacksTable = () => {
     }
 
     return (
-        <TableContainer className={s.container} component={Paper}>
+        <TableContainer className={t.tableContainer} component={Paper}>
             <Table aria-label="simple table">
                 <TableHead>
                     <TableRow onClick={redirectToCards}>

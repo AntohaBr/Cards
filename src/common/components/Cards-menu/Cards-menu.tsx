@@ -1,7 +1,7 @@
 import {useState, MouseEvent} from 'react'
 import {useAppDispatch, useAppSelector} from 'utils'
 import s from './Cards-menu.module.css'
-import {Button, Popover, EditIcon, SchoolIcon, DeleteOutlineIcon, MoreVertIcon} from 'collections'
+import {Button, Popover, EditIcon, SchoolIcon, DeleteOutlineIcon, MoreVertIcon} from 'collections-mui'
 import {ModalEditPack, ModalDeletePack} from 'common'
 import {useNavigate, useParams} from 'react-router-dom'
 import {packsCardsApi} from 'api/Packs-cards-api'
