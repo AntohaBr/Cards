@@ -1,6 +1,5 @@
 import {ChangeEvent, useState} from 'react'
-import {FormControl, TextField, MenuItem, InputLabel, Select} from 'collections-mui'
-import {SelectChangeEvent} from '@mui/material/Select'
+import {FormControl, TextField, MenuItem, InputLabel, Select, SelectChangeEvent} from 'collections-mui'
 import {MainBlockModal, ButtonBlockModal, InputFile} from 'common'
 import {PostCardType} from 'api/Packs-cards-api'
 import {useParams} from 'react-router-dom'

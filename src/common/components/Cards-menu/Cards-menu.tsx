@@ -1,5 +1,5 @@
 import {useState, MouseEvent} from 'react'
-import {useAppDispatch, useAppSelector} from 'utils'
+import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import s from './Cards-menu.module.css'
 import {Button, Popover, EditIcon, SchoolIcon, DeleteOutlineIcon, MoreVertIcon} from 'collections-mui'
 import {ModalEditPack, ModalDeletePack} from 'common'
@@ -16,12 +16,12 @@ export const CardsMenu = () => {
     const packName = useAppSelector(selectCardsPackName)
     const packDeckCover = useAppSelector(selectCardsPackDeckCover)
 
-    const [openModalDeletePack, setOpenModalDeletePack] = useState(false)
-    const [openModalEditPack, setOpenModalEditPack] = useState(false)
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
     const open = Boolean(anchorEl)
     const id = open ? 'simple-popover' : undefined
 
+    const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
+    const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
     const dispatch = useAppDispatch()
     const {packId} = useParams()
     const navigate = useNavigate()
@@ -32,14 +32,6 @@ export const CardsMenu = () => {
 
     const popoverCloseHandler = () => {
         setAnchorEl(null)
-    }
-
-    const deleteCardButtonClickHandler = () => {
-        setOpenModalDeletePack(true)
-    }
-
-    const editCardButtonClickHandler = () => {
-        setOpenModalEditPack(true)
     }
 
     const deletePack = async () => {
@@ -80,12 +72,12 @@ export const CardsMenu = () => {
                                         <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                                     </div>
                                 </Button>
-                            <Button onClick={editCardButtonClickHandler}>
+                            <Button onClick={openModal}>
                                 <div className={s.icon}>
                                     <EditIcon sx={{marginRight: '5px'}}/> Edit
                                 </div>
                             </Button>
-                            <Button onClick={deleteCardButtonClickHandler}>
+                            <Button onClick={openDeleteModal}>
                                 <div className={s.icon}>
                                     <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
                                 </div>
@@ -95,16 +87,16 @@ export const CardsMenu = () => {
                     <ModalEditPack
                         title={'Edit Pack'}
                         itemTitle={packName}
-                        open={openModalEditPack}
-                        toggleOpenMode={setOpenModalEditPack}
+                        open={isEditModalOpen}
+                        toggleOpenMode={closeModal}
                         editItem={editPack}
                         img={packDeckCover}
                     />
                     <ModalDeletePack
                         title={'Delete Pack'}
-                        open={openModalDeletePack}
+                        open={isDeleteModalOpen}
                         name={packName}
-                        toggleOpenMode={setOpenModalDeletePack}
+                        toggleOpenMode={closeDeleteModal}
                         deleteItem={deletePack}
                     />
                 </div>

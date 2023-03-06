@@ -1,6 +1,6 @@
 import {ChangeEvent, memo} from 'react'
 import {SearchIcon, alpha, InputBase, styled} from 'collections-mui'
-import styleForms from 'common/Styles/Forms.module.css'
+import s from 'common/Styles/Forms.module.css'
 
 
 const SearchContainer = styled('div')(({theme}) => ({
@@ -47,7 +47,7 @@ export const Search = memo((props: SearchPropsType) => {
 
     return (
         <div>
-            <div className={styleForms.filterTitle}>Search</div>
+            <div className={s.filterTitle}>Search</div>
             <div>
                 <SearchContainer>
                     <SearchIconWrapper>

@@ -1,6 +1,5 @@
 import {ChangeEvent, useEffect, useState} from 'react'
-import {FormControl, InputLabel, MenuItem, Select, TextField} from 'collections-mui'
-import {SelectChangeEvent} from '@mui/material/Select'
+import {FormControl, InputLabel, MenuItem, Select, TextField, SelectChangeEvent} from 'collections-mui'
 import {MainBlockModal, ButtonBlockModal, InputFile} from 'common'
 
 

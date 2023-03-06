@@ -17,27 +17,21 @@ const initialState = {
 //reducers
 export const appReducer = (state: AppStateType = initialState, action: AppActionType): AppStateType => {
     switch (action.type) {
-        case 'APP/SET-APP-ERROR': {
-            return {...state, successError: action.successError}
-        }
-        case 'APP/SET-APP-STATUS': {
-            return {...state, status: action.status}
-        }
-        case 'APP/IS-INITIALIZED': {
-            return {...state, isInitialized: action.isInitialized}
-        }
-        default : {
+        case 'APP/SET-APP-ERROR':
+        case 'APP/SET-APP-STATUS':
+        case 'APP/IS-INITIALIZED':
+            return {...state, ...action.payload}
+        default :
             return state
-        }
     }
 }
 
 
 //actions
 export const appActions = {
-    isInitialized: (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', isInitialized} as const),
-    setAppError: (successError: null | string) => ({type: 'APP/SET-APP-ERROR', successError} as const),
-    setAppStatus: (status: AppStatusType) => ({type: 'APP/SET-APP-STATUS', status} as const)
+    isInitialized: (isInitialized: boolean) => ({type: 'APP/IS-INITIALIZED', payload: {isInitialized}} as const),
+    setAppError: (successError: null | string) => ({type: 'APP/SET-APP-ERROR',  payload: {successError}} as const),
+    setAppStatus: (status: AppStatusType) => ({type: 'APP/SET-APP-STATUS',  payload: {status}} as const)
 }
 
 

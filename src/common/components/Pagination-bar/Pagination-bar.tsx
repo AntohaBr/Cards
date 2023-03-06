@@ -1,8 +1,7 @@
 import {memo} from 'react'
-import {MenuItem, Pagination, Select} from 'collections-mui'
+import {MenuItem, Pagination, Select, SelectChangeEvent} from 'collections-mui'
 import {useAppSelector} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
-import {SelectChangeEvent} from '@mui/material/Select'
 import s from './Pagination-bar.module.css'
 
 

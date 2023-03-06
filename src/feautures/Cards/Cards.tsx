@@ -1,5 +1,5 @@
 import {ChangeEvent, memo, useCallback, useEffect} from 'react'
-import {Button} from 'collections-mui'
+import {Button, CircularProgress} from 'collections-mui'
 import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
 import {useAppDispatch, useAppSelector, getCard, useDebounce} from 'utils'
@@ -37,7 +37,6 @@ export const Cards = memo(() => {
         const cardQuestion = useAppSelector(selectCardsCardQuestion)
 
         const debouncedValue = useDebounce<string>(cardQuestion, 700)
-
         const navigate = useNavigate()
         const {packId} = useParams<'packId'>()
         const dispatch = useAppDispatch()
@@ -69,6 +68,10 @@ export const Cards = memo(() => {
             dispatch(cardsActions.setCardsPage(page))
         }, [])
 
+        const isMyPack = userId === packUserId
+        const extraText = isMyPack ? ' Click add new card to fill this pack' : ''
+        const textForEmptyPack = `This pack is empty.${extraText}`
+
         return (
             <div className={t.tableBlock}>
                 <div className={t.container}>
@@ -82,58 +85,44 @@ export const Cards = memo(() => {
                         src={packDeckCover ? packDeckCover : defaultCover}
                         alt='img'
                     />
-                    <div className={s.filterContainer}>
-                        {cards.length >= 1 &&
-                            <>
-                                {userId === packUserId
-                                    ?
-                                    <>
-                                        <Search
-                                            onChange={searchValueHandler}
-                                            valueSearch={cardQuestion}
-                                        />
-                                        <ButtonAddCard addItem={addCard}/>
-                                    </>
-                                    :
-                                    <Button variant={'contained'} color={'primary'}
-                                            onClick={setUtilsHandler}
-                                            disabled={status === 'loading'}>
-                                        Learn to pack
-                                    </Button>
-                                }
-                            </>
-                        }
-                    </div>
-
-                    {cards.length === 0
+                    {status === 'loading'
                         ?
-                        <div className={s.div}>
-                            {userId === packUserId
-                                ?
-                                <>
-                                    <div className={s.info}>
-                                        {!!cardQuestion
-                                            ? <h4 style={{fontSize: '18px', marginTop: '50px', color: 'red'}}>
-                                                Sorry, there are no such cards</h4>
-                                            : 'This pack is empty. Click add new card to fill this pack'}
-                                    </div>
-                                    <ButtonAddCard addItem={addCard}/>
-                                </>
-                                : <div className={s.info}>This pack is empty.</div>
-                            }
-                        </div>
+                        <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+                            <CircularProgress/></div>
                         :
                         <>
-                            <CardsTable/>
-                            <PaginationBar
-                                paginationPages={cardsPaginationPages}
-                                pageCount={pageCount}
-                                page={page}
-                                pageCountHandler={cardsPageCountHandler}
-                                handleChangePage={cardsHandleChangePage}
-                            />
-                        </>
-                    }
+                            <div className={s.filterContainer}>
+                                {!!cards.length &&
+                                    <>
+                                        <Search onChange={searchValueHandler}
+                                                valueSearch={cardQuestion}/>
+                                        <Button variant={'contained'} color={'primary'}
+                                                style={{width: '350px', borderRadius: '90px', margin: '25px'}}
+                                                onClick={setUtilsHandler}>
+                                            Learn to pack
+                                        </Button>
+                                    </>
+                                }
+                                {isMyPack && <ButtonAddCard addItem={addCard}/>}
+                            </div>
+                            <div className={s.div}>
+                                <div className={t.info}>
+                                    {!!cardsTotalCount && cards.length === 0 && 'Sorry, there are no such cards'}
+                                    {!cardsTotalCount && textForEmptyPack}
+                                </div>
+                            </div>
+                            {!!cards.length &&
+                                <>
+                                    <CardsTable/>
+                                    <PaginationBar
+                                        paginationPages={cardsPaginationPages}
+                                        pageCount={pageCount}
+                                        page={page}
+                                        pageCountHandler={cardsPageCountHandler}
+                                        handleChangePage={cardsHandleChangePage}/>
+                                </>
+                            }
+                        </>}
                 </div>
             </div>
         )

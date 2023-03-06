@@ -26,7 +26,7 @@ export const PacksTable = () => {
 
     return (
         <TableContainer className={t.tableContainer} component={Paper}>
-            <Table aria-label="simple table">
+            <Table sx={{ minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow onClick={redirectToCards}>
                         <TableCell align='center'>Cover</TableCell>

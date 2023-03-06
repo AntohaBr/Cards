@@ -1,7 +1,7 @@
-import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
+import {ChangeEvent, memo, useCallback, useEffect} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './Packs-table/Packs-table'
-import {useDebounce, useAppDispatch, useAppSelector} from 'utils'
+import {useDebounce, useAppDispatch, useAppSelector, useModal} from 'utils'
 import {Search, PaginationBar, ModalAddPack, RangeSlider, MyAllPanel, ClearFilters} from 'common'
 import {addNewPack, getPacks, packsActions} from 'reducers/Packs-reducer'
 import {PATH} from 'constants/Routing/Rout-constants'
@@ -32,10 +32,8 @@ export const Packs = memo(() => {
     const min = useAppSelector(selectPacksMin)
     const max = useAppSelector(selectPacksMax)
 
-    const [openModalAddPack, setOpenModalAddPack] = useState(false)
-
+    const {isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal} = useModal()
     const debouncedValue = useDebounce<string>(packName, 700)
-
     const dispatch = useAppDispatch()
 
     const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
@@ -50,10 +48,6 @@ export const Packs = memo(() => {
 
     const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
         dispatch(packsActions.searchPacks(e.currentTarget.value))
-    }
-
-    const addButtonClickHandler = () => {
-        setOpenModalAddPack(true)
     }
 
     const packsPageCountHandler = useCallback((value: string) => {
@@ -77,14 +71,14 @@ export const Packs = memo(() => {
                         variant={'contained'}
                         style={{width: '15%', borderRadius: '90px'}}
                         disabled={status === 'loading'}
-                        onClick={addButtonClickHandler}>
+                        onClick={openAddModal}>
                         Add new pack
                     </Button>
                 </div>
                 <ModalAddPack
                     title={'Add new pack'}
-                    open={openModalAddPack}
-                    toggleOpenMode={setOpenModalAddPack}
+                    open={ isAddModalOpen}
+                    toggleOpenMode={closeAddModal}
                     addItem={addNewPackCard}
                 />
                 <div className={t.filterContainer}>
@@ -94,19 +88,20 @@ export const Packs = memo(() => {
                     <RangeSlider/>
                     <ClearFilters/>
                 </div>
-                <PacksTable/>
                 {cardPacksTotalCount === 0 && !!packName
                     ?
-                    <h4 style={{fontSize: '18px', marginTop: '50px', color: 'red'}}>Sorry, there are no such
-                        packages</h4>
+                    <div className={t.info}>Sorry, there are no such packages</div>
                     :
-                    <PaginationBar
-                        paginationPages={PacksPaginationPages}
-                        pageCount={pageCount}
-                        page={page}
-                        pageCountHandler={packsPageCountHandler}
-                        handleChangePage={packsHandleChangePage}
-                    />
+                    <>
+                        <PacksTable/>
+                        <PaginationBar
+                            paginationPages={PacksPaginationPages}
+                            pageCount={pageCount}
+                            page={page}
+                            pageCountHandler={packsPageCountHandler}
+                            handleChangePage={packsHandleChangePage}
+                        />
+                    </>
                 }
             </div>
         </div>

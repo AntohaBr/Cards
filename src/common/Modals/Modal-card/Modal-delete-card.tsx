@@ -24,6 +24,7 @@ export const ModalDeleteCard = (props: ModalDeleteCardPropsType) => {
 
     return (
         <div>
+
             <MainBlockModal
                 title={props.title}
                 open={props.open}

@@ -53,6 +53,6 @@ export {default as Visibility} from '@mui/icons-material/Visibility'
 export {default as VisibilityOff} from '@mui/icons-material/VisibilityOff'
 export {default as MoreVertIcon} from '@mui/icons-material/MoreVert'
 export {default as Rating} from '@mui/material/Rating'
-
-
+export type {SelectChangeEvent} from '@mui/material/Select'
+export type {AlertProps} from '@mui/material/Alert'
 

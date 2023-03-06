@@ -1,6 +1,5 @@
 import {forwardRef, SyntheticEvent} from 'react'
-import {Snackbar,MuiAlert,} from 'collections-mui'
-import {AlertProps} from '@mui/material/Alert'
+import {Snackbar,MuiAlert, AlertProps} from 'collections-mui'
 import {appActions} from 'reducers/App-reducer'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {selectAppError} from 'store/Selectors'

@@ -1,15 +1,14 @@
-import {useState} from 'react'
 import {TableCell, Button, SchoolIcon, EditIcon, DeleteOutlineIcon, TableRow} from 'collections-mui'
 import {NavLink, useNavigate} from 'react-router-dom'
 import {ModalDeletePack, ModalEditPack} from 'common'
 import {PackType} from 'api/Packs-cards-api'
-import {useAppDispatch, useAppSelector} from 'utils'
+import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {deletePack, updatePack} from 'reducers/Packs-reducer'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {setCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileMyID} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
-import s from './Pack.module.css'
+import t from 'common/Styles/Table.module.css'
 
 
 type PackPropsType = {
@@ -22,9 +21,8 @@ export const Pack = (props: PackPropsType) => {
     const status = useAppSelector(selectAppStatus)
     const page = useAppSelector(selectCardsPage)
 
-    const [openModalDeletePack, setOpenModalDeletePack] = useState<boolean>(false)
-    const [openEditModalPack, setOpenEditModalPack] = useState<boolean>(false)
-
+    const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
+    const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
@@ -40,18 +38,9 @@ export const Pack = (props: PackPropsType) => {
         dispatch(updatePack({cardsPack: {_id: props.pack._id, name, deckCover}}))
     }
 
-    const deleteButtonClickHandler = () => {
-        setOpenModalDeletePack(true)
-    }
-
-    const editButtonClickHandler = () => {
-        setOpenEditModalPack(true)
-    }
-
     return (
-        <TableRow key={props.pack._id}
-                  sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-            <TableCell align='center' className={s.deckCover}>
+        <TableRow key={props.pack._id}>
+            <TableCell align='center' className={t.deckCover}>
                 <img
                     style={{width: '60px', height: '40px'}}
                     src={props.pack.deckCover ? props.pack.deckCover : defaultCover}
@@ -66,14 +55,13 @@ export const Pack = (props: PackPropsType) => {
             <TableCell align='center'>{props.pack.cardsCount}</TableCell>
             <TableCell align='center'>{props.pack.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align='center'>{props.pack.user_name}</TableCell>
-            <TableCell align='center'>
-                    {myID === props.pack.user_id
+            <TableCell align='center'>{myID === props.pack.user_id
                         ?
                         <span>
-                            <Button onClick={editButtonClickHandler} disabled={status === 'loading'}>
+                            <Button onClick={openModal} disabled={status === 'loading'}>
                                 <EditIcon/>
                             </Button>
-                            <Button onClick={deleteButtonClickHandler} disabled={status === 'loading'}>
+                            <Button onClick={openDeleteModal} disabled={status === 'loading'}>
                                 <DeleteOutlineIcon/>
                             </Button>
                             <Button
@@ -93,16 +81,16 @@ export const Pack = (props: PackPropsType) => {
             </TableCell>
             <ModalDeletePack
                 title={'Delete Pack'}
-                open={openModalDeletePack}
+                open={isDeleteModalOpen}
                 name={props.pack.name}
-                toggleOpenMode={setOpenModalDeletePack}
+                toggleOpenMode={closeDeleteModal}
                 deleteItem={deletePackCards}
             />
             <ModalEditPack
                 title={'Edit Pack'}
                 itemTitle={props.pack.name}
-                open={openEditModalPack}
-                toggleOpenMode={setOpenEditModalPack}
+                open={isEditModalOpen}
+                toggleOpenMode={closeModal}
                 editItem={editPackCards}
                 img={props.pack.deckCover}
             />

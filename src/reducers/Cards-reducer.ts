@@ -81,10 +81,11 @@ export const setCards = (params: GetCardsParamsType): AppThunkType => async (dis
     dispatch(appActions.setAppStatus('loading'))
     try {
         const res = await packsCardsApi.getCards(params)
+        console.log(res.data)
+        dispatch(cardsActions.setCards(res.data))
         dispatch(cardsActions.setCardsPageCount(res.data.pageCount))
         dispatch(cardsActions.setCardsTotalCount(res.data.cardsTotalCount))
         dispatch(cardsActions.setCardsPage(res.data.page))
-        dispatch(cardsActions.setCards(res.data))
         dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>

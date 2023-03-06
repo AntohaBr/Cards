@@ -10,13 +10,14 @@ export const CardsTable = () => {
 
     return (
             <TableContainer className={t.tableContainer} component={Paper}>
-                <Table aria-label='simple table'>
+                <Table sx={{ minWidth: 650}} aria-label='simple table'>
                     <TableHead>
                         <TableRow>
                             <TableCell align='center'>Question</TableCell>
                             <TableCell align='center'>Answer</TableCell>
                             <TableCell align='center'>Last updated</TableCell>
                             <TableCell align='center'>Grade</TableCell>
+                            <TableCell align='center'>Actions</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
