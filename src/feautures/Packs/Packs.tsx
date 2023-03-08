@@ -1,13 +1,13 @@
 import {ChangeEvent, memo, useCallback, useEffect} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './Packs-table/Packs-table'
-import {useDebounce, useAppDispatch, useAppSelector, useModal} from 'utils'
-import {Search, PaginationBar, ModalAddPack, RangeSlider, MyAllPanel, ClearFilters} from 'common'
+import {useDebounce, useAppDispatch, useAppSelector} from 'utils'
+import {Search, PaginationBar, RangeSlider, MyAllPanel, ClearFilters, ButtonAddPack} from 'common'
 import {addNewPack, getPacks, packsActions} from 'reducers/Packs-reducer'
 import {PATH} from 'constants/Routing/Rout-constants'
 import {
     selectAppStatus,
-    selectAuthIsLoggedIn,
+    selectAuthIsLoggedIn, selectPacks,
     selectPacksCardPacksTotalCount,
     selectPacksMax,
     selectPacksMin,
@@ -18,13 +18,14 @@ import {
 } from 'store/Selectors'
 import f from 'common/Styles/Forms.module.css'
 import t from 'common/Styles/Table.module.css'
-import {Button} from 'collections-mui'
+import {CircularProgress, LinearProgress} from "../../collections-mui";
 
 
 export const Packs = memo(() => {
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const status = useAppSelector(selectAppStatus)
     const page = useAppSelector(selectPacksPage)
+    const packs = useAppSelector(selectPacks)
     const pageCount = useAppSelector(selectPacksPageCount)
     const cardPacksTotalCount = useAppSelector(selectPacksCardPacksTotalCount)
     const statusPackCards = useAppSelector(selectPacksStatusPackCards)
@@ -32,7 +33,6 @@ export const Packs = memo(() => {
     const min = useAppSelector(selectPacksMin)
     const max = useAppSelector(selectPacksMax)
 
-    const {isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal} = useModal()
     const debouncedValue = useDebounce<string>(packName, 700)
     const dispatch = useAppDispatch()
 
@@ -67,40 +67,34 @@ export const Packs = memo(() => {
             <div className={t.container}>
                 <div className={t.titleContainer}>
                     <div className={f.title}>Pack list</div>
-                    <Button
-                        variant={'contained'}
-                        style={{width: '15%', borderRadius: '90px'}}
-                        disabled={status === 'loading'}
-                        onClick={openAddModal}>
-                        Add new pack
-                    </Button>
+                    <ButtonAddPack addItem={addNewPackCard}/>
                 </div>
-                <ModalAddPack
-                    title={'Add new pack'}
-                    open={ isAddModalOpen}
-                    toggleOpenMode={closeAddModal}
-                    addItem={addNewPackCard}
-                />
-                <div className={t.filterContainer}>
-                    <Search onChange={searchValueHandler}
-                            valueSearch={packName}/>
-                    <MyAllPanel/>
-                    <RangeSlider/>
-                    <ClearFilters/>
-                </div>
-                {cardPacksTotalCount === 0 && !!packName
+                {status === 'loading'
                     ?
-                    <div className={t.info}>Sorry, there are no such packages</div>
+                    <LinearProgress color={'primary'}/>
                     :
                     <>
-                        <PacksTable/>
-                        <PaginationBar
-                            paginationPages={PacksPaginationPages}
-                            pageCount={pageCount}
-                            page={page}
-                            pageCountHandler={packsPageCountHandler}
-                            handleChangePage={packsHandleChangePage}
-                        />
+                        <div className={t.filterContainer}>
+                            <Search onChange={searchValueHandler}
+                                    valueSearch={packName}/>
+                            <MyAllPanel/>
+                            <RangeSlider/>
+                            <ClearFilters/>
+                        </div>
+                        <div className={t.info}>
+                            {packs.length === 0 && 'Sorry, there are no such packages'}
+                        </div>
+                        {!!packs.length &&
+                            <>
+                                <PacksTable/>
+                                <PaginationBar
+                                    paginationPages={PacksPaginationPages}
+                                    pageCount={pageCount}
+                                    page={page}
+                                    pageCountHandler={packsPageCountHandler}
+                                    handleChangePage={packsHandleChangePage}/>
+                            </>
+                        }
                     </>
                 }
             </div>

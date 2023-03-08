@@ -3,7 +3,7 @@ import {Button, EditIcon, DeleteOutlineIcon, TableRow, TableCell, Rating} from '
 import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {ModalDeleteCard, ModalEditCard} from 'common'
 import {deleteCards, updateCards} from 'reducers/Cards-reducer'
-import {selectAppStatus, selectProfileMyID} from 'store/Selectors'
+import {selectAppStatus, selectProfileUser_id} from 'store/Selectors'
 import t from 'common/Styles/Table.module.css'
 
 
@@ -14,7 +14,7 @@ type CardPropsType = {
 
 export const Card = (props: CardPropsType) => {
     const status = useAppSelector(selectAppStatus)
-    const myID = useAppSelector(selectProfileMyID)
+    const user_id = useAppSelector(selectProfileUser_id)
 
     const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
     const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
@@ -72,7 +72,7 @@ export const Card = (props: CardPropsType) => {
                 />
             </TableCell>
             <TableCell align='center'>
-                {myID === props.card.user_id && (
+                {user_id === props.card.user_id && (
                     <span>
                     <Button onClick={openModal} disabled={status === 'loading'}>
                         <EditIcon/>

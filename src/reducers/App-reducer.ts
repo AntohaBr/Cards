@@ -10,7 +10,6 @@ const initialState = {
     status: 'none' as AppStatusType,
     successError: null as null | string,
     isInitialized: false,
-    successMessage: null as null | string,
 }
 
 

@@ -9,8 +9,9 @@ export const CardsTable = () => {
     const cards = useAppSelector(selectCards)
 
     return (
+        <div>
             <TableContainer className={t.tableContainer} component={Paper}>
-                <Table sx={{ minWidth: 650}} aria-label='simple table'>
+                <Table sx={{minWidth: 650}} aria-label='simple table'>
                     <TableHead>
                         <TableRow>
                             <TableCell align='center'>Question</TableCell>
@@ -22,14 +23,15 @@ export const CardsTable = () => {
                     </TableHead>
                     <TableBody>
                         {cards.map(card => (
-                            <Card
-                                key={card._id}
-                                card={card}
-                            />
+                                <Card
+                                    key={card._id}
+                                    card={card}
+                                />
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
+        </div>
     )
 }
 

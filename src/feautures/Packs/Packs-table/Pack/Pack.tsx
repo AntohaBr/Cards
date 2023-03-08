@@ -5,8 +5,8 @@ import {PackType} from 'api/Packs-cards-api'
 import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {deletePack, updatePack} from 'reducers/Packs-reducer'
 import defaultCover from 'assets/Icon/default-cover.jpg'
-import {setCards} from 'reducers/Cards-reducer'
-import {selectAppStatus, selectCardsPage, selectProfileMyID} from 'store/Selectors'
+import {getCards} from 'reducers/Cards-reducer'
+import {selectAppStatus, selectCardsPage, selectProfileUser_id,} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 import t from 'common/Styles/Table.module.css'
 
@@ -17,7 +17,7 @@ type PackPropsType = {
 
 
 export const Pack = (props: PackPropsType) => {
-    const myID = useAppSelector(selectProfileMyID)
+    const user_id = useAppSelector(selectProfileUser_id)
     const status = useAppSelector(selectAppStatus)
     const page = useAppSelector(selectCardsPage)
 
@@ -27,7 +27,7 @@ export const Pack = (props: PackPropsType) => {
     const dispatch = useAppDispatch()
 
     const onClickLearnHandler = () => {
-        dispatch(setCards({packName: props.pack.name, cardsPack_id:props.pack._id, page}))
+        dispatch(getCards({packName: props.pack.name, cardsPack_id:props.pack._id, page}))
         navigate(`${PATH.LEARN}/${props.pack._id}`)
     }
 
@@ -55,9 +55,9 @@ export const Pack = (props: PackPropsType) => {
             <TableCell align='center'>{props.pack.cardsCount}</TableCell>
             <TableCell align='center'>{props.pack.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align='center'>{props.pack.user_name}</TableCell>
-            <TableCell align='center'>{myID === props.pack.user_id
+            <TableCell align='center'>{user_id === props.pack.user_id
                         ?
-                        <span>
+                        <>
                             <Button onClick={openModal} disabled={status === 'loading'}>
                                 <EditIcon/>
                             </Button>
@@ -69,14 +69,14 @@ export const Pack = (props: PackPropsType) => {
                                 disabled={status === 'loading' || props.pack.cardsCount === 0}>
                                 <SchoolIcon/>
                             </Button>
-                        </span>
-                        : <span>
+                        </>
+                        : <>
                                 <Button
                                     onClick={onClickLearnHandler}
                                     disabled={status === 'loading' || props.pack.cardsCount === 0}>
                                     <SchoolIcon/>
                                 </Button>
-                        </span>
+                        </>
                     }
             </TableCell>
             <ModalDeletePack

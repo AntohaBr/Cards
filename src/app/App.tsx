@@ -7,12 +7,13 @@ import {PagesRoutes} from './Routes/Routes'
 import {ErrorSnackbar} from 'common'
 import {Header} from 'feautures/Header/Header'
 import {packsActions} from 'reducers/Packs-reducer'
+import {selectAppStatus, selectAuthIsLoggedIn, selectIsInitializedApp} from 'store/Selectors'
 
 
 export const App = () => {
-    const status = useAppSelector(state => state.app.status)
-    const isInitializedApp = useAppSelector(state => state.app.isInitialized)
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn)
+    const status = useAppSelector(selectAppStatus)
+    const isInitializedApp = useAppSelector(selectIsInitializedApp)
+    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
 
     const dispatch = useAppDispatch()
 

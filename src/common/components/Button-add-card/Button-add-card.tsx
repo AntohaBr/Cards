@@ -1,7 +1,6 @@
 import {Button} from 'collections-mui'
 import {ModalAddNewCard} from 'common/index'
-import {useState} from 'react'
-import {useAppSelector} from 'utils'
+import {useAppSelector, useModal} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
 import {PostCardType} from 'api/Packs-cards-api'
 
@@ -14,15 +13,11 @@ type ButtonAddCardPropsType = {
 export const ButtonAddCard = (props:ButtonAddCardPropsType) => {
     const status = useAppSelector(selectAppStatus)
 
-    const [openAddCardModal, setOpenAddCardModal] = useState(false)
-
-    const onClickButtonAddCardHandler = () => {
-        setOpenAddCardModal(true)
-    }
+    const {isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal} = useModal()
 
     return (
         <div>
-            <Button onClick={onClickButtonAddCardHandler} type={'submit'} variant={'contained'}
+            <Button onClick={openAddModal} type={'submit'} variant={'contained'}
                     color={'primary'}
                     style={{width: '350px', borderRadius: '90px', margin: '25px'}}
                     disabled={status === 'loading'}>
@@ -30,8 +25,8 @@ export const ButtonAddCard = (props:ButtonAddCardPropsType) => {
             </Button>
             <ModalAddNewCard
                 title='Add new card'
-                open={openAddCardModal}
-                toggleOpenMode={setOpenAddCardModal}
+                open={isAddModalOpen}
+                toggleOpenMode={closeAddModal}
                 addItem={props.addItem}
             />
         </div>

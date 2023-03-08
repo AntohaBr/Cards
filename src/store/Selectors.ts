@@ -4,6 +4,7 @@ import {RootReducerType} from './Store'
 //selectorsApp
 export const selectAppStatus = (state: RootReducerType) => state.app.status
 export const selectAppError = (state: RootReducerType) => state.app.successError
+export const selectIsInitializedApp = (state: RootReducerType) => state.app.isInitialized
 
 
 //selectorsAuth
@@ -38,7 +39,7 @@ export const selectPacksPackName = (state: RootReducerType) => state.packs.param
 
 
 //selectorsProfile
-export const selectProfileEmail = (state: RootReducerType) => state.profile.email
-export const selectProfileAvatar = (state: RootReducerType) => state.profile.avatar
-export const selectProfileName = (state: RootReducerType) => state.profile.name
-export const selectProfileMyID = (state: RootReducerType) => state.profile._id
+export const selectProfileEmail = (state: RootReducerType) => state.profile.infoUser.email
+export const selectProfileAvatar = (state: RootReducerType) => state.profile.infoUser.avatar
+export const selectProfileName = (state: RootReducerType) => state.profile.infoUser.name
+export const selectProfileUser_id = (state: RootReducerType) => state.profile.infoUser._id

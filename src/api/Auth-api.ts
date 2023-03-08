@@ -56,6 +56,15 @@ export type ResponseType = {
     error?: string;
 }
 
+export type UserType = ResponseType
+
+export type InfoUserType = {
+    _id: string,
+    name: string,
+    email: string,
+    avatar: string,
+}
+
 export type LogInResponseType = {
     _id: string
     email: string

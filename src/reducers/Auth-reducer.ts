@@ -18,13 +18,10 @@ const initialState = {
 export const authReducer = (state: InitialStateType = initialState, action: AuthActionType): InitialStateType => {
     switch (action.type) {
         case 'AUTH/SET-LOGIN':
-            return {...state, isLoggedIn: action.value}
         case 'AUTH/DATA-REGISTRATION':
-            return {...state, isRegistered: action.value}
-        case 'AUTH/RECOVERY-PASSWORD':
-            return {...state, recoveryPassword: action.email}
         case 'AUTH/SET-NEW-PASSWORD':
-            return {...state, newPassport: action.newPassport}
+        case 'AUTH/RECOVERY-PASSWORD':
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -33,10 +30,10 @@ export const authReducer = (state: InitialStateType = initialState, action: Auth
 
 // actions
 export const authActions = {
-    addLogin: (value: boolean) => ({type: 'AUTH/SET-LOGIN', value} as const),
-    registration: (value: boolean) => ({type: 'AUTH/DATA-REGISTRATION', value} as const),
-    recoveryPassword: (email: string) => ({type: 'AUTH/RECOVERY-PASSWORD', email} as const),
-    setNewPassword: (newPassport: string) => ({type: 'AUTH/SET-NEW-PASSWORD', newPassport} as const)
+    addLogin: (isLoggedIn: boolean) => ({type: 'AUTH/SET-LOGIN', payload: {isLoggedIn}} as const),
+    registration: (isRegistered: boolean) => ({type: 'AUTH/DATA-REGISTRATION', payload: {isRegistered}} as const),
+    recoveryPassword: (email: string) => ({type: 'AUTH/RECOVERY-PASSWORD', payload: {recoveryPassword: email}} as const),
+    setNewPassword: (newPassport: string) => ({type: 'AUTH/SET-NEW-PASSWORD', payload: {newPassport}} as const)
 }
 
 

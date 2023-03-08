@@ -5,14 +5,12 @@ import {Button, Popover, EditIcon, SchoolIcon, DeleteOutlineIcon, MoreVertIcon} 
 import {ModalEditPack, ModalDeletePack} from 'common'
 import {useNavigate, useParams} from 'react-router-dom'
 import {packsCardsApi} from 'api/Packs-cards-api'
-import {setCards} from 'reducers/Cards-reducer'
-import {selectCardsPackDeckCover, selectCardsPackName, selectCardsPackUserId, selectProfileMyID} from 'store/Selectors'
+import {getCards} from 'reducers/Cards-reducer'
+import {selectCardsPackDeckCover, selectCardsPackName} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const CardsMenu = () => {
-    const myID = useAppSelector(selectProfileMyID)
-    const userID = useAppSelector(selectCardsPackUserId)
     const packName = useAppSelector(selectCardsPackName)
     const packDeckCover = useAppSelector(selectCardsPackDeckCover)
 
@@ -44,7 +42,7 @@ export const CardsMenu = () => {
     const editPack = async (name: string, deckCover: string) => {
         if (packId) {
             await packsCardsApi.updatePacks({cardsPack: {_id: packId, name, deckCover}})
-            dispatch(setCards({cardsPack_id: packId}))
+            dispatch(getCards({cardsPack_id: packId}))
         }
     }
 
@@ -53,54 +51,50 @@ export const CardsMenu = () => {
     }
 
     return (
-        <div>
-            {myID === userID && (
-                <div>
-                    <button className={s.menuButton} onClick={buttonClickHandler}>
-                        <MoreVertIcon className={s.moreVertIcon}/>
-                    </button>
-                    <Popover
-                        id={id}
-                        open={open}
-                        anchorEl={anchorEl}
-                        onClose={popoverCloseHandler}
-                        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                    >
-                        <div className={s.menu}>
-                                <Button onClick={learnButtonCloseHandler}>
-                                    <div className={s.icon}>
-                                        <SchoolIcon sx={{marginRight: '5px'}}/> Learn
-                                    </div>
-                                </Button>
-                            <Button onClick={openModal}>
-                                <div className={s.icon}>
-                                    <EditIcon sx={{marginRight: '5px'}}/> Edit
-                                </div>
-                            </Button>
-                            <Button onClick={openDeleteModal}>
-                                <div className={s.icon}>
-                                    <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
-                                </div>
-                            </Button>
-                        </div>
-                    </Popover>
-                    <ModalEditPack
-                        title={'Edit Pack'}
-                        itemTitle={packName}
-                        open={isEditModalOpen}
-                        toggleOpenMode={closeModal}
-                        editItem={editPack}
-                        img={packDeckCover}
-                    />
-                    <ModalDeletePack
-                        title={'Delete Pack'}
-                        open={isDeleteModalOpen}
-                        name={packName}
-                        toggleOpenMode={closeDeleteModal}
-                        deleteItem={deletePack}
-                    />
-                </div>
-            )}
-        </div>
+            <div>
+                <button className={s.menuButton} onClick={buttonClickHandler}>
+                    <MoreVertIcon className={s.moreVertIcon}/>
+                </button>
+                <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={popoverCloseHandler}
+                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+                >
+                    <div className={s.menu}>
+                        <Button onClick={learnButtonCloseHandler}>
+                            <div className={s.icon}>
+                                <SchoolIcon sx={{marginRight: '5px'}}/> Learn
+                            </div>
+                        </Button>
+                        <Button onClick={openModal}>
+                            <div className={s.icon}>
+                                <EditIcon sx={{marginRight: '5px'}}/> Edit
+                            </div>
+                        </Button>
+                        <Button onClick={openDeleteModal}>
+                            <div className={s.icon}>
+                                <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
+                            </div>
+                        </Button>
+                    </div>
+                </Popover>
+                <ModalEditPack
+                    title={'Edit Pack'}
+                    itemTitle={packName}
+                    open={isEditModalOpen}
+                    toggleOpenMode={closeModal}
+                    editItem={editPack}
+                    img={packDeckCover}
+                />
+                <ModalDeletePack
+                    title={'Delete Pack'}
+                    open={isDeleteModalOpen}
+                    name={packName}
+                    toggleOpenMode={closeDeleteModal}
+                    deleteItem={deletePack}
+                />
+            </div>
     )
 }

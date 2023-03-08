@@ -14,13 +14,34 @@
     flex-wrap: wrap;
 }
 
-.titleContainer {
+.backToPackList {
+    border: 3px solid #34e7e7;
     width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: flex-start;
+    flex-wrap: wrap;
+}
+
+.titlePack {
+    border: 3px solid #34e7e7;
+    font-family: 'Montserrat', sans-serif;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 21px;
+    line-height: 27px;
+    margin: 10px 0px 10px 0px;
+}
+
+.packDeckCover {
+    border: 3px solid #34e7e7;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
     flex-wrap: wrap;
 }
 

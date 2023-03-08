@@ -1,15 +1,13 @@
 import {AxiosError} from 'axios'
 import {error} from 'utils'
-import {authApi, ResponseType} from 'api/Auth-api'
+import {authApi, UserType, InfoUserType} from 'api/Auth-api'
 import {AppThunkType, InferActionsTypes} from 'store/Store'
 import {appActions} from './App-reducer'
 
 
 const initialState = {
-    _id: '',
-    name: '',
-    email: '',
-    avatar: '',
+    user: {} as UserType,
+    infoUser: {} as InfoUserType
 }
 
 
@@ -17,9 +15,8 @@ const initialState = {
 export const profileReducer = (state: initialStateType = initialState, action: ProfileActionType): initialStateType => {
     switch (action.type) {
         case 'PROFILE/UPDATE-PROFILE':
-            return {...state, ...action.newData}
         case 'PROFILE/SET-INFO-USER':
-            return {...state, ...action.profile}
+            return {...state, ...action.payload}
         default:
             return state
     }
@@ -28,8 +25,8 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 //actions
 export const profileActions = {
-    updateProfile : (newData: ResponseType) => ({type: 'PROFILE/UPDATE-PROFILE', newData} as const),
-    setInfoUser : (profile: ProfileType) => ({type: 'PROFILE/SET-INFO-USER', profile} as const)
+    updateProfile : (user: UserType) => ({type: 'PROFILE/UPDATE-PROFILE', payload: {user}} as const),
+    setInfoUser : (infoUser: InfoUserType) => ({type: 'PROFILE/SET-INFO-USER', payload: {infoUser}} as const)
 }
 
 
@@ -51,6 +48,5 @@ export const updateProfileTC = (name: string, avatar?: string): AppThunkType => 
 
 //types
 type initialStateType = typeof initialState
-type ProfileType = initialStateType
 export type ProfileActionType = InferActionsTypes<typeof profileActions>
 
