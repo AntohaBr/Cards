@@ -27,7 +27,7 @@ export const Pack = (props: PackPropsType) => {
     const dispatch = useAppDispatch()
 
     const onClickLearnHandler = () => {
-        dispatch(getCards({packName: props.pack.name, cardsPack_id:props.pack._id, page}))
+        dispatch(getCards({packName: props.pack.name, cardsPack_id: props.pack._id, page}))
         navigate(`${PATH.LEARN}/${props.pack._id}`)
     }
 
@@ -55,29 +55,24 @@ export const Pack = (props: PackPropsType) => {
             <TableCell align='center'>{props.pack.cardsCount}</TableCell>
             <TableCell align='center'>{props.pack.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align='center'>{props.pack.user_name}</TableCell>
-            <TableCell align='center'>{user_id === props.pack.user_id
-                        ?
-                        <>
-                            <Button onClick={openModal} disabled={status === 'loading'}>
-                                <EditIcon/>
-                            </Button>
-                            <Button onClick={openDeleteModal} disabled={status === 'loading'}>
-                                <DeleteOutlineIcon/>
-                            </Button>
-                            <Button
-                                onClick={onClickLearnHandler}
-                                disabled={status === 'loading' || props.pack.cardsCount === 0}>
-                                <SchoolIcon/>
-                            </Button>
-                        </>
-                        : <>
-                                <Button
-                                    onClick={onClickLearnHandler}
-                                    disabled={status === 'loading' || props.pack.cardsCount === 0}>
-                                    <SchoolIcon/>
-                                </Button>
-                        </>
-                    }
+            <TableCell align='center'>
+                {user_id === props.pack.user_id &&
+                    <>
+                        <Button onClick={openModal} disabled={status === 'loading'}>
+                            <EditIcon/>
+                        </Button>
+                        <Button onClick={openDeleteModal} disabled={status === 'loading'}>
+                            <DeleteOutlineIcon/>
+                        </Button>
+                    </>
+                }
+                <>
+                    <Button
+                        onClick={onClickLearnHandler}
+                        disabled={status === 'loading' || props.pack.cardsCount === 0}>
+                        <SchoolIcon/>
+                    </Button>
+                </>
             </TableCell>
             <ModalDeletePack
                 title={'Delete Pack'}

@@ -1,5 +1,3 @@
-export {default as Grid} from '@mui/material/Grid'
-export {default as Container} from '@mui/material/Container'
 export {default as MuiAlert} from '@mui/material/Alert'
 export {default as Snackbar} from '@mui/material/Snackbar'
 export {default as LinearProgress} from '@mui/material/LinearProgress'

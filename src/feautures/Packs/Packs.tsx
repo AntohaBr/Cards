@@ -1,4 +1,4 @@
-import {ChangeEvent, memo, useCallback, useEffect} from 'react'
+import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './Packs-table/Packs-table'
 import {useDebounce, useAppDispatch, useAppSelector} from 'utils'
@@ -36,6 +36,8 @@ export const Packs = memo(() => {
     const debouncedValue = useDebounce<string>(packName, 700)
     const dispatch = useAppDispatch()
 
+    const [packName1, setPackName]= useState<string>(packName ? packName : '')
+
     const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
@@ -46,9 +48,14 @@ export const Packs = memo(() => {
         dispatch(addNewPack({name, deckCover}))
     }
 
-    const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-        dispatch(packsActions.searchPacks(e.currentTarget.value))
+    // const searchValueHandler = (packName: string) => {
+    //
+    // }
+
+    const searchValueHandler = (packName: string) => {
+            dispatch(packsActions.searchPacks(packName))
     }
+
 
     const packsPageCountHandler = useCallback((value: string) => {
         dispatch(packsActions.setCardPacksPageCount(+value))
@@ -65,7 +72,7 @@ export const Packs = memo(() => {
     return (
         <div className={t.block}>
             <div className={t.container}>
-                <div className={t.titleContainer}>
+                <div className={t.backToPackList}>
                     <div className={f.title}>Pack list</div>
                     <ButtonAddPack addItem={addNewPackCard}/>
                 </div>
@@ -81,12 +88,12 @@ export const Packs = memo(() => {
                             <RangeSlider/>
                             <ClearFilters/>
                         </div>
-                        <div className={t.info}>
-                            {packs.length === 0 && 'Sorry, there are no such packages'}
-                        </div>
+                        <PacksTable/>
+                        {packs.length === 0 &&
+                            <div className={t.infoText}>Sorry, there are no such packages</div>
+                        }
                         {!!packs.length &&
                             <>
-                                <PacksTable/>
                                 <PaginationBar
                                     paginationPages={PacksPaginationPages}
                                     pageCount={pageCount}

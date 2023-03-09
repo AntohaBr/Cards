@@ -60,8 +60,8 @@ export const Cards = memo(() => {
             dispatch(addNewCards(postModel))
         }
 
-        const searchValueHandler = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            dispatch(cardsActions.searchCards(e.currentTarget.value))
+        const searchValueHandler = (valueSearch: string) => {
+            dispatch(cardsActions.searchCards(valueSearch))
         }
 
         const cardsPageCountHandler = useCallback((value: string) => {
@@ -93,45 +93,40 @@ export const Cards = memo(() => {
                         <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
                             <CircularProgress/></div>
                         :
-
-
                         <>
                             <div className={s.filterContainer}>
                                 <>
-                                    {!!cardsTotalCount && <Search onChange={searchValueHandler}
-                                            valueSearch={cardQuestion}/>}
+                                    {(!!cardsTotalCount || cardQuestion) && <Search onChange={searchValueHandler}
+                                                                  valueSearch={cardQuestion}/>}
                                     {!!cards.length &&
                                         <Button variant={'contained'} color={'primary'}
-                                                style={{width: '350px', borderRadius: '90px', margin: '25px'}}
+                                                style={{width: '200px', borderRadius: '90px'}}
                                                 onClick={setUtilsHandler}>
                                             Learn to pack
                                         </Button>
                                     }
                                 </>
-
-                                {/*props.pack.cardsCount*/}
                             </div>
-                            <div className={s.div}>
-                                <div className={t.info}>
+                            <CardsTable/>
+                            <div className={s.info}>
+                                <div className={t.infoText}>
 
-                                    {/*{!cardsTotalCount && 'Sorry, there are no such cards.'}*/}
+                                    {!cardsTotalCount && 'Sorry, there are no such cards.'}
                                     {/*{!!cardsTotalCount && cards.length === 0 && 'Sorry, there are no such cards'}*/}
-                                    {!cardsTotalCount && textForEmptyPack}
+                                    {/*{!cardsTotalCount && textForEmptyPack}*/}
                                 </div>
                                 {isMyPack && !cards.length && <ButtonAddCard addItem={addCard}/>}
                             </div>
                             {!!cards.length &&
-                                <>
-                                    <CardsTable/>
                                     <PaginationBar
                                         paginationPages={cardsPaginationPages}
                                         pageCount={pageCount}
                                         page={page}
                                         pageCountHandler={cardsPageCountHandler}
                                         handleChangePage={cardsHandleChangePage}/>
-                                </>
                             }
-                        </>}
+                        </>
+                    }
                 </div>
             </div>
         )

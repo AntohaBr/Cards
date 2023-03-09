@@ -71,18 +71,18 @@ export const Card = (props: CardPropsType) => {
                     readOnly
                 />
             </TableCell>
-            <TableCell align='center'>
-                {user_id === props.card.user_id && (
-                    <span>
-                    <Button onClick={openModal} disabled={status === 'loading'}>
-                        <EditIcon/>
-                    </Button>
-                    <Button onClick={openDeleteModal} disabled={status === 'loading'}>
-                        <DeleteOutlineIcon/>
-                    </Button>
-            </span>
-                )}
-            </TableCell>
+            {user_id === props.card.user_id && (
+                <TableCell align='center'>
+                    <>
+                        <Button onClick={openModal} disabled={status === 'loading'}>
+                            <EditIcon/>
+                        </Button>
+                        <Button onClick={openDeleteModal} disabled={status === 'loading'}>
+                            <DeleteOutlineIcon/>
+                        </Button>
+                    </>
+                </TableCell>
+            )}
             <ModalDeleteCard
                 title={'Delete Card'}
                 open={isDeleteModalOpen}

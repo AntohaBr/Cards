@@ -1,6 +1,8 @@
-import {ChangeEvent, memo} from 'react'
+import {ChangeEvent, memo, useCallback, useState} from 'react'
 import {SearchIcon, alpha, InputBase, styled} from 'collections-mui'
 import s from 'common/Styles/Forms.module.css'
+import {packsActions} from "../../../reducers/Packs-reducer";
+import {useAppDispatch, useDebounce} from "../../../utils";
 
 
 const SearchContainer = styled('div')(({theme}) => ({
@@ -38,12 +40,22 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 
 type SearchPropsType = {
-    onChange: (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => void
+    onChange: (valueSearch: string) => void
     valueSearch: string
 }
 
 
 export const Search = memo((props: SearchPropsType) => {
+
+    const [value, setValue] = useState<string>( '')
+    const debouncedValue = useDebounce<string>(value, 700)
+
+    const changeHandler = useCallback(
+        (e: ChangeEvent<HTMLInputElement>) => {
+            props.onChange(e.currentTarget.value)
+        },
+        [props.onChange]
+    )
 
     return (
         <div>
@@ -54,11 +66,11 @@ export const Search = memo((props: SearchPropsType) => {
                         <SearchIcon/>
                     </SearchIconWrapper>
                     <StyledInputBase
-                        placeholder={'Provide your text'}
+                        placeholder='Provide your text'
                         inputProps={{'aria-label': 'search'}}
-                        type='search'
+                        type='text'
                         value={props.valueSearch}
-                        onChange={props.onChange}
+                        onChange={changeHandler}
                     />
                 </SearchContainer>
             </div>

@@ -11,38 +11,28 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-wrap: wrap;
 }
 
 .backToPackList {
-    border: 3px solid #34e7e7;
     width: 100%;
     margin: 0 auto;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    align-items: flex-end;
 }
 
 .titlePack {
-    border: 3px solid #34e7e7;
     font-family: 'Montserrat', sans-serif;
-    font-style: normal;
     font-weight: 600;
     font-size: 21px;
     line-height: 27px;
-    margin: 10px 0px 10px 0px;
+    margin: 40px 0px 10px 0px;
 }
 
 .packDeckCover {
-    border: 3px solid #34e7e7;
     margin-bottom: 10px;
     display: flex;
-    flex-direction: row;
     justify-content: flex-start;
-
-    flex-wrap: wrap;
 }
 
 .filterContainer {
@@ -50,7 +40,6 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
-    flex-wrap: wrap;
     margin-top: 30px;
 }
 
@@ -59,13 +48,14 @@
     margin-top: 20px;
 }
 
-.info {
+.infoText {
     opacity: 60%;
     text-align: center;
-    padding-top: 90px;
+    padding-top: 20px;
 }
 
 .deckCover {
     width: 150px;
     height: 100px;
 }
+

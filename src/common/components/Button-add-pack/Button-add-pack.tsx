@@ -18,7 +18,7 @@ export const ButtonAddPack = (props:ButtonAddPackPropsType) => {
         <div>
             <Button
                 variant={'contained'}
-                style={{width: '15%', borderRadius: '90px'}}
+                style={{width: '200px', borderRadius: '90px'}}
                 disabled={status === 'loading'}
                 onClick={openAddModal}>
                 Add new pack

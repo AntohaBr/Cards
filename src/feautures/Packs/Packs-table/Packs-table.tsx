@@ -26,30 +26,26 @@ export const PacksTable = () => {
 
     return (
         <TableContainer className={t.tableContainer} component={Paper}>
-            <Table sx={{ minWidth: 650}} aria-label="simple table">
+            <Table sx={{ minWidth: 700}} aria-label="simple table">
                 <TableHead>
                     <TableRow onClick={redirectToCards}>
                         <TableCell align='center'>Cover</TableCell>
-                        <TableCell
-                            align='center'
+                        <TableCell align='center'
                             className={!sort.includes('0name') ? s.withoutSort :
                                 sort === '0name' ? s.sortUp : s.sortDown}
                             onClick={() => sortUpdate('name')}>Name
                         </TableCell>
-                        <TableCell
-                            align='center'
+                        <TableCell align='center'
                             className={!sort.includes('0cardsCount') ? s.withoutSort :
                                 sort === '0cardsCount' ? s.sortUp : s.sortDown}
                             onClick={() => sortUpdate('cardsCount')}>Cards
                         </TableCell>
-                        <TableCell
-                            align='center'
+                        <TableCell align='center'
                             className={!sort.includes('updated') ? s.withoutSort :
                                 sort === '0updated' ? s.sortUp : s.sortDown}
                             onClick={() => sortUpdate('updated')}>Last updated(g)
                         </TableCell>
-                        <TableCell
-                            align='center'
+                        <TableCell align='center'
                             className={!sort.includes('0user_name') ? s.withoutSort :
                                 sort === '0user_name' ? s.sortUp : s.sortDown}
                             onClick={() => sortUpdate('user_name')}>Created by

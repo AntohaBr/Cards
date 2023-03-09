@@ -19,7 +19,7 @@ export const ButtonAddCard = (props:ButtonAddCardPropsType) => {
         <div>
             <Button onClick={openAddModal} type={'submit'} variant={'contained'}
                     color={'primary'}
-                    style={{width: '350px', borderRadius: '90px', margin: '25px'}}
+                    style={{width: '200px', borderRadius: '90px'}}
                     disabled={status === 'loading'}>
                 Add New Card
             </Button>

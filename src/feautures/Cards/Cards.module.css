@@ -1,15 +1,11 @@
 .filterContainer {
-    border: 3px solid #34e7e7;
     width: 100%;
     margin: 0 auto;
     display: flex;
-    flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
-    flex-wrap: wrap;
+    align-items: flex-end;
 }
 
-.div {
-    /*margin: 40px auto;*/
+.info {
     text-align: center;
 }

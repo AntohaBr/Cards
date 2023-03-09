@@ -1,24 +1,28 @@
 import {TableContainer, Paper, TableHead, TableRow, TableCell, TableBody, Table} from 'collections-mui'
 import {useAppSelector} from 'utils'
 import {Card} from './Card/Card'
-import {selectCards} from 'store/Selectors'
+import {selectCards, selectCardsPackUserId, selectProfileUser_id} from 'store/Selectors'
 import t from 'common/Styles/Table.module.css'
 
 
 export const CardsTable = () => {
     const cards = useAppSelector(selectCards)
+    const user_id = useAppSelector(selectProfileUser_id)
+    const cardsPackUserId = useAppSelector(selectCardsPackUserId)
+
+    const isMyPack = user_id === cardsPackUserId
 
     return (
         <div>
             <TableContainer className={t.tableContainer} component={Paper}>
-                <Table sx={{minWidth: 650}} aria-label='simple table'>
+                <Table sx={{minWidth: 700}} aria-label='simple table'>
                     <TableHead>
                         <TableRow>
                             <TableCell align='center'>Question</TableCell>
                             <TableCell align='center'>Answer</TableCell>
                             <TableCell align='center'>Last updated</TableCell>
                             <TableCell align='center'>Grade</TableCell>
-                            <TableCell align='center'>Actions</TableCell>
+                            {isMyPack && <TableCell align='center'>Actions</TableCell>}
                         </TableRow>
                     </TableHead>
                     <TableBody>

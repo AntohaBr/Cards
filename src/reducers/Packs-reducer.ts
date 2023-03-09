@@ -18,7 +18,8 @@ const initialState = {
         max: 110,
         packName: '',
         sortPacks: ''
-    }
+    },
+    searchDataCardPacks:''
 }
 
 
@@ -29,10 +30,10 @@ export const packsReducer = (state: PackReducerStateType = initialState, action:
         case 'PACKS/SET-CARD-PACKS-TOTAL-COUNT':
         case 'PACKS/FETCH-MIN-MAX-CARDS-COUNT':
         case 'PACKS/SET-TYPE-PACK-CARDS':
+        case 'PACKS/SEARCH-BY-PACK-NAME':
             return {...state, ...action.payload}
         case 'PACKS/SET-MIN-MAX-SEARCH-CARD':
         case 'PACKS/SORT-PACKS':
-        case 'PACKS/SEARCH-BY-PACK-NAME':
         case 'PACKS/SET-CARD-PACKS-PAGE':
         case 'PACKS/SET-CARD-PACKS-PAGE-COUNT':
             return {...state, params: {...state.params, ...action.payload}}
@@ -53,14 +54,15 @@ export const packsActions = {
     setCardPacksTotalCount: (value: number) =>
         ({type: 'PACKS/SET-CARD-PACKS-TOTAL-COUNT', payload: {cardPacksTotalCount: value}}) as const,
     setMinMaxSearchCard: (min: number, max: number) => ({
-        type: 'PACKS/SET-MIN-MAX-SEARCH-CARD', payload: {min, max}} as const),
+        type: 'PACKS/SET-MIN-MAX-SEARCH-CARD', payload: {min, max}
+    } as const),
     setMinMaxCardCount: (minCardsCount: number, maxCardsCount: number) =>
         ({type: 'PACKS/FETCH-MIN-MAX-CARDS-COUNT', payload: {minCardsCount, maxCardsCount}} as const),
     setCardPacksPage: (page: number) => ({type: 'PACKS/SET-CARD-PACKS-PAGE', payload: {page}} as const),
     setCardPacksPageCount: (pageCount: number) =>
         ({type: 'PACKS/SET-CARD-PACKS-PAGE-COUNT', payload: {pageCount}} as const),
     sortPacks: (sortPacks: string) => ({type: 'PACKS/SORT-PACKS', payload: {sortPacks}} as const),
-    searchPacks: (packName: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', payload: {packName}} as const),
+    searchPacks: (searchDataCardPacks: string) => ({type: 'PACKS/SEARCH-BY-PACK-NAME', payload: {searchDataCardPacks}} as const),
     setTypePackCards: (statusPackCards: 'my' | 'all') =>
         ({type: 'PACKS/SET-TYPE-PACK-CARDS', payload: {statusPackCards}} as const),
     clearFilters: () => ({type: 'PACKS/CLEAR-FILTERS'} as const)
@@ -78,6 +80,7 @@ export const getPacks = (): AppThunkType => async (dispatch, getState) => {
         dispatch(packsActions.setPacks(res.data.cardPacks))
         dispatch(packsActions.setCardPacksTotalCount(res.data.cardPacksTotalCount))
         dispatch(packsActions.setMinMaxCardCount(res.data.minCardsCount, res.data.maxCardsCount))
+
         dispatch(appActions.setAppStatus('succeeded'))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>

@@ -7,8 +7,8 @@ import {BackToPackList} from 'common'
 import {updateGradeCard} from 'reducers/Cards-reducer'
 import {useParams} from 'react-router-dom'
 import {selectCards, selectCardsPackName} from 'store/Selectors'
-
-
+import f from 'common/Styles/Forms.module.css'
+import t from 'common/Styles/Table.module.css'
 const grades = ['I did not know', 'I forgot', 'I thought for a long time', 'I got confused', 'I knew the answer']
 
 
@@ -70,49 +70,43 @@ export const Learn = () => {
     }, [dispatch, cardId, cards, first])
 
     return (
-        <div>
+        <div className={f.container}>
             <BackToPackList/>
             <div>
-                <div className={s.packName}>Learn: {`"${packName}"`}</div>
+                <div className={t.titlePack}>Learn: {`'${packName}'`}</div>
 
                 <div className={s.learnBlock}>
                     <div style={{maxWidth: '750px', display: 'flex', justifyContent: 'center'}}>
                         Question:
                         {card.questionImg
                             ?
-                            <div>
                                 <img
                                     alt={'question image'}
                                     src={card.questionImg}
                                     style={{maxWidth: '375px', maxHeight: '120px', marginTop: '20px'}}
                                 />
-                            </div>
                             :
                             <div>{card.question}</div>
                         }
                     </div>
 
                     <div>Number of attempts to answer the question: {card.shots}</div>
-                    <div>
                         <Button
                             variant={'contained'}
-                            onClick={onClickButtonHandler}
-                        >Show answer
+                            onClick={onClickButtonHandler}>
+                            Show answer
                         </Button>
-                    </div>
                     {answer && (
                         <div>
                             <div>
                                 Answer:
                                 {card.answerImg
                                     ?
-                                    <div>
                                         <img
                                             alt={'answer image'}
                                             src={card.answerImg}
                                             style={{maxWidth: '375px', maxHeight: '120px', marginTop: '20px'}}
                                         />
-                                    </div>
                                     :
                                     <div>{card.answer}</div>
                                 }
