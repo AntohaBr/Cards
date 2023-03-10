@@ -61,7 +61,7 @@ export const Cards = memo(() => {
         }
 
         const searchValueHandler = (valueSearch: string) => {
-            dispatch(cardsActions.searchCards(valueSearch))
+            dispatch(cardsActions.setQuestionForSearch(valueSearch))
         }
 
         const cardsPageCountHandler = useCallback((value: string) => {

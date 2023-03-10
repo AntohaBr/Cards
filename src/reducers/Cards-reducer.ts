@@ -16,23 +16,22 @@ import {error} from 'utils'
 export const initialState = {
     cards: [] as CardType[],
     packUserId: '',
-    packName: '',
     packDeckCover: '',
-    page: 1,
-    pageCount: 5,
     cardsTotalCount: 0,
-    cardsPack_id: '',
-    cardQuestion: '',
-    cardAnswer: '',
     shots: 0,
     grade: 0,
+    packName: '',
+    cardAnswer: '',
+    cardQuestion: '',
+    page: 1,
+    pageCount: 5,
 }
 
 
 export const cardsReducer = (state: CardsReducerStateType = initialState, action: CardsActionType):
     CardsReducerStateType => {
     switch (action.type) {
-        case 'CARDS/SEARCH-BY-CARD-QUESTION':
+        case 'CARDS/SET-SEARCH-FOR-QUESTION':
         case 'CARDS/SET-CARDS-PAGE':
         case 'CARDS/SET-CARDS-PAGE-COUNT':
         case 'CARDS/SET-CARDS-TOTAL-COUNT':
@@ -48,18 +47,21 @@ export const cardsReducer = (state: CardsReducerStateType = initialState, action
 //actions
 export const cardsActions = {
     setCards: (data: GetCardsResponseType) => ({type: 'CARDS/SET-CARDS', data} as const),
-    searchCards: (cardQuestion: string) => ({type: 'CARDS/SEARCH-BY-CARD-QUESTION', payload: {cardQuestion}} as const),
+    setQuestionForSearch: (cardQuestion: string) => ({type: 'CARDS/SET-SEARCH-FOR-QUESTION', payload: {cardQuestion}} as const),
     setCardsPage: (page: number) => ({type: 'CARDS/SET-CARDS-PAGE', payload: {page}} as const),
     setCardsPageCount: (pageCount: number) => ({type: 'CARDS/SET-CARDS-PAGE-COUNT', payload: {pageCount}} as const),
-    setCardsTotalCount: (cardsTotalCount: number) => ({type: 'CARDS/SET-CARDS-TOTAL-COUNT', payload: {cardsTotalCount}} as const)
+    setCardsTotalCount: (cardsTotalCount: number) => ({
+        type: 'CARDS/SET-CARDS-TOTAL-COUNT',
+        payload: {cardsTotalCount}
+    } as const)
 }
 
 
 //thunks
-export const getCards = (params: GetCardsParamsType): AppThunkType => async (dispatch) => {
+export const getCards = (data: GetCardsParamsType): AppThunkType => async (dispatch) => {
     dispatch(appActions.setAppStatus('loading'))
     try {
-        const res = await packsCardsApi.getCards(params)
+        const res = await packsCardsApi.getCards(data)
         dispatch(cardsActions.setCards(res.data))
         dispatch(cardsActions.setCardsPageCount(res.data.pageCount))
         dispatch(cardsActions.setCardsTotalCount(res.data.cardsTotalCount))

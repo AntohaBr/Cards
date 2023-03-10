@@ -1,8 +1,10 @@
-import {ChangeEvent, memo, useCallback, useState} from 'react'
+import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
 import {SearchIcon, alpha, InputBase, styled} from 'collections-mui'
 import s from 'common/Styles/Forms.module.css'
 import {packsActions} from "../../../reducers/Packs-reducer";
 import {useAppDispatch, useDebounce} from "../../../utils";
+import {useNavigate} from "react-router-dom";
+import {getCards} from "../../../reducers/Cards-reducer";
 
 
 const SearchContainer = styled('div')(({theme}) => ({
@@ -47,9 +49,6 @@ type SearchPropsType = {
 
 export const Search = memo((props: SearchPropsType) => {
 
-    const [value, setValue] = useState<string>( '')
-    const debouncedValue = useDebounce<string>(value, 700)
-
     const changeHandler = useCallback(
         (e: ChangeEvent<HTMLInputElement>) => {
             props.onChange(e.currentTarget.value)
@@ -66,11 +65,13 @@ export const Search = memo((props: SearchPropsType) => {
                         <SearchIcon/>
                     </SearchIconWrapper>
                     <StyledInputBase
+                        id='q'
                         placeholder='Provide your text'
                         inputProps={{'aria-label': 'search'}}
-                        type='text'
+                        type='search'
                         value={props.valueSearch}
                         onChange={changeHandler}
+                        name='q'
                     />
                 </SearchContainer>
             </div>

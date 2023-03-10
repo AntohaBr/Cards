@@ -5,6 +5,7 @@ import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const BackToPackList = () => {
+
     return (
         <div className={s.backToPackList}>
             <NavLink to={PATH.PACKS} className={s.navLink}>
