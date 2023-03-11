@@ -17,7 +17,6 @@ import {
 } from 'store/Selectors'
 import f from 'common/Styles/Forms.module.css'
 import t from 'common/Styles/Table.module.css'
-import {LinearProgress} from 'collections-mui'
 
 
 export const Packs = memo(() => {
@@ -63,33 +62,28 @@ export const Packs = memo(() => {
                     <div className={f.title}>Pack list</div>
                     <ButtonAddPack addItem={addNewPackCard}/>
                 </div>
-                {/*{status === 'loading'*/}
-                {/*    ?*/}
-                {/*    <LinearProgress color={'primary'}/>*/}
-                {/*    :*/}
-                    <>
-                        <div className={t.filterContainer}>
-                            <Search valueSearch={packName}/>
-                            <MyAllPanel/>
-                            <RangeSlider/>
-                            <ClearFilters/>
-                        </div>
-                        <PacksTable/>
-                        {packs.length === 0 &&
-                            <div className={t.infoText}>Sorry, there are no such packages</div>
-                        }
-                        {!!packs.length &&
-                            <>
-                                <PaginationBar
-                                    paginationPages={PacksPaginationPages}
-                                    pageCount={pageCount}
-                                    page={page}
-                                    pageCountHandler={packsPageCountHandler}
-                                    handleChangePage={packsHandleChangePage}/>
-                            </>
-                        }
-                    </>
-                {/*}*/}
+                <>
+                    <div className={t.filterContainer}>
+                        <Search valueSearch={packName}/>
+                        <MyAllPanel/>
+                        <RangeSlider/>
+                        <ClearFilters/>
+                    </div>
+                    <PacksTable/>
+                    {packs.length === 0 && status !== 'loading' &&
+                        <div className={t.infoText}>Sorry, there are no such packages</div>
+                    }
+                    {!!packs.length &&
+                        <>
+                            <PaginationBar
+                                paginationPages={PacksPaginationPages}
+                                pageCount={pageCount}
+                                page={page}
+                                pageCountHandler={packsPageCountHandler}
+                                handleChangePage={packsHandleChangePage}/>
+                        </>
+                    }
+                </>
             </div>
         </div>
     )

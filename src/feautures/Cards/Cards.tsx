@@ -1,5 +1,5 @@
 import {memo, useCallback, useEffect} from 'react'
-import {Button, CircularProgress} from 'collections-mui'
+import {Button} from 'collections-mui'
 import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
@@ -17,7 +17,6 @@ import {
     selectCardsPage,
     selectCardsPageCount,
     selectCardsTotalCount, selectProfileUser_id,
-
 } from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 import t from 'common/Styles/Table.module.css'
@@ -83,44 +82,38 @@ export const Cards = memo(() => {
                         />
                         {isMyPack && <CardsMenu/>}
                     </div>
-                    {status === 'loading'
-                        ?
-                        <div style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-                            <CircularProgress/></div>
-                        :
-                        <>
-                            <div className={s.filterContainer}>
-                                <>
-                                    {(!!cardsTotalCount || cardQuestion) && <Search valueSearch={cardQuestion}/>}
-                                    {!!cards.length &&
-                                        <Button variant={'contained'} color={'primary'}
-                                                style={{width: '200px', borderRadius: '90px'}}
-                                                onClick={setUtilsHandler}>
-                                            Learn to pack
-                                        </Button>
-                                    }
-                                </>
+                    <>
+                        <div className={s.filterContainer}>
+                            <>
+                                {(!!cardsTotalCount || cardQuestion) && <Search valueSearch={cardQuestion}/>}
+                                {!!cards.length &&
+                                    <Button variant={'contained'} color={'primary'}
+                                            style={{width: '200px', borderRadius: '90px'}}
+                                            onClick={setUtilsHandler}>
+                                        Learn to pack
+                                    </Button>
+                                }
+                            </>
+                        </div>
+                        <CardsTable/>
+                        <div className={s.info}>
+                            <div className={t.infoText}>
+                                {(!cardsTotalCount || !cardQuestion) && 'Sorry, there are no such cards.'}
+                                {/*{!!cardsTotalCount && cards.length === 0 && 'Sorry, there are no such cards'}*/}
+                                {/*{!cardsTotalCount && textForEmptyPack}*/}
                             </div>
-                            <CardsTable/>
-                            <div className={s.info}>
-                                <div className={t.infoText}>
+                            {isMyPack && !cards.length && <ButtonAddCard addItem={addCard}/>}
+                        </div>
+                        {!!cards.length &&
+                            <PaginationBar
+                                paginationPages={cardsPaginationPages}
+                                pageCount={pageCount}
+                                page={page}
+                                pageCountHandler={cardsPageCountHandler}
+                                handleChangePage={cardsHandleChangePage}/>
+                        }
+                    </>
 
-                                    {!cardsTotalCount && 'Sorry, there are no such cards.'}
-                                    {/*{!!cardsTotalCount && cards.length === 0 && 'Sorry, there are no such cards'}*/}
-                                    {/*{!cardsTotalCount && textForEmptyPack}*/}
-                                </div>
-                                {isMyPack && !cards.length && <ButtonAddCard addItem={addCard}/>}
-                            </div>
-                            {!!cards.length &&
-                                    <PaginationBar
-                                        paginationPages={cardsPaginationPages}
-                                        pageCount={pageCount}
-                                        page={page}
-                                        pageCountHandler={cardsPageCountHandler}
-                                        handleChangePage={cardsHandleChangePage}/>
-                            }
-                        </>
-                    }
                 </div>
             </div>
         )

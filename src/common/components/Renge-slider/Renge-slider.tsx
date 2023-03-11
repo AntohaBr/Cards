@@ -24,7 +24,7 @@ export const RangeSlider =  () => {
     }, [minCardsCount, maxCardsCount])
 
     useEffect(() => {
-        setValue([min!, max!], )
+        setValue([min!, max!])
     }, [min, max])
 
     const minDistance = 1
