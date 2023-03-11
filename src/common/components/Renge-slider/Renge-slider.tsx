@@ -15,13 +15,17 @@ export const RangeSlider =  () => {
     const max = useAppSelector(selectPacksMax)
     const status = useAppSelector(selectAppStatus)
 
-    const [value, setValue] = useState<number[]>([min, max])
+    const [value, setValue] = useState<number[]>([min ? min : minCardsCount, max ? max : maxCardsCount])
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        setValue([min, max])
-    },[min,max])
+        setValue([minCardsCount, maxCardsCount])
+    }, [minCardsCount, maxCardsCount])
+
+    useEffect(() => {
+        setValue([min!, max!], )
+    }, [min, max])
 
     const minDistance = 1
 
@@ -31,15 +35,13 @@ export const RangeSlider =  () => {
         }
         if (activeThumb === 0) {
             setValue([Math.min(newValue[0], value[1] - minDistance), value[1]])
-            dispatch(packsActions.setMinMaxSearchCard(Math.min(newValue[0], value[1] - minDistance), value[1]))
         } else {
             setValue([value[0], Math.max(newValue[1], value[0] + minDistance)])
-            dispatch(packsActions.setMinMaxSearchCard(value[0], Math.max(newValue[1], value[0] + minDistance)))
         }
     }
 
     const setMinMaxHandler = () => {
-        // dispatch(setMinMaxSearchCardAC(value[0], value[1]))
+        dispatch(packsActions.setMinMaxSearchCard(value[0], value[1]))
     }
 
     return (
@@ -59,6 +61,5 @@ export const RangeSlider =  () => {
                 />
             </Box>
         </div>
-
     )
 }

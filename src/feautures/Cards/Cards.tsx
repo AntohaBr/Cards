@@ -1,8 +1,8 @@
-import {ChangeEvent, memo, useCallback, useEffect} from 'react'
+import {memo, useCallback, useEffect} from 'react'
 import {Button, CircularProgress} from 'collections-mui'
 import {useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
-import {useAppDispatch, useAppSelector, getCard, useDebounce} from 'utils'
+import {useAppDispatch, useAppSelector, getCard} from 'utils'
 import {PostCardType} from 'api/Packs-cards-api'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {Search, BackToPackList, PaginationBar, ButtonAddCard, CardsMenu} from 'common'
@@ -36,7 +36,6 @@ export const Cards = memo(() => {
         const packName = useAppSelector(selectCardsPackName)
         const cardQuestion = useAppSelector(selectCardsCardQuestion)
 
-        const debouncedValue = useDebounce<string>(cardQuestion, 700)
         const navigate = useNavigate()
         const {packId} = useParams<'packId'>()
         const dispatch = useAppDispatch()
@@ -49,7 +48,7 @@ export const Cards = memo(() => {
 
         useEffect(() => {
             dispatch(getCards({cardsPack_id: packId ? packId : '', page, pageCount, cardQuestion}))
-        }, [dispatch, packId, page, pageCount, debouncedValue])
+        }, [dispatch, packId, page, pageCount, cardQuestion])
 
         const setUtilsHandler = () => {
             const cardId = getCard(cards)._id
@@ -58,10 +57,6 @@ export const Cards = memo(() => {
 
         const addCard = (postModel: PostCardType) => {
             dispatch(addNewCards(postModel))
-        }
-
-        const searchValueHandler = (valueSearch: string) => {
-            dispatch(cardsActions.setQuestionForSearch(valueSearch))
         }
 
         const cardsPageCountHandler = useCallback((value: string) => {
@@ -96,8 +91,7 @@ export const Cards = memo(() => {
                         <>
                             <div className={s.filterContainer}>
                                 <>
-                                    {(!!cardsTotalCount || cardQuestion) && <Search onChange={searchValueHandler}
-                                                                  valueSearch={cardQuestion}/>}
+                                    {(!!cardsTotalCount || cardQuestion) && <Search valueSearch={cardQuestion}/>}
                                     {!!cards.length &&
                                         <Button variant={'contained'} color={'primary'}
                                                 style={{width: '200px', borderRadius: '90px'}}

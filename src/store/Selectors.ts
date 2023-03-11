@@ -36,7 +36,7 @@ export const selectPacksPageCount = (state: RootReducerType) => state.packs.para
 export const selectPacksCardPacksTotalCount = (state: RootReducerType) => state.packs.cardPacksTotalCount
 export const selectPacksStatusPackCards = (state: RootReducerType) => state.packs.statusPackCards
 export const selectPacksPackName = (state: RootReducerType) => state.packs.params.packName
-export const selectSearchDataCardPacks = (state: RootReducerType) => state.packs.searchDataCardPacks
+export const selectPackNameForSearch = (state: RootReducerType) => state.packs.params.packName
 
 
 //selectorsProfile

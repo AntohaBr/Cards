@@ -1,24 +1,23 @@
-import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
+import {memo, useCallback, useEffect} from 'react'
 import {Navigate} from 'react-router-dom'
 import {PacksTable} from './Packs-table/Packs-table'
-import {useDebounce, useAppDispatch, useAppSelector} from 'utils'
+import {useAppDispatch, useAppSelector} from 'utils'
 import {Search, PaginationBar, RangeSlider, MyAllPanel, ClearFilters, ButtonAddPack} from 'common'
 import {addNewPack, getPacks, packsActions} from 'reducers/Packs-reducer'
 import {PATH} from 'constants/Routing/Rout-constants'
 import {
     selectAppStatus,
-    selectAuthIsLoggedIn, selectPacks,
+    selectAuthIsLoggedIn, selectPackNameForSearch, selectPacks,
     selectPacksCardPacksTotalCount,
     selectPacksMax,
     selectPacksMin,
-    selectPacksPackName,
     selectPacksPage,
     selectPacksPageCount,
     selectPacksStatusPackCards
 } from 'store/Selectors'
 import f from 'common/Styles/Forms.module.css'
 import t from 'common/Styles/Table.module.css'
-import {CircularProgress, LinearProgress} from "../../collections-mui";
+import {LinearProgress} from 'collections-mui'
 
 
 export const Packs = memo(() => {
@@ -29,41 +28,29 @@ export const Packs = memo(() => {
     const pageCount = useAppSelector(selectPacksPageCount)
     const cardPacksTotalCount = useAppSelector(selectPacksCardPacksTotalCount)
     const statusPackCards = useAppSelector(selectPacksStatusPackCards)
-    const packName = useAppSelector(selectPacksPackName)
+    const packName = useAppSelector(selectPackNameForSearch)
     const min = useAppSelector(selectPacksMin)
     const max = useAppSelector(selectPacksMax)
 
-    const debouncedValue = useDebounce<string>(packName, 700)
     const dispatch = useAppDispatch()
-
-    const [packName1, setPackName]= useState<string>(packName ? packName : '')
 
     const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
 
     useEffect(() => {
         dispatch(getPacks())
-    }, [dispatch, debouncedValue, statusPackCards, min, max, pageCount, page])
+    }, [dispatch, statusPackCards, min, max, pageCount, page, packName])
 
     const addNewPackCard = (name: string, deckCover: string) => {
         dispatch(addNewPack({name, deckCover}))
     }
 
-    // const searchValueHandler = (packName: string) => {
-    //
-    // }
-
-    const searchValueHandler = (packName: string) => {
-            dispatch(packsActions.searchPacks(packName))
-    }
-
-
     const packsPageCountHandler = useCallback((value: string) => {
         dispatch(packsActions.setCardPacksPageCount(+value))
-    }, [])
+    }, [dispatch])
 
     const packsHandleChangePage = useCallback((page: number) => {
         dispatch(packsActions.setCardPacksPage(page))
-    }, [])
+    }, [dispatch])
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -76,14 +63,13 @@ export const Packs = memo(() => {
                     <div className={f.title}>Pack list</div>
                     <ButtonAddPack addItem={addNewPackCard}/>
                 </div>
-                {status === 'loading'
-                    ?
-                    <LinearProgress color={'primary'}/>
-                    :
+                {/*{status === 'loading'*/}
+                {/*    ?*/}
+                {/*    <LinearProgress color={'primary'}/>*/}
+                {/*    :*/}
                     <>
                         <div className={t.filterContainer}>
-                            <Search onChange={searchValueHandler}
-                                    valueSearch={packName}/>
+                            <Search valueSearch={packName}/>
                             <MyAllPanel/>
                             <RangeSlider/>
                             <ClearFilters/>
@@ -103,7 +89,7 @@ export const Packs = memo(() => {
                             </>
                         }
                     </>
-                }
+                {/*}*/}
             </div>
         </div>
     )

@@ -1,10 +1,11 @@
-import {ChangeEvent, memo, useCallback, useEffect, useState} from 'react'
+import {ChangeEvent, memo, useEffect, useState} from 'react'
 import {SearchIcon, alpha, InputBase, styled} from 'collections-mui'
 import s from 'common/Styles/Forms.module.css'
-import {packsActions} from "../../../reducers/Packs-reducer";
-import {useAppDispatch, useDebounce} from "../../../utils";
-import {useNavigate} from "react-router-dom";
-import {getCards} from "../../../reducers/Cards-reducer";
+import {packsActions} from 'reducers/Packs-reducer'
+import {useAppDispatch, useDebounce} from 'utils'
+import {useMatch} from "react-router-dom"
+import {cardsActions} from 'reducers/Cards-reducer'
+import {PATH} from 'constants/Routing/Rout-constants'
 
 
 const SearchContainer = styled('div')(({theme}) => ({
@@ -42,19 +43,28 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
 
 
 type SearchPropsType = {
-    onChange: (valueSearch: string) => void
     valueSearch: string
 }
 
 
 export const Search = memo((props: SearchPropsType) => {
+    const [value, setValue] = useState<string>(props.valueSearch ? props.valueSearch : '')
 
-    const changeHandler = useCallback(
-        (e: ChangeEvent<HTMLInputElement>) => {
-            props.onChange(e.currentTarget.value)
-        },
-        [props.onChange]
-    )
+    const debouncedValue = useDebounce<string>(value, 700)
+    const dispatch = useAppDispatch()
+    const match = useMatch('/:routeKey/*')
+
+    useEffect(() => {
+        if ('/' + match?.params.routeKey === PATH.PACKS) {
+            dispatch(packsActions.setPackNameForSearch(value))
+        } else if ('/' + match?.params.routeKey === PATH.CARDS) {
+            dispatch(cardsActions.setQuestionForSearch(value))
+        }
+    }, [debouncedValue])
+
+    const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+        setValue(e.target.value)
+    }
 
     return (
         <div>
@@ -65,13 +75,11 @@ export const Search = memo((props: SearchPropsType) => {
                         <SearchIcon/>
                     </SearchIconWrapper>
                     <StyledInputBase
-                        id='q'
                         placeholder='Provide your text'
                         inputProps={{'aria-label': 'search'}}
                         type='search'
-                        value={props.valueSearch}
+                        value={value}
                         onChange={changeHandler}
-                        name='q'
                     />
                 </SearchContainer>
             </div>
