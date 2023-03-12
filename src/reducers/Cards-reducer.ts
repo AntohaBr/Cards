@@ -7,7 +7,7 @@ import {
     GetCardsParamsType,
     GetCardsResponseType,
     PostCardType,
-    UpdateCardType,
+    UpdateCardType, PackType,
 } from 'api/Packs-cards-api'
 import {AxiosError} from 'axios'
 import {error} from 'utils'

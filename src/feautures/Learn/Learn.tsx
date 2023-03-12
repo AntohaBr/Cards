@@ -74,7 +74,6 @@ export const Learn = () => {
             <BackToPackList/>
             <div>
                 <div className={t.titlePack}>Learn: {`'${packName}'`}</div>
-
                 <div className={s.learnBlock}>
                     <div style={{maxWidth: '750px', display: 'flex', justifyContent: 'center'}}>
                         Question:

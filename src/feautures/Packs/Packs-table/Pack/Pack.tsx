@@ -6,7 +6,7 @@ import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {deletePack, updatePack} from 'reducers/Packs-reducer'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {getCards} from 'reducers/Cards-reducer'
-import {selectAppStatus, selectCardsPage, selectProfileUser_id,} from 'store/Selectors'
+import {selectAppStatus, selectCardsPage, selectProfileUser_id} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 import t from 'common/Styles/Table.module.css'
 

@@ -35,6 +35,7 @@ export const Cards = memo(() => {
         const packName = useAppSelector(selectCardsPackName)
         const cardQuestion = useAppSelector(selectCardsCardQuestion)
 
+
         const navigate = useNavigate()
         const {packId} = useParams<'packId'>()
         const dispatch = useAppDispatch()
@@ -98,9 +99,8 @@ export const Cards = memo(() => {
                         <CardsTable/>
                         <div className={s.info}>
                             <div className={t.infoText}>
-                                {(!cardsTotalCount || !cardQuestion) && 'Sorry, there are no such cards.'}
-                                {/*{!!cardsTotalCount && cards.length === 0 && 'Sorry, there are no such cards'}*/}
-                                {/*{!cardsTotalCount && textForEmptyPack}*/}
+                                {/*{cardQuestion  &&  'Sorry, there are no such cards.'}*/}
+                                {!cardsTotalCount && textForEmptyPack}
                             </div>
                             {isMyPack && !cards.length && <ButtonAddCard addItem={addCard}/>}
                         </div>

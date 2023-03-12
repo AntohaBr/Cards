@@ -31,6 +31,7 @@ export const Packs = memo(() => {
     const min = useAppSelector(selectPacksMin)
     const max = useAppSelector(selectPacksMax)
 
+
     const dispatch = useAppDispatch()
 
     const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
