@@ -1,14 +1,15 @@
 import {TableCell, Button, SchoolIcon, EditIcon, DeleteOutlineIcon, TableRow} from 'collections-mui'
-import {NavLink, useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import {ModalDeletePack, ModalEditPack} from 'common'
 import {PackType} from 'api/Packs-cards-api'
 import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {deletePack, updatePack} from 'reducers/Packs-reducer'
 import defaultCover from 'assets/Icon/default-cover.jpg'
-import {getCards} from 'reducers/Cards-reducer'
+import {cardsActions, getCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileUser_id} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 import t from 'common/Styles/Table.module.css'
+import {FC} from 'react'
 
 
 type PackPropsType = {
@@ -16,7 +17,7 @@ type PackPropsType = {
 }
 
 
-export const Pack = (props: PackPropsType) => {
+export const Pack: FC<PackPropsType> = ({pack}) => {
     const user_id = useAppSelector(selectProfileUser_id)
     const status = useAppSelector(selectAppStatus)
     const page = useAppSelector(selectCardsPage)
@@ -27,36 +28,40 @@ export const Pack = (props: PackPropsType) => {
     const dispatch = useAppDispatch()
 
     const onClickLearnHandler = () => {
-        dispatch(getCards({packName: props.pack.name, cardsPack_id: props.pack._id, page}))
-        navigate(`${PATH.LEARN}/${props.pack._id}`)
+        dispatch(getCards({packName: pack.name, cardsPack_id: pack._id, page}))
+        navigate(`${PATH.LEARN}/${pack._id}`)
     }
 
     const deletePackCards = () => {
-        dispatch(deletePack(props.pack._id))
+        dispatch(deletePack(pack._id))
     }
     const editPackCards = (name: string, deckCover: string) => {
-        dispatch(updatePack({cardsPack: {_id: props.pack._id, name, deckCover}}))
+        dispatch(updatePack({cardsPack: {_id: pack._id, name, deckCover}}))
+    }
+
+    const openCard = () => {
+        dispatch(cardsActions.setQuestionForSearch(''))
+        dispatch(cardsActions.setPackName(pack.name))
+        dispatch(cardsActions.setPackDeckCover(pack.deckCover))
+        dispatch(cardsActions.setEmptyArrayCards())
+        navigate(`${PATH.CARDS}/${pack._id}`)
     }
 
     return (
-        <TableRow key={props.pack._id}>
+        <TableRow key={pack._id}>
             <TableCell align='center' className={t.deckCover}>
                 <img
                     style={{width: '60px', height: '40px'}}
-                    src={props.pack.deckCover ? props.pack.deckCover : defaultCover}
+                    src={pack.deckCover ? pack.deckCover : defaultCover}
                     alt='img'
                 />
             </TableCell>
+            <TableCell align='center' onClick={openCard} sx={{cursor: 'pointer'}}>{pack.name}</TableCell>
+            <TableCell align='center'>{pack.cardsCount}</TableCell>
+            <TableCell align='center'>{pack.updated?.split('').splice(0, 10)}</TableCell>
+            <TableCell align='center'>{pack.user_name}</TableCell>
             <TableCell align='center'>
-                <NavLink to={`${PATH.CARDS}/${props.pack._id}`} style={{textDecoration: 'none', color: 'black'}}>
-                    {props.pack.name}
-                </NavLink>
-            </TableCell>
-            <TableCell align='center'>{props.pack.cardsCount}</TableCell>
-            <TableCell align='center'>{props.pack.updated?.split('').splice(0, 10)}</TableCell>
-            <TableCell align='center'>{props.pack.user_name}</TableCell>
-            <TableCell align='center'>
-                {user_id === props.pack.user_id &&
+                {user_id === pack.user_id &&
                     <>
                         <Button onClick={openModal} disabled={status === 'loading'}>
                             <EditIcon/>
@@ -69,7 +74,7 @@ export const Pack = (props: PackPropsType) => {
                 <>
                     <Button
                         onClick={onClickLearnHandler}
-                        disabled={status === 'loading' || props.pack.cardsCount === 0}>
+                        disabled={status === 'loading' || pack.cardsCount === 0}>
                         <SchoolIcon/>
                     </Button>
                 </>
@@ -77,17 +82,17 @@ export const Pack = (props: PackPropsType) => {
             <ModalDeletePack
                 title={'Delete Pack'}
                 open={isDeleteModalOpen}
-                name={props.pack.name}
+                name={pack.name}
                 toggleOpenMode={closeDeleteModal}
                 deleteItem={deletePackCards}
             />
             <ModalEditPack
                 title={'Edit Pack'}
-                itemTitle={props.pack.name}
+                itemTitle={pack.name}
                 open={isEditModalOpen}
                 toggleOpenMode={closeModal}
                 editItem={editPackCards}
-                img={props.pack.deckCover}
+                img={pack.deckCover}
             />
         </TableRow>
     )

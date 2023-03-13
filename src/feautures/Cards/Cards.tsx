@@ -1,6 +1,6 @@
 import {memo, useCallback, useEffect} from 'react'
 import {Button} from 'collections-mui'
-import {useNavigate, useParams} from 'react-router-dom'
+import {Navigate, useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
 import {PostCardType} from 'api/Packs-cards-api'
@@ -8,7 +8,7 @@ import defaultCover from 'assets/Icon/default-cover.jpg'
 import {Search, BackToPackList, PaginationBar, ButtonAddCard, CardsMenu} from 'common'
 import {addNewCards, cardsActions, getCards} from 'reducers/Cards-reducer'
 import {
-    selectAppStatus,
+    selectAppStatus, selectAuthIsLoggedIn,
     selectCards,
     selectCardsCardQuestion,
     selectCardsPackDeckCover,
@@ -24,6 +24,7 @@ import s from './Cards.module.css'
 
 
 export const Cards = memo(() => {
+        const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
         const page = useAppSelector(selectCardsPage)
         const pageCount = useAppSelector(selectCardsPageCount)
         const cardsTotalCount = useAppSelector(selectCardsTotalCount)
@@ -41,8 +42,11 @@ export const Cards = memo(() => {
         const dispatch = useAppDispatch()
 
         const isMyPack = user_id === cardsPackUserId
+        const isEmptyPack = !cardsTotalCount && !cardQuestion
+        const notFoundCards = !cardsTotalCount && cardQuestion
         const extraText = isMyPack ? ' Click add new card to fill this pack.' : ''
         const textForEmptyPack = `This pack is empty.${extraText}`
+        const textForNotFoundCards = `Sorry, there are no such cards.${extraText}`
 
         const cardsPaginationPages = Math.ceil(cardsTotalCount / pageCount)
 
@@ -67,12 +71,16 @@ export const Cards = memo(() => {
             dispatch(cardsActions.setCardsPage(page))
         }, [])
 
+        if (!isLoggedIn) {
+            return <Navigate to={PATH.LOGIN}/>
+        }
+
         return (
             <div className={t.tableBlock}>
                 <div className={t.container}>
                     <div className={t.backToPackList}>
                         <BackToPackList/>
-                        {isMyPack && cards.length !== 0 && <ButtonAddCard addItem={addCard}/>}
+                        {isMyPack && !isEmptyPack  && <ButtonAddCard addItem={addCard}/>}
                     </div>
                     <div className={t.titlePack}>Pack name: '{packName}'</div>
                     <div className={t.packDeckCover}>
@@ -84,27 +92,29 @@ export const Cards = memo(() => {
                         {isMyPack && <CardsMenu/>}
                     </div>
                     <>
-                        <div className={s.filterContainer}>
-                            <>
-                                {(!!cardsTotalCount || cardQuestion) && <Search valueSearch={cardQuestion}/>}
-                                {!!cards.length &&
+                        {!isEmptyPack &&
+                            <div className={s.filterContainer}>
+                                <>
+                                    <Search valueSearch={cardQuestion}/>
                                     <Button variant={'contained'} color={'primary'}
                                             style={{width: '200px', borderRadius: '90px'}}
-                                            onClick={setUtilsHandler}>
+                                            onClick={setUtilsHandler} disabled={!cardsTotalCount}>
                                         Learn to pack
                                     </Button>
-                                }
-                            </>
-                        </div>
-                        <CardsTable/>
-                        <div className={s.info}>
-                            <div className={t.infoText}>
-                                {/*{cardQuestion  &&  'Sorry, there are no such cards.'}*/}
-                                {!cardsTotalCount && textForEmptyPack}
+                                </>
                             </div>
-                            {isMyPack && !cards.length && <ButtonAddCard addItem={addCard}/>}
-                        </div>
-                        {!!cards.length &&
+                        }
+                        <CardsTable/>
+                        {status !== 'loading' &&
+                            <div className={s.info}>
+                                <div className={t.infoText}>
+                                    {isEmptyPack && textForEmptyPack}
+                                    {notFoundCards && textForNotFoundCards}
+                                </div>
+                                {isMyPack && !cards.length && <ButtonAddCard addItem={addCard}/>}
+                            </div>
+                        }
+                        {!!cards.length && status !== 'loading' &&
                             <PaginationBar
                                 paginationPages={cardsPaginationPages}
                                 pageCount={pageCount}
@@ -113,7 +123,6 @@ export const Cards = memo(() => {
                                 handleChangePage={cardsHandleChangePage}/>
                         }
                     </>
-
                 </div>
             </div>
         )

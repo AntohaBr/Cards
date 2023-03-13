@@ -5,6 +5,8 @@ import {ModalDeleteCard, ModalEditCard} from 'common'
 import {deleteCards, updateCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectProfileUser_id} from 'store/Selectors'
 import t from 'common/Styles/Table.module.css'
+import s from './Card.module.css'
+import {FC} from 'react'
 
 
 type CardPropsType = {
@@ -12,7 +14,7 @@ type CardPropsType = {
 }
 
 
-export const Card = (props: CardPropsType) => {
+export const Card: FC<CardPropsType> = ({card}) => {
     const status = useAppSelector(selectAppStatus)
     const user_id = useAppSelector(selectProfileUser_id)
 
@@ -21,57 +23,49 @@ export const Card = (props: CardPropsType) => {
     const dispatch = useAppDispatch()
 
     const question = () => {
-        return props.card.question.length > 100
-            ?
-            <img style={{maxWidth: '100px'}} src={props.card.question} alt={'question'}/>
-            :
-            props.card.question
+        return card.question.length > 100 ? <div className={s.answerText}>{card.question}</div> : card.question
     }
 
     const answer = () => {
-        return props.card.answer.length > 100
-            ?
-            <img style={{maxWidth: '100px'}} src={props.card.answer} alt={'answer'}/>
-            :
-            props.card.answer
+        return card.answer.length > 100 ? <div className={s.answerText}>{card.answer}</div> : card.answer
     }
 
     const deleteCard = () => {
-        dispatch(deleteCards(props.card._id))
+        dispatch(deleteCards(card._id))
     }
 
     const editCard = (question: string, answer: string, questionImg: string, answerImg: string) => {
-        dispatch(updateCards({card: {_id: props.card._id, question, answer, questionImg, answerImg}}))
+        dispatch(updateCards({card: {_id: card._id, question, answer, questionImg, answerImg}}))
     }
 
     return (
-        <TableRow key={props.card._id}>
+        <TableRow key={card._id}>
             <TableCell align='center'>
-                {props.card.questionImg
+                {card.questionImg
                     ?
-                    <img style={{maxWidth: '100px'}} src={props.card.questionImg} alt={'question image'}/>
+                    <img style={{maxWidth: '100px'}} src={card.questionImg} alt={'question image'}/>
                     :
                     question()
                 }
             </TableCell>
             <TableCell align='center'>
-                {props.card.answerImg
+                {card.answerImg
                     ?
-                    <img style={{maxWidth: '100px'}} src={props.card.answerImg} alt={'answer image'}/>
+                    <img style={{maxWidth: '100px'}} src={card.answerImg} alt={'answer image'}/>
                     :
                     answer()
                 }
             </TableCell>
-            <TableCell align='center'> {props.card.updated?.split('').splice(0, 10)}</TableCell>
+            <TableCell align='center'> {card.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align='center'>
                 <Rating
                     name='only'
-                    value={props.card.grade}
+                    value={card.grade}
                     precision={0.1}
                     readOnly
                 />
             </TableCell>
-            {user_id === props.card.user_id && (
+            {user_id === card.user_id && (
                 <TableCell align='center'>
                     <>
                         <Button onClick={openModal} disabled={status === 'loading'}>
@@ -88,8 +82,8 @@ export const Card = (props: CardPropsType) => {
                 open={isDeleteModalOpen}
                 toggleOpenMode={closeDeleteModal}
                 deleteItem={deleteCard}
-                question={props.card.question}
-                questionImg={props.card.questionImg}
+                question={card.question}
+                questionImg={card.questionImg}
 
             />
             <ModalEditCard
@@ -97,11 +91,11 @@ export const Card = (props: CardPropsType) => {
                 open={isEditModalOpen}
                 toggleOpenMode={closeModal}
                 editItem={editCard}
-                previousQuestion={props.card.question}
-                previousAnswer={props.card.answer}
-                previousQuestionImg={props.card.questionImg}
-                previousAnswerImg={props.card.answerImg}
-                questionType={props.card.type}
+                previousQuestion={card.question}
+                previousAnswer={card.answer}
+                previousQuestionImg={card.questionImg}
+                previousAnswerImg={card.answerImg}
+                questionType={card.type}
             />
         </TableRow>
     )

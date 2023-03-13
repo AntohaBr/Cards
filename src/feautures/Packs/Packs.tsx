@@ -31,8 +31,10 @@ export const Packs = memo(() => {
     const min = useAppSelector(selectPacksMin)
     const max = useAppSelector(selectPacksMax)
 
-
     const dispatch = useAppDispatch()
+
+    const notFoundPacks = !cardPacksTotalCount && packName
+    const textForNotFoundPacks = 'Sorry, there are no such packs.'
 
     const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
 
@@ -71,8 +73,8 @@ export const Packs = memo(() => {
                         <ClearFilters/>
                     </div>
                     <PacksTable/>
-                    {packs.length === 0 && status !== 'loading' &&
-                        <div className={t.infoText}>Sorry, there are no such packages</div>
+                    {notFoundPacks && status !== 'loading' &&
+                        <div className={t.infoText}>{textForNotFoundPacks}</div>
                     }
                     {!!packs.length &&
                         <>

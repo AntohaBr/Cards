@@ -1,4 +1,4 @@
-import {ChangeEvent, memo, useEffect, useState} from 'react'
+import {ChangeEvent, FC, memo, useEffect, useState} from 'react'
 import {SearchIcon, alpha, InputBase, styled} from 'collections-mui'
 import s from 'common/Styles/Forms.module.css'
 import {packsActions} from 'reducers/Packs-reducer'
@@ -47,8 +47,8 @@ type SearchPropsType = {
 }
 
 
-export const Search = memo((props: SearchPropsType) => {
-    const [value, setValue] = useState<string>(props.valueSearch ? props.valueSearch : '')
+export const Search: FC<SearchPropsType> = memo(({valueSearch}) => {
+    const [value, setValue] = useState<string>(valueSearch ? valueSearch : '')
 
     const debouncedValue = useDebounce<string>(value, 700)
     const dispatch = useAppDispatch()

@@ -6,13 +6,19 @@ import {ModalEditPack, ModalDeletePack} from 'common'
 import {useNavigate, useParams} from 'react-router-dom'
 import {packsCardsApi} from 'api/Packs-cards-api'
 import {getCards} from 'reducers/Cards-reducer'
-import {selectCardsPackDeckCover, selectCardsPackName} from 'store/Selectors'
+import {
+    selectCardsCardQuestion,
+    selectCardsPackDeckCover,
+    selectCardsPackName,
+    selectCardsTotalCount
+} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 
 
 export const CardsMenu = () => {
     const packName = useAppSelector(selectCardsPackName)
     const packDeckCover = useAppSelector(selectCardsPackDeckCover)
+    const cardsTotalCount = useAppSelector(selectCardsTotalCount)
 
     const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
     const open = Boolean(anchorEl)
@@ -63,7 +69,7 @@ export const CardsMenu = () => {
                     anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
                 >
                     <div className={s.menu}>
-                        <Button onClick={learnButtonCloseHandler}>
+                        <Button onClick={learnButtonCloseHandler} disabled={!cardsTotalCount}>
                             <div className={s.icon}>
                                 <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                             </div>

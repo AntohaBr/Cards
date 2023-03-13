@@ -27,10 +27,10 @@ export const CardsTable = () => {
                     </TableHead>
                     <TableBody>
                         {cards.map(card => (
-                                <Card
-                                    key={card._id}
-                                    card={card}
-                                />
+                            <Card
+                                key={card._id}
+                                card={card}
+                            />
                         ))}
                     </TableBody>
                 </Table>
