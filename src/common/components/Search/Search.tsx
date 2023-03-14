@@ -68,21 +68,18 @@ export const Search: FC<SearchPropsType> = memo(({valueSearch}) => {
 
     return (
         <div>
-            <div className={s.filterTitle}>Search</div>
-            <div>
-                <SearchContainer>
-                    <SearchIconWrapper>
-                        <SearchIcon/>
-                    </SearchIconWrapper>
-                    <StyledInputBase
-                        placeholder='Provide your text'
-                        inputProps={{'aria-label': 'search'}}
-                        type='search'
-                        value={value}
-                        onChange={changeHandler}
-                    />
-                </SearchContainer>
-            </div>
+            <SearchContainer>
+                <SearchIconWrapper>
+                    <SearchIcon/>
+                </SearchIconWrapper>
+                <StyledInputBase
+                    placeholder='Search'
+                    inputProps={{'aria-label': 'search'}}
+                    type='search'
+                    value={value}
+                    onChange={changeHandler}
+                />
+            </SearchContainer>
         </div>
     )
 })

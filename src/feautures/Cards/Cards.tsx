@@ -36,7 +36,6 @@ export const Cards = memo(() => {
         const packName = useAppSelector(selectCardsPackName)
         const cardQuestion = useAppSelector(selectCardsCardQuestion)
 
-
         const navigate = useNavigate()
         const {packId} = useParams<'packId'>()
         const dispatch = useAppDispatch()
@@ -80,7 +79,7 @@ export const Cards = memo(() => {
                 <div className={t.container}>
                     <div className={t.backToPackList}>
                         <BackToPackList/>
-                        {isMyPack && !isEmptyPack  && <ButtonAddCard addItem={addCard}/>}
+                        {isMyPack && <ButtonAddCard addItem={addCard}/>}
                     </div>
                     <div className={t.titlePack}>Pack name: '{packName}'</div>
                     <div className={t.packDeckCover}>
@@ -98,7 +97,7 @@ export const Cards = memo(() => {
                                     <Search valueSearch={cardQuestion}/>
                                     <Button variant={'contained'} color={'primary'}
                                             style={{width: '200px', borderRadius: '90px'}}
-                                            onClick={setUtilsHandler} disabled={!cardsTotalCount}>
+                                            onClick={setUtilsHandler} disabled={status === 'loading' || !cardsTotalCount}>
                                         Learn to pack
                                     </Button>
                                 </>
@@ -106,12 +105,9 @@ export const Cards = memo(() => {
                         }
                         <CardsTable/>
                         {status !== 'loading' &&
-                            <div className={s.info}>
-                                <div className={t.infoText}>
-                                    {isEmptyPack && textForEmptyPack}
-                                    {notFoundCards && textForNotFoundCards}
-                                </div>
-                                {isMyPack && !cards.length && <ButtonAddCard addItem={addCard}/>}
+                            <div className={t.infoText}>
+                                {isEmptyPack && textForEmptyPack}
+                                {notFoundCards && textForNotFoundCards}
                             </div>
                         }
                         {!!cards.length && status !== 'loading' &&

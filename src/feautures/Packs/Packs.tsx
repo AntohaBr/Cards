@@ -33,8 +33,8 @@ export const Packs = memo(() => {
 
     const dispatch = useAppDispatch()
 
-    const notFoundPacks = !cardPacksTotalCount && packName
-    const textForNotFoundPacks = 'Sorry, there are no such packs.'
+    const notFoundPack = !cardPacksTotalCount && packName
+    const textForNotFoundPack = 'Sorry, there are no such packs.'
 
     const PacksPaginationPages = Math.ceil(cardPacksTotalCount / pageCount)
 
@@ -73,8 +73,8 @@ export const Packs = memo(() => {
                         <ClearFilters/>
                     </div>
                     <PacksTable/>
-                    {notFoundPacks && status !== 'loading' &&
-                        <div className={t.infoText}>{textForNotFoundPacks}</div>
+                    {notFoundPack && status !== 'loading' &&
+                        <div className={t.infoText}>{textForNotFoundPack}</div>
                     }
                     {!!packs.length &&
                         <>
