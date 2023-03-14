@@ -3,13 +3,14 @@ import {useNavigate} from 'react-router-dom'
 import {ModalDeletePack, ModalEditPack} from 'common'
 import {PackType} from 'api/Packs-cards-api'
 import {useAppDispatch, useAppSelector, useModal} from 'utils'
-import {deletePack, packsActions, updatePack} from 'reducers/Packs-reducer'
+import {deletePack, updatePack} from 'reducers/Packs-reducer'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {cardsActions, getCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileUser_id} from 'store/Selectors'
 import {PATH} from 'constants/Routing/Rout-constants'
 import t from 'common/Styles/Table.module.css'
 import {FC} from 'react'
+import s from './Pack.module.css'
 
 
 type PackPropsType = {
@@ -49,14 +50,14 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
 
     return (
         <TableRow key={pack._id}>
-            <TableCell align='center' className={t.deckCover}>
+            <TableCell align='center' className={s.deckCoverColumn}>
                 <img
-                    style={{width: '60px', height: '40px'}}
+                    style={{ width: '60px', height: '40px' }}
                     src={pack.deckCover ? pack.deckCover : defaultCover}
                     alt='img'
                 />
             </TableCell>
-            <TableCell align='center' onClick={openCard} sx={{cursor: 'pointer'}}>{pack.name}</TableCell>
+            <TableCell align='center' onClick={openCard} className={s.nameColumn}>{pack.name}</TableCell>
             <TableCell align='center'>{pack.cardsCount}</TableCell>
             <TableCell align='center'>{pack.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align='center'>{pack.user_name}</TableCell>
