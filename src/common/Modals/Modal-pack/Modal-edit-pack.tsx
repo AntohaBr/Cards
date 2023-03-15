@@ -1,7 +1,7 @@
 import {ChangeEvent, useState} from 'react'
 import {ButtonBlockModal, MainBlockModal, InputFile} from 'common'
 import {TextField} from 'collections-mui'
-import {LENGTH} from "../../../constants/Length-card-packs-constants";
+import {LENGTH} from 'constants/Length-card-packs-constants'
 
 
 type ModalEditPackPropsType = {

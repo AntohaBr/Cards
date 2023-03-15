@@ -18,7 +18,6 @@ export const Profile = memo(() => {
         const email = useAppSelector(selectProfileEmail)
         const avatar = useAppSelector(selectProfileAvatar)
         const name = useAppSelector(selectProfileName)
-
         const [userName, setUserName] = useState<string>(name)
         const [editNameMod, setEditNameMod] = useState<boolean>(false)
 

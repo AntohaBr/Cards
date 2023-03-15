@@ -108,5 +108,5 @@ export type LoginType = {
 }
 
 export type UpdateProfileResponseType = {
-    updatedProfile: ResponseType
+    updatedUser: ResponseType
 }

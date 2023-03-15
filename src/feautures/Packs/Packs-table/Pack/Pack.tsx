@@ -22,6 +22,8 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
     const status = useAppSelector(selectAppStatus)
     const page = useAppSelector(selectCardsPage)
 
+    const isMyPack = user_id === pack.user_id
+
     const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
     const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
     const navigate = useNavigate()
@@ -61,7 +63,7 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
             <TableCell align='center'>{pack.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align='center'>{pack.user_name}</TableCell>
             <TableCell align='center'>
-                {user_id === pack.user_id &&
+                {isMyPack &&
                     <>
                         <Button onClick={openModal} disabled={status === 'loading'}>
                             <EditIcon/>

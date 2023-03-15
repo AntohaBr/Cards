@@ -16,7 +16,7 @@ export const profileReducer = (state: initialStateType = initialState, action: P
     switch (action.type) {
         case 'PROFILE/UPDATE-PROFILE':
         case 'PROFILE/SET-INFO-USER':
-            return {...state, ...action.payload}
+            return {...state, infoUser: {...action.payload}}
         default:
             return state
     }
@@ -25,8 +25,8 @@ export const profileReducer = (state: initialStateType = initialState, action: P
 
 //actions
 export const profileActions = {
-    updateProfile : (user: UserType) => ({type: 'PROFILE/UPDATE-PROFILE', payload: {user}} as const),
-    setInfoUser : (infoUser: InfoUserType) => ({type: 'PROFILE/SET-INFO-USER', payload: {infoUser}} as const)
+    updateProfile : (user: UserType) => ({type: 'PROFILE/UPDATE-PROFILE', payload: {...user}} as const),
+    setInfoUser : (infoUser: InfoUserType) => ({type: 'PROFILE/SET-INFO-USER', payload: {...infoUser}} as const)
 }
 
 
@@ -36,7 +36,8 @@ export const updateProfileTC = (name: string, avatar?: string): AppThunkType => 
     try {
         const res = await authApi.updateProfile(name, avatar)
         dispatch(appActions.setAppStatus('succeeded'))
-        dispatch(profileActions.updateProfile(res.data.updatedProfile))
+        dispatch(profileActions.setInfoUser(res.data.updatedUser))
+        dispatch(profileActions.updateProfile(res.data.updatedUser))
     } catch (e) {
         const err = e as Error | AxiosError<{ successError: null | string }>
         error(err, dispatch)
