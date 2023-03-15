@@ -9,8 +9,8 @@ import f from 'common/Styles/Forms.module.css'
 import s from './Login.module.css'
 import {LoginType} from 'api/Auth-api'
 import {selectAuthIsLoggedIn} from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
 import {ButtonMui} from 'common'
+import {PATH} from 'constants/Routing-constants'
 
 
 interface State {

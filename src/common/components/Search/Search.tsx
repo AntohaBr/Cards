@@ -5,7 +5,7 @@ import {packsActions} from 'reducers/Packs-reducer'
 import {useAppDispatch, useDebounce} from 'utils'
 import {useMatch} from "react-router-dom"
 import {cardsActions} from 'reducers/Cards-reducer'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 
 
 const SearchContainer = styled('div')(({theme}) => ({

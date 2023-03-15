@@ -7,10 +7,9 @@ import {deletePack, updatePack} from 'reducers/Packs-reducer'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {cardsActions, getCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileUser_id} from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
-import t from 'common/Styles/Table.module.css'
 import {FC} from 'react'
 import s from './Pack.module.css'
+import {PATH} from 'constants/Routing-constants'
 
 
 type PackPropsType = {

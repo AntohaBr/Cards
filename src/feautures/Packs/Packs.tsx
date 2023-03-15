@@ -4,7 +4,7 @@ import {PacksTable} from './Packs-table/Packs-table'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {Search, PaginationBar, RangeSlider, MyAllPanel, ClearFilters, ButtonAddPack} from 'common'
 import {addNewPack, getPacks, packsActions} from 'reducers/Packs-reducer'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 import {
     selectAppStatus,
     selectAuthIsLoggedIn, selectPackNameForSearch, selectPacks,

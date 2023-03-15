@@ -8,7 +8,7 @@ import styleIcon from 'common/components/Cards-menu/Cards-menu.module.css'
 import styleMenu from 'common/components/Cards-menu/Cards-menu.module.css'
 import {logOut} from 'reducers/Auth-reducer'
 import {selectProfileAvatar, selectProfileName} from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 import f from 'common/Styles/Forms.module.css'
 
 

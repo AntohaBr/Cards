@@ -1,6 +1,7 @@
 import {ChangeEvent, useState} from 'react'
 import {ButtonBlockModal, MainBlockModal, InputFile} from 'common'
 import {TextField} from 'collections-mui'
+import {LENGTH} from "../../../constants/Length-card-packs-constants";
 
 
 type ModalEditPackPropsType = {
@@ -17,6 +18,9 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
     const [name, setName] = useState(props.itemTitle)
     const [deckCover, setDeckCover] = useState(props.img)
 
+    const validateNamePack = name.length >= LENGTH.MAX_LENGTH_PACK
+    const textForValidateError = validateNamePack ? 'The pack name must contain no more than 50 characters' : ''
+
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
     }
@@ -24,8 +28,10 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
         setName(e.currentTarget.value)
     }
     const editPackButtonHandler = () => {
-        props.editItem(name, deckCover)
-        props.toggleOpenMode(false)
+        if (name.length < LENGTH.MAX_LENGTH_PACK) {
+            props.editItem(name, deckCover)
+            props.toggleOpenMode(false)
+        }
     }
 
     return (
@@ -49,6 +55,8 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
                     label='Edit pack'
                     variant='standard'
                     style={{width: '100%'}}
+                    helperText={textForValidateError}
+                    error={validateNamePack}
                 />
                 <ButtonBlockModal
                     onCloseModalHandler={onCloseModalHandler}

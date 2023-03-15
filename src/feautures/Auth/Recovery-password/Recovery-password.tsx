@@ -5,7 +5,7 @@ import {recoveryPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import f from 'common/Styles/Forms.module.css'
 import {selectAuthIsLoggedIn, selectAuthRecoveryPassword} from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 import {ButtonMui} from 'common'
 
 

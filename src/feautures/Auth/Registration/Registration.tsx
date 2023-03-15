@@ -8,7 +8,7 @@ import {useAppDispatch, useAppSelector, validate} from 'utils'
 import f from 'common/Styles/Forms.module.css'
 import {RegistrationType} from 'api/Auth-api'
 import {selectAuthIsRegistered} from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 import {ButtonMui} from 'common'
 
 

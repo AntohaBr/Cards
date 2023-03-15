@@ -22,6 +22,8 @@ export const Card: FC<CardPropsType> = ({card}) => {
     const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
     const dispatch = useAppDispatch()
 
+    const isMyCard = user_id === card.user_id
+
     const question = () => {
         return card.question.length > 100 ? <div className={s.answerText}>{card.question}</div> : card.question
     }
@@ -65,7 +67,7 @@ export const Card: FC<CardPropsType> = ({card}) => {
                     readOnly
                 />
             </TableCell>
-            {user_id === card.user_id && (
+            {isMyCard &&
                 <TableCell align='center'>
                     <>
                         <Button onClick={openModal} disabled={status === 'loading'}>
@@ -76,7 +78,7 @@ export const Card: FC<CardPropsType> = ({card}) => {
                         </Button>
                     </>
                 </TableCell>
-            )}
+            }
             <ModalDeleteCard
                 title={'Delete Card'}
                 open={isDeleteModalOpen}

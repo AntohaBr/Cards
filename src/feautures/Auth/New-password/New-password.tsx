@@ -7,7 +7,7 @@ import {setNewPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, validate} from 'utils'
 import f from 'common/Styles/Forms.module.css'
 import {NewPasswordType} from 'api/Auth-api'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 import {ButtonMui} from 'common'
 
 

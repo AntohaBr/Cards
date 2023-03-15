@@ -5,7 +5,7 @@ import {useNavigate} from 'react-router-dom'
 import {useAppSelector} from 'utils'
 import f from 'common/Styles/Forms.module.css'
 import {selectAuthRecoveryPassword} from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 
 
 export const CheckEmail = () => {

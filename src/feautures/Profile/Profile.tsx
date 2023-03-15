@@ -10,7 +10,7 @@ import {BackToPackList} from 'common'
 import f from 'common/Styles/Forms.module.css'
 import defaultAvatar from 'assets/Icon/default-avatar.jpg'
 import {selectAuthIsLoggedIn, selectProfileAvatar, selectProfileEmail, selectProfileName} from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 
 
 export const Profile = memo(() => {

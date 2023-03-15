@@ -10,7 +10,7 @@ import {Packs} from 'feautures/Packs/Packs'
 import {Cards} from 'feautures/Cards/Cards'
 import {Learn} from 'feautures/Learn/Learn'
 import {Home} from 'feautures/Home/Home'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 
 
 export const PagesRoutes = () => {

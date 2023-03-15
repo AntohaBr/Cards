@@ -1,6 +1,7 @@
 import {ChangeEvent, useState} from 'react'
 import {TextField} from 'collections-mui'
 import {MainBlockModal, ButtonBlockModal, InputFile} from 'common'
+import {LENGTH} from 'constants/Length-card-packs-constants'
 
 
 type ModalAddPackPropsType = {
@@ -15,20 +16,25 @@ export const ModalAddPack = (props: ModalAddPackPropsType) => {
     const [name, setText] = useState('')
     const [deckCover, setDeckCover] = useState('')
 
+    const validateNamePack = name.length >= LENGTH.MAX_LENGTH_PACK
+    const textForValidateError = validateNamePack ? 'The pack name must contain no more than 50 characters' : ''
+
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
         setText('')
     }
 
     const saveButtonHandler = () => {
-        props.addItem(name, deckCover)
-        props.toggleOpenMode(false)
-        setText('')
-        setDeckCover('')
+        if (name.length < LENGTH.MAX_LENGTH_PACK) {
+            props.addItem(name, deckCover)
+            props.toggleOpenMode(false)
+            setText('')
+            setDeckCover('')
+        }
     }
 
     const textFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setText(e.currentTarget.value)
+            setText(e.currentTarget.value)
     }
 
     return (
@@ -52,6 +58,8 @@ export const ModalAddPack = (props: ModalAddPackPropsType) => {
                     style={{width: '100%'}}
                     label='Name pack'
                     variant='standard'
+                    helperText={textForValidateError}
+                    error={validateNamePack}
                 />
                 <ButtonBlockModal
                     onCloseModalHandler={onCloseModalHandler}

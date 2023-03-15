@@ -18,9 +18,9 @@ import {
     selectCardsPageCount,
     selectCardsTotalCount, selectProfileUser_id,
 } from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
 import t from 'common/Styles/Table.module.css'
 import s from './Cards.module.css'
+import {PATH} from 'constants/Routing-constants'
 
 
 export const Cards = memo(() => {

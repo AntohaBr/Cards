@@ -12,7 +12,7 @@ import {
     selectCardsPackName,
     selectCardsTotalCount
 } from 'store/Selectors'
-import {PATH} from 'constants/Routing/Rout-constants'
+import {PATH} from 'constants/Routing-constants'
 
 
 export const CardsMenu = () => {
