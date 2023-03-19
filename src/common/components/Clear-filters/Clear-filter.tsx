@@ -16,10 +16,10 @@ export const ClearFilters = () => {
     }
 
     return (
-        <Button color={'inherit'}
-                onClick={resetFilterHandler}
-                disabled={status === 'loading'}>
-            <FilterAltOffIcon/>
-        </Button>
-    )
+    <Button color={'inherit'}
+            onClick={resetFilterHandler}
+            disabled={status === 'loading'}>
+        <FilterAltOffIcon/>
+    </Button>
+)
 }

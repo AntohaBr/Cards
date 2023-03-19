@@ -37,7 +37,7 @@ export const ModalDeleteCard = (props: ModalDeleteCardPropsType) => {
                         <img src={props.questionImg} alt={'question image'}
                              style={{maxWidth: '150px', display: 'block', margin: '0 auto'}}/>
                     </div>
-                    : <p>Do you really want to remove <b>{props.question}</b>?</p>
+                    : <p>Do you really want to remove: <b style={{wordBreak : 'break-all'}}>{props.question}</b>?</p>
                 }
                 <ButtonBlockModal
                     onCloseModalHandler={onCloseModalHandler}

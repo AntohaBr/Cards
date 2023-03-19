@@ -1,19 +1,20 @@
 import {Button} from 'collections-mui'
-import {ModalAddNewCard} from 'common/index'
-import {useAppSelector, useModal} from 'utils'
+import {ModalAddNewCard} from 'common'
+import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
 import {PostCardType} from 'api/Packs-cards-api'
+import {addNewCards} from 'reducers/Cards-reducer'
 
 
-type ButtonAddCardPropsType = {
-    addItem: (postModel: PostCardType) => void
-}
-
-
-export const ButtonAddCard = (props:ButtonAddCardPropsType) => {
+export const ButtonAddCard = () => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal} = useModal()
+    const dispatch = useAppDispatch()
+
+    const addCard = (postModel: PostCardType) => {
+        dispatch(addNewCards(postModel))
+    }
 
     return (
         <div>
@@ -27,7 +28,7 @@ export const ButtonAddCard = (props:ButtonAddCardPropsType) => {
                 title='Add new card'
                 open={isAddModalOpen}
                 toggleOpenMode={closeAddModal}
-                addItem={props.addItem}
+                addItem={addCard}
             />
         </div>
     )

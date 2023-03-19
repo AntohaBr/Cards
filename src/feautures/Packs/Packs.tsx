@@ -3,7 +3,7 @@ import {Navigate} from 'react-router-dom'
 import {PacksTable} from './Packs-table/Packs-table'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {Search, PaginationBar, RangeSlider, MyAllPanel, ClearFilters, ButtonAddPack} from 'common'
-import {addNewPack, getPacks, packsActions} from 'reducers/Packs-reducer'
+import {getPacks, packsActions} from 'reducers/Packs-reducer'
 import {PATH} from 'constants/Routing-constants'
 import {
     selectAppStatus,
@@ -42,10 +42,6 @@ export const Packs = memo(() => {
         dispatch(getPacks())
     }, [dispatch, statusPackCards, min, max, pageCount, page, packName])
 
-    const addNewPackCard = (name: string, deckCover: string) => {
-        dispatch(addNewPack({name, deckCover}))
-    }
-
     const packsPageCountHandler = useCallback((value: string) => {
         dispatch(packsActions.setCardPacksPageCount(+value))
     }, [dispatch])
@@ -63,7 +59,7 @@ export const Packs = memo(() => {
             <div className={t.container}>
                 <div className={t.backToPackList}>
                     <div className={f.title}>Pack list</div>
-                    <ButtonAddPack addItem={addNewPackCard}/>
+                    <ButtonAddPack/>
                 </div>
                 <>
                     <div className={t.filterContainer}>

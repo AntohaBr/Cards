@@ -103,8 +103,8 @@ export type UpdatePackResponseType = {
 
 export type UpdatePacksType = {
     cardsPack: {
-        _id: string
-        name: string
+        _id?: string
+        name?: string
         deckCover?: string
     }
 }
@@ -113,7 +113,7 @@ export type GetCardsParamsType = {
     packName?: string
     cardAnswer?: string
     cardQuestion?: string
-    cardsPack_id: string
+    cardsPack_id?: string
     sortCards?: number
     page?: number
     pageCount?: number

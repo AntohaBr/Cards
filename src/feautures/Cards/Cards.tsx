@@ -3,10 +3,9 @@ import {Button} from 'collections-mui'
 import {Navigate, useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
-import {PostCardType} from 'api/Packs-cards-api'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {Search, BackToPackList, PaginationBar, ButtonAddCard, CardsMenu} from 'common'
-import {addNewCards, cardsActions, getCards} from 'reducers/Cards-reducer'
+import {cardsActions, getCards} from 'reducers/Cards-reducer'
 import {
     selectAppStatus, selectAuthIsLoggedIn,
     selectCards,
@@ -58,10 +57,6 @@ export const Cards = memo(() => {
             navigate(`${PATH.LEARN}/${cardId}`)
         }
 
-        const addCard = (postModel: PostCardType) => {
-            dispatch(addNewCards(postModel))
-        }
-
         const cardsPageCountHandler = useCallback((value: string) => {
             dispatch(cardsActions.setCardsPageCount(+value))
         }, [])
@@ -79,9 +74,9 @@ export const Cards = memo(() => {
                 <div className={t.container}>
                     <div className={t.backToPackList}>
                         <BackToPackList/>
-                        {isMyPack && <ButtonAddCard addItem={addCard}/>}
+                        {isMyPack && <ButtonAddCard/>}
                     </div>
-                    <div className={t.titlePack}>Pack name: '{packName}'</div>
+                    <div className={t.titlePack}>Pack name: ''{packName}''</div>
                     <div className={t.packDeckCover}>
                         <img
                             style={{width: '130px', height: '130px'}}

@@ -1,15 +1,16 @@
-import {FormControl, FormGroup, FormLabel, Input, InputLabel} from 'collections-mui'
+import {Button, FormControl, FormGroup, FormLabel, Input, InputLabel} from 'collections-mui'
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
 import {recoveryPassword} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import f from 'common/Styles/Forms.module.css'
-import {selectAuthIsLoggedIn, selectAuthRecoveryPassword} from 'store/Selectors'
+import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from 'store/Selectors'
 import {PATH} from 'constants/Routing-constants'
-import {ButtonMui} from 'common'
+import styleForms from 'common/Styles/Forms.module.css'
 
 
 export const RecoveryPassword = () => {
+    const status = useAppSelector(selectAppStatus)
     const recoveryPasswordAuth = useAppSelector(selectAuthRecoveryPassword)
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
 
@@ -54,7 +55,12 @@ export const RecoveryPassword = () => {
                                 <p className={f.text}>Enter your email address and we will send
                                     you further instructions </p>
                             </FormLabel>
-                            <ButtonMui buttonTitle={'Send Instructions'}/>
+                            <div className={styleForms.buttonBlock}>
+                                <Button color={'primary'} style={{width: '100%', borderRadius: '90px'}}
+                                        type={'submit'} variant={'contained'} disabled={status === 'loading'}>
+                                    Send Instructions
+                                </Button>
+                            </div>
                             <FormLabel>
                                 <p className={f.text}>Did you remember your password?</p>
                                 <div className={f.navLinkBlock}>

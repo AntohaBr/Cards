@@ -1,17 +1,22 @@
 import s from './Check-email.module.css'
-import {Button} from 'collections-mui'
 import envelope from 'assets/Icon/envelope.jpg'
 import {useNavigate} from 'react-router-dom'
 import {useAppSelector} from 'utils'
 import f from 'common/Styles/Forms.module.css'
-import {selectAuthRecoveryPassword} from 'store/Selectors'
+import {selectAppStatus, selectAuthRecoveryPassword} from 'store/Selectors'
 import {PATH} from 'constants/Routing-constants'
+import {Button} from 'collections-mui'
 
 
 export const CheckEmail = () => {
     const recoveryPassword = useAppSelector(selectAuthRecoveryPassword)
+    const status = useAppSelector(selectAppStatus)
 
     const navigate = useNavigate()
+
+    const onClickButtonHandler = () => {
+        navigate(PATH.LOGIN)
+    }
 
     return (
         <div className={f.block}>
@@ -26,11 +31,10 @@ export const CheckEmail = () => {
                         <p style={{color: 'red'}}>{recoveryPassword}</p>
                     </div>
                     <div className={f.buttonBlock}>
-                        <Button type={'submit'} variant={'contained'} color={'primary'}
+                        <Button onClick={onClickButtonHandler} color={'primary'}
                                 style={{width: '100%', borderRadius: '90px'}}
-                                onClick={() => {
-                                    navigate(PATH.LOGIN)
-                                }}>
+                                type={'submit'} variant={'contained'} disabled={status === 'loading'}
+                        >
                             Back to login
                         </Button>
                     </div>

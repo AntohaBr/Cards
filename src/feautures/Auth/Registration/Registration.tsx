@@ -1,15 +1,17 @@
 import {useState, MouseEvent} from 'react'
-import {FormControl, FormGroup, FormLabel, Input, InputLabel, InputAdornment, IconButton, Visibility,
-    VisibilityOff} from 'collections-mui'
+import {
+    FormControl, FormGroup, FormLabel, Input, InputLabel, InputAdornment, IconButton, Visibility,
+    VisibilityOff, Button
+} from 'collections-mui'
 import {useFormik} from 'formik'
 import {Navigate, NavLink} from 'react-router-dom'
 import {registration} from 'reducers/Auth-reducer'
 import {useAppDispatch, useAppSelector, validate} from 'utils'
 import f from 'common/Styles/Forms.module.css'
 import {RegistrationType} from 'api/Auth-api'
-import {selectAuthIsRegistered} from 'store/Selectors'
+import {selectAppStatus, selectAuthIsRegistered} from 'store/Selectors'
 import {PATH} from 'constants/Routing-constants'
-import {ButtonMui} from 'common'
+import styleForms from 'common/Styles/Forms.module.css'
 
 
 interface State {
@@ -22,6 +24,7 @@ interface State {
 
 export const Registration = () => {
     const isRegistered = useAppSelector(selectAuthIsRegistered)
+    const status = useAppSelector(selectAppStatus)
 
     const dispatch = useAppDispatch()
 
@@ -112,7 +115,12 @@ export const Registration = () => {
                                 {formik.touched.confirmPassword && formik.errors.confirmPassword ?
                                     <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                             </FormControl>
-                            <ButtonMui buttonTitle={'Sing Up'}/>
+                            <div className={styleForms.buttonBlock}>
+                                <Button color={'primary'} style={{width: '100%', borderRadius: '90px'}} type={'submit'}
+                                        variant={'contained'} disabled={status === 'loading'}>
+                                    Sing Up
+                                </Button>
+                            </div>
                             <FormLabel>
                                 <p className={f.text}>Already have an account?</p>
                                 <div className={f.navLinkBlock}>

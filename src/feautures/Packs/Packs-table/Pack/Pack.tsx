@@ -1,15 +1,15 @@
-import {TableCell, Button, SchoolIcon, EditIcon, DeleteOutlineIcon, TableRow} from 'collections-mui'
+import {TableCell, Button, SchoolIcon, TableRow, EditIcon, DeleteOutlineIcon} from 'collections-mui'
 import {useNavigate} from 'react-router-dom'
-import {ModalDeletePack, ModalEditPack} from 'common'
 import {PackType} from 'api/Packs-cards-api'
-import {useAppDispatch, useAppSelector, useModal} from 'utils'
-import {deletePack, updatePack} from 'reducers/Packs-reducer'
+import {useAppDispatch, useAppSelector} from 'utils'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {cardsActions, getCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileUser_id} from 'store/Selectors'
 import {FC} from 'react'
 import s from './Pack.module.css'
 import {PATH} from 'constants/Routing-constants'
+import {ButtonDeletePack, ButtonEditPack} from 'common'
+import {deletePack} from 'reducers/Packs-reducer'
 
 
 type PackPropsType = {
@@ -24,8 +24,6 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
 
     const isMyPack = user_id === pack.user_id
 
-    const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
-    const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
     const navigate = useNavigate()
     const dispatch = useAppDispatch()
 
@@ -36,9 +34,6 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
 
     const deletePackCards = () => {
         dispatch(deletePack(pack._id))
-    }
-    const editPackCards = (name: string, deckCover: string) => {
-        dispatch(updatePack({cardsPack: {_id: pack._id, name, deckCover}}))
     }
 
     const openCard = () => {
@@ -53,7 +48,7 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
         <TableRow key={pack._id}>
             <TableCell align='center' className={s.deckCoverColumn}>
                 <img
-                    style={{ width: '60px', height: '40px' }}
+                    style={{width: '60px', height: '40px'}}
                     src={pack.deckCover ? pack.deckCover : defaultCover}
                     alt='img'
                 />
@@ -65,12 +60,16 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
             <TableCell align='center'>
                 {isMyPack &&
                     <>
-                        <Button onClick={openModal} disabled={status === 'loading'}>
+                        <ButtonEditPack name={pack.name}
+                                        deckCover={pack.deckCover}
+                                        _id={pack._id}>
                             <EditIcon/>
-                        </Button>
-                        <Button onClick={openDeleteModal} disabled={status === 'loading'}>
+                        </ButtonEditPack>
+                        <ButtonDeletePack name={pack.name}
+                                          deleteItem={deletePackCards}
+                                          _id={pack._id}>
                             <DeleteOutlineIcon/>
-                        </Button>
+                        </ButtonDeletePack>
                     </>
                 }
                 <>
@@ -81,21 +80,6 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
                     </Button>
                 </>
             </TableCell>
-            <ModalDeletePack
-                title={'Delete Pack'}
-                open={isDeleteModalOpen}
-                name={pack.name}
-                toggleOpenMode={closeDeleteModal}
-                deleteItem={deletePackCards}
-            />
-            <ModalEditPack
-                title={'Edit Pack'}
-                itemTitle={pack.name}
-                open={isEditModalOpen}
-                toggleOpenMode={closeModal}
-                editItem={editPackCards}
-                img={pack.deckCover}
-            />
         </TableRow>
     )
 }

@@ -1,13 +1,11 @@
 import {useState, MouseEvent} from 'react'
-import {useAppDispatch, useAppSelector, useModal} from 'utils'
+import {useAppSelector} from 'utils'
 import s from './Cards-menu.module.css'
 import {Button, Popover, EditIcon, SchoolIcon, DeleteOutlineIcon, MoreVertIcon} from 'collections-mui'
-import {ModalEditPack, ModalDeletePack} from 'common'
+import {ButtonEditPack, ButtonDeletePack} from 'common'
 import {useNavigate, useParams} from 'react-router-dom'
 import {packsCardsApi} from 'api/Packs-cards-api'
-import {getCards} from 'reducers/Cards-reducer'
 import {
-    selectCardsCardQuestion,
     selectCardsPackDeckCover,
     selectCardsPackName,
     selectCardsTotalCount
@@ -24,10 +22,7 @@ export const CardsMenu = () => {
     const open = Boolean(anchorEl)
     const id = open ? 'simple-popover' : undefined
 
-    const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
-    const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
-    const dispatch = useAppDispatch()
-    const {packId} = useParams()
+    const {packId} = useParams<'packId'>()
     const navigate = useNavigate()
 
     const buttonClickHandler = (event: MouseEvent<HTMLButtonElement>) => {
@@ -45,62 +40,44 @@ export const CardsMenu = () => {
         }
     }
 
-    const editPack = async (name: string, deckCover: string) => {
-        if (packId) {
-            await packsCardsApi.updatePacks({cardsPack: {_id: packId, name, deckCover}})
-            dispatch(getCards({cardsPack_id: packId}))
-        }
-    }
-
     const learnButtonCloseHandler = () => {
         navigate(`${PATH.LEARN}/${packId}`)
     }
 
     return (
-            <div>
-                <button className={s.menuButton} onClick={buttonClickHandler}>
-                    <MoreVertIcon className={s.moreVertIcon}/>
-                </button>
-                <Popover
-                    id={id}
-                    open={open}
-                    anchorEl={anchorEl}
-                    onClose={popoverCloseHandler}
-                    anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                >
-                    <div className={s.menu}>
-                        <Button onClick={learnButtonCloseHandler} disabled={!cardsTotalCount}>
-                            <div className={s.icon}>
-                                <SchoolIcon sx={{marginRight: '5px'}}/> Learn
-                            </div>
-                        </Button>
-                        <Button onClick={openModal}>
-                            <div className={s.icon}>
-                                <EditIcon sx={{marginRight: '5px'}}/> Edit
-                            </div>
-                        </Button>
-                        <Button onClick={openDeleteModal}>
-                            <div className={s.icon}>
-                                <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
-                            </div>
-                        </Button>
-                    </div>
-                </Popover>
-                <ModalEditPack
-                    title={'Edit Pack'}
-                    itemTitle={packName}
-                    open={isEditModalOpen}
-                    toggleOpenMode={closeModal}
-                    editItem={editPack}
-                    img={packDeckCover}
-                />
-                <ModalDeletePack
-                    title={'Delete Pack'}
-                    open={isDeleteModalOpen}
-                    name={packName}
-                    toggleOpenMode={closeDeleteModal}
-                    deleteItem={deletePack}
-                />
-            </div>
+        <div>
+            <button className={s.menuButton} onClick={buttonClickHandler}>
+                <MoreVertIcon className={s.moreVertIcon}/>
+            </button>
+            <Popover
+                id={id}
+                open={open}
+                anchorEl={anchorEl}
+                onClose={popoverCloseHandler}
+                anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
+            >
+                <div className={s.menu}>
+                    <Button onClick={learnButtonCloseHandler} disabled={!cardsTotalCount}>
+                        <div className={s.icon}>
+                            <SchoolIcon sx={{marginRight: '5px'}}/> Learn
+                        </div>
+                    </Button>
+                    <ButtonEditPack name={packName}
+                                    deckCover={packDeckCover}
+                                    _id={packId}>
+                        <div className={s.icon}>
+                            <EditIcon sx={{marginRight: '5px'}}/> Edit
+                        </div>
+                    </ButtonEditPack>
+                    <ButtonDeletePack name={packName}
+                                      deleteItem={deletePack}
+                                      _id={packId}>
+                        <div className={s.icon}>
+                            <DeleteOutlineIcon sx={{marginRight: '5px'}}/> Delete
+                        </div>
+                    </ButtonDeletePack>
+                </div>
+            </Popover>
+        </div>
     )
 }

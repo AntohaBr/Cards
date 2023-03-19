@@ -1,18 +1,20 @@
 import {Button} from 'collections-mui'
 import {ModalAddPack} from 'common'
-import {useAppSelector, useModal} from 'utils'
+import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
+import {addNewPack} from 'reducers/Packs-reducer'
 
 
-type ButtonAddPackPropsType = {
-    addItem: (name: string, deckCover: string) => void
-}
-
-
-export const ButtonAddPack = (props:ButtonAddPackPropsType) => {
+export const ButtonAddPack = () => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal} = useModal()
+
+    const dispatch = useAppDispatch()
+
+    const addNewPackCard = (name: string, deckCover: string) => {
+        dispatch(addNewPack({name, deckCover}))
+    }
 
     return (
         <div>
@@ -27,7 +29,7 @@ export const ButtonAddPack = (props:ButtonAddPackPropsType) => {
                 title={'Add new pack'}
                 open={ isAddModalOpen}
                 toggleOpenMode={closeAddModal}
-                addItem={props.addItem}
+                addItem={addNewPackCard}
             />
         </div>
     )

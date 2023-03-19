@@ -30,7 +30,8 @@ export const ModalDeletePack = (props: ModalDeletePackPropsType) => {
                 onCloseModal={onCloseModalHandler}
             >
                 <div>
-                    <p>Do you really want to remove <b>{props.name}</b>? All packs will be deleted.</p>
+                    <p>Do you really want to remove: <b style={{wordBreak : 'break-all'}}>{props.name}</b>?</p>
+                    <p> All packs will be deleted.</p>
                 </div>
                 <ButtonBlockModal
                     onCloseModalHandler={onCloseModalHandler}
