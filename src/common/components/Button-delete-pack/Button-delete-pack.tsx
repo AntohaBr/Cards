@@ -13,14 +13,15 @@ type ButtonDeletePackPropsType = {
 }
 
 
-export const ButtonDeletePack: FC<ButtonDeletePackPropsType> = ({name,_id, children, deleteItem}) => {
+export const ButtonDeletePack: FC<ButtonDeletePackPropsType> = ({name, _id, children, deleteItem}) => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
 
     return (
         <>
-            <Button onClick={openDeleteModal} disabled={status === 'loading'}>
+            <Button onClick={openDeleteModal}
+                    disabled={status === 'loading'}>
                 {children}
             </Button>
             <ModalDeletePack

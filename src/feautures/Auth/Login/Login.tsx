@@ -101,10 +101,12 @@ export const Login = () => {
                                 <NavLink className={s.textForgot} to={PATH.RECOVERY_PASSWORD}>Forgot Password?</NavLink>
                             </div>
                             <div className={styleForms.buttonBlock}>
-                            <Button color={'primary'} style={{width: '100%', borderRadius: '90px'}}
-                                    type={'submit'} variant={'contained'} disabled={status === 'loading'}>
-                                Sing In
-                            </Button>
+                                <Button style={{width: '100%', borderRadius: '90px'}}
+                                        type={'submit'}
+                                        variant={'contained'}
+                                        disabled={status === 'loading'}>
+                                    Sing In
+                                </Button>
                             </div>
                             <FormLabel>
                                 <p className={f.text}>Already have an account?</p>

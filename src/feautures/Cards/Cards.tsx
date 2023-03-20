@@ -53,8 +53,7 @@ export const Cards = memo(() => {
         }, [dispatch, packId, page, pageCount, cardQuestion])
 
         const setUtilsHandler = () => {
-            const cardId = getCard(cards)._id
-            navigate(`${PATH.LEARN}/${cardId}`)
+            navigate(`${PATH.LEARN}/${packId}`)
         }
 
         const cardsPageCountHandler = useCallback((value: string) => {
@@ -78,11 +77,9 @@ export const Cards = memo(() => {
                     </div>
                     <div className={t.titlePack}>Pack name: ''{packName}''</div>
                     <div className={t.packDeckCover}>
-                        <img
-                            style={{width: '130px', height: '130px'}}
-                            src={packDeckCover ? packDeckCover : defaultCover}
-                            alt='img'
-                        />
+                        <img style={{width: '130px', height: '130px'}}
+                             src={packDeckCover ? packDeckCover : defaultCover}
+                             alt='img'/>
                         {isMyPack && <CardsMenu/>}
                     </div>
                     <>
@@ -90,7 +87,7 @@ export const Cards = memo(() => {
                             <div className={s.filterContainer}>
                                 <>
                                     <Search valueSearch={cardQuestion}/>
-                                    <Button variant={'contained'} color={'primary'}
+                                    <Button variant={'contained'}
                                             style={{width: '200px', borderRadius: '90px'}}
                                             onClick={setUtilsHandler} disabled={status === 'loading' || !cardsTotalCount}>
                                         Learn to pack
@@ -106,12 +103,11 @@ export const Cards = memo(() => {
                             </div>
                         }
                         {!!cards.length && status !== 'loading' &&
-                            <PaginationBar
-                                paginationPages={cardsPaginationPages}
-                                pageCount={pageCount}
-                                page={page}
-                                pageCountHandler={cardsPageCountHandler}
-                                handleChangePage={cardsHandleChangePage}/>
+                            <PaginationBar paginationPages={cardsPaginationPages}
+                                           pageCount={pageCount}
+                                           page={page}
+                                           pageCountHandler={cardsPageCountHandler}
+                                           handleChangePage={cardsHandleChangePage}/>
                         }
                     </>
                 </div>

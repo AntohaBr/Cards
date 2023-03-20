@@ -24,18 +24,16 @@ export const MyAllPanel = () => {
     return (
         <div>
             <div className={styleForms.filterTitle}>Show packs cards</div>
-            <Button
-                style={{width: '30%'}}
-                variant={statusPackCards === 'my' ? 'contained' : 'outlined'}
-                disabled={statusPackCards === 'my' || status === 'loading'}
-                onClick={myPackCardsHandler}>
+            <Button style={{width: '30%'}}
+                    variant={statusPackCards === 'my' ? 'contained' : 'outlined'}
+                    disabled={statusPackCards === 'my' || status === 'loading'}
+                    onClick={myPackCardsHandler}>
                 My
             </Button>
-            <Button
-                style={{width: '30%'}}
-                variant={statusPackCards === 'all' ? 'contained' : 'outlined'}
-                disabled={statusPackCards === 'all' || status === 'loading'}
-                onClick={allPackCardsHandler}>
+            <Button style={{width: '30%'}}
+                    variant={statusPackCards === 'all' ? 'contained' : 'outlined'}
+                    disabled={statusPackCards === 'all' || status === 'loading'}
+                    onClick={allPackCardsHandler}>
                 All
             </Button>
         </div>

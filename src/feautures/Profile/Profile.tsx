@@ -85,15 +85,17 @@ export const Profile = memo(() => {
                         {editNameMod
                             ?
                             <div className={s.profileSpan}>
-                                <TextField
-                                    value={userName}
-                                    onChange={inputChangeHandler}
-                                    variant='standard'
-                                    autoFocus
-                                    label='NickName'
-                                />
-                                <Button onClick={updateUserHandler} size='small' variant='contained'
-                                        style={{width: 70, borderRadius: 20}}>Save</Button>
+                                <TextField value={userName}
+                                           onChange={inputChangeHandler}
+                                           variant='standard'
+                                           autoFocus
+                                           label='NickName'/>
+                                <Button onClick={updateUserHandler}
+                                        size='small'
+                                        variant='contained'
+                                        style={{width: 70, borderRadius: 20}}>
+                                    Save
+                                </Button>
                             </div>
                             :
                             <div onClick={() => setEditNameMod(true)} className={s.userName}>
@@ -103,8 +105,12 @@ export const Profile = memo(() => {
                         }
                         <div className={`${f.text} ${s.text}`}>{email}</div>
                         <div className={f.buttonBlock}>
-                            <Button onClick={logOutHandler} variant='outlined' style={{width: '100%', borderRadius: 20}}
-                                    startIcon={<Logout/>}>Log out</Button>
+                            <Button onClick={logOutHandler}
+                                    variant='outlined'
+                                    style={{width: '100%', borderRadius: 20}}
+                                    startIcon={<Logout/>}>
+                                Log out
+                            </Button>
                         </div>
                     </div>
                 </div>

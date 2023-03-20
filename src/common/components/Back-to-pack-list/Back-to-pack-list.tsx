@@ -9,7 +9,8 @@ export const BackToPackList = () => {
     return (
         <div className={s.backToPackList}>
             <NavLink to={PATH.PACKS} className={s.navLink}>
-                <ArrowBackIcon fontSize={'small'}/> Back to Packs List
+                <ArrowBackIcon fontSize={'small'}/>
+                Back to Packs List
             </NavLink>
         </div>
     )

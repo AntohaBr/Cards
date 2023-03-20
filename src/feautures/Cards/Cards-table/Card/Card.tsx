@@ -37,12 +37,10 @@ export const Card: FC<CardPropsType> = ({card}) => {
             </TableCell>
             <TableCell align='center'> {card.updated?.split('').splice(0, 10)}</TableCell>
             <TableCell align='center'>
-                <Rating
-                    name='only'
-                    value={card.grade}
-                    precision={0.1}
-                    readOnly
-                />
+                <Rating name='only'
+                        value={card.grade}
+                        precision={0.1}
+                        readOnly/>
             </TableCell>
             {isMyCard &&
                 <TableCell align='center'>

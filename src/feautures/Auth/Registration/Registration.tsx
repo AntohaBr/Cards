@@ -116,8 +116,10 @@ export const Registration = () => {
                                     <div style={{color: 'red'}}>{formik.errors.confirmPassword}</div> : null}
                             </FormControl>
                             <div className={styleForms.buttonBlock}>
-                                <Button color={'primary'} style={{width: '100%', borderRadius: '90px'}} type={'submit'}
-                                        variant={'contained'} disabled={status === 'loading'}>
+                                <Button style={{width: '100%', borderRadius: '90px'}}
+                                        type={'submit'}
+                                        variant={'contained'}
+                                        disabled={status === 'loading'}>
                                     Sing Up
                                 </Button>
                             </div>

@@ -57,7 +57,8 @@ export const CardsMenu = () => {
                 anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
             >
                 <div className={s.menu}>
-                    <Button onClick={learnButtonCloseHandler} disabled={!cardsTotalCount}>
+                    <Button onClick={learnButtonCloseHandler}
+                            disabled={!cardsTotalCount}>
                         <div className={s.icon}>
                             <SchoolIcon sx={{marginRight: '5px'}}/> Learn
                         </div>

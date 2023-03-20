@@ -18,8 +18,8 @@ export const ButtonAddCard = () => {
 
     return (
         <div>
-            <Button onClick={openAddModal} type={'submit'} variant={'contained'}
-                    color={'primary'}
+            <Button onClick={openAddModal}
+                    variant={'contained'}
                     style={{width: '200px', borderRadius: '90px'}}
                     disabled={status === 'loading'}>
                 Add New Card

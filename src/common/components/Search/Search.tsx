@@ -71,13 +71,11 @@ export const Search: FC<SearchPropsType> = memo(({valueSearch}) => {
                 <SearchIconWrapper>
                     <SearchIcon/>
                 </SearchIconWrapper>
-                <StyledInputBase
-                    placeholder='Search'
-                    inputProps={{'aria-label': 'search'}}
-                    type='search'
-                    value={value}
-                    onChange={changeHandler}
-                />
+                <StyledInputBase placeholder='Search'
+                                 inputProps={{'aria-label': 'search'}}
+                                 type='search'
+                                 value={value}
+                                 onChange={changeHandler}/>
             </SearchContainer>
         </div>
     )

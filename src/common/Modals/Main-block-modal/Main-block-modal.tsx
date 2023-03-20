@@ -19,7 +19,9 @@ export const MainBlockModal = (props: MainBlockModalType) => {
                 <div className={s.modalBlock}>
                     <div className={s.modalContainer}>
                         <div className={s.modalTitle}>{props.title}</div>
-                        <CloseIcon fontSize={'medium'} style={{cursor: 'pointer'}} onClick={props.onCloseModal}/>
+                        <CloseIcon fontSize={'medium'}
+                                   style={{cursor: 'pointer'}}
+                                   onClick={props.onCloseModal}/>
                     </div>
                     <div className={s.children}>
                         {props.children}

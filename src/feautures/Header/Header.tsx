@@ -38,38 +38,34 @@ export const Header = () => {
         <div className={s.header}>
             <div className={`${f.container} ${s.container}`}>
                 <header className={s.headerWrapper}>
-                <div className={s.userInfo}>
-                    <a className={s.userName}>{name}</a>
-                    <Popover
-                        id={id}
-                        anchorEl={anchorEl}
-                        open={open}
-                        onClose={popoverCloseHandler}
-                        anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}
-                    >
-                        <div className={styleMenu.menu}>
-                            <NavLink to={PATH.PROFILE} style={{textDecoration: 'none'}}>
-                                <Button>
+                    <div className={s.userInfo}>
+                        <a className={s.userName}>{name}</a>
+                        <Popover id={id}
+                                 anchorEl={anchorEl}
+                                 open={open}
+                                 onClose={popoverCloseHandler}
+                                 anchorOrigin={{vertical: 'bottom', horizontal: 'left'}}>
+                            <div className={styleMenu.menu}>
+                                <NavLink to={PATH.PROFILE} style={{textDecoration: 'none'}}>
+                                    <Button>
+                                        <div className={styleIcon.icon}>
+                                            <AccountBoxIcon sx={{marginRight: '5px'}}/> Profile
+                                        </div>
+                                    </Button>
+                                </NavLink>
+                                <Button onClick={logOutHandler}>
                                     <div className={styleIcon.icon}>
-                                        <AccountBoxIcon sx={{marginRight: '5px'}}/> Profile
+                                        <LogoutIcon sx={{marginRight: '5px'}}/> log Out
                                     </div>
                                 </Button>
-                            </NavLink>
-                            <Button onClick={logOutHandler}>
-                                <div className={styleIcon.icon}>
-                                    <LogoutIcon sx={{marginRight: '5px'}}/> log Out
-                                </div>
-                            </Button>
-                        </div>
-                    </Popover>
-                    <Button onClick={buttonClickHandler}>
-                        <Avatar
-                            src={avatar ? avatar : defaultAvatar}
-                            alt={'User Name'}
-                            sx={{width: 50, height: 50}}
-                        />
-                    </Button>
-                </div>
+                            </div>
+                        </Popover>
+                        <Button onClick={buttonClickHandler}>
+                            <Avatar src={avatar ? avatar : defaultAvatar}
+                                    alt={'User Name'}
+                                    sx={{width: 50, height: 50}}/>
+                        </Button>
+                    </div>
                 </header>
             </div>
         </div>

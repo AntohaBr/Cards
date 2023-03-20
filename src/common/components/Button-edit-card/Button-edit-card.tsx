@@ -25,7 +25,8 @@ export const ButtonEditCard: FC<ButtonEditCardPropsType> = ({card}) => {
 
     return (
         <>
-            <Button onClick={openModal} disabled={status === 'loading'}>
+            <Button onClick={openModal}
+                    disabled={status === 'loading'}>
                 <EditIcon/>
             </Button>
             <ModalEditCard

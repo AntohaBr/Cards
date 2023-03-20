@@ -8,7 +8,7 @@ import s from './Renge-slider.module.css'
 import styleForms from 'common/Styles/Forms.module.css'
 
 
-export const RangeSlider =  () => {
+export const RangeSlider = () => {
     const minCardsCount = useAppSelector(selectPacksMinCardsCount)
     const maxCardsCount = useAppSelector(selectPacksMaxCardsCount)
     const min = useAppSelector(selectPacksMin)
@@ -46,19 +46,17 @@ export const RangeSlider =  () => {
 
     return (
         <div>
-            <div   className={`${styleForms.filterTitle} ${s.filterTitle}`}>Number of cards</div>
+            <div className={`${styleForms.filterTitle} ${s.filterTitle}`}>Number of cards</div>
             <Box sx={{width: 130}}>
-                <Slider
-                    color={'primary'}
-                    value={value}
-                    valueLabelDisplay='on'
-                    disabled={status === 'loading'}
-                    disableSwap
-                    min={minCardsCount}
-                    max={maxCardsCount}
-                    onChange={handleChange}
-                    onMouseUp={setMinMaxHandler}
-                />
+                <Slider color={'primary'}
+                        value={value}
+                        valueLabelDisplay='on'
+                        disabled={status === 'loading'}
+                        disableSwap
+                        min={minCardsCount}
+                        max={maxCardsCount}
+                        onChange={handleChange}
+                        onMouseUp={setMinMaxHandler}/>
             </Box>
         </div>
     )

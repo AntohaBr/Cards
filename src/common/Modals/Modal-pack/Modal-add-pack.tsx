@@ -34,38 +34,30 @@ export const ModalAddPack = (props: ModalAddPackPropsType) => {
     }
 
     const textFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-            setText(e.currentTarget.value)
+        setText(e.currentTarget.value)
     }
 
     return (
         <div>
-            <MainBlockModal
-                title={props.title}
-                open={props.open}
-                toggleOpenMode={props.toggleOpenMode}
-                onCloseModal={onCloseModalHandler}
-            >
-                <InputFile
-                    img={deckCover}
-                    saveImg={setDeckCover}
-                    title={'Upload pack cover'}
-                    name={'packCoverImage'}
-                />
-                <TextField
-                    value={name}
-                    onChange={textFieldChangeHandler}
-                    autoFocus
-                    style={{width: '100%'}}
-                    label='Name pack'
-                    variant='standard'
-                    helperText={textForValidateError}
-                    error={validateNamePack}
-                />
-                <ButtonBlockModal
-                    onCloseModalHandler={onCloseModalHandler}
-                    actionModalHandler={saveButtonHandler}
-                    buttonTitleModal={'Save'}
-                />
+            <MainBlockModal title={props.title}
+                            open={props.open}
+                            toggleOpenMode={props.toggleOpenMode}
+                            onCloseModal={onCloseModalHandler}>
+                <InputFile img={deckCover}
+                           saveImg={setDeckCover}
+                           title={'Upload pack cover'}
+                           name={'packCoverImage'}/>
+                <TextField value={name}
+                           onChange={textFieldChangeHandler}
+                           autoFocus
+                           style={{width: '100%'}}
+                           label='Name pack'
+                           variant='standard'
+                           helperText={textForValidateError}
+                           error={validateNamePack}/>
+                <ButtonBlockModal onCloseModalHandler={onCloseModalHandler}
+                                  actionModalHandler={saveButtonHandler}
+                                  buttonTitleModal={'Save'}/>
             </MainBlockModal>
         </div>
     )

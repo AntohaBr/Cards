@@ -56,8 +56,10 @@ export const RecoveryPassword = () => {
                                     you further instructions </p>
                             </FormLabel>
                             <div className={styleForms.buttonBlock}>
-                                <Button color={'primary'} style={{width: '100%', borderRadius: '90px'}}
-                                        type={'submit'} variant={'contained'} disabled={status === 'loading'}>
+                                <Button style={{width: '100%', borderRadius: '90px'}}
+                                        type={'submit'}
+                                        variant={'contained'}
+                                        disabled={status === 'loading'}>
                                     Send Instructions
                                 </Button>
                             </div>

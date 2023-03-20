@@ -74,12 +74,11 @@ export const Packs = memo(() => {
                     }
                     {!!packs.length &&
                         <>
-                            <PaginationBar
-                                paginationPages={PacksPaginationPages}
-                                pageCount={pageCount}
-                                page={page}
-                                pageCountHandler={packsPageCountHandler}
-                                handleChangePage={packsHandleChangePage}/>
+                            <PaginationBar paginationPages={PacksPaginationPages}
+                                           pageCount={pageCount}
+                                           page={page}
+                                           pageCountHandler={packsPageCountHandler}
+                                           handleChangePage={packsHandleChangePage}/>
                         </>
                     }
                 </>

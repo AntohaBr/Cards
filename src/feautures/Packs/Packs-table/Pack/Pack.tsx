@@ -47,11 +47,9 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
     return (
         <TableRow key={pack._id}>
             <TableCell align='center' className={s.deckCoverColumn}>
-                <img
-                    style={{width: '60px', height: '40px'}}
-                    src={pack.deckCover ? pack.deckCover : defaultCover}
-                    alt='img'
-                />
+                <img style={{width: '60px', height: '40px'}}
+                     src={pack.deckCover ? pack.deckCover : defaultCover}
+                     alt='img'/>
             </TableCell>
             <TableCell align='center' onClick={openCard} className={s.nameColumn}>{pack.name}</TableCell>
             <TableCell align='center'>{pack.cardsCount}</TableCell>

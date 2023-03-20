@@ -67,56 +67,44 @@ export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
             >
                 <FormControl sx={{width: '100%'}}>
                     <InputLabel>Choose a question format</InputLabel>
-                    <Select
-                        autoFocus
-                        label="Choose a question format"
-                        value={questionType}
-                        onChange={onChangeQuestionTypeHandler}
-                    >
+                    <Select autoFocus
+                            label="Choose a question format"
+                            value={questionType}
+                            onChange={onChangeQuestionTypeHandler}>
                         <MenuItem value="Text">Text</MenuItem>
                         <MenuItem value="File">File</MenuItem>
                     </Select>
                 </FormControl>
                 {questionType === 'Text'
                     ? <div>
-                        <TextField
-                            value={question}
-                            onChange={addQuestionHandler}
-                            autoFocus
-                            label='Question'
-                            variant='standard'
-                            sx={{width: '100%'}}
-                        />
-                        <TextField
-                            value={answer}
-                            onChange={addAnswerHandler}
-                            autoFocus
-                            label='Answer'
-                            variant='standard'
-                            sx={{width: '100%'}}
-                        />
+                        <TextField value={question}
+                                   onChange={addQuestionHandler}
+                                   autoFocus
+                                   label='Question'
+                                   variant='standard'
+                                   sx={{width: '100%'}}/>
+                        <TextField value={answer}
+                                   onChange={addAnswerHandler}
+                                   autoFocus
+                                   label='Answer'
+                                   variant='standard'
+                                   sx={{width: '100%'}}/>
                     </div>
                     :
                     <div>
-                        <InputFile
-                            img={questionImg}
-                            saveImg={questionFileChangeHandler}
-                            title={'Upload a question'}
-                            name={'questionFile'}
-                        />
-                        <InputFile
-                            img={answerImg}
-                            saveImg={answerFileChangeHandler}
-                            title={'Upload a answer'}
-                            name={'answerFile'}
-                        />
+                        <InputFile img={questionImg}
+                                   saveImg={questionFileChangeHandler}
+                                   title={'Upload a question'}
+                                   name={'questionFile'}/>
+                        <InputFile img={answerImg}
+                                   saveImg={answerFileChangeHandler}
+                                   title={'Upload a answer'}
+                                   name={'answerFile'}/>
                     </div>
                 }
-                <ButtonBlockModal
-                    onCloseModalHandler={onCloseModalHandler}
-                    actionModalHandler={addCardHandler}
-                    buttonTitleModal={'Save'}
-                />
+                <ButtonBlockModal onCloseModalHandler={onCloseModalHandler}
+                                  actionModalHandler={addCardHandler}
+                                  buttonTitleModal={'Save'}/>
             </MainBlockModal>
         </div>
     )

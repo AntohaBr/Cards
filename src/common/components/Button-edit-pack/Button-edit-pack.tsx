@@ -31,7 +31,8 @@ export const ButtonEditPack: FC<ButtonEditPackPropsType> = ({name, deckCover, _i
 
     return (
         <>
-            <Button onClick={openModal} disabled={status === 'loading'}>
+            <Button onClick={openModal}
+                    disabled={status === 'loading'}>
                 {children}
             </Button>
             <ModalEditPack

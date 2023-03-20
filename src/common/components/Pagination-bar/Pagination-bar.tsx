@@ -29,24 +29,21 @@ export const PaginationBar = memo((props: PaginatorPropsType) => {
 
         return (
             <div className={s.paginationBar}>
-                <Pagination
-                    color='primary'
-                    shape='rounded'
-                    page={props.page}
-                    onChange={handleChangePage}
-                    count={props.paginationPages}
-                    disabled={status === 'loading'}
-                />
+                <Pagination color='primary'
+                            shape='rounded'
+                            page={props.page}
+                            onChange={handleChangePage}
+                            count={props.paginationPages}
+                            disabled={status === 'loading'}/>
                 <div className={s.select}>
                     <span>Show</span>
-                    <Select
-                        size={'small'}
-                        disabled={status === 'loading'}
-                        value={props.pageCount.toString()}
-                        onChange={pageCountHandler}
-                    >
+                    <Select size={'small'}
+                            disabled={status === 'loading'}
+                            value={props.pageCount.toString()}
+                            onChange={pageCountHandler}>
                         {optionSelect.map((option, index) => (
-                            <MenuItem key={index} value={option}>
+                            <MenuItem key={index}
+                                      value={option}>
                                 {option}
                             </MenuItem>
                         ))}

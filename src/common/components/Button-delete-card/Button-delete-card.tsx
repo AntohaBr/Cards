@@ -10,7 +10,7 @@ import {FC} from 'react'
 type ButtonDeleteCardPropsType = {
     card: CardType
 }
-export const ButtonDeleteCard: FC <ButtonDeleteCardPropsType> = ({card}) => {
+export const ButtonDeleteCard: FC<ButtonDeleteCardPropsType> = ({card}) => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
@@ -22,7 +22,8 @@ export const ButtonDeleteCard: FC <ButtonDeleteCardPropsType> = ({card}) => {
 
     return (
         <>
-            <Button onClick={openDeleteModal} disabled={status === 'loading'}>
+            <Button onClick={openDeleteModal}
+                    disabled={status === 'loading'}>
                 <DeleteOutlineIcon/>
             </Button>
             <ModalDeleteCard

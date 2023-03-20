@@ -31,10 +31,11 @@ export const CheckEmail = () => {
                         <p style={{color: 'red'}}>{recoveryPassword}</p>
                     </div>
                     <div className={f.buttonBlock}>
-                        <Button onClick={onClickButtonHandler} color={'primary'}
+                        <Button onClick={onClickButtonHandler}
                                 style={{width: '100%', borderRadius: '90px'}}
-                                type={'submit'} variant={'contained'} disabled={status === 'loading'}
-                        >
+                                type={'submit'}
+                                variant={'contained'}
+                                disabled={status === 'loading'}>
                             Back to login
                         </Button>
                     </div>
