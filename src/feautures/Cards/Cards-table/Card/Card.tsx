@@ -3,7 +3,6 @@ import {TableRow, TableCell, Rating} from 'collections-mui'
 import {useAppSelector} from 'utils'
 import {ButtonEditCard, ButtonDeleteCard} from 'common'
 import {selectProfileUser_id} from 'store/Selectors'
-import t from 'common/Styles/Table.module.css'
 import s from './Card.module.css'
 import {FC} from 'react'
 
@@ -20,18 +19,18 @@ export const Card: FC<CardPropsType> = ({card}) => {
 
     return (
         <TableRow key={card._id}>
-            <TableCell align='center'>
+            <TableCell align='center' className={s.questionAnswerColumn}>
                 {card.questionImg
                     ?
-                    <img style={{maxWidth: '100px'}} src={card.questionImg} alt={'question image'}/>
+                    <img src={card.questionImg} alt={'question image'}/>
                     :
                     card.question
                 }
             </TableCell>
-            <TableCell align='center'>
+            <TableCell align='center' className={s.questionAnswerColumn}>
                 {card.answerImg
                     ?
-                    <img style={{maxWidth: '100px'}} src={card.answerImg} alt={'answer image'}/>
+                    <img src={card.answerImg} alt={'answer image'}/>
                     :
                     card.answer
                 }

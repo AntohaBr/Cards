@@ -1,6 +1,5 @@
 import {ChangeEvent, FC, memo, useEffect, useState} from 'react'
 import {SearchIcon, alpha, InputBase, styled} from 'collections-mui'
-import s from 'common/Styles/Forms.module.css'
 import {packsActions} from 'reducers/Packs-reducer'
 import {useAppDispatch, useDebounce} from 'utils'
 import {useMatch} from "react-router-dom"

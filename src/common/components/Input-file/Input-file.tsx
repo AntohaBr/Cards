@@ -1,4 +1,4 @@
-import {ChangeEvent} from 'react'
+import {ChangeEvent, FC} from 'react'
 import {useAppDispatch, convertFileToBase64} from 'utils'
 import {Button} from 'collections-mui'
 import s from './Input-file.module.css'
@@ -13,7 +13,7 @@ type InputFilePropsType = {
 }
 
 
-export const InputFile = (props: InputFilePropsType) => {
+export const InputFile: FC<InputFilePropsType> = ({img, saveImg, title, name}) => {
     const dispatch = useAppDispatch()
 
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -21,7 +21,7 @@ export const InputFile = (props: InputFilePropsType) => {
             const file = e.target.files[0]
             if (file.size < 102400) {
                 convertFileToBase64(file, (img64: string) => {
-                    props.saveImg(img64)
+                    saveImg(img64)
                 })
             } else {
                 dispatch(appActions.setAppError('File too large'))
@@ -36,7 +36,7 @@ export const InputFile = (props: InputFilePropsType) => {
                 component='label'
                 style={{borderRadius: '20px', width: '100%', marginTop: '10px'}}
             >
-                {props.title}
+                {title}
                 <input
                     type={'file'}
                     style={{display: 'none'}}
@@ -44,7 +44,7 @@ export const InputFile = (props: InputFilePropsType) => {
                     onChange={uploadHandler}
                 />
             </Button>
-            {props.img && <div className={s.file} style={{backgroundImage: `url(${props.img})`}}/>}
+            {img && <div className={s.file} style={{backgroundImage: `url(${img})`}}/>}
         </label>
     )
 }
