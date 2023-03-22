@@ -12,7 +12,6 @@ type ModalDeleteCardPropsType = {
 
 
 export const ModalDeleteCard = (props: ModalDeleteCardPropsType) => {
-
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
     }

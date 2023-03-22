@@ -4,13 +4,13 @@ import {deleteCards} from 'reducers/Cards-reducer'
 import {Button, DeleteOutlineIcon} from 'collections-mui'
 import {ModalDeleteCard} from 'common'
 import {CardType} from 'api/Packs-cards-api'
-import {FC} from 'react'
+import {FC, memo} from 'react'
 
 
 type ButtonDeleteCardPropsType = {
     card: CardType
 }
-export const ButtonDeleteCard: FC<ButtonDeleteCardPropsType> = ({card}) => {
+export const ButtonDeleteCard: FC<ButtonDeleteCardPropsType> = memo (({card}) => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
@@ -38,3 +38,4 @@ export const ButtonDeleteCard: FC<ButtonDeleteCardPropsType> = ({card}) => {
         </>
     )
 }
+)

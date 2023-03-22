@@ -1,4 +1,4 @@
-import {ChangeEvent, FC} from 'react'
+import {ChangeEvent, FC, memo} from 'react'
 import {useAppDispatch, convertFileToBase64} from 'utils'
 import {Button} from 'collections-mui'
 import s from './Input-file.module.css'
@@ -13,7 +13,7 @@ type InputFilePropsType = {
 }
 
 
-export const InputFile: FC<InputFilePropsType> = ({img, saveImg, title, name}) => {
+export const InputFile: FC<InputFilePropsType> = memo (({img, saveImg, title, name}) => {
     const dispatch = useAppDispatch()
 
     const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -48,3 +48,4 @@ export const InputFile: FC<InputFilePropsType> = ({img, saveImg, title, name}) =
         </label>
     )
 }
+)

@@ -2,7 +2,7 @@ import {Button} from 'collections-mui'
 import {ModalDeletePack} from 'common'
 import {useAppSelector, useModal} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
-import {FC, ReactNode} from 'react'
+import {FC, memo, ReactNode} from 'react'
 
 
 type ButtonDeletePackPropsType = {
@@ -13,7 +13,7 @@ type ButtonDeletePackPropsType = {
 }
 
 
-export const ButtonDeletePack: FC<ButtonDeletePackPropsType> = ({name, _id, children, deleteItem}) => {
+export const ButtonDeletePack: FC<ButtonDeletePackPropsType> = memo (({name, _id, children, deleteItem}) => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isDeleteModalOpen, openModal: openDeleteModal, closeModal: closeDeleteModal} = useModal()
@@ -33,3 +33,4 @@ export const ButtonDeletePack: FC<ButtonDeletePackPropsType> = ({name, _id, chil
         </>
     )
 }
+)

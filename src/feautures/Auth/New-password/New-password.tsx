@@ -1,4 +1,4 @@
-import {useState, MouseEvent} from 'react'
+import {useState, MouseEvent, memo} from 'react'
 import {useFormik} from 'formik'
 import {FormControl, FormGroup, Input, InputLabel, InputAdornment, IconButton, Visibility, VisibilityOff, Button}
     from 'collections-mui'
@@ -18,7 +18,7 @@ interface State {
 }
 
 
-export const NewPassword = () => {
+export const NewPassword = memo (() => {
     const status = useAppSelector(selectAppStatus)
 
     const {token} = useParams<{ token: string }>()
@@ -95,3 +95,4 @@ export const NewPassword = () => {
         </div>
     )
 }
+)

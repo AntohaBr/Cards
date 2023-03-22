@@ -79,4 +79,5 @@ export const Search: FC<SearchPropsType> = memo(({valueSearch}) => {
             </SearchContainer>
         </div>
     )
-})
+}
+)

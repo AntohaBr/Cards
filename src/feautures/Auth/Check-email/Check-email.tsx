@@ -6,9 +6,10 @@ import f from 'common/Styles/Forms.module.css'
 import {selectAppStatus, selectAuthRecoveryPassword} from 'store/Selectors'
 import {PATH} from 'constants/Routing-constants'
 import {Button} from 'collections-mui'
+import {memo} from 'react'
 
 
-export const CheckEmail = () => {
+export const CheckEmail = memo (() => {
     const recoveryPassword = useAppSelector(selectAuthRecoveryPassword)
     const status = useAppSelector(selectAppStatus)
 
@@ -44,3 +45,4 @@ export const CheckEmail = () => {
         </div>
     )
 }
+)

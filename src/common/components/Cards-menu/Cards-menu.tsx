@@ -1,4 +1,4 @@
-import {useState, MouseEvent} from 'react'
+import {useState, MouseEvent, memo} from 'react'
 import {useAppSelector} from 'utils'
 import s from './Cards-menu.module.css'
 import {Button, Popover, EditIcon, SchoolIcon, DeleteOutlineIcon, MoreVertIcon} from 'collections-mui'
@@ -13,7 +13,7 @@ import {
 import {PATH} from 'constants/Routing-constants'
 
 
-export const CardsMenu = () => {
+export const CardsMenu = memo (() => {
     const packName = useAppSelector(selectCardsPackName)
     const packDeckCover = useAppSelector(selectCardsPackDeckCover)
     const cardsTotalCount = useAppSelector(selectCardsTotalCount)
@@ -82,3 +82,4 @@ export const CardsMenu = () => {
         </div>
     )
 }
+)

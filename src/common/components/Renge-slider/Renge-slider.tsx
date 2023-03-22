@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {memo, useEffect, useState} from 'react'
 import {Slider, Box} from 'collections-mui'
 import {useAppDispatch, useAppSelector} from 'utils/Hooks'
 import {selectAppStatus, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksMinCardsCount}
@@ -8,7 +8,7 @@ import s from './Renge-slider.module.css'
 import styleForms from 'common/Styles/Forms.module.css'
 
 
-export const RangeSlider = () => {
+export const RangeSlider = memo (() => {
     const minCardsCount = useAppSelector(selectPacksMinCardsCount)
     const maxCardsCount = useAppSelector(selectPacksMaxCardsCount)
     const min = useAppSelector(selectPacksMin)
@@ -61,3 +61,4 @@ export const RangeSlider = () => {
         </div>
     )
 }
+)

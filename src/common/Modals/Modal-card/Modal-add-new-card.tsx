@@ -32,14 +32,14 @@ export const ModalAddNewCard = (props: ModalAddNewCardPropsType) => {
         setQuestionType(event.target.value)
     }
 
-    const addCardHandler = () => {
+    const addCardHandler = (() => {
         if (packId) {
             props.addItem({card: {cardsPack_id: packId ? packId : '', question, answer, questionImg, answerImg}})
             props.toggleOpenMode(false)
             setQuestion('')
             setAnswer('')
         }
-    }
+    })
 
     const questionFileChangeHandler = (questionFile: string) => {
         setQuestionImg(questionFile)

@@ -24,9 +24,11 @@ export const ModalEditPack = (props: ModalEditPackPropsType) => {
     const onCloseModalHandler = () => {
         props.toggleOpenMode(false)
     }
+
     const textFieldChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setName(e.currentTarget.value)
     }
+
     const editPackButtonHandler = () => {
         if (name.length < LENGTH.MAX_LENGTH_PACK) {
             props.editItem(name, deckCover)

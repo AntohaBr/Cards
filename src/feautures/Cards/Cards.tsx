@@ -2,7 +2,7 @@ import {memo, useCallback, useEffect} from 'react'
 import {Button} from 'collections-mui'
 import {Navigate, useNavigate, useParams} from 'react-router-dom'
 import {CardsTable} from './Cards-table/Cards-table'
-import {useAppDispatch, useAppSelector, getCard} from 'utils'
+import {useAppDispatch, useAppSelector} from 'utils'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {Search, BackToPackList, PaginationBar, ButtonAddCard, CardsMenu} from 'common'
 import {cardsActions, getCards} from 'reducers/Cards-reducer'
@@ -52,9 +52,9 @@ export const Cards = memo(() => {
             dispatch(getCards({cardsPack_id: packId ? packId : '', page, pageCount, cardQuestion}))
         }, [dispatch, packId, page, pageCount, cardQuestion])
 
-        const setUtilsHandler = () => {
+        const setUtilsHandler = useCallback(() => {
             navigate(`${PATH.LEARN}/${packId}`)
-        }
+        },[packId])
 
         const cardsPageCountHandler = useCallback((value: string) => {
             dispatch(cardsActions.setCardsPageCount(+value))

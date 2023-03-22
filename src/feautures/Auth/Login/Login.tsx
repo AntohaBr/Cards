@@ -1,4 +1,4 @@
-import {useState, MouseEvent} from 'react'
+import {useState, MouseEvent, memo} from 'react'
 import {
     Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Input, InputLabel, InputAdornment,
     IconButton, Visibility, VisibilityOff, Button
@@ -21,7 +21,7 @@ interface State {
 }
 
 
-export const Login = () => {
+export const Login = memo (() => {
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
     const status = useAppSelector(selectAppStatus)
 
@@ -121,3 +121,4 @@ export const Login = () => {
         </div>
     )
 }
+)

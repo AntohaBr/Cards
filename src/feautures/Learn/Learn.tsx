@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react'
+import {memo, useEffect, useState} from 'react'
 import {Button, FormControlLabel, Radio} from 'collections-mui'
 import s from './Learn.module.css'
 import {useAppDispatch, useAppSelector, getCard} from 'utils'
@@ -13,7 +13,7 @@ import t from 'common/Styles/Table.module.css'
 const grades = ['I did not know', 'I forgot', 'I thought for a long time', 'I got confused', 'I knew the answer']
 
 
-export const Learn = () => {
+export const Learn = memo (() => {
     const packName = useAppSelector(selectCardsPackName)
     const cards = useAppSelector(selectCards)
 
@@ -139,4 +139,4 @@ export const Learn = () => {
         </div>
     )
 }
-
+)

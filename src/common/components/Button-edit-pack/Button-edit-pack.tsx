@@ -1,7 +1,7 @@
 import {Button} from 'collections-mui'
 import {ModalEditPack} from 'common'
 import {useAppDispatch, useAppSelector, useModal} from 'utils'
-import {FC, ReactNode} from 'react'
+import {FC, memo, ReactNode} from 'react'
 import {selectAppStatus} from 'store/Selectors'
 import {getCards} from 'reducers/Cards-reducer'
 import {packsCardsApi} from 'api/Packs-cards-api'
@@ -15,7 +15,7 @@ type ButtonEditPackPropsType = {
 }
 
 
-export const ButtonEditPack: FC<ButtonEditPackPropsType> = ({name, deckCover, _id, children}) => {
+export const ButtonEditPack: FC<ButtonEditPackPropsType> = memo (({name, deckCover, _id, children}) => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
@@ -45,3 +45,4 @@ export const ButtonEditPack: FC<ButtonEditPackPropsType> = ({name, deckCover, _i
         </>
     )
 }
+)

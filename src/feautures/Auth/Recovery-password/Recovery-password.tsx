@@ -7,9 +7,10 @@ import f from 'common/Styles/Forms.module.css'
 import {selectAppStatus, selectAuthIsLoggedIn, selectAuthRecoveryPassword} from 'store/Selectors'
 import {PATH} from 'constants/Routing-constants'
 import styleForms from 'common/Styles/Forms.module.css'
+import {memo} from 'react'
 
 
-export const RecoveryPassword = () => {
+export const RecoveryPassword = memo (() => {
     const status = useAppSelector(selectAppStatus)
     const recoveryPasswordAuth = useAppSelector(selectAuthRecoveryPassword)
     const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
@@ -76,4 +77,4 @@ export const RecoveryPassword = () => {
         </div>
     )
 }
-
+)

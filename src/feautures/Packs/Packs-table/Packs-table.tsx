@@ -7,9 +7,10 @@ import {selectPacks, selectPacksSort} from 'store/Selectors'
 import {PATH} from 'constants/Routing-constants'
 import t from 'common/Styles/Table.module.css'
 import s from './Packs-table.module.css'
+import {memo} from 'react'
 
 
-export const PacksTable = () => {
+export const PacksTable = memo (() => {
     const packs = useAppSelector(selectPacks)
     const sort = useAppSelector(selectPacksSort)
 
@@ -65,4 +66,4 @@ export const PacksTable = () => {
         </TableContainer>
     )
 }
-
+)

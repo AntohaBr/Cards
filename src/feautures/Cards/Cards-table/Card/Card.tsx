@@ -4,7 +4,7 @@ import {useAppSelector} from 'utils'
 import {ButtonEditCard, ButtonDeleteCard} from 'common'
 import {selectProfileUser_id} from 'store/Selectors'
 import s from './Card.module.css'
-import {FC} from 'react'
+import {FC, memo} from 'react'
 
 
 type CardPropsType = {
@@ -12,7 +12,7 @@ type CardPropsType = {
 }
 
 
-export const Card: FC<CardPropsType> = ({card}) => {
+export const Card: FC<CardPropsType> = memo(({card}) => {
     const user_id = useAppSelector(selectProfileUser_id)
 
     const isMyCard = user_id === card.user_id
@@ -53,3 +53,4 @@ export const Card: FC<CardPropsType> = ({card}) => {
         </TableRow>
     )
 }
+)

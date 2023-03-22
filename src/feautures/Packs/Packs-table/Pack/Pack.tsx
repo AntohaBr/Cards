@@ -5,7 +5,7 @@ import {useAppDispatch, useAppSelector} from 'utils'
 import defaultCover from 'assets/Icon/default-cover.jpg'
 import {cardsActions, getCards} from 'reducers/Cards-reducer'
 import {selectAppStatus, selectCardsPage, selectProfileUser_id} from 'store/Selectors'
-import {FC} from 'react'
+import {FC, memo, useCallback} from 'react'
 import s from './Pack.module.css'
 import {PATH} from 'constants/Routing-constants'
 import {ButtonDeletePack, ButtonEditPack} from 'common'
@@ -17,7 +17,7 @@ type PackPropsType = {
 }
 
 
-export const Pack: FC<PackPropsType> = ({pack}) => {
+export const Pack: FC<PackPropsType> = memo (({pack}) => {
     const user_id = useAppSelector(selectProfileUser_id)
     const status = useAppSelector(selectAppStatus)
     const page = useAppSelector(selectCardsPage)
@@ -32,9 +32,9 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
         navigate(`${PATH.LEARN}/${pack._id}`)
     }
 
-    const deletePackCards = () => {
+    const deletePackCards = useCallback( () => {
         dispatch(deletePack(pack._id))
-    }
+    }, [pack._id])
 
     const openCard = () => {
         dispatch(cardsActions.setQuestionForSearch(''))
@@ -81,3 +81,4 @@ export const Pack: FC<PackPropsType> = ({pack}) => {
         </TableRow>
     )
 }
+)

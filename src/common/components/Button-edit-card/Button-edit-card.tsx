@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
 import {updateCards} from 'reducers/Cards-reducer'
 import {CardType} from 'api/Packs-cards-api'
-import {FC} from 'react'
+import {FC, memo} from 'react'
 
 
 type ButtonEditCardPropsType = {
@@ -12,14 +12,14 @@ type ButtonEditCardPropsType = {
 }
 
 
-export const ButtonEditCard: FC<ButtonEditCardPropsType> = ({card}) => {
+export const ButtonEditCard: FC<ButtonEditCardPropsType> = memo (({card}) => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isEditModalOpen, openModal, closeModal} = useModal()
 
     const dispatch = useAppDispatch()
 
-    const editCard = (question: string, answer: string, questionImg: string, answerImg: string) => {
+    const editCard =  (question: string, answer: string, questionImg: string, answerImg: string) => {
         dispatch(updateCards({card: {_id: card._id, question, answer, questionImg, answerImg}}))
     }
 
@@ -43,3 +43,4 @@ export const ButtonEditCard: FC<ButtonEditCardPropsType> = ({card}) => {
         </>
     )
 }
+)

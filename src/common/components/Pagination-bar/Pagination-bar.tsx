@@ -17,7 +17,7 @@ type PaginatorPropsType = {
 export const PaginationBar = memo((props: PaginatorPropsType) => {
         const status = useAppSelector(selectAppStatus)
 
-        const optionSelect = [5, 10, 25]
+        const optionSelect = [1,2,3,4,5]
 
         const pageCountHandler = (e: SelectChangeEvent) => {
             props.pageCountHandler(e.target.value as string)

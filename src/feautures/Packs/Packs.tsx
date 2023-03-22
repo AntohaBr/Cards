@@ -44,11 +44,11 @@ export const Packs = memo(() => {
 
     const packsPageCountHandler = useCallback((value: string) => {
         dispatch(packsActions.setCardPacksPageCount(+value))
-    }, [dispatch])
+    }, [])
 
     const packsHandleChangePage = useCallback((page: number) => {
         dispatch(packsActions.setCardPacksPage(page))
-    }, [dispatch])
+    }, [])
 
     if (!isLoggedIn) {
         return <Navigate to={PATH.LOGIN}/>
@@ -85,5 +85,6 @@ export const Packs = memo(() => {
             </div>
         </div>
     )
-})
+}
+)
 

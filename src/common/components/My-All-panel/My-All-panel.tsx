@@ -3,9 +3,10 @@ import {saveState, useAppDispatch, useAppSelector} from 'utils'
 import {Button} from 'collections-mui'
 import {selectAppStatus, selectPacksStatusPackCards} from 'store/Selectors'
 import styleForms from 'common/Styles/Forms.module.css'
+import {memo} from 'react'
 
 
-export const MyAllPanel = () => {
+export const MyAllPanel = memo (() => {
     const statusPackCards = useAppSelector(selectPacksStatusPackCards)
     const status = useAppSelector(selectAppStatus)
 
@@ -40,3 +41,4 @@ export const MyAllPanel = () => {
 
     )
 }
+)

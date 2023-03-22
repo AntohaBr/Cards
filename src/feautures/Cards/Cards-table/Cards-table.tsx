@@ -3,9 +3,10 @@ import {useAppSelector} from 'utils'
 import {Card} from './Card/Card'
 import {selectCards, selectCardsPackUserId, selectProfileUser_id} from 'store/Selectors'
 import t from 'common/Styles/Table.module.css'
+import {memo} from 'react'
 
 
-export const CardsTable = () => {
+export const CardsTable = memo(() => {
     const cards = useAppSelector(selectCards)
     const user_id = useAppSelector(selectProfileUser_id)
     const cardsPackUserId = useAppSelector(selectCardsPackUserId)
@@ -38,4 +39,4 @@ export const CardsTable = () => {
         </div>
     )
 }
-
+)

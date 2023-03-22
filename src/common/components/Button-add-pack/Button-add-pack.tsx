@@ -3,9 +3,10 @@ import {ModalAddPack} from 'common'
 import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
 import {addNewPack} from 'reducers/Packs-reducer'
+import {memo} from 'react'
 
 
-export const ButtonAddPack = () => {
+export const ButtonAddPack = memo (() => {
     const status = useAppSelector(selectAppStatus)
 
     const {isOpen: isAddModalOpen, openModal: openAddModal, closeModal: closeAddModal} = useModal()
@@ -27,10 +28,11 @@ export const ButtonAddPack = () => {
             </Button>
             <ModalAddPack
                 title={'Add new pack'}
-                open={ isAddModalOpen}
+                open={isAddModalOpen}
                 toggleOpenMode={closeAddModal}
                 addItem={addNewPackCard}
             />
         </div>
     )
 }
+)

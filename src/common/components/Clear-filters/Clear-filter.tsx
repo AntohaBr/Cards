@@ -2,9 +2,10 @@ import {Button, FilterAltOffIcon} from 'collections-mui'
 import {packsActions} from 'reducers/Packs-reducer'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {selectAppStatus, selectPacksMaxCardsCount} from 'store/Selectors'
+import {memo} from 'react'
 
 
-export const ClearFilters = () => {
+export const ClearFilters = memo (() => {
     const maxCardsCount = useAppSelector(selectPacksMaxCardsCount)
     const status = useAppSelector(selectAppStatus)
 
@@ -23,3 +24,4 @@ export const ClearFilters = () => {
     </Button>
 )
 }
+)
