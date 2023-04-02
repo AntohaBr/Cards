@@ -1,11 +1,12 @@
 import React from 'react'
 import './index.css'
-import {App} from './app/App'
 import {Provider} from 'react-redux'
-import {store} from './store/Store'
 import {createRoot} from 'react-dom/client'
 import {HashRouter} from 'react-router-dom'
 import reportWebVitals from './reportWebVitals'
+import {App} from 'app/App'
+import {store} from 'store/Store'
+
 
 const container = document.getElementById('root') as HTMLElement
 const root = createRoot(container!)

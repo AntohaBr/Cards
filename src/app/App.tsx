@@ -30,11 +30,11 @@ export const App = () => {
         )
     }
     return (
-            <div className='app-wrapper'>
-                {isLoggedIn ? <Header/> : ''}
-                <ErrorSnackbar/>
-                {status === 'loading' ? <LinearProgress color={'primary'}/> : <div style={{height: '5px'}}/>}
-               <PagesRoutes/>
-            </div>
+        <div className='app-wrapper'>
+            {isLoggedIn ? <Header/> : ''}
+            <ErrorSnackbar/>
+            {status === 'loading' ? <LinearProgress color={'primary'}/> : <div style={{height: '5px'}}/>}
+            <PagesRoutes/>
+        </div>
     )
 }
