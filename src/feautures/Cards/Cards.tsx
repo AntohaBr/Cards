@@ -71,7 +71,7 @@ export const Cards = memo(() => {
         return (
             <div className={t.tableBlock}>
                 <div className={t.container}>
-                    <div className={t.backToPackList}>
+                    <div className={`${t.backToPackList} ${s.backToPackList}`}>
                         <BackToPackList/>
                         {isMyPack && <ButtonAddCard/>}
                     </div>
@@ -85,14 +85,12 @@ export const Cards = memo(() => {
                     <>
                         {!isEmptyPack &&
                             <div className={s.filterContainer}>
-                                <>
                                     <Search valueSearch={cardQuestion}/>
                                     <Button variant={'contained'}
                                             style={{width: '200px', borderRadius: '90px'}}
                                             onClick={setUtilsHandler} disabled={status === 'loading' || !cardsTotalCount}>
                                         Learn to pack
                                     </Button>
-                                </>
                             </div>
                         }
                         <CardsTable/>

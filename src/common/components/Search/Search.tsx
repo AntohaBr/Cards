@@ -70,7 +70,7 @@ export const Search: FC<SearchPropsType> = memo(({valueSearch}) => {
         }
 
         return (
-            <>
+            <div>
                 <SearchContainer>
                     <SearchIconWrapper>
                         <SearchIcon/>
@@ -81,7 +81,7 @@ export const Search: FC<SearchPropsType> = memo(({valueSearch}) => {
                                      value={value}
                                      onChange={changeHandler}/>
                 </SearchContainer>
-            </>
+            </div>
         )
     }
 )

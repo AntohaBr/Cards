@@ -19,7 +19,7 @@ export const ButtonAddPack = memo (() => {
     }
 
     return (
-        <div>
+        <div className={s.buttonAddPack}>
             <Button
                 variant={'contained'}
                 className={s.buttonAddPack}
