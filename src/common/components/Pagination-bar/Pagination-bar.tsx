@@ -17,7 +17,7 @@ type PaginatorPropsType = {
 export const PaginationBar = memo((props: PaginatorPropsType) => {
         const status = useAppSelector(selectAppStatus)
 
-        const optionSelect = [1,2,3,4,5]
+        const optionSelect = [1, 2, 3, 4, 5]
 
         const pageCountHandler = (e: SelectChangeEvent) => {
             props.pageCountHandler(e.target.value as string)
@@ -32,18 +32,22 @@ export const PaginationBar = memo((props: PaginatorPropsType) => {
                 <Pagination color='primary'
                             shape='rounded'
                             page={props.page}
+                            size={'small'}
                             onChange={handleChangePage}
                             count={props.paginationPages}
-                            disabled={status === 'loading'}/>
+                            disabled={status === 'loading'}
+                />
                 <div className={s.select}>
                     <span>Show</span>
                     <Select size={'small'}
+                            autoWidth={true}
                             disabled={status === 'loading'}
                             value={props.pageCount.toString()}
                             onChange={pageCountHandler}>
                         {optionSelect.map((option, index) => (
                             <MenuItem key={index}
-                                      value={option}>
+                                      value={option}
+                            >
                                 {option}
                             </MenuItem>
                         ))}

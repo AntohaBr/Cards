@@ -3,6 +3,7 @@ import {packsActions} from 'reducers/Packs-reducer'
 import {useAppDispatch, useAppSelector} from 'utils'
 import {selectAppStatus, selectPacksMaxCardsCount} from 'store/Selectors'
 import {memo} from 'react'
+import s from './Clear-filter.module.css'
 
 
 export const ClearFilters = memo (() => {
@@ -18,6 +19,7 @@ export const ClearFilters = memo (() => {
 
     return (
     <Button color={'inherit'}
+            className={s.clearFilter}
             onClick={resetFilterHandler}
             disabled={status === 'loading'}>
         <FilterAltOffIcon/>

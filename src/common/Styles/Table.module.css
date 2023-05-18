@@ -27,7 +27,7 @@
     font-size: 21px;
     line-height: 27px;
     word-break: break-all;
-    margin: 40px 0px 10px 0px;
+    margin: 40px 0 10px 0;
 }
 
 .packDeckCover {
@@ -37,15 +37,24 @@
 }
 
 .filterContainer {
-    width: 100%;
+    position: relative;
+    max-width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     margin-top: 30px;
 }
 
+@media only screen and (max-width: 1069px) {
+    .filterContainer {
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+}
+
 .tableContainer {
-    width: 100%;
+    max-width: 100%;
     margin-top: 20px;
 }
 

@@ -11,18 +11,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
-}
-
-@media only screen and (max-width: 548px) {
-    .headerWrapper {
-        width: 350px;
-    }
-}
-
-@media only screen and (max-width: 457px) {
-    .headerWrapper {
-        width: 295px;
-    }
+    max-width: 100%
 }
 
 .userInfo {

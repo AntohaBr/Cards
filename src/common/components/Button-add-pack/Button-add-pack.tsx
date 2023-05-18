@@ -4,6 +4,7 @@ import {useAppDispatch, useAppSelector, useModal} from 'utils'
 import {selectAppStatus} from 'store/Selectors'
 import {addNewPack} from 'reducers/Packs-reducer'
 import {memo} from 'react'
+import s from './Button-add-pack.module.css'
 
 
 export const ButtonAddPack = memo (() => {
@@ -21,7 +22,7 @@ export const ButtonAddPack = memo (() => {
         <div>
             <Button
                 variant={'contained'}
-                style={{width: '200px', borderRadius: '90px'}}
+                className={s.buttonAddPack}
                 disabled={status === 'loading'}
                 onClick={openAddModal}>
                 Add new pack

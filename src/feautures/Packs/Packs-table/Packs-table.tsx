@@ -27,9 +27,9 @@ export const PacksTable = memo (() => {
 
     return (
         <TableContainer className={t.tableContainer} component={Paper}>
-            <Table sx={{minWidth: 700}} aria-label="simple table">
+                <Table aria-label="simple table">
                 <TableHead>
-                    <TableRow onClick={redirectToCards}>
+                    <TableRow onClick={redirectToCards} >
                         <TableCell align='center'>Cover</TableCell>
                         <TableCell align='center'
                                    className={!sort.includes('0name') ? s.withoutSort :

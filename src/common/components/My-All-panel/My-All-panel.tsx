@@ -4,6 +4,7 @@ import {Button} from 'collections-mui'
 import {selectAppStatus, selectPacksStatusPackCards} from 'store/Selectors'
 import styleForms from 'common/Styles/Forms.module.css'
 import {memo} from 'react'
+import s from './My-All-panel.module.css'
 
 
 export const MyAllPanel = memo (() => {
@@ -23,7 +24,7 @@ export const MyAllPanel = memo (() => {
     }
 
     return (
-        <div>
+        <div className={s.myAllPAnel}>
             <div className={styleForms.filterTitle}>Show packs cards</div>
             <Button style={{width: '30%'}}
                     variant={statusPackCards === 'my' ? 'contained' : 'outlined'}

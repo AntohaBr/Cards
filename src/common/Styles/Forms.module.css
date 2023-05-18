@@ -8,8 +8,8 @@
     width: 70%;
     margin: 0 auto;
     padding: 10px;
-    display: flex;
-    align-items: center;
+    /*display: flex;*/
+    /*align-items: center;*/
 }
 
 .form {
@@ -24,11 +24,11 @@
     flex-wrap: wrap;
 }
 
-@media only screen and (max-width: 493px) {
-    .form {
-        width: 265px;
-    }
-}
+/*@media only screen and (max-width: 493px) {*/
+/*    .form {*/
+/*        max-width: 265px;*/
+/*    }*/
+/*}*/
 
 .title {
     font-family: 'Montserrat', sans-serif;

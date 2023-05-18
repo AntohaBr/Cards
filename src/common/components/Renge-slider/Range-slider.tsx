@@ -4,7 +4,7 @@ import {useAppDispatch, useAppSelector} from 'utils/Hooks'
 import {selectAppStatus, selectPacksMax, selectPacksMaxCardsCount, selectPacksMin, selectPacksMinCardsCount}
     from 'store/Selectors'
 import {packsActions} from 'reducers/Packs-reducer'
-import s from './Renge-slider.module.css'
+import s from 'common/components/Renge-slider/Range-slider.module.css'
 import styleForms from 'common/Styles/Forms.module.css'
 
 
@@ -45,9 +45,9 @@ export const RangeSlider = memo (() => {
     }
 
     return (
-        <div>
+        <div className={s.rangeSlider}>
             <div className={`${styleForms.filterTitle} ${s.filterTitle}`}>Number of cards</div>
-            <Box sx={{width: 130}}>
+            <Box className={s.boxRangeSlider}>
                 <Slider color={'primary'}
                         value={value}
                         valueLabelDisplay='on'

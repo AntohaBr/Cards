@@ -1,6 +1,6 @@
 .deckCoverColumn {
-    width: 150px;
-    height: 80px;
+    max-width: 150px;
+    min-height: 80px;
 }
 
 .deckCoverColumn img {

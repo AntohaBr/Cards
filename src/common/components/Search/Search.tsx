@@ -36,7 +36,11 @@ const StyledInputBase = styled(InputBase)(({theme}) => ({
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
         paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-        width: '300px',
+        transition: theme.transitions.create('width'),
+        width: '100%',
+        [theme.breakpoints.up('sm')]: {
+            width: '300px',
+        }
     },
 }))
 
@@ -47,37 +51,37 @@ type SearchPropsType = {
 
 
 export const Search: FC<SearchPropsType> = memo(({valueSearch}) => {
-    const [value, setValue] = useState<string>(valueSearch ? valueSearch : '')
+        const [value, setValue] = useState<string>(valueSearch ? valueSearch : '')
 
-    const debouncedValue = useDebounce<string>(value, 700)
-    const dispatch = useAppDispatch()
-    const match = useMatch('/:routeKey/*')
+        const debouncedValue = useDebounce<string>(value, 700)
+        const dispatch = useAppDispatch()
+        const match = useMatch('/:routeKey/*')
 
-    useEffect(() => {
-        if ('/' + match?.params.routeKey === PATH.PACKS) {
-            dispatch(packsActions.setPackNameForSearch(value))
-        } else if ('/' + match?.params.routeKey === PATH.CARDS) {
-            dispatch(cardsActions.setQuestionForSearch(value))
+        useEffect(() => {
+            if ('/' + match?.params.routeKey === PATH.PACKS) {
+                dispatch(packsActions.setPackNameForSearch(value))
+            } else if ('/' + match?.params.routeKey === PATH.CARDS) {
+                dispatch(cardsActions.setQuestionForSearch(value))
+            }
+        }, [debouncedValue])
+
+        const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            setValue(e.target.value)
         }
-    }, [debouncedValue])
 
-    const changeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        setValue(e.target.value)
+        return (
+            <>
+                <SearchContainer>
+                    <SearchIconWrapper>
+                        <SearchIcon/>
+                    </SearchIconWrapper>
+                    <StyledInputBase placeholder='Search'
+                                     inputProps={{'aria-label': 'search'}}
+                                     type='search'
+                                     value={value}
+                                     onChange={changeHandler}/>
+                </SearchContainer>
+            </>
+        )
     }
-
-    return (
-        <div>
-            <SearchContainer>
-                <SearchIconWrapper>
-                    <SearchIcon/>
-                </SearchIconWrapper>
-                <StyledInputBase placeholder='Search'
-                                 inputProps={{'aria-label': 'search'}}
-                                 type='search'
-                                 value={value}
-                                 onChange={changeHandler}/>
-            </SearchContainer>
-        </div>
-    )
-}
 )
