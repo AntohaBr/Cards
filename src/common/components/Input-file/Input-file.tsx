@@ -13,39 +13,39 @@ type InputFilePropsType = {
 }
 
 
-export const InputFile: FC<InputFilePropsType> = memo (({img, saveImg, title, name}) => {
-    const dispatch = useAppDispatch()
+export const InputFile: FC<InputFilePropsType> = memo(({img, saveImg, title, name}) => {
+        const dispatch = useAppDispatch()
 
-    const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
-        if (e.target.files && e.target.files.length) {
-            const file = e.target.files[0]
-            if (file.size < 102400) {
-                convertFileToBase64(file, (img64: string) => {
-                    saveImg(img64)
-                })
-            } else {
-                dispatch(appActions.setAppError('File too large'))
+        const uploadHandler = (e: ChangeEvent<HTMLInputElement>) => {
+            if (e.target.files && e.target.files.length) {
+                const file = e.target.files[0]
+                if (file.size < 102400) {
+                    convertFileToBase64(file, (img64: string) => {
+                        saveImg(img64)
+                    })
+                } else {
+                    dispatch(appActions.setAppError('File too large'))
+                }
             }
         }
-    }
 
-    return (
-        <label>
-            <Button
-                variant='contained'
-                component='label'
-                style={{borderRadius: '20px', width: '100%', marginTop: '10px'}}
-            >
-                {title}
-                <input
-                    type={'file'}
-                    style={{display: 'none'}}
-                    accept={'.jpg, .jpeg, .png, img'} multiple
-                    onChange={uploadHandler}
-                />
-            </Button>
-            {img && <div className={s.file} style={{backgroundImage: `url(${img})`}}/>}
-        </label>
-    )
-}
+        return (
+            <label>
+                <Button
+                    variant='contained'
+                    component='label'
+                    className={s.buttonForFile}
+                >
+                    {title}
+                    <input
+                        type={'file'}
+                        style={{display: 'none'}}
+                        accept={'.jpg, .jpeg, .png, img'} multiple
+                        onChange={uploadHandler}
+                    />
+                </Button>
+                {img && <div className={s.file} style={{backgroundImage: `url(${img})`}}/>}
+            </label>
+        )
+    }
 )

@@ -14,12 +14,14 @@ export const ButtonBlockModal = (props: ButtonBlockModalPropsType) => {
         <div className={s.buttonModalBlock}>
             <Button onClick={props.onCloseModalHandler}
                     variant={'outlined'}
-                    style={{width: '120px', borderRadius: '90px'}}>
+                    className={s.buttonModal}
+            >
                 Cancel
             </Button>
             <Button onClick={props.actionModalHandler}
                     variant={'contained'}
-                    style={{width: '120px', borderRadius: '90px'}}>
+                    className={s.buttonModal}
+            >
                 {props.buttonTitleModal}
             </Button>
         </div>
