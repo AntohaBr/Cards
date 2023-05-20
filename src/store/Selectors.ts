@@ -43,3 +43,4 @@ export const selectProfileEmail = (state: RootReducerType) => state.profile.info
 export const selectProfileAvatar = (state: RootReducerType) => state.profile.infoUser.avatar
 export const selectProfileName = (state: RootReducerType) => state.profile.infoUser.name
 export const selectProfileUser_id = (state: RootReducerType) => state.profile.infoUser._id
+export const selectProfileInfoUser = (state: RootReducerType) => state.profile.infoUser

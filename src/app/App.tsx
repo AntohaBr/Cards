@@ -7,13 +7,12 @@ import {PagesRoutes} from './Routes/Routes'
 import {ErrorSnackbar} from 'common'
 import {Header} from 'feautures/Header/Header'
 import {packsActions} from 'reducers/Packs-reducer'
-import {selectAppStatus, selectAuthIsLoggedIn, selectIsInitializedApp} from 'store/Selectors'
+import {selectAppStatus, selectIsInitializedApp} from 'store/Selectors'
 
 
 export const App = () => {
     const status = useAppSelector(selectAppStatus)
     const isInitializedApp = useAppSelector(selectIsInitializedApp)
-    const isLoggedIn = useAppSelector(selectAuthIsLoggedIn)
 
     const dispatch = useAppDispatch()
 
@@ -31,7 +30,7 @@ export const App = () => {
     }
     return (
         <div className='app-wrapper'>
-            {isLoggedIn ? <Header/> : ''}
+            <Header/>
             <ErrorSnackbar/>
             {status === 'loading' ? <LinearProgress color={'primary'}/> : <div style={{height: '5px'}}/>}
             <PagesRoutes/>
